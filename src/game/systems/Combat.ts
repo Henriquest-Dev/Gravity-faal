@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import type { Grid } from '../../core/grid';
-import { DEPTH } from '../world/MapBuilder';
+import { ATMOS_DEPTH } from '../world/Atmosphere';
 
 export type Team = 'player' | 'enemy';
 
@@ -148,14 +148,14 @@ export class Combat {
         if (blocked || p.life > 0) this.onImpact?.(p.x, p.y - p.height);
         continue;
       }
-      p.img.setPosition(p.x, p.y - p.height).setDepth(p.y + 1);
+      p.img.setPosition(p.x, p.y - p.height).setDepth(ATMOS_DEPTH.hazards + 1);
     }
   }
 
   private draw(h: Hazard): void {
     const g = h.gfx!;
     g.clear();
-    g.setDepth(DEPTH.ground + 50);
+    g.setDepth(ATMOS_DEPTH.hazards);
     const wind = Math.min(1, h.t / Math.max(0.001, h.windup));
     const active = h.t >= h.windup;
     const fillA = active ? 0.55 : 0.08 + wind * 0.25;

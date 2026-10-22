@@ -1,111 +1,139 @@
 import Phaser from 'phaser';
-import { texKey } from '../assets';
 
 /**
- * Small textures generated at boot for things the catalogue does not cover
- * (shadows, markers, bridge decks, levers, ring symbols). Registered in the
- * manifest report as generated complements.
+ * Textures generated at boot. Only technical helpers live here — light
+ * gradients, fog, shadows and bridge decks. Every visible object of the world
+ * comes from the catalogue.
  */
-export const GENERATED = ['shadow', 'missing', 'clue', 'sym0', 'sym1', 'sym2', 'sym3', 'anchor', 'lever_off', 'lever_on', 'save',  'chevron', 'glint', 'px', 'target', 'darkness'];
+export const GENERATED = ['px', 'shadow', 'missing', 'light', 'cone', 'fog', 'vignette', 'eyes', 'groundglow', 'bridge_*'];
 
-function canvas(scene: Phaser.Scene, key: string, w: number, h: number, draw: (c: CanvasRenderingContext2D) => void): void {
+function canvas(scene: Phaser.Scene, key: string, w: number, h: number, draw: (c: CanvasRenderingContext2D) => void, smooth = false): void {
   if (scene.textures.exists(key)) return;
   const t = scene.textures.createCanvas(key, w, h)!;
   const c = t.getContext();
-  c.imageSmoothingEnabled = false;
+  c.imageSmoothingEnabled = smooth;
   draw(c);
   t.refresh();
+}
+
+/** Deterministic value noise in [0,1], tileable with period p. */
+function noise(x: number, y: number, p: number, seed: number): number {
+  const h = (i: number, j: number) => {
+    i = ((i % p) + p) % p;
+    j = ((j % p) + p) % p;
+    let n = (i * 374761393 + j * 668265263 + seed * 982451653) | 0;
+    n = Math.imul(n ^ (n >>> 13), 1274126177);
+    return ((n ^ (n >>> 16)) >>> 0) / 4294967296;
+  };
+  const xi = Math.floor(x), yi = Math.floor(y);
+  const xf = x - xi, yf = y - yi;
+  const s = (t: number) => t * t * (3 - 2 * t);
+  const a = h(xi, yi), b = h(xi + 1, yi), c = h(xi, yi + 1), d = h(xi + 1, yi + 1);
+  return (a + (b - a) * s(xf)) + ((c + (d - c) * s(xf)) - (a + (b - a) * s(xf))) * s(yf);
 }
 
 export function makeGenerated(scene: Phaser.Scene): void {
   const r = (c: CanvasRenderingContext2D, col: string, x: number, y: number, w: number, h: number) => { c.fillStyle = col; c.fillRect(x, y, w, h); };
   canvas(scene, 'px', 2, 2, (c) => r(c, '#fff', 0, 0, 2, 2));
   canvas(scene, 'shadow', 22, 8, (c) => {
-    r(c, 'rgba(0,0,0,0.32)', 4, 0, 14, 8);
-    r(c, 'rgba(0,0,0,0.32)', 0, 2, 22, 4);
+    r(c, 'rgba(0,0,0,0.34)', 4, 0, 14, 8);
+    r(c, 'rgba(0,0,0,0.34)', 0, 2, 22, 4);
   });
   canvas(scene, 'missing', 32, 32, (c) => {
     r(c, '#ff00ff', 0, 0, 32, 32);
     r(c, '#000', 4, 4, 24, 24);
-    r(c, '#ff00ff', 8, 8, 16, 16);
   });
-  canvas(scene, 'clue', 10, 10, (c) => {
-    r(c, '#fff6c0', 4, 0, 2, 10);
-    r(c, '#fff6c0', 0, 4, 10, 2);
-    r(c, '#ffd040', 4, 4, 2, 2);
-  });
-  canvas(scene, 'glint', 6, 6, (c) => {
-    r(c, 'rgba(230,255,255,0.9)', 2, 0, 2, 6);
-    r(c, 'rgba(230,255,255,0.9)', 0, 2, 6, 2);
-  });
-  canvas(scene, 'chevron', 14, 14, (c) => {
-    for (let i = 0; i < 6; i++) {
-      r(c, '#fff3c4', 2 + i, 1 + i, 2, 2);
-      r(c, '#fff3c4', 2 + i, 11 - i, 2, 2);
-      r(c, '#fff3c4', 7 + i, 1 + i, 2, 2);
-      r(c, '#fff3c4', 7 + i, 11 - i, 2, 2);
+  // soft radial light: erased out of the night layer, also used additively for glow
+  canvas(scene, 'light', 128, 128, (c) => {
+    const g = c.createRadialGradient(64, 64, 0, 64, 64, 64);
+    g.addColorStop(0, 'rgba(255,255,255,1)');
+    g.addColorStop(0.35, 'rgba(255,255,255,0.75)');
+    g.addColorStop(0.7, 'rgba(255,255,255,0.22)');
+    g.addColorStop(1, 'rgba(255,255,255,0)');
+    c.fillStyle = g;
+    c.fillRect(0, 0, 128, 128);
+  }, true);
+  // flashlight cone pointing east, apex at the left middle
+  canvas(scene, 'cone', 256, 160, (c) => {
+    for (let x = 0; x < 256; x++) {
+      const half = 6 + (x / 256) * 70;
+      const fall = Math.pow(1 - x / 256, 0.8);
+      for (let y = 0; y < 160; y++) {
+        const d = Math.abs(y - 80) / half;
+        if (d > 1) continue;
+        c.fillStyle = `rgba(255,255,255,${(fall * (1 - d * d)).toFixed(3)})`;
+        c.fillRect(x, y, 1, 1);
+      }
     }
+  }, true);
+  // tileable fog: two octaves of value noise, soft and low contrast
+  canvas(scene, 'fog', 256, 256, (c) => {
+    const img = c.createImageData(256, 256);
+    for (let y = 0; y < 256; y++) {
+      for (let x = 0; x < 256; x++) {
+        const n = noise(x / 32, y / 32, 8, 7) * 0.65 + noise(x / 12, y / 12, 21.33, 3) * 0.35;
+        const a = Math.max(0, Math.min(1, (n - 0.38) * 2.2));
+        const i = (y * 256 + x) * 4;
+        img.data[i] = img.data[i + 1] = img.data[i + 2] = 255;
+        img.data[i + 3] = Math.round(a * 255);
+      }
+    }
+    c.putImageData(img, 0, 0);
+  }, true);
+  canvas(scene, 'vignette', 256, 256, (c) => {
+    const g = c.createRadialGradient(128, 128, 60, 128, 128, 181);
+    g.addColorStop(0, 'rgba(0,0,0,0)');
+    g.addColorStop(0.6, 'rgba(0,0,0,0.35)');
+    g.addColorStop(1, 'rgba(0,0,0,0.85)');
+    c.fillStyle = g;
+    c.fillRect(0, 0, 256, 256);
+  }, true);
+  // a pair of eyes in the dark
+  canvas(scene, 'eyes', 10, 3, (c) => {
+    r(c, '#fff6b0', 0, 0, 3, 3);
+    r(c, '#fff6b0', 7, 0, 3, 3);
+    r(c, '#ffd23a', 1, 1, 1, 1);
+    r(c, '#ffd23a', 8, 1, 1, 1);
   });
-  canvas(scene, 'target', 16, 16, (c) => {
-    r(c, '#ffe066', 6, 0, 4, 4);
-    r(c, '#ffe066', 4, 2, 8, 2);
-    r(c, '#ffe066', 7, 4, 2, 2);
-  });
-  // ring puzzle symbols: triangle, eye, spiral, square
-  const sym = (key: string, draw: (c: CanvasRenderingContext2D) => void) => canvas(scene, key, 16, 16, (c) => {
-    r(c, 'rgba(20,10,40,0.75)', 0, 0, 16, 16);
-    draw(c);
-  });
-  const gold = '#ffd84a';
-  sym('sym0', (c) => { for (let i = 0; i < 6; i++) r(c, gold, 7 - i, 3 + i * 2, 2 + i * 2, 2); });
-  sym('sym1', (c) => { r(c, gold, 3, 7, 10, 2); r(c, gold, 5, 5, 6, 2); r(c, gold, 5, 9, 6, 2); r(c, '#1a1030', 7, 6, 2, 4); });
-  sym('sym2', (c) => { r(c, gold, 3, 3, 10, 2); r(c, gold, 11, 3, 2, 10); r(c, gold, 5, 11, 8, 2); r(c, gold, 5, 7, 2, 6); r(c, gold, 7, 7, 3, 2); });
-  sym('sym3', (c) => { r(c, gold, 3, 3, 10, 2); r(c, gold, 3, 11, 10, 2); r(c, gold, 3, 3, 2, 10); r(c, gold, 11, 3, 2, 10); });
-  canvas(scene, 'anchor', 20, 44, (c) => {
-    r(c, '#3b2412', 8, 6, 6, 38);
-    r(c, '#6b4424', 9, 6, 3, 38);
-    r(c, '#ffd84a', 4, 2, 14, 4);
-    r(c, '#ffd84a', 4, 2, 4, 10);
-    r(c, '#ffd84a', 14, 2, 4, 10);
-    r(c, '#b8902a', 6, 10, 10, 2);
-  });
-  const lever = (key: string, on: boolean) => canvas(scene, key, 20, 26, (c) => {
-    r(c, '#2a2a30', 2, 18, 16, 8);
-    r(c, '#56606a', 4, 18, 12, 4);
-    const x = on ? 12 : 6;
-    for (let i = 0; i < 14; i += 2) r(c, '#8a8f96', on ? x - i / 2 + 6 : x + i / 2 - 6 + 6, 4 + i, 2, 2);
-    r(c, on ? '#7cff8a' : '#ff6a5a', on ? 13 : 1, 0, 6, 6);
-  });
-  lever('lever_off', false);
-  lever('lever_on', true);
-  canvas(scene, 'save', 22, 40, (c) => {
-    r(c, '#2a1a0e', 9, 12, 4, 28);
-    r(c, '#ffe9a0', 5, 0, 12, 12);
-    r(c, '#ffc94a', 7, 2, 8, 8);
-    r(c, '#2a1a0e', 3, 10, 16, 3);
-  });
-  const deck = (key: string, horiz: boolean, railA = true, railB = true) => canvas(scene, key, 32, 32, (c) => {
-    const plank = ['#8a5a30', '#a0703f', '#7a4d28', '#956538'];
+  canvas(scene, 'groundglow', 48, 16, (c) => {
+    const g = c.createRadialGradient(24, 8, 0, 24, 8, 24);
+    g.addColorStop(0, 'rgba(255,240,190,0.55)');
+    g.addColorStop(1, 'rgba(255,240,190,0)');
+    c.setTransform(1, 0, 0, 1 / 3, 0, 16 / 3);
+    c.fillStyle = g;
+    c.fillRect(0, -16, 48, 48);
+  }, true);
+
+  // bridge decks: weathered planks with nails and posts, rails only on outer edges
+  const plank = ['#6f4a2a', '#7c5532', '#5f3f24', '#6a4730'];
+  const deck = (key: string, horiz: boolean, railA: boolean, railB: boolean) => canvas(scene, key, 32, 32, (c) => {
     for (let i = 0; i < 32; i += 4) {
       const col = plank[(i / 4) % plank.length];
       if (horiz) {
-        r(c, col, i, 4, 4, 24);
-        r(c, 'rgba(0,0,0,0.35)', i + 3, 4, 1, 24);
+        r(c, col, i, 2, 4, 28);
+        r(c, 'rgba(0,0,0,0.45)', i + 3, 2, 1, 28);
+        r(c, 'rgba(255,230,180,0.10)', i, 2, 1, 28);
+        r(c, '#2a1c10', i + 1, 6, 1, 1);
+        r(c, '#2a1c10', i + 1, 25, 1, 1);
       } else {
-        r(c, col, 4, i, 24, 4);
-        r(c, 'rgba(0,0,0,0.35)', 4, i + 3, 24, 1);
+        r(c, col, 2, i, 28, 4);
+        r(c, 'rgba(0,0,0,0.45)', 2, i + 3, 28, 1);
+        r(c, 'rgba(255,230,180,0.10)', 2, i, 28, 1);
+        r(c, '#2a1c10', 6, i + 1, 1, 1);
+        r(c, '#2a1c10', 25, i + 1, 1, 1);
       }
     }
+    const rail = (x: number, y: number, w: number, h: number) => { r(c, '#3a2614', x, y, w, h); r(c, 'rgba(255,220,170,0.12)', x, y, w, 1); };
     if (horiz) {
-      if (railA) { r(c, '#4a2c14', 0, 0, 32, 4); r(c, '#5a3a1c', 2, 0, 3, 6); }
-      if (railB) { r(c, '#4a2c14', 0, 28, 32, 4); r(c, '#2a180a', 0, 31, 32, 1); r(c, '#5a3a1c', 18, 26, 3, 6); }
-      if (!railA) r(c, plank[1], 0, 0, 32, 4);
-      if (!railB) r(c, plank[2], 0, 28, 32, 4);
+      if (railA) { rail(0, 0, 32, 3); r(c, '#2a1a0c', 2, 0, 3, 5); }
+      else r(c, plank[0], 0, 0, 32, 2);
+      if (railB) { rail(0, 29, 32, 3); r(c, '#2a1a0c', 18, 27, 3, 5); }
+      else r(c, plank[2], 0, 30, 32, 2);
     } else {
-      if (railA) { r(c, '#4a2c14', 0, 0, 4, 32); r(c, 'rgba(0,0,0,0.4)', 4, 0, 1, 32); r(c, '#5a3a1c', 0, 2, 6, 3); }
-      if (railB) { r(c, '#4a2c14', 28, 0, 4, 32); r(c, 'rgba(0,0,0,0.4)', 27, 0, 1, 32); r(c, '#5a3a1c', 26, 18, 6, 3); }
-      if (!railA) for (let i = 0; i < 32; i += 4) r(c, plank[(i / 4) % plank.length], 0, i, 4, 4);
-      if (!railB) for (let i = 0; i < 32; i += 4) r(c, plank[(i / 4) % plank.length], 28, i, 4, 4);
+      if (railA) { rail(0, 0, 3, 32); r(c, '#2a1a0c', 0, 2, 5, 3); }
+      else r(c, plank[0], 0, 0, 2, 32);
+      if (railB) { rail(29, 0, 3, 32); r(c, '#2a1a0c', 27, 18, 5, 3); }
+      else r(c, plank[2], 30, 0, 2, 32);
     }
   });
   for (const [a, b] of [[true, true], [true, false], [false, true], [false, false]] as const) {
@@ -113,14 +141,4 @@ export function makeGenerated(scene: Phaser.Scene): void {
     deck(`bridge_h${suffix}`, true, a, b);
     deck(`bridge_v${suffix}`, false, a, b);
   }
-  // vignette used for dark areas: transparent centre, dark edges
-  canvas(scene, 'darkness', 256, 256, (c) => {
-    const g = c.createRadialGradient(128, 128, 30, 128, 128, 128);
-    g.addColorStop(0, 'rgba(0,0,0,0)');
-    g.addColorStop(0.55, 'rgba(0,0,0,0.55)');
-    g.addColorStop(1, 'rgba(0,0,0,0.92)');
-    c.fillStyle = g;
-    c.fillRect(0, 0, 256, 256);
-  });
-  void texKey;
 }

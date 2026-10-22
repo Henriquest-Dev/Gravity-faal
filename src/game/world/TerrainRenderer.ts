@@ -14,19 +14,20 @@ export interface Theme {
   wall: string; wallTop: string; wallTint: string;
   cliff: string; cliffTop: string;
   blocker: string; deepTint: string; voidGlow?: string;
+  grade: { sat: number; mul: string };
 }
 
 export const THEMES: Record<string, Theme> = {
-  forest: { wall: 'wood_floor', wallTop: '#2b2018', wallTint: 'rgba(30,15,5,0.35)', cliff: 'rock_dark', cliffTop: 'grass_dark', blocker: 'grass_dark', deepTint: 'rgba(5,40,60,0.45)' },
-  town: { wall: 'brick', wallTop: '#3a2420', wallTint: 'rgba(30,10,5,0.25)', cliff: 'rock_dark', cliffTop: 'grass_dark', blocker: 'grass_dark', deepTint: 'rgba(5,40,60,0.45)' },
-  interior: { wall: 'wood_floor', wallTop: '#24170f', wallTint: 'rgba(40,20,8,0.45)', cliff: 'rock_dark', cliffTop: 'dirt_dark', blocker: 'rock_dark', deepTint: 'rgba(5,40,60,0.45)' },
-  cave: { wall: 'rock_dark', wallTop: '#120f0d', wallTint: 'rgba(0,0,0,0.25)', cliff: 'rock_dark', cliffTop: 'dirt_dark', blocker: 'rock_dark', deepTint: 'rgba(0,30,50,0.55)' },
-  bunker: { wall: 'metal_plate', wallTop: '#161b1f', wallTint: 'rgba(0,10,20,0.35)', cliff: 'rock_dark', cliffTop: 'dirt_dark', blocker: 'rock_dark', deepTint: 'rgba(0,30,50,0.5)' },
-  workshop: { wall: 'brick', wallTop: '#2a1a14', wallTint: 'rgba(30,10,5,0.35)', cliff: 'rock_dark', cliffTop: 'dirt_dark', blocker: 'dirt_dark', deepTint: 'rgba(30,40,20,0.5)' },
-  euclid: { wall: 'euclid_lavender', wallTop: '#3b3360', wallTint: 'rgba(20,10,40,0.2)', cliff: 'stone_beige', cliffTop: 'grass', blocker: 'grass', deepTint: 'rgba(0,50,70,0.4)' },
-  rupture: { wall: 'stone_cracked', wallTop: '#231c26', wallTint: 'rgba(20,0,30,0.3)', cliff: 'stone_cracked', cliffTop: 'void', blocker: 'void', deepTint: 'rgba(0,40,60,0.5)', voidGlow: 'rgba(140,80,255,0.35)' },
-  nightmare: { wall: 'nightmare_cracked', wallTop: '#1a1030', wallTint: 'rgba(10,0,30,0.3)', cliff: 'nightmare_cracked', cliffTop: 'void', blocker: 'void', deepTint: 'rgba(30,0,60,0.5)', voidGlow: 'rgba(170,90,255,0.45)' },
-  temporal: { wall: 'metal_teal', wallTop: '#0f2526', wallTint: 'rgba(0,20,20,0.3)', cliff: 'metal_teal', cliffTop: 'void', blocker: 'void', deepTint: 'rgba(0,40,60,0.5)', voidGlow: 'rgba(90,230,255,0.35)' },
+  forest: { wall: 'wood_floor', wallTop: '#2b2018', wallTint: 'rgba(30,15,5,0.35)', cliff: 'rock_dark', cliffTop: 'grass_dark', blocker: 'grass_dark', deepTint: 'rgba(5,40,60,0.45)', grade: { sat: 0.62, mul: '#a7b7a6' } },
+  town: { wall: 'brick', wallTop: '#3a2420', wallTint: 'rgba(30,10,5,0.25)', cliff: 'rock_dark', cliffTop: 'grass_dark', blocker: 'grass_dark', deepTint: 'rgba(5,40,60,0.45)', grade: { sat: 0.6, mul: '#b3aea4' } },
+  interior: { wall: 'wood_floor', wallTop: '#24170f', wallTint: 'rgba(40,20,8,0.45)', cliff: 'rock_dark', cliffTop: 'dirt_dark', blocker: 'rock_dark', deepTint: 'rgba(5,40,60,0.45)', grade: { sat: 0.7, mul: '#c9ab8c' } },
+  cave: { wall: 'rock_dark', wallTop: '#120f0d', wallTint: 'rgba(0,0,0,0.25)', cliff: 'rock_dark', cliffTop: 'dirt_dark', blocker: 'rock_dark', deepTint: 'rgba(0,30,50,0.55)', grade: { sat: 0.5, mul: '#8d8a8a' } },
+  bunker: { wall: 'metal_plate', wallTop: '#161b1f', wallTint: 'rgba(0,10,20,0.35)', cliff: 'rock_dark', cliffTop: 'dirt_dark', blocker: 'rock_dark', deepTint: 'rgba(0,30,50,0.5)', grade: { sat: 0.55, mul: '#93a4ad' } },
+  workshop: { wall: 'brick', wallTop: '#2a1a14', wallTint: 'rgba(30,10,5,0.35)', cliff: 'rock_dark', cliffTop: 'dirt_dark', blocker: 'dirt_dark', deepTint: 'rgba(30,40,20,0.5)', grade: { sat: 0.55, mul: '#b0a08a' } },
+  euclid: { wall: 'euclid_lavender', wallTop: '#3b3360', wallTint: 'rgba(20,10,40,0.2)', cliff: 'stone_beige', cliffTop: 'grass', blocker: 'grass', deepTint: 'rgba(0,50,70,0.4)', grade: { sat: 0.7, mul: '#c4b4d0' } },
+  rupture: { wall: 'stone_cracked', wallTop: '#231c26', wallTint: 'rgba(20,0,30,0.3)', cliff: 'stone_cracked', cliffTop: 'void', blocker: 'void', deepTint: 'rgba(0,40,60,0.5)', voidGlow: 'rgba(140,80,255,0.35)', grade: { sat: 0.55, mul: '#a594b4' } },
+  nightmare: { wall: 'nightmare_cracked', wallTop: '#1a1030', wallTint: 'rgba(10,0,30,0.3)', cliff: 'nightmare_cracked', cliffTop: 'void', blocker: 'void', deepTint: 'rgba(30,0,60,0.5)', voidGlow: 'rgba(170,90,255,0.45)', grade: { sat: 0.8, mul: '#9d8cc0' } },
+  temporal: { wall: 'metal_teal', wallTop: '#0f2526', wallTint: 'rgba(0,20,20,0.3)', cliff: 'metal_teal', cliffTop: 'void', blocker: 'void', deepTint: 'rgba(0,40,60,0.5)', voidGlow: 'rgba(90,230,255,0.35)', grade: { sat: 0.65, mul: '#93b6ba' } },
 };
 
 function hash(x: number, y: number, s = 0): number {
@@ -40,8 +41,26 @@ export class TerrainRenderer {
   private imgs = new Map<string, CanvasImageSource>();
   private theme: Theme;
 
-  constructor(private scene: Phaser.Scene, private grid: Grid, themeName: string) {
+  private grade: { sat: number; mul: string };
+
+  constructor(private scene: Phaser.Scene, private grid: Grid, themeName: string, grade?: { sat: number; mul: string }) {
     this.theme = THEMES[themeName] ?? THEMES.forest;
+    this.grade = grade ?? this.theme.grade;
+  }
+
+  /** Colour grading: the catalogue's bright pastels are pulled towards Gravity Falls' muted, moody palette. */
+  private applyGrade(w: number, h: number): void {
+    const { sat, mul } = this.grade;
+    const m = [parseInt(mul.slice(1, 3), 16) / 255, parseInt(mul.slice(3, 5), 16) / 255, parseInt(mul.slice(5, 7), 16) / 255];
+    const img = this.ctx.getImageData(0, 0, w, h);
+    const d = img.data;
+    for (let i = 0; i < d.length; i += 4) {
+      const l = d[i] * 0.299 + d[i + 1] * 0.587 + d[i + 2] * 0.114;
+      d[i] = (l + (d[i] - l) * sat) * m[0];
+      d[i + 1] = (l + (d[i + 1] - l) * sat) * m[1];
+      d[i + 2] = (l + (d[i + 2] - l) * sat) * m[2];
+    }
+    this.ctx.putImageData(img, 0, 0);
   }
 
   private img(name: string): CanvasImageSource {
@@ -80,6 +99,7 @@ export class TerrainRenderer {
     for (let y = 0; y < g.h; y++) for (let x = 0; x < g.w; x++) this.base(x, y);
     for (let y = 0; y < g.h; y++) for (let x = 0; x < g.w; x++) this.edges(x, y);
     for (let y = 0; y < g.h; y++) for (let x = 0; x < g.w; x++) this.structures(x, y);
+    this.applyGrade(g.pxW, g.pxH);
     tex.refresh();
     return key;
   }

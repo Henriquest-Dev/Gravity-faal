@@ -219,7 +219,12 @@ export interface MapDef {
   width: number;
   height: number;
   reference?: string;
-  ambient?: { tint?: string; strange?: boolean; motes?: string; darkness?: number };
+  ambient?: {
+    tint?: string; strange?: boolean; motes?: string; darkness?: number;
+    night?: number; nightColor?: string; fog?: number; fogColor?: string; vignette?: number; eyes?: number; playerLight?: number;
+    grade?: { sat: number; mul: string };
+    lights?: { x: number; y: number; r?: number; color?: string; intensity?: number; flicker?: number }[];
+  };
   terrain: string[];
   variants?: MapVariant[];
   props?: PropPlacement[];

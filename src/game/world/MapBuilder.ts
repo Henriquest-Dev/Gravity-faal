@@ -7,8 +7,8 @@ import { objKey } from '../../core/state';
 import type { BuildingDef, ExitDef, InteractableDef, MapDef, TriggerDef } from '../../core/types';
 import { missingAssets, propKey } from '../assets';
 import { PROPS } from '../data';
-import { bakeBuilding } from './BuildingRenderer';
-import { TerrainRenderer } from './TerrainRenderer';
+import { bakeBuilding, bakeShack } from './BuildingRenderer';
+import { TerrainRenderer, THEMES } from './TerrainRenderer';
 
 export const DEPTH = {
   terrain: -100000,
@@ -56,8 +56,13 @@ export const DEFAULT_STATE: Partial<Record<InteractableDef['kind'], string>> = {
 
 export const DEFAULT_PROP: Partial<Record<InteractableDef['kind'], string>> = {
   chest: 'interiors/crate', push: 'interiors/crate', glyph: 'rifts/sigil_plate', ring: 'rifts/ring',
-  plate: 'temporal/pad', rift: 'rifts/ground_rift', grapple: '@anchor', switch: '@lever_off', save: '@save',
+  plate: 'temporal/pad', rift: 'rifts/ground_rift', grapple: 'nature/lamp_post', switch: 'interiors/control_console',
 };
+/** Ring puzzle symbols are catalogue pieces: triangle, eye, spiral, square. */
+export const RING_SYMBOLS = ['rifts/triangle_platform', 'rifts/eye_sigil', 'rifts/spiral_stone', 'rifts/square_platform'];
+
+/** Grade tint of the area being shown (props and interactables). */
+let currentGrade = 0xffffff;
 
 export class MapBuilder {
   constructor(private scene: Phaser.Scene, private state: GameState) {}
@@ -66,7 +71,7 @@ export class MapBuilder {
     const s = this.state;
     const grid = new Grid(applyVariants(def, s));
     const out: BuiltMap = { def, grid, fades: [], objects: new Map(), exits: [], triggers: [], buildings: [], glints: [], destroyables: [] };
-    const terrainKey = new TerrainRenderer(this.scene, grid, def.theme).bake(`terrain:${def.id}`);
+    const terrainKey = new TerrainRenderer(this.scene, grid, def.theme, def.ambient?.grade).bake(`terrain:${def.id}`);
     const terrain = this.scene.add.image(0, 0, terrainKey).setOrigin(0, 0).setDepth(DEPTH.terrain);
     out.destroyables.push(terrain);
 
@@ -74,7 +79,7 @@ export class MapBuilder {
 
     for (const b of def.buildings ?? []) {
       if (!check(b.if, s, def.id)) continue;
-      const baked = bakeBuilding(this.scene, b, `building:${def.id}:${b.id}`);
+      const baked = (b.style === 'shack' ? bakeShack : bakeBuilding)(this.scene, b, `building:${def.id}:${b.id}`);
       const baseY = (b.y + b.h) * TILE;
       const img = this.scene.add.image(b.x * TILE - 6, baseY, baked.key).setOrigin(0, 1).setDepth(baseY);
       out.buildings.push({ def: b, img });
@@ -83,6 +88,11 @@ export class MapBuilder {
       for (const r of buildingRects(b)) grid.addRect(r);
     }
 
+    // props share the terrain's colour grade (multiply), characters stay untouched for readability
+    const gradeHex = def.ambient?.grade?.mul ?? THEMES[def.theme]?.grade.mul;
+    const grade = gradeHex ? Phaser.Display.Color.HexStringToColor(gradeHex).color : 0;
+    currentGrade = grade || 0xffffff;
+    for (const b of out.buildings) if (grade) b.img.setTint(grade);
     (def.props ?? []).forEach((p, i) => {
       if (!check(p.if, s, def.id)) return;
       const px = p.x * TILE, py = p.y * TILE;
@@ -97,10 +107,12 @@ export class MapBuilder {
         return;
       }
       if (info.flat || p.layer === 'ground') {
+        if (grade) img.setTint(grade);
         img.setDepth(DEPTH.ground + py);
         return;
       }
       img.setDepth(py);
+      if (grade) img.setTint(grade);
       const foot = p.solid === false ? null : footRect(p.prop, px, py, scale);
       if (foot) grid.addRect({ id: `prop:${p.id ?? i}`, ...foot, jumpable: !!info.jump });
       if (info.fade) out.fades.push({ img, baseY: py, bounds: img.getBounds(), alpha: 1 });
@@ -112,8 +124,7 @@ export class MapBuilder {
     }
     out.exits = def.exits;
     out.triggers = def.triggers ?? [];
-    this.exitMarkers(grid, out);
-    this.waterGlints(grid, out);
+
     return out;
   }
 
@@ -143,12 +154,9 @@ export class MapBuilder {
       out.destroyables.push(sprite);
     }
     let overlay: Phaser.GameObjects.Image | null = null;
-    if (d.kind === 'examine' && !propId) {
-      overlay = this.scene.add.image(x, y - 10, 'clue').setDepth(y);
-      out.destroyables.push(overlay);
-    }
     if (d.kind === 'ring') {
-      overlay = this.scene.add.image(x, y - 18, `sym${state}`).setDepth(y + 1);
+      overlay = this.scene.add.image(x, y - 34, `sym:${state}`).setDepth(y + 1).setOrigin(0.5, 1);
+      this.scene.tweens.add({ targets: overlay, y: y - 38, duration: 1400, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
       out.destroyables.push(overlay);
     }
     const o: IObj = { def: d, key, x, y, sprite, overlay, solidId: null, state, revealed: !d.hidden || !!s.flags[`revealed:${key}`] };
@@ -182,20 +190,20 @@ export class MapBuilder {
     const visible = o.revealed;
     if (o.sprite) {
       o.sprite.setVisible(visible && !(def.kind === 'pickup' && state === 'taken'));
-      o.sprite.clearTint();
+      o.sprite.setTint(currentGrade);
       if (def.kind === 'chest' && state === 'open') o.sprite.setTint(0x8a7a6a);
       if (def.kind === 'repair' && state === 'broken') o.sprite.setTint(0x6a6a7a);
       if (def.kind === 'glyph' && state === 'active') o.sprite.setTint(0xffe27a);
       if (def.kind === 'plate' && state === 'down') o.sprite.setTint(0x9dffb0);
       if (def.kind === 'rift' && state === 'open') o.sprite.setTint(0xc8a0ff);
-      if (def.kind === 'switch') o.sprite.setTexture(state === 'on' ? 'lever_on' : 'lever_off');
+      if (def.kind === 'switch') o.sprite.setTint(state === 'on' ? 0xffffff : 0x8a8a9a);
       if (def.kind === 'door') {
         o.sprite.setAlpha(state === 'open' ? 0.25 : 1);
       }
     }
     if (o.overlay) {
       o.overlay.setVisible(visible && !(def.kind === 'examine' && state === 'read'));
-      if (def.kind === 'ring') o.overlay.setTexture(`sym${state}`);
+      if (def.kind === 'ring') o.overlay.setTexture(`sym:${state}`);
     }
   }
 
@@ -211,37 +219,6 @@ export class MapBuilder {
         const img = this.scene.add.image(x * TILE, y * TILE, key).setOrigin(0, 0);
         img.setDepth((y + 1) * TILE);
         out.destroyables.push(img);
-      }
-    }
-  }
-
-  private exitMarkers(grid: Grid, out: BuiltMap): void {
-    for (const e of out.exits) {
-      if (e.kind === 'door' || !check(e.if, this.state, out.def.id)) continue;
-      const cx = (e.x + e.w / 2) * TILE, cy = (e.y + e.h / 2) * TILE;
-      let dir = 0;
-      if (e.x + e.w >= grid.w) dir = 0;
-      else if (e.x <= 0) dir = 180;
-      else if (e.y <= 0) dir = -90;
-      else if (e.y + e.h >= grid.h) dir = 90;
-      else dir = -90;
-      const m = this.scene.add.image(cx, cy, 'chevron').setDepth(DEPTH.markers).setAngle(dir).setAlpha(0.6);
-      this.scene.tweens.add({ targets: m, alpha: 0.15, duration: 900, yoyo: true, repeat: -1 });
-      out.destroyables.push(m);
-    }
-  }
-
-  private waterGlints(grid: Grid, out: BuiltMap): void {
-    let n = 0;
-    for (let y = 0; y < grid.h && n < 36; y++) {
-      for (let x = 0; x < grid.w && n < 36; x++) {
-        const t = grid.tile(x, y);
-        if (!t.water || ((x * 7 + y * 13) % 11) !== 0) continue;
-        const g = this.scene.add.image(x * TILE + 8 + ((x * 5) % 16), y * TILE + 8 + ((y * 3) % 14), 'glint').setDepth(DEPTH.ground).setAlpha(0);
-        this.scene.tweens.add({ targets: g, alpha: 0.9, duration: 700, yoyo: true, repeat: -1, delay: ((x * 131 + y * 71) % 2000), repeatDelay: 1200 + ((x * 37) % 1500) });
-        out.glints.push(g);
-        out.destroyables.push(g);
-        n++;
       }
     }
   }

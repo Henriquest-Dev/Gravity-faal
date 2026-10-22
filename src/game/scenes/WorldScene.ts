@@ -16,6 +16,7 @@ import { session } from '../session';
 import { Combat, type Target } from '../systems/Combat';
 import { Fx } from '../systems/Fx';
 import type { Ui, UiHost } from '../ui/Ui';
+import { Atmosphere, ATMOS_DEPTH, type LightSource } from '../world/Atmosphere';
 import { DEPTH, MapBuilder, type BuiltMap, type IObj } from '../world/MapBuilder';
 
 const STEP = 1 / 60;
@@ -45,11 +46,11 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
   private attackHitAt = -1;
   private grappleTo: { x: number; y: number; t: number; fromX: number; fromY: number } | null = null;
   private rope!: Phaser.GameObjects.Graphics;
-  private cone!: Phaser.GameObjects.Graphics;
   private debugGfx!: Phaser.GameObjects.Graphics;
   private debugText!: Phaser.GameObjects.Text;
   private marker!: Phaser.GameObjects.Image;
-  private darkness!: Phaser.GameObjects.Image;
+  atmos: Atmosphere | null = null;
+  private objLights = new Map<string, LightSource>();
   private target: Interactive | null = null;
   private lastSafeT = 0;
   private lastGround = { x: 0, y: 0 };
@@ -81,12 +82,11 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     this.applySettings();
     buildEffectAnims(this);
     this.rope = this.add.graphics().setDepth(DEPTH.overlay - 2);
-    this.cone = this.add.graphics().setDepth(DEPTH.overlay - 3);
     this.debugGfx = this.add.graphics().setDepth(DEPTH.overlay + 10);
     this.debugText = this.add.text(4, 4, '', { fontFamily: 'monospace', fontSize: '10px', color: '#0f0', backgroundColor: '#000a' }).setScrollFactor(0).setDepth(DEPTH.overlay + 11);
-    this.marker = this.add.image(0, 0, 'target').setDepth(DEPTH.overlay - 1).setVisible(false);
-    this.darkness = this.add.image(0, 0, 'darkness').setScrollFactor(0).setDepth(DEPTH.foreground + 5e5).setVisible(false);
-    this.tweens.add({ targets: this.marker, y: '-=4', duration: 400, yoyo: true, repeat: -1 });
+    // the current interaction target gets a soft pool of light on the ground, nothing more
+    this.marker = this.add.image(0, 0, 'groundglow').setDepth(ATMOS_DEPTH.glow).setBlendMode(Phaser.BlendModes.ADD).setVisible(false);
+    this.tweens.add({ targets: this.marker, alpha: 0.55, duration: 700, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
     this.scale.on('resize', this.onResize, this);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, this.shutdown, this);
     this.input.on('pointerdown', this.onPointerDown, this);
@@ -168,7 +168,9 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     for (const e of this.enemies) e.destroy();
     this.npcs = [];
     this.enemies = [];
-    this.tweens.killTweensOf(this.darkness);
+    this.atmos?.destroy();
+    this.atmos = null;
+    this.objLights.clear();
     this.player?.destroy();
     this.companion?.destroy();
     this.companion = null;
@@ -243,8 +245,13 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     this.ui.areaTitle(def.name);
     if (s.safe.mapId !== def.id || s.safe.x < 0) s.safe = { mapId: def.id, x: safe.x, y: safe.y, level: 0 };
     const amb = def.ambient;
-    this.darkness.setVisible(!!amb?.darkness).setAlpha(amb?.darkness ?? 0);
-    if (amb?.tint) cam.setBackgroundColor(amb.tint);
+    cam.setBackgroundColor(amb?.nightColor ?? '#05070d');
+    this.atmos = new Atmosphere(this, def, this.built!, grid);
+    this.atmos.reduced = session.settings.reducedEffects;
+    const cfg = this.atmos.config;
+    this.atmos.attach(() => ({ x: this.player.x, y: this.player.y - 22 }), cfg.player, 0xffe2b0, 1, { glow: 0.15 });
+    this.atmos.attach(() => (this.companion ? { x: this.companion.x, y: this.companion.y - 22 } : null), cfg.player * 0.6, 0xffe2b0, 0.8);
+    for (const o of this.built!.objects.values()) this.lightObject(o);
     this.setupAmbient(def);
     this.busy = false;
     this.autosave();
@@ -265,12 +272,12 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
         if (!/floating_rock|eye_sigil|crystal|void_portal|ring/.test(key)) continue;
         this.tweens.add({ targets: img, y: img.y - 6, duration: 1600 + (img.x % 7) * 200, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
       }
-      if (amb.darkness) this.tweens.add({ targets: this.darkness, alpha: (amb.darkness ?? 0) * 0.6, duration: 2600, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
     }
-    const count = session.settings.reducedEffects ? 0 : amb.strange ? 18 : amb.motes ? 14 : 0;
-    const color = amb.strange ? (def.theme === 'temporal' ? 0x7af0ff : 0xb070ff) : 0xfff2b0;
+    // fireflies in the human world, drifting sparks in the strange ones; they glow above the night
+    const count = session.settings.reducedEffects ? 0 : amb.strange ? 18 : amb.motes ? 16 : 0;
+    const color = amb.strange ? (def.theme === 'temporal' ? 0x7af0ff : 0xb070ff) : 0xd8ff7a;
     for (let i = 0; i < count; i++) {
-      const m = this.add.image(Math.random() * this.grid.pxW, Math.random() * this.grid.pxH, 'px').setTint(color).setAlpha(0).setDepth(DEPTH.foreground - 1);
+      const m = this.add.image(Math.random() * this.grid.pxW, Math.random() * this.grid.pxH, 'px').setTint(color).setAlpha(0).setDepth(ATMOS_DEPTH.eyes).setBlendMode(Phaser.BlendModes.ADD);
       built.destroyables.push(m);
       const drift = () => {
         m.setPosition(this.player.x + (Math.random() - 0.5) * 560, this.player.y + (Math.random() - 0.3) * 320).setAlpha(0);
@@ -281,6 +288,24 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
       };
       this.time.delayedCall(Math.random() * 3000, () => { if (m.active) drift(); });
     }
+  }
+
+  /** Interactables announce themselves with light instead of icons. */
+  private lightObject(o: IObj): void {
+    if (!this.atmos) return;
+    const old = this.objLights.get(o.key);
+    if (old) this.atmos.remove(old);
+    const d = o.def;
+    let l: LightSource | null = null;
+    const at = () => (o.revealed && !(d.kind === 'pickup' && o.state === 'taken') ? { x: o.x, y: o.y - 12 } : null);
+    if (d.kind === 'examine' && o.state !== 'read') l = this.atmos.attach(at, 26, 0xfff1c8, 0.9, { pulse: 0.5, glow: 0.35 });
+    else if (d.kind === 'pickup' && o.state !== 'taken') l = this.atmos.attach(at, 30, 0xffe9a8, 0.9, { pulse: 0.3, glow: 0.4 });
+    else if (d.kind === 'rift') l = this.atmos.attach(at, o.state === 'open' ? 64 : 40, 0xb070ff, 0.9, { pulse: 0.3, glow: 0.5 });
+    else if (d.kind === 'portal') l = this.atmos.attach(at, 90, 0x9a7aff, 1, { pulse: 0.2, glow: 0.5 });
+    else if (d.kind === 'glyph' || d.kind === 'ring') l = this.atmos.attach(at, o.state === 'active' ? 60 : 34, 0xffe066, 0.8, { pulse: 0.3, glow: 0.4 });
+    else if (d.kind === 'switch') l = this.atmos.attach(at, 30, o.state === 'on' ? 0x7aff9a : 0xff6a5a, 0.8, { glow: 0.5 });
+    else if (d.kind === 'save') l = this.atmos.attach(at, 54, 0xffc66a, 0.8, { flicker: 0.1, glow: 0.35 });
+    if (l) this.objLights.set(o.key, l);
   }
 
   private makeHero(id: string, x: number, y: number): Actor {
@@ -317,8 +342,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     const mw = this.grid.pxW, mh = this.grid.pxH;
     const bx = mw < vw ? -(vw - mw) / 2 : 0, by = mh < vh ? -(vh - mh) / 2 : 0;
     cam.setBounds(bx, by, Math.max(mw, vw), Math.max(mh, vh));
-    this.darkness.setPosition(w / 2, h / 2).setDisplaySize(Math.max(w, h) * 1.2 / zoom, Math.max(w, h) * 1.2 / zoom);
-    this.darkness.setScrollFactor(0);
+    this.atmos?.resize();
   }
 
   applySettings(): void {
@@ -730,12 +754,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
   private flashCone(aim: { x: number; y: number }, range: number): void {
     const p = this.player;
     const ang = Math.atan2(aim.y, aim.x), half = 0.45;
-    const g = this.cone;
-    g.clear();
-    g.fillStyle(0xfff3a0, 0.28);
-    g.slice(p.x, p.y - 20, range, ang - half, ang + half, false);
-    g.fillPath();
-    this.time.delayedCall(350, () => g.clear());
+    this.atmos?.flashlight(p.x, p.y - 20, ang, range * 1.3);
     session.audio.play('open');
     const inCone = (x: number, y: number) => {
       const dx = x - p.x, dy = y - p.y;
@@ -760,6 +779,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     o.revealed = true;
     this.s.flags[`revealed:${o.key}`] = true;
     new MapBuilder(this, this.s).refreshObject(o);
+    this.lightObject(o);
     this.fx.anim('stasis', o.x, o.y - 16, o.y + 2, 0.6, 0xffe066);
     if (o.def.effects && o.def.kind === 'examine' && o.def.hidden && !o.def.text) this.handleSignals(applyEffects(this.s, o.def.effects, RULES));
   }
@@ -977,6 +997,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
       o.state = st;
       s.objects[o.key] = st;
       new MapBuilder(this, s).refreshObject(o);
+      this.lightObject(o);
     };
     switch (d.kind) {
       case 'examine':
@@ -1052,6 +1073,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
       case 'portal':
         session.audio.play('rift');
         this.fx.anim('rift', o.x, o.y - 20, o.y + 2, 1.2);
+        this.atmos?.burst(o.x, o.y - 20, 220, 0x9a7aff, 900);
         record(s, 'portals', d.id);
         apply(d.effects);
         return;
@@ -1076,6 +1098,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
         record(s, 'portals', `rift:${d.id}`);
         session.audio.play('rift');
         this.fx.anim('rift', o.x, o.y - 16, o.y + 2, 1);
+        this.atmos?.burst(o.x, o.y - 16, 160, 0xb070ff, 700);
         const dest = this.grid.findStandable(partner.x, partner.y + 18, 3);
         if (dest) {
           this.cameras.main.flash(150, 180, 120, 255);
@@ -1484,6 +1507,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
       o.state = st;
       if (o.def.kind === 'door' && st === 'open' && o.solidId) this.grid.removeRect(o.solidId);
       new MapBuilder(this, this.s).refreshObject(o);
+      this.lightObject(o);
     }
   }
 
@@ -1573,6 +1597,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
   private render(dt: number): void {
     const p = this.player;
     p.sync();
+    this.atmos?.update(dt, p);
     // depth-sorted fading of tall props the player walks behind
     const pb = p.sprite.getBounds();
     for (const f of this.built!.fades) {
@@ -1588,9 +1613,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     } else this.target = null;
     if (this.target) {
       const obj = this.target.kind === 'obj' ? this.built!.objects.get(this.target.id) : null;
-      const h = obj?.sprite ? obj.sprite.displayHeight : this.target.kind === 'obj' ? 20 : 70;
-      this.marker.setVisible(true).setPosition(this.target.x, this.target.y - h - 8);
-      if (!this.marker.getData('bob')) this.marker.y = this.target.y - h - 8;
+      this.marker.setVisible(true).setPosition(this.target.x, this.target.y - 2).setScale(obj?.sprite ? Math.max(1, obj.sprite.displayWidth / 40) : 1);
       this.ui.prompt(this.target.label);
     } else {
       this.marker.setVisible(false);

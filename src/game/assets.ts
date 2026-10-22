@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import type { Dir } from '../core/types';
 import { CHARACTERS, ENEMIES, MAPS, PROPS, type SheetRef } from './data';
-import { DEFAULT_PROP } from './world/MapBuilder';
+import { DEFAULT_PROP, RING_SYMBOLS } from './world/MapBuilder';
 
 export const ASSET_ROOT = 'assets/';
 
@@ -88,6 +88,12 @@ export function queueGlobal(scene: Phaser.Scene): void {
     globalKeys.add(propKey(p));
   }
   for (const k of ['protag_idle', 'protag_hurt', 'protag_jump', 'protag_dodge', 'protag_climb', 'protag_swim', 'effects']) globalKeys.add(sheetKey(k));
+  // ring puzzle symbols: small (1/3) versions of catalogue pieces
+  RING_SYMBOLS.forEach((id, i) => {
+    const f = m.props[id]?.variants?.['3']?.file;
+    if (f && !scene.textures.exists(`sym:${i}`)) scene.load.image(`sym:${i}`, ASSET_ROOT + f);
+    globalKeys.add(`sym:${i}`);
+  });
 }
 
 export function queueProp(scene: Phaser.Scene, id: string): void {

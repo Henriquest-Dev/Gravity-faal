@@ -1,6 +1,6 @@
 {
  "id": "shack_exterior",
- "name": "Exterior da Cabana do Mistério",
+ "name": "Cabana do Mistério",
  "arc": 2,
  "theme": "forest",
  "music": "shack",
@@ -8,8 +8,9 @@
  "width": 44,
  "height": 32,
  "ambient": {
-  "tint": "#ffe7b0",
-  "motes": "pollen"
+  "motes": "fireflies",
+  "night": 0.5,
+  "eyes": 4
  },
  "buildings": [
   {
@@ -19,121 +20,110 @@
    "w": 15,
    "h": 5,
    "style": "shack",
-   "wallHeight": 2.5,
+   "wallHeight": 4,
    "roofHeight": 3,
    "door": {
     "x": 21,
     "exit": "shack_door"
    },
    "windows": [
-    16,
-    18,
+    15,
+    17,
     25,
     27
-   ],
-   "sign": "MYSTERY SHACK"
-  },
-  {
-   "id": "shed",
-   "x": 31,
-   "y": 7,
-   "w": 4,
-   "h": 3,
-   "style": "cabin",
-   "wallHeight": 2,
-   "roofHeight": 2
+   ]
   }
  ],
  "props": [
   {
    "prop": "nature/pine_b",
-   "x": 4.51,
-   "y": 0.97,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 6.64,
-   "y": 0.93,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 8.32,
-   "y": 0.96,
+   "x": 2.62,
+   "y": 1.01,
    "flip": true
   },
   {
    "prop": "nature/pine",
-   "x": 10.79,
-   "y": 0.92,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine",
-   "x": 12.29,
-   "y": 0.94,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine",
-   "x": 14.75,
-   "y": 1.02,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 16.57,
-   "y": 1.13,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine",
-   "x": 20.46,
-   "y": 0.86,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine",
-   "x": 22.46,
-   "y": 0.99,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 24.4,
-   "y": 0.96,
+   "x": 4.53,
+   "y": 1.07,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
-   "x": 26.39,
+   "x": 6.51,
    "y": 0.91,
-   "flip": false
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 8.38,
+   "y": 1.14,
+   "flip": true
   },
   {
    "prop": "nature/pine",
-   "x": 28.61,
-   "y": 1.13,
+   "x": 10.29,
+   "y": 0.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 12.24,
+   "y": 1.12,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
-   "x": 30.75,
-   "y": 0.89,
+   "x": 14.78,
+   "y": 1.04,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 16.3,
+   "y": 0.96,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 20.42,
+   "y": 0.98,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 22.61,
+   "y": 0.95,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 24.75,
+   "y": 0.95,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 26.23,
+   "y": 1.06,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 28.59,
+   "y": 1.13,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 30.73,
+   "y": 1.14,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 32.78,
-   "y": 1.1,
+   "y": 1.01,
    "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 34.53,
-   "y": 1.1,
-   "flip": true
   },
   {
    "prop": "nature/pine",
@@ -209,483 +199,387 @@
   },
   {
    "prop": "nature/pine_b",
-   "x": 23.24,
-   "y": 2.9,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 25.42,
-   "y": 2.96,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 27.52,
-   "y": 3.09,
+   "x": 21.79,
+   "y": 2.87,
    "flip": true
   },
   {
    "prop": "nature/pine",
-   "x": 29.52,
-   "y": 3.08,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 31.7,
-   "y": 3.08,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 33.35,
+   "x": 23.64,
    "y": 2.96,
    "flip": true
   },
   {
+   "prop": "nature/pine_b",
+   "x": 25.68,
+   "y": 3.01,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 27.38,
+   "y": 3.01,
+   "flip": false
+  },
+  {
    "prop": "nature/pine",
-   "x": 35.78,
-   "y": 3.02,
+   "x": 29.7,
+   "y": 3.1,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 31.75,
+   "y": 2.93,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
-   "x": 37.38,
-   "y": 3.12,
+   "x": 33.44,
+   "y": 3.14,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 35.52,
+   "y": 2.94,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
-   "x": 39.5,
-   "y": 2.98,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 41.59,
-   "y": 2.9,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 43.71,
-   "y": 2.97,
+   "x": 37.7,
+   "y": 3,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
-   "x": 2.78,
-   "y": 4.95,
+   "x": 39.53,
+   "y": 3.05,
    "flip": true
   },
   {
-   "prop": "nature/pine_b",
-   "x": 6.67,
-   "y": 5.1,
+   "prop": "nature/pine",
+   "x": 41.57,
+   "y": 3.11,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 43.61,
+   "y": 3.07,
    "flip": false
   },
   {
-   "prop": "nature/pine_b",
-   "x": 8.37,
-   "y": 5.01,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 10.57,
+   "prop": "nature/pine",
+   "x": 0.24,
    "y": 5.07,
    "flip": false
   },
   {
-   "prop": "nature/pine",
-   "x": 42.7,
-   "y": 4.99,
+   "prop": "nature/pine_b",
+   "x": 2.78,
+   "y": 4.92,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 4.43,
+   "y": 5.06,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 6.57,
+   "y": 5.03,
    "flip": true
   },
   {
    "prop": "nature/pine",
-   "x": 1.54,
-   "y": 7.02,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine",
-   "x": 3.26,
-   "y": 6.94,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 41.71,
-   "y": 7.01,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine",
-   "x": 43.76,
-   "y": 7.05,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 0.78,
-   "y": 9.1,
+   "x": 8.28,
+   "y": 5.07,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
-   "x": 2.26,
+   "x": 10.73,
+   "y": 5.14,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 42.51,
+   "y": 4.97,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 1.74,
+   "y": 6.93,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 3.68,
+   "y": 6.95,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 41.2,
+   "y": 6.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 43.75,
+   "y": 6.93,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.63,
    "y": 8.87,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 10.36,
-   "y": 9.09,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 1.25,
-   "y": 10.88,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 0.36,
-   "y": 13,
    "flip": true
   },
   {
    "prop": "nature/pine",
-   "x": 2.53,
-   "y": 12.9,
+   "x": 2.25,
+   "y": 8.96,
    "flip": false
   },
   {
+   "prop": "nature/pine",
+   "x": 10.5,
+   "y": 8.88,
+   "flip": true
+  },
+  {
    "prop": "nature/pine_b",
+   "x": 42.3,
+   "y": 9.08,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 1.22,
+   "y": 10.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
    "x": 0.7,
-   "y": 16.86,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 42.37,
-   "y": 17.1,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine",
-   "x": 1.26,
-   "y": 19.15,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 41.24,
-   "y": 19,
+   "y": 13.04,
    "flip": true
   },
   {
    "prop": "nature/pine",
-   "x": 43.64,
+   "x": 2.79,
+   "y": 13.06,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 0.51,
+   "y": 16.98,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 42.3,
+   "y": 16.92,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 1.22,
+   "y": 19.13,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 41.62,
    "y": 18.9,
-   "flip": true
+   "flip": false
   },
   {
    "prop": "nature/pine_b",
-   "x": 0.22,
-   "y": 20.86,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine",
-   "x": 2.55,
-   "y": 21.06,
+   "x": 43.63,
+   "y": 19.1,
    "flip": true
   },
   {
    "prop": "nature/pine",
-   "x": 1.56,
-   "y": 23.07,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine",
-   "x": 2.23,
-   "y": 25.13,
+   "x": 0.23,
+   "y": 21.13,
    "flip": true
   },
   {
    "prop": "nature/pine",
-   "x": 42.41,
-   "y": 25.09,
+   "x": 2.41,
+   "y": 21.09,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 1.62,
-   "y": 27.11,
+   "y": 23.11,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
-   "x": 41.39,
-   "y": 26.97,
+   "x": 0.39,
+   "y": 24.97,
    "flip": false
   },
   {
    "prop": "nature/pine",
-   "x": 43.5,
-   "y": 27.03,
+   "x": 2.5,
+   "y": 25.03,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
-   "x": 0.34,
-   "y": 29.07,
+   "x": 42.34,
+   "y": 25.07,
    "flip": false
   },
   {
    "prop": "nature/pine",
-   "x": 2.69,
-   "y": 28.89,
+   "x": 1.69,
+   "y": 26.89,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
-   "x": 42.58,
-   "y": 28.87,
+   "x": 41.58,
+   "y": 26.87,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
-   "x": 1.51,
-   "y": 31.06,
+   "x": 43.51,
+   "y": 27.06,
    "flip": true
   },
   {
    "prop": "nature/pine",
-   "x": 3.66,
-   "y": 30.98,
+   "x": 0.66,
+   "y": 28.98,
    "flip": true
   },
   {
    "prop": "nature/pine",
-   "x": 5.71,
-   "y": 31.15,
+   "x": 2.71,
+   "y": 29.15,
    "flip": false
   },
   {
    "prop": "nature/pine",
-   "x": 7.49,
-   "y": 30.9,
+   "x": 42.49,
+   "y": 28.9,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
-   "x": 9.33,
+   "x": 1.33,
    "y": 30.85,
    "flip": true
   },
   {
    "prop": "nature/pine",
-   "x": 11.52,
+   "x": 3.52,
    "y": 31.13,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
-   "x": 13.38,
+   "x": 5.38,
    "y": 30.88,
    "flip": false
   },
   {
+   "prop": "nature/pine_b",
+   "x": 7.47,
+   "y": 31.05,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 9.67,
+   "y": 31.01,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 11.56,
+   "y": 31.05,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 13.72,
+   "y": 31.05,
+   "flip": false
+  },
+  {
    "prop": "nature/pine",
-   "x": 17.6,
-   "y": 31.1,
+   "x": 15.8,
+   "y": 30.91,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
-   "x": 27.52,
-   "y": 31.08,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 29.61,
-   "y": 31.08,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 31.6,
-   "y": 31.04,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 33.32,
-   "y": 31.12,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 35.69,
+   "x": 27.69,
    "y": 30.93,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
-   "x": 37.59,
+   "x": 29.59,
    "y": 30.95,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
-   "x": 39.26,
+   "x": 31.26,
    "y": 30.9,
    "flip": true
   },
   {
    "prop": "nature/pine",
-   "x": 41.63,
+   "x": 33.63,
    "y": 30.85,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
-   "x": 43.57,
+   "x": 35.57,
    "y": 30.97,
    "flip": false
   },
   {
    "prop": "nature/pine",
-   "x": 37.5,
-   "y": 7.9,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 6.5,
-   "y": 22.9,
+   "x": 37.6,
+   "y": 31.08,
    "flip": false
   },
   {
    "prop": "nature/pine",
-   "x": 28.5,
-   "y": 25.9,
+   "x": 39.57,
+   "y": 30.92,
    "flip": true
   },
   {
    "prop": "nature/pine",
-   "x": 35.5,
-   "y": 5.9,
-   "flip": false
+   "x": 41.66,
+   "y": 30.9,
+   "flip": true
   },
   {
    "prop": "nature/pine",
-   "x": 9.5,
-   "y": 23.9,
+   "x": 43.76,
+   "y": 31.12,
    "flip": false
-  },
-  {
-   "prop": "nature/mushrooms",
-   "x": 3.5,
-   "y": 18.9,
-   "flip": true
-  },
-  {
-   "prop": "nature/mushrooms",
-   "x": 39.5,
-   "y": 7.9,
-   "flip": false
-  },
-  {
-   "prop": "nature/fern",
-   "x": 34.5,
-   "y": 6.9,
-   "flip": true
-  },
-  {
-   "prop": "nature/flower",
-   "x": 37.5,
-   "y": 10.9,
-   "flip": false
-  },
-  {
-   "prop": "nature/mushrooms",
-   "x": 9.5,
-   "y": 27.9,
-   "flip": false
-  },
-  {
-   "prop": "nature/flower",
-   "x": 28.5,
-   "y": 4.9,
-   "flip": false
-  },
-  {
-   "prop": "nature/flower",
-   "x": 13.5,
-   "y": 24.9,
-   "flip": true
-  },
-  {
-   "prop": "nature/fern",
-   "x": 15.5,
-   "y": 27.9,
-   "flip": true
-  },
-  {
-   "prop": "nature/fern",
-   "x": 32.5,
-   "y": 16.9,
-   "flip": false
-  },
-  {
-   "prop": "nature/mushrooms",
-   "x": 37.5,
-   "y": 18.9,
-   "flip": false
-  },
-  {
-   "prop": "nature/mushrooms",
-   "x": 6.5,
-   "y": 8.9,
-   "flip": true
-  },
-  {
-   "prop": "nature/mushrooms",
-   "x": 14.5,
-   "y": 22.9,
-   "flip": true
-  },
-  {
-   "prop": "nature/flower",
-   "x": 4.5,
-   "y": 11.9,
-   "flip": true
-  },
-  {
-   "prop": "nature/fern",
-   "x": 29.5,
-   "y": 7.9,
-   "flip": false
-  },
-  {
-   "prop": "nature/flower",
-   "x": 14.5,
-   "y": 10.9,
-   "flip": false
-  },
-  {
-   "prop": "nature/fern",
-   "x": 34.5,
-   "y": 9.9,
-   "flip": true
   },
   {
    "prop": "nature/pine",
@@ -808,34 +702,64 @@
    "flip": false
   },
   {
-   "prop": "nature/mailbox",
-   "x": 24.5,
-   "y": 14.8
+   "prop": "nature/pine",
+   "x": 10.5,
+   "y": 16.4
   },
   {
-   "prop": "nature/lamp_post",
-   "x": 19.2,
-   "y": 11.2
+   "prop": "nature/pine",
+   "x": 12.4,
+   "y": 26.8
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 28.4,
+   "y": 29.2
   },
   {
    "prop": "nature/woodshed",
+   "x": 34.6,
+   "y": 10.4
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 19.4,
+   "y": 11.4
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 23.6,
+   "y": 17.6
+  },
+  {
+   "prop": "nature/lamp_post",
    "x": 36.5,
-   "y": 10.6
+   "y": 12.2
+  },
+  {
+   "prop": "nature/mailbox",
+   "x": 24.6,
+   "y": 14.6
   },
   {
    "prop": "nature/stump",
    "x": 31.5,
-   "y": 15.2
+   "y": 15.4
+  },
+  {
+   "prop": "nature/stump",
+   "x": 15.4,
+   "y": 24.8
   },
   {
    "prop": "nature/rock",
    "x": 13.5,
-   "y": 23.2
+   "y": 22.6
   },
   {
    "prop": "nature/rock_b",
    "x": 29.5,
-   "y": 23.5
+   "y": 23.2
   },
   {
    "prop": "nature/cattails",
@@ -844,7 +768,7 @@
   },
   {
    "prop": "nature/cattails",
-   "x": 28.5,
+   "x": 27.5,
    "y": 18.6
   },
   {
@@ -857,18 +781,13 @@
    "prop": "nature/fence",
    "x": 31.5,
    "y": 13.6
-  },
-  {
-   "prop": "nature/fence",
-   "x": 34.5,
-   "y": 13.6
   }
  ],
  "spawns": {
   "default": {
    "x": 21.5,
    "y": 15,
-   "dir": "south"
+   "dir": "north"
   },
   "door": {
    "x": 21.5,
@@ -925,7 +844,7 @@
    "requires": {
     "flag": "stan_briefing"
    },
-   "lockedText": "O Stan quer falar convosco antes de irem à cidade. Ele está dentro da Cabana."
+   "lockedText": "Melhor ouvir primeiro o que o tio-avô Stan tem para dizer. Ele está lá dentro."
   },
   {
    "id": "to_forest",
@@ -938,17 +857,17 @@
    "requires": {
     "flag": "stan_briefing"
    },
-   "lockedText": "Primeiro falem com o Stan, dentro da Cabana."
+   "lockedText": "A floresta ao anoitecer? Primeiro falem com o Stan, lá dentro."
   }
  ],
  "npcs": [
   {
    "id": "soos",
    "character": "soos",
-   "x": 17.5,
-   "y": 14.2,
+   "x": 33,
+   "y": 12.2,
+   "dir": "west",
    "dialogue": "soos",
-   "wander": 2,
    "if": {
     "not": {
      "flag": "town_invaded"
@@ -958,8 +877,8 @@
   {
    "id": "wendy",
    "character": "wendy",
-   "x": 26.5,
-   "y": 13.2,
+   "x": 26.4,
+   "y": 12.4,
    "dir": "south",
    "dialogue": "wendy",
    "if": {
@@ -971,8 +890,8 @@
   {
    "id": "waddles_home",
    "character": "waddles",
-   "x": 30.5,
-   "y": 16.5,
+   "x": 18.5,
+   "y": 14.5,
    "dialogue": "waddles",
    "wander": 2,
    "if": {
@@ -983,7 +902,7 @@
    "id": "bill_echo_shack",
    "character": "bill",
    "x": 37.5,
-   "y": 16.5,
+   "y": 17.5,
    "dialogue": "bill_shack",
    "if": {
     "all": [
@@ -1004,7 +923,7 @@
    "id": "shack_teeth",
    "type": "teeth",
    "x": 34,
-   "y": 16.5,
+   "y": 17.5,
    "if": {
     "flag": "bill_threat"
    }
@@ -1017,21 +936,8 @@
    "x": 19.5,
    "y": 15.6,
    "prop": "nature/signpost",
-   "text": "CABANA DO MISTÉRIO — entrada pela porta da frente. À direita: cidade de Gravity Falls. A sul, a ponte leva à floresta e ao lago."
-  },
-  {
-   "id": "sign_jump",
-   "kind": "examine",
-   "x": 12.5,
-   "y": 15.2,
-   "text": "Um tronco caído bloqueia o atalho. Salta por cima dele (Espaço / botão ⤒). Paredes e árvores não se saltam."
-  },
-  {
-   "id": "ladder_note",
-   "kind": "examine",
-   "x": 8.5,
-   "y": 11.4,
-   "text": "Uma escada de mão sobe ao miradouro. Aproxima-te dela e sobe com ↑."
+   "label": "Ler a placa",
+   "text": "\"CABANA DO MISTÉRIO — Atracções genuínas! Entrada: dez dólares. Saída: outros dez.\" Alguém riscou \"genuínas\" a lápis."
   },
   {
    "id": "lookout_chest",
@@ -1040,16 +946,16 @@
    "y": 6.8,
    "prop": "interiors/crate",
    "item": "medkit",
-   "label": "Abrir caixa",
+   "label": "Abrir a caixa",
    "solid": true
   },
   {
    "id": "rest_bench",
    "kind": "save",
-   "x": 28.5,
-   "y": 14.6,
+   "x": 28.6,
+   "y": 14.8,
    "prop": "nature/bench",
-   "label": "Descansar e gravar",
+   "label": "Sentar e gravar",
    "solid": true
   },
   {
@@ -1060,8 +966,7 @@
    "landing": {
     "x": 34.5,
     "y": 25.9
-   },
-   "label": "Poste de ancoragem"
+   }
   },
   {
    "id": "islet_snack",
@@ -1069,34 +974,18 @@
    "x": 34.4,
    "y": 25.6,
    "item": "waddles_snack",
-   "label": "Apanhar bolacha",
-   "prop": "nature/mushrooms"
+   "label": "Apanhar a bolacha"
   },
   {
    "id": "mailbox_note",
    "kind": "examine",
-   "x": 24.5,
-   "y": 15.2,
-   "text": "Correio para \"Stanford Pines\". Parece que ninguém o abre há trinta anos.",
-   "if": {
-    "arc": 2
-   }
+   "x": 24.6,
+   "y": 15.1,
+   "label": "Espreitar o correio",
+   "text": "Cartas por abrir há trinta anos, endereçadas a \"Stanford Pines\". O Stan assina tudo como Stanford. Estranho."
   }
  ],
  "triggers": [
-  {
-   "id": "tut_move",
-   "x": 18,
-   "y": 13,
-   "w": 8,
-   "h": 4,
-   "once": true,
-   "effects": [
-    {
-     "toast": "Mover: WASD/setas ou joystick. Correr: Shift ou empurrar o joystick até ao fim."
-    }
-   ]
-  },
   {
    "id": "tut_water",
    "x": 18,
@@ -1106,7 +995,7 @@
    "once": true,
    "effects": [
     {
-     "toast": "Água rasa abranda. Na água profunda nadas — só sais por margens acessíveis."
+     "toast": "Água funda: nadas devagar e só sais por margens baixas."
     }
    ]
   }
@@ -1128,31 +1017,31 @@
   "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
   "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
   "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "xxxxxxxxxxx..............................xxx",
-  "xxxx......x..............................xxx",
-  "xxxx......x..............................xxx",
-  "xxxx......x..............................xxx",
-  "xxxx......x..............................xxx",
-  "xxxCCCCHCCC..............................xxx",
-  "xxxCCCCHCCC..........:::.................xxx",
-  "xxx..........:::::::::::::::::::::::::::::::",
-  "xxx....:::::::::::::::::::::::::::::::::::::",
+  "xxxxxxxxxxx,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,xxx",
+  "xxxx,,,,,,x,............................,xxx",
+  "xxxx,,,,,,x,............................,xxx",
+  "xxxx,,,,,,x,............................,xxx",
+  "xxxx,,,,,,x,............................,xxx",
+  "xxxCCCCHCCC.............................,xxx",
+  "xxxCCCCHCCC..........:::................,xxx",
+  "xxx,........:::::::::::::::::::::......:::::",
+  "xxx,...:::::::::::::::::::::::::::::::::::::",
   "x~~~~~~:::::::::::::::::::::::::::::::::::::",
-  "x~====~~~...::.......:::.................xxx",
-  "x~======~~~..........:::.................xxx",
-  "x~~~======~~~~.......:::.................xxx",
-  "xxx~~~~======~~~.....:::.................xxx",
-  "xxx...~~~======~~~...:::.................xxx",
-  "xxx.....~~~======~~~~BB~~~~~~~~~~~~~~~~~~~~~",
-  "xxx.......~~~~=======BB=====================",
-  "xxx..........~~~=====BB=====================",
-  "xxx............~~~~~~BB~~~~~~~~~~~~~~~~~~~~=",
-  "xxx..................:::......~~======~~.x~~",
-  "xxx..................::::....~~========~~xxx",
-  "xxx..................::::::..~~===..===~~xxx",
-  "xxx..................:::::::..~~======~~.xxx",
-  "xxx..................:::.::::::~~~~~~~~..xxx",
-  "xxx..................:::...::::::........xxx",
+  "x~====~~~..::........:::......::::::::::::xx",
+  "x~======~~~..........:::................,xxx",
+  "x~~~======~~~~.......:::................,xxx",
+  "xxx~~~~======~~~.....:::................,xxx",
+  "xxx,..~~~======~~~...:::................,xxx",
+  "xxx,....~~~======~~~~BB~~~~~~~~~~~~~~~~~~~~~",
+  "xxx,......~~~~=======BB=====================",
+  "xxx,.........~~~=====BB=====================",
+  "xxx,...........~~~~~~BB~~~~~~~~~~~~~~~~~~~~=",
+  "xxx,.................:::......~~======~~,x~~",
+  "xxx,.................:::.....~~========~~xxx",
+  "xxx,.................:::.....~~===,,===~~xxx",
+  "xxx,.................:::......~~======~~,xxx",
+  "xxx,.................:::.......~~~~~~~~.,xxx",
+  "xxx,,,,,,,,,,,,,,,,,,:::,,,,,,,,,,,,,,,,,xxx",
   "xxxxxxxxxxxxxxxxxxxxx:::xxxxxxxxxxxxxxxxxxxx",
   "xxxxxxxxxxxxxxxxxxxxx:::xxxxxxxxxxxxxxxxxxxx",
   "xxxxxxxxxxxxxxxxxxxx::::xxxxxxxxxxxxxxxxxxxx"
