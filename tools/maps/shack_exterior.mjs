@@ -1,4 +1,4 @@
-import { Canvas, forest } from './lib.mjs';
+import { Canvas, forest, shiftDown } from './lib.mjs';
 
 /**
  * The Mystery Shack at dusk, composed after the catalogue reference: the Shack
@@ -38,7 +38,9 @@ export default function build() {
   const foreground = [];
   for (let x = 0; x < W; x += 3) foreground.push({ prop: x % 2 ? 'nature/pine_b' : 'nature/pine', x: x + 1, y: H + 1.6, scale: 2, layer: 'foreground', flip: x % 4 === 0 });
 
-  return {
+  const top = new Canvas(W, 4, 'x');
+  const topTrees = forest(top, 'x', ['nature/pine', 'nature/pine_b'], 11, { gap: 0.05 });
+  const def = shiftDown({
     id: 'shack_exterior', name: 'Cabana do Mistério', arc: 2, theme: 'forest', music: 'shack', reference: 'shack_exterior',
     width: W, height: H, terrain: c.rows(),
     ambient: { motes: 'fireflies', night: 0.5, eyes: 4 },
@@ -98,5 +100,7 @@ export default function build() {
     ],
     checkpoints: [{ id: 'shack_front', x: 21.5, y: 14.5 }],
     onEnter: [{ questStart: 'b_q1' }],
-  };
+  }, 4);
+  def.props.push(...topTrees);
+  return def;
 }

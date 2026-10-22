@@ -151,173 +151,177 @@ function h32(x: number, y: number): number {
 }
 
 /**
- * The Mystery Shack, painted pixel by pixel: log walls with end caps, a steep
- * central gable with an attic window, a covered porch on posts, a mossy
- * shingle roof, a stone chimney and the roof sign whose S has fallen off.
+ * The Mystery Shack as the show draws it: a tall, steep A-frame whose roof
+ * almost reaches the ground, a lower gift-shop wing to the east, a lean-to to
+ * the west, the big yellow MYSTERY SHACK sign on the roof with its S fallen
+ * over, and the question-mark weathervane.
  */
 export function bakeShack(scene: Phaser.Scene, b: BuildingDef, key: string): { key: string; w: number; h: number } {
   const over = 6;
   const W = b.w * TILE + over * 2;
-  const wallH = Math.round((b.wallHeight ?? 4) * TILE);
-  const roofH = Math.round((b.roofHeight ?? 3) * TILE);
-  const gableH = roofH + 104;
-  const signH = 8;
-  const H = wallH + gableH + signH;
+  const doorX = b.door ? (b.door.x - b.x) * TILE + over + TILE / 2 : W / 2;
+  const aHalf = 128;                       // half width of the A-frame at its eaves
+  const aPeak = Math.round((b.roofHeight ?? 3) * TILE + (b.wallHeight ?? 4) * TILE) + 20;
+  const H = aPeak + 40;
   if (scene.textures.exists(key)) scene.textures.remove(key);
   const tex = scene.textures.createCanvas(key, W, H)!;
   const c = tex.getContext();
   c.imageSmoothingEnabled = false;
   const r = (col: string, x: number, y: number, w: number, h: number) => { c.fillStyle = col; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); };
   const base = H;
-  const wallTop = base - wallH;
-  const roofTop = wallTop - roofH;
-  const doorX = b.door ? (b.door.x - b.x) * TILE + over + TILE / 2 : W / 2;
-  const L = { a: '#6b4428', b: '#5c3a22', hi: '#8a5a34', gap: '#24140a', knot: '#3a2414' };
+  const peakY = base - aPeak;
+  const P = { boardA: '#5a3820', boardB: '#4e301b', boardHi: '#73492a', gap: '#22130a', roofA: '#3b2f25', roofB: '#45372a', roofLine: '#1e160f', moss: '#4f5a28', mossB: '#5f6a2e' };
 
-  const logs = (x0: number, y0: number, w: number, h: number, clip?: (x: number, y: number) => boolean) => {
-    for (let y = y0; y < y0 + h; y += 8) {
-      const col = ((y - y0) / 8) % 2 ? L.a : L.b;
-      for (let x = x0; x < x0 + w; x += 2) {
+  /** vertical board siding inside a clip region */
+  const boards = (x0: number, y0: number, w: number, h: number, clip?: (x: number, y: number) => boolean) => {
+    for (let x = x0; x < x0 + w; x += 2) {
+      const plank = Math.floor((x - x0) / 10);
+      const col = plank % 2 ? P.boardA : P.boardB;
+      for (let y = y0; y < y0 + h; y += 2) {
         if (clip && !clip(x, y)) continue;
-        r(col, x, y, 2, 8);
-        r(L.hi, x, y, 2, 1);
-        r(L.gap, x, y + 7, 2, 1);
-        if (h32(x, y) < 0.02) r(L.knot, x, y + 3, 2, 2);
+        r(col, x, y, 2, 2);
+        if ((x - x0) % 10 === 0) r(P.gap, x, y, 1, 2);
+        else if ((x - x0) % 10 === 2) r(P.boardHi, x, y, 1, 2);
+        if (h32(x >> 1, y >> 3) < 0.012) r('#2e1b0e', x, y, 2, 2);
       }
     }
   };
-
-  // --- main roof (behind the gable): mossy shingles, hipped at the ends
-  for (let y = roofTop; y < wallTop + 6; y += 6) {
-    const t = (y - roofTop) / (wallTop - roofTop);
-    const inset = Math.round((1 - t) * 34);
-    const x0 = inset, x1 = W - inset;
-    const row = (y - roofTop) / 6;
-    for (let x = x0; x < x1; x += 2) {
-      const tone = h32(x >> 3, row) < 0.5 ? '#3f352a' : '#4a3e2f';
-      r(tone, x, y, 2, 6);
-      if (((x + row * 5) % 12) === 0) r('#231a12', x, y, 1, 6);
-      // moss creeps over the shingles
-      if (h32(x >> 2, row * 3) < 0.10 + t * 0.12) r(h32(x, y) < 0.5 ? '#56622c' : '#47512a', x, y + 1, 2, 3);
+  /** shingle rows between two x bounds per row */
+  const shingles = (y0: number, y1: number, span: (y: number) => [number, number] | null) => {
+    for (let y = y0; y < y1; y += 6) {
+      const sp = span(y);
+      if (!sp) continue;
+      const row = (y - y0) / 6;
+      for (let x = Math.round(sp[0]); x < sp[1]; x += 2) {
+        r(h32(x >> 3, row) < 0.5 ? P.roofA : P.roofB, x, y, 2, 6);
+        if (((x + row * 5) % 12) === 0) r(P.roofLine, x, y, 1, 6);
+        if (h32(x >> 2, row * 3) < 0.13) r(h32(x, y) < 0.5 ? P.moss : P.mossB, x, y + 1, 2, 3);
+      }
+      r(P.roofLine, sp[0], y + 5, sp[1] - sp[0], 1);
     }
-    r('#1c140c', x0, y + 5, x1 - x0, 1);
-  }
-  r('#2a1d12', 0, wallTop - 2, W, 6); // eave
-
-  // --- stone chimney on the right
-  const chX = W - 120, chW = 26;
-  for (let y = roofTop - 40; y < wallTop - 10; y += 6) {
-    for (let x = chX; x < chX + chW; x += 8) {
-      const off = ((y / 6) % 2) * 4;
-      r(h32(x, y) < 0.5 ? '#6b6560' : '#58534e', x + off - 4, y, 8, 6);
-      r('#2e2b29', x + off - 4, y + 5, 8, 1);
-    }
-  }
-  r('#2a2522', chX - 3, roofTop - 46, chW + 6, 8);
-
-  // --- walls: horizontal logs with round end caps
-  logs(over, wallTop, W - over * 2, wallH);
-  for (let y = wallTop; y < base - 6; y += 8) {
-    for (const x of [over - 4, W - over - 4]) {
-      r('#4a2e18', x, y + 1, 8, 6);
-      r('#8a5a34', x + 2, y + 2, 4, 4);
-      r('#5c3a22', x + 3, y + 3, 2, 2);
-    }
-  }
-  r('rgba(0,0,0,0.35)', over, wallTop + 4, W - over * 2, 10); // shade under the eave
-
-  // --- central gable with attic window
-  const gw = Math.min(300, Math.round(W * 0.56)), gx0 = doorX - gw / 2, gTop = wallTop - gableH;
-  const inGable = (x: number, y: number) => {
-    const t = (y - gTop) / (wallTop + 6 - gTop);
-    return Math.abs(x - doorX) <= t * (gw / 2);
   };
-  logs(gx0, gTop, gw, wallTop + 6 - gTop, inGable);
-  // bargeboards (roof edges) overhanging the gable
-  for (let y = gTop - 6; y < wallTop + 10; y += 2) {
-    const t = (y - (gTop - 6)) / (wallTop + 10 - (gTop - 6));
-    const half = t * (gw / 2 + 16);
+
+  // ---------------------------------------------------- east wing (gift shop)
+  const eX0 = doorX + aHalf - 20, eX1 = W - over, eWall = 92, eRoof = 54;
+  const eTop = base - eWall;
+  shingles(eTop - eRoof, eTop + 6, (y) => {
+    const t = (y - (eTop - eRoof)) / eRoof;
+    return [eX0, eX1 - (1 - Math.min(1, t)) * 30];
+  });
+  boards(eX0, eTop, eX1 - eX0, eWall);
+  r('rgba(0,0,0,0.38)', eX0, eTop, eX1 - eX0, 8);
+  // shop window and the "GIFT SHOP" board
+  const swx = eX0 + 44, swy = eTop + 22;
+  r('#1e140c', swx - 3, swy - 3, 46, 34);
+  r('#ffc861', swx, swy, 40, 28);
+  r('#ffe6a0', swx + 3, swy + 3, 12, 10);
+  r('#1e140c', swx + 19, swy, 2, 28);
+  r('#7a2a20', swx, swy, 6, 28);
+  // ---------------------------------------------------- west lean-to
+  const wX1 = doorX - aHalf + 20, wX0 = over + 8, wWall = 64;
+  const wTop = base - wWall;
+  shingles(wTop - 30, wTop + 6, (y) => [wX0 + (1 - (y - (wTop - 30)) / 30) * 20, wX1]);
+  boards(wX0, wTop, wX1 - wX0, wWall);
+  r('rgba(0,0,0,0.38)', wX0, wTop, wX1 - wX0, 6);
+  r('#1e140c', wX0 + 22, wTop + 18, 26, 24);
+  r('#e9b45a', wX0 + 25, wTop + 21, 20, 18);
+  r('#1e140c', wX0 + 34, wTop + 21, 2, 18);
+
+  // ---------------------------------------------------- the A-frame
+  const aSide = (y: number) => ((y - peakY) / (base - 18 - peakY)) * aHalf; // half width at y
+  // roof slopes: thick shingled bands along both sides
+  shingles(peakY, base - 12, (y) => [doorX - aSide(y) - 22, doorX + aSide(y) + 22]);
+  // front face, inset from the roof edges
+  const face = (x: number, y: number) => y > peakY + 30 && Math.abs(x - doorX) <= aSide(y) - 18;
+  boards(doorX - aHalf, peakY, aHalf * 2, base - peakY, face);
+  // bargeboards
+  for (let y = peakY; y < base - 10; y += 2) {
+    const hw = aSide(y) + 22;
     for (const s of [-1, 1]) {
-      const x = doorX + s * half;
-      r('#3b2a1a', x - (s > 0 ? 0 : 8), y, 10, 3);
-      r('#4f3a24', x - (s > 0 ? 0 : 8), y, 10, 1);
-      r(h32(x, y) < 0.3 ? '#56622c' : '#2a1d12', x - (s > 0 ? 0 : 8), y + 2, 10, 1);
+      const x = doorX + s * hw;
+      r('#2a1d12', x - (s > 0 ? 6 : 2), y, 8, 3);
+      r('#4a3420', x - (s > 0 ? 6 : 2), y, 8, 1);
     }
   }
-  r('#2a1d12', doorX - 3, gTop - 10, 6, 10); // ridge finial
-  // attic window: octagon, warm light, cross bars
-  const aw = 34, ay = gTop + (wallTop - gTop) * 0.42;
-  r('#1e140c', doorX - aw / 2 - 3, ay - 3, aw + 6, aw + 6);
-  r('#ffcf6a', doorX - aw / 2, ay, aw, aw);
-  r('#ffe9a8', doorX - aw / 2 + 3, ay + 3, aw / 2 - 4, aw / 2 - 4);
-  r('#1e140c', doorX - 1, ay, 2, aw);
-  r('#1e140c', doorX - aw / 2, ay + aw / 2 - 1, aw, 2);
-  for (const [dx, dy] of [[0, 0], [aw - 4, 0], [0, aw - 4], [aw - 4, aw - 4]]) r('#1e140c', doorX - aw / 2 + dx, ay + dy, 4, 4);
-
-  // --- windows on the front wall
-  // two floors of windows; the upper ones only where the gable does not cover the wall
-  const winRows = [wallTop + wallH * 0.52, wallTop + 16];
-  for (const [ri, wy] of winRows.entries()) for (const wt of b.windows ?? []) {
-    const x = (wt - b.x) * TILE + over + 4, y = wy, ww = 24, wh = ri ? 24 : 28;
-    if (ri && Math.abs(x + ww / 2 - doorX) < gw / 2 + 6) continue;
-    r('#1e140c', x - 3, y - 3, ww + 6, wh + 7);
-    r('#ffcf6a', x, y, ww, wh);
-    r('#ffe9a8', x + 2, y + 2, 8, 10);
-    r('#c98a3a', x, y + wh - 6, ww, 6); // lamp-lit sill glow
-    r('#1e140c', x + ww / 2 - 1, y, 2, wh);
-    r('#1e140c', x, y + wh / 2 - 1, ww, 2);
-    r('#7a2a20', x, y, 5, wh); // half-drawn curtain
-    r('#3a2414', x - 4, y + wh + 3, ww + 8, 3);
+  r('#2a1d12', doorX - 4, peakY - 10, 8, 14); // ridge cap
+  // attic window: tall, warm, with its cross
+  const awx = doorX - 15, awy = peakY + 88;
+  r('#1a110a', awx - 4, awy - 4, 38, 46);
+  r('#ffc861', awx, awy, 30, 38);
+  r('#ffe6a0', awx + 3, awy + 3, 10, 12);
+  r('#1a110a', awx + 14, awy, 2, 38);
+  r('#1a110a', awx, awy + 18, 30, 2);
+  r('#3a2414', awx - 6, awy + 42, 42, 4);
+  // second floor windows on the face
+  for (const s of [-1, 1]) {
+    const x = doorX + s * 52 - 13, y = base - 150;
+    r('#1a110a', x - 3, y - 3, 32, 34);
+    r('#ffc861', x, y, 26, 28);
+    r('#ffe6a0', x + 2, y + 2, 9, 9);
+    r('#1a110a', x + 12, y, 2, 28);
+    r('#1a110a', x, y + 13, 26, 2);
+    r('#7a2a20', s < 0 ? x : x + 21, y, 5, 28);
   }
-
-  // --- covered porch: slanted roof on posts, plank floor
-  const pTop = base - 74, px0 = 18, px1 = W - 18;
-  for (let y = pTop; y < pTop + 14; y += 2) {
-    r(((y - pTop) / 2) % 2 ? '#4a3e2f' : '#3f352a', px0 - (y - pTop) / 2, y, px1 - px0 + (y - pTop), 2);
+  // porch roof across the A-frame front, on two posts
+  const pTop = base - 78, pw = aHalf * 2 - 40;
+  for (let y = pTop; y < pTop + 14; y += 2) r(((y - pTop) / 2) % 2 ? P.roofB : P.roofA, doorX - pw / 2 - (y - pTop) / 2, y, pw + (y - pTop), 2);
+  r(P.roofLine, doorX - pw / 2 - 7, pTop + 14, pw + 14, 2);
+  r('rgba(0,0,0,0.3)', doorX - pw / 2, pTop + 16, pw, 10);
+  for (const s of [-1, 1]) {
+    const x = doorX + s * (pw / 2 - 8) - 3;
+    r('#3a2414', x, pTop + 16, 6, base - pTop - 24);
+    r('#5c3a22', x + 1, pTop + 16, 2, base - pTop - 24);
   }
-  r('#1c140c', px0 - 7, pTop + 14, px1 - px0 + 14, 2);
-  for (let x = px0 + 6; x < px1; x += 70) {
-    if (Math.abs(x - doorX) < 34) continue;
-    r('#3a2414', x, pTop + 16, 6, base - pTop - 22);
-    r('#5c3a22', x + 1, pTop + 16, 2, base - pTop - 22);
-  }
-  r('rgba(0,0,0,0.28)', px0, pTop + 16, px1 - px0, 10);
-  for (let x = px0 - 6; x < px1 + 6; x += 4) {
-    r(((x - px0) / 4) % 2 ? '#7a5636' : '#6a4a2e', x, base - 8, 4, 8);
+  for (let x = doorX - pw / 2 - 4; x < doorX + pw / 2 + 4; x += 4) {
+    r(((x - doorX) / 4) % 2 ? '#7a5636' : '#6a4a2e', x, base - 8, 4, 8);
     r('#2a1a0e', x + 3, base - 8, 1, 8);
   }
-  r('#2a1a0e', px0 - 6, base - 9, px1 - px0 + 12, 1);
-
-  // --- front door with the "?" plaque
+  // ground-floor windows beside the door
+  for (const s of [-1, 1]) {
+    const x = doorX + s * 58 - 14, y = base - 56;
+    r('#1a110a', x - 3, y - 3, 34, 32);
+    r('#ffc861', x, y, 28, 26);
+    r('#ffe6a0', x + 2, y + 2, 10, 9);
+    r('#c98a3a', x, y + 20, 28, 6);
+    r('#1a110a', x + 13, y, 2, 26);
+  }
+  // door with the "?" plaque
   if (b.door) {
     const dw = 28, dh = 50, x = doorX - dw / 2, y = base - 8 - dh;
-    r('#1e140c', x - 4, y - 4, dw + 8, dh + 4);
+    r('#1a110a', x - 4, y - 4, dw + 8, dh + 4);
     r('#3a2414', x, y, dw, dh);
     for (let i = 4; i < dw; i += 7) r('#2a180c', x + i, y + 2, 1, dh - 4);
     r('#d9b45a', x + dw - 7, y + dh / 2, 3, 3);
-    r('#2a1a0e', doorX - 9, y - 18, 18, 12);
-    drawPixelText(c, '?', doorX - 3, y - 16, 2, '#ffd27a');
   }
 
-  // --- the roof sign, with its S fallen onto the shingles
-  const sc = 2;
-  const word1 = 'MYSTERY', word2 = 'HACK';
-  const sw = textWidth(`${word1}  ${word2}`, sc) + 16;
-  const sx = Math.round(doorX - gw / 2 - sw + 30), sy = roofTop - 26;
-  r('#2a1a0e', sx + 10, sy + 24, 4, 16);
-  r('#2a1a0e', sx + sw - 14, sy + 24, 4, 16);
-  r('#2a1a0e', sx - 2, sy - 2, sw + 4, 28);
-  r('#5a3a20', sx, sy, sw, 24);
-  r('#6b4428', sx, sy, sw, 2);
-  drawPixelText(c, word1, sx + 8, sy + 7, sc, '#f2e3b3');
-  const gapX = sx + 8 + textWidth(`${word1} `, sc) + 2;
-  drawPixelText(c, word2, gapX + 4 * sc + 2, sy + 7, sc, '#f2e3b3');
-  // the S, lying on its side on the roof
+  // ---------------------------------------------------- the sign
+  const sc = 3;
+  const l1 = 'MYSTERY', l2 = 'HACK';
+  const sw = textWidth(l1, sc) + 28, sh = 2 * 5 * sc + 30;
+  const sx = Math.round(Math.min(W - sw - 10, doorX + 52)), sy = Math.round(peakY + 40);
+  // posts down onto the east roof
+  for (const px of [sx + 24, sx + sw - 30]) {
+    r('#2a1a0e', px, sy + sh - 2, 6, eTop - eRoof + 12 - (sy + sh) + 2 > 0 ? eTop - eRoof + 12 - (sy + sh) : 24);
+  }
+  r('#2a1a0e', sx - 3, sy - 3, sw + 6, sh + 6);
+  r('#8f6a1c', sx, sy, sw, sh);
+  r('#e6c149', sx + 3, sy + 3, sw - 6, sh - 6);
+  r('#f5d870', sx + 3, sy + 3, sw - 6, 3);
+  for (let i = 0; i < 7; i++) r('rgba(120,80,20,0.25)', sx + 8 + h32(i, 3) * (sw - 20), sy + 6 + h32(i, 9) * (sh - 12), 6, 2);
+  drawPixelText(c, l1, sx + 14, sy + 10, sc, '#4a2610');
+  // second line: an empty gap where the S used to be, then HACK
+  const l2x = sx + 14 + 4 * sc;
+  drawPixelText(c, l2, l2x, sy + 10 + 6 * sc, sc, '#4a2610');
+  // the fallen S, lying crooked on the east roof below the sign
+  const fx = sx + sw - 10, fy = eTop - eRoof + 18;
+  r('#2a1a0e', fx - 3, fy - 3, 30, 22);
+  r('#e6c149', fx, fy, 24, 16);
   const sG = '011100010001110';
-  const fx = gapX - 2, fy = roofTop + 26;
-  r('#2a1a0e', fx - 2, fy - 2, 14, 10);
-  r('#5a3a20', fx - 1, fy - 1, 12, 8);
-  for (let i = 0; i < 15; i++) if (sG[i] === '1') r('#f2e3b3', fx + Math.floor(i / 3) * 2, fy + (2 - (i % 3)) * 2, 2, 2);
+  for (let i = 0; i < 15; i++) if (sG[i] === '1') r('#4a2610', fx + 3 + Math.floor(i / 3) * 4, fy + 2 + (2 - (i % 3)) * 4, 4, 4);
+  // question-mark weathervane on the east wing
+  const vx = W - over - 40, vy = eTop - eRoof - 54;
+  r('#1a110a', vx, vy + 20, 3, 40);
+  drawPixelText(c, '?', vx - 5, vy, 3, '#1a110a');
 
   tex.refresh();
   return { key, w: W, h: H };

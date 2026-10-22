@@ -6,7 +6,7 @@
  "music": "shack",
  "reference": "shack_exterior",
  "width": 44,
- "height": 32,
+ "height": 36,
  "ambient": {
   "motes": "fireflies",
   "night": 0.5,
@@ -16,7 +16,7 @@
   {
    "id": "mystery_shack",
    "x": 14,
-   "y": 6,
+   "y": 10,
    "w": 15,
    "h": 5,
    "style": "shack",
@@ -38,553 +38,553 @@
   {
    "prop": "nature/pine_b",
    "x": 2.62,
-   "y": 1.01,
+   "y": 5.01,
    "flip": true
   },
   {
    "prop": "nature/pine",
    "x": 4.53,
-   "y": 1.07,
+   "y": 5.07,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
    "x": 6.51,
-   "y": 0.91,
+   "y": 4.91,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
    "x": 8.38,
-   "y": 1.14,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine",
-   "x": 10.29,
-   "y": 0.9,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 12.24,
-   "y": 1.12,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 14.78,
-   "y": 1.04,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine",
-   "x": 16.3,
-   "y": 0.96,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 20.42,
-   "y": 0.98,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 22.61,
-   "y": 0.95,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine",
-   "x": 24.75,
-   "y": 0.95,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine",
-   "x": 26.23,
-   "y": 1.06,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 28.59,
-   "y": 1.13,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 30.73,
-   "y": 1.14,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 32.78,
-   "y": 1.01,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine",
-   "x": 36.63,
-   "y": 1.01,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 38.69,
-   "y": 0.98,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 40.39,
-   "y": 0.92,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 1.58,
-   "y": 2.85,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 3.8,
-   "y": 2.93,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 5.57,
-   "y": 3.1,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 7.54,
-   "y": 2.9,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 9.72,
-   "y": 3.07,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 11.64,
-   "y": 3.14,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 13.68,
-   "y": 3.11,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine",
-   "x": 15.52,
-   "y": 2.9,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine",
-   "x": 17.3,
-   "y": 2.85,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 21.79,
-   "y": 2.87,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine",
-   "x": 23.64,
-   "y": 2.96,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 25.68,
-   "y": 3.01,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 27.38,
-   "y": 3.01,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine",
-   "x": 29.7,
-   "y": 3.1,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine",
-   "x": 31.75,
-   "y": 2.93,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 33.44,
-   "y": 3.14,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine",
-   "x": 35.52,
-   "y": 2.94,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 37.7,
-   "y": 3,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 39.53,
-   "y": 3.05,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine",
-   "x": 41.57,
-   "y": 3.11,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine",
-   "x": 43.61,
-   "y": 3.07,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine",
-   "x": 0.24,
-   "y": 5.07,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 2.78,
-   "y": 4.92,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 4.43,
-   "y": 5.06,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 6.57,
-   "y": 5.03,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine",
-   "x": 8.28,
-   "y": 5.07,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 10.73,
    "y": 5.14,
    "flip": true
   },
   {
    "prop": "nature/pine",
+   "x": 10.29,
+   "y": 4.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 12.24,
+   "y": 5.12,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 14.78,
+   "y": 5.04,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 16.3,
+   "y": 4.96,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 20.42,
+   "y": 4.98,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 22.61,
+   "y": 4.95,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 24.75,
+   "y": 4.95,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 26.23,
+   "y": 5.06,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 28.59,
+   "y": 5.13,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 30.73,
+   "y": 5.14,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 32.78,
+   "y": 5.01,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 36.63,
+   "y": 5.01,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 38.69,
+   "y": 4.98,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 40.39,
+   "y": 4.92,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 1.58,
+   "y": 6.85,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 3.8,
+   "y": 6.93,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 5.57,
+   "y": 7.1,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 7.54,
+   "y": 6.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 9.72,
+   "y": 7.07,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 11.64,
+   "y": 7.14,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 13.68,
+   "y": 7.11,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 15.52,
+   "y": 6.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 17.3,
+   "y": 6.85,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 21.79,
+   "y": 6.87,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 23.64,
+   "y": 6.96,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 25.68,
+   "y": 7.01,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 27.38,
+   "y": 7.01,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 29.7,
+   "y": 7.1,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 31.75,
+   "y": 6.93,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 33.44,
+   "y": 7.14,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 35.52,
+   "y": 6.94,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 37.7,
+   "y": 7,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 39.53,
+   "y": 7.05,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 41.57,
+   "y": 7.11,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 43.61,
+   "y": 7.07,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 0.24,
+   "y": 9.07,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 2.78,
+   "y": 8.92,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 4.43,
+   "y": 9.06,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 6.57,
+   "y": 9.03,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 8.28,
+   "y": 9.07,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 10.73,
+   "y": 9.14,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
    "x": 42.51,
-   "y": 4.97,
+   "y": 8.97,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 1.74,
-   "y": 6.93,
+   "y": 10.93,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
    "x": 3.68,
-   "y": 6.95,
+   "y": 10.95,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 41.2,
-   "y": 6.9,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine",
-   "x": 43.75,
-   "y": 6.93,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 0.63,
-   "y": 8.87,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine",
-   "x": 2.25,
-   "y": 8.96,
-   "flip": false
-  },
-  {
-   "prop": "nature/pine",
-   "x": 10.5,
-   "y": 8.88,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 42.3,
-   "y": 9.08,
-   "flip": true
-  },
-  {
-   "prop": "nature/pine_b",
-   "x": 1.22,
    "y": 10.9,
    "flip": false
   },
   {
    "prop": "nature/pine",
+   "x": 43.75,
+   "y": 10.93,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.63,
+   "y": 12.87,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 2.25,
+   "y": 12.96,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 10.5,
+   "y": 12.88,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 42.3,
+   "y": 13.08,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 1.22,
+   "y": 14.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
    "x": 0.7,
-   "y": 13.04,
+   "y": 17.04,
    "flip": true
   },
   {
    "prop": "nature/pine",
    "x": 2.79,
-   "y": 13.06,
+   "y": 17.06,
    "flip": true
   },
   {
    "prop": "nature/pine",
    "x": 0.51,
-   "y": 16.98,
+   "y": 20.98,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 42.3,
-   "y": 16.92,
+   "y": 20.92,
    "flip": true
   },
   {
    "prop": "nature/pine",
    "x": 1.22,
-   "y": 19.13,
+   "y": 23.13,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 41.62,
-   "y": 18.9,
+   "y": 22.9,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 43.63,
-   "y": 19.1,
+   "y": 23.1,
    "flip": true
   },
   {
    "prop": "nature/pine",
    "x": 0.23,
-   "y": 21.13,
+   "y": 25.13,
    "flip": true
   },
   {
    "prop": "nature/pine",
    "x": 2.41,
-   "y": 21.09,
+   "y": 25.09,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 1.62,
-   "y": 23.11,
+   "y": 27.11,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 0.39,
-   "y": 24.97,
+   "y": 28.97,
    "flip": false
   },
   {
    "prop": "nature/pine",
    "x": 2.5,
-   "y": 25.03,
+   "y": 29.03,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 42.34,
-   "y": 25.07,
+   "y": 29.07,
    "flip": false
   },
   {
    "prop": "nature/pine",
    "x": 1.69,
-   "y": 26.89,
+   "y": 30.89,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 41.58,
-   "y": 26.87,
+   "y": 30.87,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
    "x": 43.51,
-   "y": 27.06,
+   "y": 31.06,
    "flip": true
   },
   {
    "prop": "nature/pine",
    "x": 0.66,
-   "y": 28.98,
+   "y": 32.98,
    "flip": true
   },
   {
    "prop": "nature/pine",
    "x": 2.71,
-   "y": 29.15,
+   "y": 33.15,
    "flip": false
   },
   {
    "prop": "nature/pine",
    "x": 42.49,
-   "y": 28.9,
+   "y": 32.9,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
    "x": 1.33,
-   "y": 30.85,
+   "y": 34.85,
    "flip": true
   },
   {
    "prop": "nature/pine",
    "x": 3.52,
-   "y": 31.13,
+   "y": 35.13,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
    "x": 5.38,
-   "y": 30.88,
+   "y": 34.88,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 7.47,
-   "y": 31.05,
+   "y": 35.05,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 9.67,
-   "y": 31.01,
+   "y": 35.01,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 11.56,
-   "y": 31.05,
+   "y": 35.05,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 13.72,
-   "y": 31.05,
+   "y": 35.05,
    "flip": false
   },
   {
    "prop": "nature/pine",
    "x": 15.8,
-   "y": 30.91,
+   "y": 34.91,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 27.69,
-   "y": 30.93,
+   "y": 34.93,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
    "x": 29.59,
-   "y": 30.95,
+   "y": 34.95,
    "flip": true
   },
   {
    "prop": "nature/pine_b",
    "x": 31.26,
-   "y": 30.9,
+   "y": 34.9,
    "flip": true
   },
   {
    "prop": "nature/pine",
    "x": 33.63,
-   "y": 30.85,
+   "y": 34.85,
    "flip": false
   },
   {
    "prop": "nature/pine_b",
    "x": 35.57,
-   "y": 30.97,
+   "y": 34.97,
    "flip": false
   },
   {
    "prop": "nature/pine",
    "x": 37.6,
-   "y": 31.08,
+   "y": 35.08,
    "flip": false
   },
   {
    "prop": "nature/pine",
    "x": 39.57,
-   "y": 30.92,
+   "y": 34.92,
    "flip": true
   },
   {
    "prop": "nature/pine",
    "x": 41.66,
-   "y": 30.9,
+   "y": 34.9,
    "flip": true
   },
   {
    "prop": "nature/pine",
    "x": 43.76,
-   "y": 31.12,
+   "y": 35.12,
    "flip": false
   },
   {
    "prop": "nature/pine",
    "x": 1,
-   "y": 33.6,
+   "y": 37.6,
    "scale": 2,
    "layer": "foreground",
    "flip": true
@@ -592,7 +592,7 @@
   {
    "prop": "nature/pine_b",
    "x": 4,
-   "y": 33.6,
+   "y": 37.6,
    "scale": 2,
    "layer": "foreground",
    "flip": false
@@ -600,7 +600,7 @@
   {
    "prop": "nature/pine",
    "x": 7,
-   "y": 33.6,
+   "y": 37.6,
    "scale": 2,
    "layer": "foreground",
    "flip": false
@@ -608,7 +608,7 @@
   {
    "prop": "nature/pine_b",
    "x": 10,
-   "y": 33.6,
+   "y": 37.6,
    "scale": 2,
    "layer": "foreground",
    "flip": false
@@ -616,7 +616,7 @@
   {
    "prop": "nature/pine",
    "x": 13,
-   "y": 33.6,
+   "y": 37.6,
    "scale": 2,
    "layer": "foreground",
    "flip": true
@@ -624,7 +624,7 @@
   {
    "prop": "nature/pine_b",
    "x": 16,
-   "y": 33.6,
+   "y": 37.6,
    "scale": 2,
    "layer": "foreground",
    "flip": false
@@ -632,7 +632,7 @@
   {
    "prop": "nature/pine",
    "x": 19,
-   "y": 33.6,
+   "y": 37.6,
    "scale": 2,
    "layer": "foreground",
    "flip": false
@@ -640,7 +640,7 @@
   {
    "prop": "nature/pine_b",
    "x": 22,
-   "y": 33.6,
+   "y": 37.6,
    "scale": 2,
    "layer": "foreground",
    "flip": false
@@ -648,7 +648,7 @@
   {
    "prop": "nature/pine",
    "x": 25,
-   "y": 33.6,
+   "y": 37.6,
    "scale": 2,
    "layer": "foreground",
    "flip": true
@@ -656,7 +656,7 @@
   {
    "prop": "nature/pine_b",
    "x": 28,
-   "y": 33.6,
+   "y": 37.6,
    "scale": 2,
    "layer": "foreground",
    "flip": false
@@ -664,7 +664,7 @@
   {
    "prop": "nature/pine",
    "x": 31,
-   "y": 33.6,
+   "y": 37.6,
    "scale": 2,
    "layer": "foreground",
    "flip": false
@@ -672,7 +672,7 @@
   {
    "prop": "nature/pine_b",
    "x": 34,
-   "y": 33.6,
+   "y": 37.6,
    "scale": 2,
    "layer": "foreground",
    "flip": false
@@ -680,7 +680,7 @@
   {
    "prop": "nature/pine",
    "x": 37,
-   "y": 33.6,
+   "y": 37.6,
    "scale": 2,
    "layer": "foreground",
    "flip": true
@@ -688,7 +688,7 @@
   {
    "prop": "nature/pine_b",
    "x": 40,
-   "y": 33.6,
+   "y": 37.6,
    "scale": 2,
    "layer": "foreground",
    "flip": false
@@ -696,7 +696,7 @@
   {
    "prop": "nature/pine",
    "x": 43,
-   "y": 33.6,
+   "y": 37.6,
    "scale": 2,
    "layer": "foreground",
    "flip": false
@@ -704,104 +704,356 @@
   {
    "prop": "nature/pine",
    "x": 10.5,
-   "y": 16.4
+   "y": 20.4
   },
   {
    "prop": "nature/pine",
    "x": 12.4,
-   "y": 26.8
+   "y": 30.8
   },
   {
    "prop": "nature/pine_b",
    "x": 28.4,
-   "y": 29.2
+   "y": 33.2
   },
   {
    "prop": "nature/woodshed",
    "x": 34.6,
-   "y": 10.4
+   "y": 14.4
   },
   {
    "prop": "nature/lamp_post",
    "x": 19.4,
-   "y": 11.4
+   "y": 15.4
   },
   {
    "prop": "nature/lamp_post",
    "x": 23.6,
-   "y": 17.6
+   "y": 21.6
   },
   {
    "prop": "nature/lamp_post",
    "x": 36.5,
-   "y": 12.2
+   "y": 16.2
   },
   {
    "prop": "nature/mailbox",
    "x": 24.6,
-   "y": 14.6
+   "y": 18.6
   },
   {
    "prop": "nature/stump",
    "x": 31.5,
-   "y": 15.4
+   "y": 19.4
   },
   {
    "prop": "nature/stump",
    "x": 15.4,
-   "y": 24.8
+   "y": 28.8
   },
   {
    "prop": "nature/rock",
    "x": 13.5,
-   "y": 22.6
+   "y": 26.6
   },
   {
    "prop": "nature/rock_b",
    "x": 29.5,
-   "y": 23.2
+   "y": 27.2
   },
   {
    "prop": "nature/cattails",
    "x": 10.5,
-   "y": 15.8
+   "y": 19.8
   },
   {
    "prop": "nature/cattails",
    "x": 27.5,
-   "y": 18.6
+   "y": 22.6
   },
   {
    "prop": "nature/log",
    "id": "tutorial_log",
    "x": 9.8,
-   "y": 13.6
+   "y": 17.6
   },
   {
    "prop": "nature/fence",
    "x": 31.5,
-   "y": 13.6
+   "y": 17.6
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.56,
+   "y": 1.03,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 2.52,
+   "y": 1.03,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 4.45,
+   "y": 1.05,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 6.37,
+   "y": 0.97,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 8.56,
+   "y": 1.02,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 10.66,
+   "y": 0.95,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 12.64,
+   "y": 1.14,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 14.41,
+   "y": 1.02,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 16.71,
+   "y": 1.1,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 20.5,
+   "y": 1.01,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 22.25,
+   "y": 1.04,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 24.79,
+   "y": 0.98,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 26.64,
+   "y": 0.98,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 28.41,
+   "y": 1.1,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 30.57,
+   "y": 0.89,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 32.71,
+   "y": 1.04,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 34.46,
+   "y": 0.94,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 38.44,
+   "y": 0.89,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 40.51,
+   "y": 0.88,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 42.78,
+   "y": 1.03,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 1.26,
+   "y": 3.05,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 3.28,
+   "y": 2.89,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 5.76,
+   "y": 2.96,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 7.37,
+   "y": 3.05,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 9.63,
+   "y": 2.94,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 11.31,
+   "y": 3.09,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 13.46,
+   "y": 3.11,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 15.2,
+   "y": 3,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 17.24,
+   "y": 2.88,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 19.7,
+   "y": 3.13,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 21.56,
+   "y": 2.97,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 23.24,
+   "y": 2.99,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 25.45,
+   "y": 2.95,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 27.38,
+   "y": 2.98,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 29.54,
+   "y": 3.04,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 31.69,
+   "y": 2.89,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 33.7,
+   "y": 3.07,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 35.65,
+   "y": 2.91,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 37.73,
+   "y": 3.04,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 39.62,
+   "y": 2.97,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 41.28,
+   "y": 3.04,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 43.72,
+   "y": 3.01,
+   "flip": false
   }
  ],
  "spawns": {
   "default": {
    "x": 21.5,
-   "y": 15,
+   "y": 19,
    "dir": "north"
   },
   "door": {
    "x": 21.5,
-   "y": 12.2,
+   "y": 16.2,
    "dir": "south"
   },
   "east": {
    "x": 41,
-   "y": 13,
+   "y": 17,
    "dir": "west"
   },
   "south": {
    "x": 21.5,
-   "y": 29.5,
+   "y": 33.5,
    "dir": "north"
   }
  },
@@ -809,7 +1061,7 @@
   {
    "id": "shack_door",
    "x": 21,
-   "y": 10,
+   "y": 14,
    "w": 1,
    "h": 1,
    "to": "shack_interior",
@@ -819,7 +1071,7 @@
   {
    "id": "to_town_invaded",
    "x": 43,
-   "y": 11,
+   "y": 15,
    "w": 1,
    "h": 3,
    "to": "town_invaded",
@@ -831,7 +1083,7 @@
   {
    "id": "to_town",
    "x": 43,
-   "y": 11,
+   "y": 15,
    "w": 1,
    "h": 3,
    "to": "town_center",
@@ -849,7 +1101,7 @@
   {
    "id": "to_forest",
    "x": 20,
-   "y": 31,
+   "y": 35,
    "w": 4,
    "h": 1,
    "to": "forest_lake_cave",
@@ -865,7 +1117,7 @@
    "id": "soos",
    "character": "soos",
    "x": 33,
-   "y": 12.2,
+   "y": 16.2,
    "dir": "west",
    "dialogue": "soos",
    "if": {
@@ -878,7 +1130,7 @@
    "id": "wendy",
    "character": "wendy",
    "x": 26.4,
-   "y": 12.4,
+   "y": 16.4,
    "dir": "south",
    "dialogue": "wendy",
    "if": {
@@ -891,7 +1143,7 @@
    "id": "waddles_home",
    "character": "waddles",
    "x": 18.5,
-   "y": 14.5,
+   "y": 18.5,
    "dialogue": "waddles",
    "wander": 2,
    "if": {
@@ -902,7 +1154,7 @@
    "id": "bill_echo_shack",
    "character": "bill",
    "x": 37.5,
-   "y": 17.5,
+   "y": 21.5,
    "dialogue": "bill_shack",
    "if": {
     "all": [
@@ -923,7 +1175,7 @@
    "id": "shack_teeth",
    "type": "teeth",
    "x": 34,
-   "y": 17.5,
+   "y": 21.5,
    "if": {
     "flag": "bill_threat"
    }
@@ -934,7 +1186,7 @@
    "id": "sign_shack",
    "kind": "examine",
    "x": 19.5,
-   "y": 15.6,
+   "y": 19.6,
    "prop": "nature/signpost",
    "label": "Ler a placa",
    "text": "\"CABANA DO MISTÉRIO — Atracções genuínas! Entrada: dez dólares. Saída: outros dez.\" Alguém riscou \"genuínas\" a lápis."
@@ -943,7 +1195,7 @@
    "id": "lookout_chest",
    "kind": "chest",
    "x": 6.5,
-   "y": 6.8,
+   "y": 10.8,
    "prop": "interiors/crate",
    "item": "medkit",
    "label": "Abrir a caixa",
@@ -953,7 +1205,7 @@
    "id": "rest_bench",
    "kind": "save",
    "x": 28.6,
-   "y": 14.8,
+   "y": 18.8,
    "prop": "nature/bench",
    "label": "Sentar e gravar",
    "solid": true
@@ -962,17 +1214,17 @@
    "id": "grapple_post_pond",
    "kind": "grapple",
    "x": 35.6,
-   "y": 25.7,
+   "y": 29.7,
    "landing": {
     "x": 34.5,
-    "y": 25.9
+    "y": 29.9
    }
   },
   {
    "id": "islet_snack",
    "kind": "pickup",
    "x": 34.4,
-   "y": 25.6,
+   "y": 29.6,
    "item": "waddles_snack",
    "label": "Apanhar a bolacha"
   },
@@ -980,7 +1232,7 @@
    "id": "mailbox_note",
    "kind": "examine",
    "x": 24.6,
-   "y": 15.1,
+   "y": 19.1,
    "label": "Espreitar o correio",
    "text": "Cartas por abrir há trinta anos, endereçadas a \"Stanford Pines\". O Stan assina tudo como Stanford. Estranho."
   }
@@ -989,7 +1241,7 @@
   {
    "id": "tut_water",
    "x": 18,
-   "y": 16,
+   "y": 20,
    "w": 8,
    "h": 2,
    "once": true,
@@ -1004,7 +1256,7 @@
   {
    "id": "shack_front",
    "x": 21.5,
-   "y": 14.5
+   "y": 18.5
   }
  ],
  "onEnter": [
@@ -1013,6 +1265,10 @@
   }
  ],
  "terrain": [
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
   "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
   "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
   "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",

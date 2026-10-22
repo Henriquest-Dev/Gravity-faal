@@ -7,6 +7,7 @@ import type { DialogueChoice, DialogueDef, DialogueNode } from './types';
 export interface DialogueView {
   speaker: string;
   text: string;
+  mood?: string;
   choices: DialogueChoice[];
 }
 
@@ -46,7 +47,7 @@ export class DialogueRunner {
 
   get view(): DialogueView | null {
     if (!this.node) return null;
-    return { speaker: this.node.speaker, text: this.node.text, choices: this.visibleChoices() };
+    return { speaker: this.node.speaker, text: this.node.text, mood: this.node.mood, choices: this.visibleChoices() };
   }
 
   visibleChoices(): DialogueChoice[] {

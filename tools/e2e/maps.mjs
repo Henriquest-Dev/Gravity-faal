@@ -35,6 +35,18 @@ for (const m of maps) {
   }, m);
   await page.waitForFunction((id) => window.__gf.state().mapId === id && !document.querySelector('.loading:not(.hidden)'), m, { timeout: 30000 });
   await page.waitForTimeout(900);
+  if (process.env.LOOK) {
+    // frame a world point (tiles) for a still: "x,y"
+    await page.evaluate((v) => { const [x, y] = v.split(',').map(Number); const cam = window.__gf.scene.cameras.main; cam.stopFollow(); cam.centerOn(x * 32, y * 32); }, process.env.LOOK);
+    await page.waitForTimeout(400);
+  }
+  if (process.env.WALK) {
+    const [key, ms] = process.env.WALK.split(':');
+    await page.keyboard.down(key);
+    await page.waitForTimeout(Number(ms));
+    await page.keyboard.up(key);
+    await page.waitForTimeout(700);
+  }
   await page.screenshot({ path: `${out}/${m}.png` });
   console.log('shot', m);
 }

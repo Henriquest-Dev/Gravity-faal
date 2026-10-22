@@ -8,6 +8,8 @@ import { ASSET_ROOT, getManifest } from '../assets';
 import { ABILITIES, CHARACTERS, ENEMIES, ITEMS, MAPS, QUESTS } from '../data';
 import { session } from '../session';
 import { ACTION_LABELS, type Action } from '../systems/Input';
+import { icon, pipFor } from './icons';
+import { hasPortrait, inferMood, portrait, speakerId, type Mood } from './portraits';
 import { TouchControls } from './Touch';
 
 export interface UiHost {
@@ -63,13 +65,19 @@ export class Ui {
     this.root.className = 'ui';
     this.root.innerHTML = `
       <div class="hud hidden">
-        <div class="hud-left"><div class="hud-name"></div><div class="hud-hearts"></div><div class="hud-energy"><i></i></div></div>
-        <div class="hud-obj"></div>
-        <div class="hud-right"><div class="hud-ability"></div><div class="hud-area"></div></div>
+        <div class="hud-who">
+          <div class="medal"><img alt=""></div>
+          <div class="vitals"><div class="who-name"></div><div class="pips"></div><div class="energy"><i></i></div><div class="hud-ability"></div></div>
+        </div>
+        <button class="hud-obj" aria-label="Abrir o diário"><span class="q-title"></span><span class="q-text"></span></button>
       </div>
       <div class="toasts"></div>
       <div class="prompt hidden"></div>
-      <div class="dialogue hidden"><div class="d-speaker"></div><div class="d-text"></div><div class="d-choices"></div><div class="d-next">▼</div></div>
+      <div class="dialogue hidden">
+        <div class="d-portrait"><img alt=""></div>
+        <div class="d-body"><div class="d-speaker"></div><div class="d-text"></div><div class="d-choices"></div></div>
+        <div class="d-next" aria-hidden="true"></div>
+      </div>
       <div class="panel hidden"></div>
       <div class="banner hidden"></div>
       <div class="loading hidden"><div class="l-art"></div><div class="l-text"></div><div class="l-bar"><i></i></div><div class="l-err"></div></div>`;
@@ -120,23 +128,43 @@ export class Ui {
     const key = `${s.character}|${hp}|${s.maxHp}|${Math.round(s.energy)}|${objective}|${abilityId}|${mapName}`;
     if (key === this.lastHud) return;
     this.lastHud = key;
-    this.hud.querySelector('.hud-name')!.textContent = CHARACTERS[s.character]?.name ?? s.character;
-    let hearts = '';
-    for (let i = 0; i < s.maxHp; i++) hearts += `<span class="${i < hp ? 'h-on' : 'h-off'}">♥</span>`;
-    this.hud.querySelector('.hud-hearts')!.innerHTML = hearts;
-    (this.hud.querySelector('.hud-energy i') as HTMLElement).style.width = `${(s.energy / s.maxEnergy) * 100}%`;
-    this.hud.querySelector('.hud-obj')!.textContent = objective;
+    const name = this.hud.querySelector('.who-name')!;
+    if (name.textContent !== (CHARACTERS[s.character]?.name ?? s.character)) {
+      name.textContent = CHARACTERS[s.character]?.name ?? s.character;
+      const img = this.hud.querySelector('.medal img') as HTMLImageElement;
+      img.style.visibility = 'hidden';
+      void portrait(s.character, 'neutral', 96).then((u) => { if (u) { img.src = u; img.style.visibility = ''; } });
+      this.hud.dataset.who = s.character;
+    }
+    const pip = pipFor(s.character);
+    const pips = this.hud.querySelector('.pips')!;
+    let html = '';
+    for (let i = 0; i < s.maxHp; i++) html += `<span class="pip ${i < hp ? 'on' : 'off'}">${icon(pip)}</span>`;
+    pips.innerHTML = html;
+    pips.classList.toggle('low', hp <= 2);
+    (this.hud.querySelector('.energy i') as HTMLElement).style.width = `${(s.energy / s.maxEnergy) * 100}%`;
+    const main = Object.entries(s.quests).find(([id, q]) => q.state === 'active' && QUESTS[id]?.arc === s.arc && QUESTS[id]?.main)
+      ?? Object.entries(s.quests).find(([id, q]) => q.state === 'active' && QUESTS[id]?.arc === s.arc);
+    const obj = this.hud.querySelector('.hud-obj') as HTMLElement;
+    obj.classList.toggle('hidden', !objective);
+    if (obj.querySelector('.q-text')!.textContent !== objective) {
+      obj.querySelector('.q-title')!.textContent = main ? QUESTS[main[0]].title : 'Diário';
+      obj.querySelector('.q-text')!.textContent = objective;
+      obj.classList.remove('fresh');
+      void obj.offsetWidth;
+      obj.classList.add('fresh');
+    }
     const ab = abilityId ? ABILITIES[abilityId] : null;
-    this.hud.querySelector('.hud-ability')!.innerHTML = ab ? `◈ ${esc(ab.name)} <small>${ab.energy ? ab.energy + '⚡' : ''}</small>` : '';
-    this.hud.querySelector('.hud-area')!.textContent = mapName;
+    this.hud.querySelector('.hud-ability')!.innerHTML = ab ? `${icon(abilityId!)}<span>${esc(ab.name)}</span>` : '';
   }
 
-  toast(text: string, ms = 2600): void {
+  /** Short ink note. `kind` styles quest news, discoveries and warnings differently. */
+  toast(text: string, ms = 2600, kind: 'note' | 'quest' | 'item' | 'warn' = 'note', label = ''): void {
     const t = document.createElement('div');
-    t.className = 'toast';
-    t.textContent = text;
+    t.className = `toast ${kind}`;
+    t.innerHTML = `${label ? `<b>${esc(label)}</b>` : ''}<span>${esc(text)}</span>`;
     // identical messages are not stacked
-    for (const c of this.toasts.children) if (c.textContent === text) c.remove();
+    for (const c of this.toasts.children) if (c.querySelector('span')?.textContent === text) c.remove();
     this.toasts.appendChild(t);
     const max = window.innerHeight < 480 ? 2 : 4;
     while (this.toasts.children.length > max) this.toasts.firstChild!.remove();
@@ -150,7 +178,7 @@ export class Ui {
       return;
     }
     const touch = session.touchVisible();
-    const html = touch ? esc(text) : `<b>${esc(session.input.keyLabel('interact'))}</b> ${esc(text)}`;
+    const html = touch ? `${icon('eye')}<span>${esc(text)}</span>` : `<kbd>${esc(session.input.keyLabel('interact'))}</kbd><span>${esc(text)}</span>`;
     if (this.promptEl.innerHTML !== html) this.promptEl.innerHTML = html;
     this.promptEl.classList.remove('hidden');
   }
@@ -168,6 +196,22 @@ export class Ui {
     const v = this.runner?.view;
     if (!v) return this.closeDialogue();
     this.dialogueEl.querySelector('.d-speaker')!.textContent = v.speaker;
+    const who = speakerId(v.speaker, this.host?.gameState().arc ?? 1);
+    const narr = !v.speaker;
+    this.dialogueEl.classList.toggle('narration', narr);
+    const pf = this.dialogueEl.querySelector('.d-portrait') as HTMLElement;
+    const img = pf.querySelector('img') as HTMLImageElement;
+    const showP = hasPortrait(who);
+    pf.classList.toggle('hidden', !showP);
+    this.dialogueEl.classList.toggle('no-portrait', !showP);
+    if (showP) {
+      const mood = (v.mood as Mood) ?? inferMood(v.text);
+      const token = `${who}|${mood}`;
+      pf.dataset.token = token;
+      pf.dataset.mood = mood;
+      void portrait(who!, mood, 128).then((u) => { if (u && pf.dataset.token === token) img.src = u; });
+      if (pf.dataset.who !== who) { pf.dataset.who = who!; pf.classList.remove('enter'); void pf.offsetWidth; pf.classList.add('enter'); }
+    }
     this.fullText = v.text;
     this.typing = 0;
     this.dialogueEl.querySelector('.d-text')!.textContent = '';
@@ -185,7 +229,7 @@ export class Ui {
     v.choices.forEach((c, i) => {
       const b = document.createElement('button');
       b.className = 'd-choice' + (i === this.choiceIndex ? ' sel' : '');
-      b.innerHTML = `${i + 1}. ${esc(c.text)}${c.tag ? ` <small>[${esc(c.tag)}]</small>` : ''}`;
+      b.innerHTML = `<span class="c-mark"></span><span class="c-text">${esc(c.text)}</span>${c.tag ? `<small>${esc(c.tag)}</small>` : ''}`;
       b.addEventListener('click', (e) => {
         e.stopPropagation();
         this.choose(i);
@@ -219,6 +263,7 @@ export class Ui {
 
   private closeDialogue(): void {
     this.dialogueEl.classList.add('hidden');
+    delete (this.dialogueEl.querySelector('.d-portrait') as HTMLElement).dataset.who;
     const done = this.dialogueDone;
     this.runner = null;
     this.dialogueDone = null;
@@ -275,7 +320,7 @@ export class Ui {
 
   private frame(title: string, body: string, tabs = true): string {
     const t = (id: Exclude<Panel, null>, label: string) => `<button class="tab${this.panel === id ? ' on' : ''}" data-open="${id}">${label}</button>`;
-    return `<div class="p-head"><h2>${esc(title)}</h2><button class="p-close" data-close aria-label="Fechar">✕</button></div>
+    return `<div class="p-head"><h2>${esc(title)}</h2><button class="p-close" data-close aria-label="Fechar">${icon('close')}</button></div>
       ${tabs ? `<div class="p-tabs">${t('pause', 'Pausa')}${t('inventory', 'Inventário')}${t('journal', 'Diário')}${t('map', 'Mapa')}${t('saves', 'Gravações')}${t('options', 'Opções')}</div>` : ''}
       <div class="p-body">${body}</div>`;
   }
@@ -372,7 +417,7 @@ export class Ui {
     if (this.journalTab === 'objective') {
       body = active.length ? active.sort((a, b) => Number(b.def.main) - Number(a.def.main)).map(({ def, q }) => {
         const step = def.steps[q.step];
-        return `<div class="quest ${def.main ? 'main' : ''}"><h3>${def.main ? '★ ' : ''}${esc(def.title)}</h3><p>${esc(def.summary)}</p>
+        return `<div class="quest ${def.main ? 'main' : ''}"><h3>${esc(def.title)}${def.main ? ' <small class="main-tag">história</small>' : ''}</h3><p>${esc(def.summary)}</p>
           ${step ? `<p class="now"><b>Agora:</b> ${esc(step.text)}</p><p class="hint"><b>Próximo passo:</b> ${esc(step.hint)}</p>` : ''}
           ${def.reward ? `<p class="muted">Recompensa / consequência: ${esc(def.reward)}</p>` : ''}</div>`;
       }).join('') : '<p class="muted">Nenhum objectivo activo. Explora e fala com as pessoas.</p>';
@@ -398,7 +443,7 @@ export class Ui {
 
   private areasHtml(s: GameState): string {
     const list = Object.values(MAPS).filter((m) => m.arc === s.arc || s.visited.includes(m.id));
-    return `<h3>Áreas</h3><ul>${list.map((m) => `<li class="${m.id === s.mapId ? 'here' : s.visited.includes(m.id) ? 'seen' : 'unknown'}">${s.visited.includes(m.id) ? esc(m.name) : '???'}${m.id === s.mapId ? ' ◀ estás aqui' : ''}</li>`).join('')}</ul>`;
+    return `<h3>Áreas</h3><ul>${list.map((m) => `<li class="${m.id === s.mapId ? 'here' : s.visited.includes(m.id) ? 'seen' : 'unknown'}">${s.visited.includes(m.id) ? esc(m.name) : '???'}${m.id === s.mapId ? ' <small>(estás aqui)</small>' : ''}</li>`).join('')}</ul>`;
   }
 
   private drawMinimap(s: GameState): void {
@@ -531,7 +576,7 @@ export class Ui {
 
   // --------------------------------------------------------- banners/loading
   banner(title: string, text: string, ms = 0, onDone?: () => void, art?: string): void {
-    this.bannerEl.innerHTML = `<div class="b-box">${art ? `<img src="${art}" alt="">` : ''}<h1>${esc(title)}</h1>${text.split('\n').map((p) => `<p>${esc(p)}</p>`).join('')}${ms ? '' : '<button class="b-ok">Continuar</button>'}</div>`;
+    this.bannerEl.innerHTML = `<div class="b-box">${art ? `<img src="${art}" alt="">` : ''}<h1>${esc(title)}</h1><div class="b-rule"></div>${text.split('\n').map((p, i) => `<p style="animation-delay:${0.6 + i * 0.5}s">${esc(p)}</p>`).join('')}${ms ? '' : `<button class="b-ok" style="animation-delay:${0.9 + text.split('\n').length * 0.5}s">Continuar</button>`}</div>`;
     this.bannerEl.classList.remove('hidden');
     session.input.setContext('ui');
     let finished = false;
@@ -548,13 +593,14 @@ export class Ui {
     else this.bannerEl.querySelector('.b-ok')!.addEventListener('click', finish, { once: true });
   }
 
-  areaTitle(name: string): void {
+  /** Cinematic title card shown when entering an area. */
+  areaTitle(name: string, sub = ''): void {
     for (const old of this.root.querySelectorAll('.area-title')) old.remove();
     const t = document.createElement('div');
     t.className = 'area-title';
-    t.textContent = name;
+    t.innerHTML = `${sub ? `<small>${esc(sub)}</small>` : ''}<span>${esc(name)}</span><i></i>`;
     this.root.appendChild(t);
-    window.setTimeout(() => t.remove(), 2600);
+    window.setTimeout(() => t.remove(), 4200);
   }
 
   loading(show: boolean, text = '', progress = 0, art?: string): void {
@@ -567,7 +613,7 @@ export class Ui {
   }
 
   loadingError(lines: string[]): void {
-    this.loadingEl.querySelector('.l-err')!.innerHTML = lines.map((l) => `<div>⚠ ${esc(l)}</div>`).join('');
+    this.loadingEl.querySelector('.l-err')!.innerHTML = lines.map((l) => `<div>${esc(l)}</div>`).join('');
   }
 }
 

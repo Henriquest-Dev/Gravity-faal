@@ -103,3 +103,13 @@ export function decorate(canvas, on, props, count, seed, region = null) {
   }
   return out;
 }
+
+/** Moves every placed thing of a map definition `n` rows down, prepending `fill` rows of terrain. */
+export function shiftDown(def, n, fill = 'x') {
+  def.terrain = [...Array.from({ length: n }, () => fill.repeat(def.width)), ...def.terrain];
+  def.height += n;
+  const mv = (o) => { if (o && typeof o.y === 'number') o.y += n; if (o?.landing) o.landing.y += n; };
+  for (const k of ['buildings', 'props', 'npcs', 'enemies', 'interactables', 'triggers', 'checkpoints', 'exits']) for (const o of def[k] ?? []) mv(o);
+  for (const o of Object.values(def.spawns ?? {})) mv(o);
+  return def;
+}

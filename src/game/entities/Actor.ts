@@ -20,6 +20,8 @@ export class Actor {
   vz = 0;
   dir: Dir = 'south';
   state: ActorStateName = 'idle';
+  /** stand still on the walk frame instead of looping the idle gesture row (busy cast gestures are for talking) */
+  calm = false;
   stateTime = 0;
   stateDuration = 0; // 0 = until changed
   hp = 6;
@@ -132,7 +134,7 @@ export class Actor {
       case 'dodge': if (!single('dodge')) key = dirKey('walk'); break;
       case 'hurt': case 'downed': if (!single('hurt')) key = dirKey('stand'); break;
       default:
-        if (this.dir === 'south' && single('idle')) break;
+        if (this.dir === 'south' && !this.calm && single('idle')) break;
         key = dirKey('stand');
     }
     if (!this.scene.anims.exists(key)) {

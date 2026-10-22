@@ -242,7 +242,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     if (first) s.visited.push(def.id);
     this.handleSignals(applyEffects(s, def.onEnter, RULES, def.id));
     session.audio.startMusic(def.music);
-    this.ui.areaTitle(def.name);
+    this.ui.areaTitle(def.name, def.id.startsWith('time') ? 'Fora do tempo' : def.id === 'nightmare_realm' ? 'Dimensão do Pesadelo' : def.arc === 1 ? 'Euclydia, a Segunda Dimensão' : 'Gravity Falls, Oregon');
     if (s.safe.mapId !== def.id || s.safe.x < 0) s.safe = { mapId: def.id, x: safe.x, y: safe.y, level: 0 };
     const amb = def.ambient;
     cam.setBackgroundColor(amb?.nightColor ?? '#05070d');
@@ -738,7 +738,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
         p.enter('ability', 0.4);
         const calmCond = (e.type.calm ?? e.type.negotiate) as never;
         if ((calmCond && check(calmCond, this.s)) || e.hp <= e.type.hp * 0.4) {
-          this.fx.text(e.x, e.y - 80, '♥ acalmou', '#ff9ad0');
+          this.fx.text(e.x, e.y - 80, 'acalmou', '#ff9ad0');
           record(this.s, 'helped', `calm:${e.def.type}`);
           e.pacify();
         } else {
@@ -1484,12 +1484,12 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     for (const sg of signals) {
       switch (sg.type) {
         case 'toast': this.ui.toast(sg.text); break;
-        case 'questStarted': this.ui.toast(`Nova missão: ${QUESTS[sg.id]?.title ?? sg.id}`); session.audio.play('clue'); break;
-        case 'questStep': session.audio.play('confirm'); this.ui.toast(`Objectivo actualizado: ${QUESTS[sg.id]?.steps[sg.step]?.text ?? ''}`, 3200); break;
-        case 'questDone': this.ui.toast(`Missão concluída: ${QUESTS[sg.id]?.title ?? sg.id}`); session.audio.play('puzzle'); this.autosave(); break;
-        case 'questFailed': this.ui.toast(`Missão falhada: ${QUESTS[sg.id]?.title ?? sg.id}`); break;
-        case 'unlock': this.ui.toast(`Nova capacidade: ${ABILITIES[sg.ability]?.name ?? sg.ability}`, 3500); session.audio.play('puzzle'); break;
-        case 'item': this.ui.toast(`Obtido: ${ITEMS[sg.id]?.name ?? sg.id}${sg.count > 1 ? ` ×${sg.count}` : ''}`); break;
+        case 'questStarted': this.ui.toast(QUESTS[sg.id]?.title ?? sg.id, 3400, 'quest', 'Nova página no diário'); session.audio.play('clue'); break;
+        case 'questStep': session.audio.play('confirm'); this.ui.toast(QUESTS[sg.id]?.steps[sg.step]?.text ?? '', 3200, 'quest', 'Objectivo'); break;
+        case 'questDone': this.ui.toast(QUESTS[sg.id]?.title ?? sg.id, 3400, 'quest', 'Página concluída'); session.audio.play('puzzle'); this.autosave(); break;
+        case 'questFailed': this.ui.toast(QUESTS[sg.id]?.title ?? sg.id, 3400, 'warn', 'Página perdida'); break;
+        case 'unlock': this.ui.toast(ABILITIES[sg.ability]?.name ?? sg.ability, 3500, 'item', 'Nova capacidade'); session.audio.play('puzzle'); break;
+        case 'item': this.ui.toast(`${ITEMS[sg.id]?.name ?? sg.id}${sg.count > 1 ? ` ×${sg.count}` : ''}`, 2600, 'item', 'Guardado'); break;
         case 'checkpoint': this.s.safe = { mapId: this.s.mapId, x: this.player.x, y: this.player.y, level: 0 }; this.autosave(); break;
         case 'objectChanged': this.refreshObjectByKey(sg.key, sg.state); break;
         case 'party': this.spawnCompanion(); break;
@@ -1594,10 +1594,23 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
   }
 
   // ---------------------------------------------------------------- render
+  /** The camera leans toward where the player is heading, so tall buildings ahead come into view. */
+  private lookAhead(dt: number): void {
+    const cam = this.cameras.main;
+    const vw = cam.width / cam.zoom, vh = cam.height / cam.zoom;
+    const moving = this.player.state === 'walk' || this.player.state === 'run';
+    const d = this.player.dir;
+    const tx = moving ? (d === 'east' ? -0.12 : d === 'west' ? 0.12 : 0) * vw : cam.followOffset.x * 0.98;
+    const ty = 20 + (moving ? (d === 'north' ? 0.24 : d === 'south' ? -0.12 : 0) * vh : (cam.followOffset.y - 20) * 0.98);
+    const k = Math.min(1, dt * 1.6);
+    cam.setFollowOffset(cam.followOffset.x + (tx - cam.followOffset.x) * k, cam.followOffset.y + (ty - cam.followOffset.y) * k);
+  }
+
   private render(dt: number): void {
     const p = this.player;
     p.sync();
     this.atmos?.update(dt, p);
+    this.lookAhead(dt);
     // depth-sorted fading of tall props the player walks behind
     const pb = p.sprite.getBounds();
     for (const f of this.built!.fades) {
@@ -1632,7 +1645,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
       interact: this.target ? this.target.label.split(' ')[0] : null,
       jump: isLocomotion(p.state) && p.state !== 'swim' && p.state !== 'climb',
       dodge: this.dodgeCd <= 0,
-      abilityIcon: sel ? ABILITY_ICONS[sel] ?? '◈' : '◈',
+      abilityIcon: sel ?? 'ability',
     });
     this.drawDebug();
   }
@@ -1643,7 +1656,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     quests.sort((a, b) => Number(QUESTS[b[0]].main) - Number(QUESTS[a[0]].main));
     const [id, q] = quests[0] ?? [];
     if (!id) return '';
-    return `★ ${QUESTS[id].steps[q.step]?.text ?? QUESTS[id].title}`;
+    return `${QUESTS[id].steps[q.step]?.text ?? QUESTS[id].title}`;
   }
 
   private drawDebug(): void {
@@ -1726,6 +1739,3 @@ const LABELS: Partial<Record<string, string>> = {
   glyph: 'Activar glifo', ring: 'Rodar anel', sequence: 'Premir', npcProxy: 'Falar',
 };
 
-const ABILITY_ICONS: Record<string, string> = {
-  perceive: '◉', telekinesis: '✋', energy_bolt: '✷', flashlight: '🔦', journal_scan: '📖', grapple: '⚓', charm: '♥',
-};

@@ -1,5 +1,16 @@
 import { session } from '../session';
 import type { Action } from '../systems/Input';
+import { icon } from './icons';
+
+/** Satellite buttons around the main action button: [action, angle in degrees (180 = left, 90 = up), ring radius, size]. */
+const ARC: [string, number, number, number][] = [
+  ['jump', 180, 98, 60],
+  ['secondary', 135, 100, 64],
+  ['dodge', 90, 98, 60],
+  ['cycle', 160, 168, 44],
+  ['interact', 118, 176, 72],
+  ['switch', 76, 170, 48],
+];
 
 /**
  * On-screen controls. Every control tracks its own pointerId with pointer
@@ -20,22 +31,22 @@ export class TouchControls {
     this.el.className = 'touch';
     this.el.innerHTML = `
       <div class="t-zone"></div>
-      <div class="t-stick"><div class="t-knob"></div></div>
+      <div class="t-stick"><div class="t-ring"></div><div class="t-knob"></div></div>
       <div class="t-cluster">
-        <button class="t-btn t-primary" data-a="primary" aria-label="Acção principal">✦</button>
-        <button class="t-btn t-secondary" data-a="secondary" aria-label="Capacidade (arrastar para apontar)">◈</button>
-        <button class="t-btn t-interact" data-a="interact" aria-label="Interagir"><span>E</span></button>
-        <button class="t-btn t-jump" data-a="jump" aria-label="Saltar">⤒</button>
-        <button class="t-btn t-dodge" data-a="dodge" aria-label="Esquivar">»</button>
-        <button class="t-btn t-switch" data-a="switch" aria-label="Alternar personagem">⇄</button>
-        <button class="t-btn t-cycle" data-a="cycle" aria-label="Mudar capacidade">↻</button>
-        <button class="t-btn t-run" data-a="run-toggle" aria-label="Correr">🏃</button>
+        <button class="t-btn t-primary" data-a="primary" aria-label="Acção principal">${icon('strike')}</button>
+        <button class="t-btn t-secondary" data-a="secondary" aria-label="Capacidade (arrastar para apontar)"><span class="t-ab">${icon('ability')}</span></button>
+        <button class="t-btn t-interact" data-a="interact" aria-label="Interagir">${icon('eye')}<span></span></button>
+        <button class="t-btn t-jump" data-a="jump" aria-label="Saltar">${icon('jump')}</button>
+        <button class="t-btn t-dodge" data-a="dodge" aria-label="Esquivar">${icon('dodge')}</button>
+        <button class="t-btn t-switch" data-a="switch" aria-label="Alternar personagem">${icon('swap')}</button>
+        <button class="t-btn t-cycle" data-a="cycle" aria-label="Mudar capacidade">${icon('cycle')}</button>
       </div>
+      <button class="t-btn t-run" data-a="run-toggle" aria-label="Correr">${icon('run')}</button>
       <div class="t-top">
-        <button class="t-mini" data-a="inventory" aria-label="Inventário">🎒</button>
-        <button class="t-mini" data-a="journal" aria-label="Diário">📓</button>
-        <button class="t-mini" data-a="map" aria-label="Mapa">🗺</button>
-        <button class="t-mini" data-a="pause" aria-label="Pausa">❚❚</button>
+        <button class="t-mini" data-a="journal" aria-label="Diário">${icon('journal')}</button>
+        <button class="t-mini" data-a="inventory" aria-label="Inventário">${icon('bag')}</button>
+        <button class="t-mini" data-a="map" aria-label="Mapa">${icon('map')}</button>
+        <button class="t-mini" data-a="pause" aria-label="Pausa">${icon('pause')}</button>
       </div>`;
     root.appendChild(this.el);
     this.stick = this.el.querySelector('.t-stick')!;
@@ -64,8 +75,20 @@ export class TouchControls {
   }
 
   applySettings(): void {
-    this.el.style.setProperty('--t-scale', String(session.settings.touchScale));
+    const k = session.settings.touchScale;
+    this.el.style.setProperty('--t-scale', String(k));
     this.el.style.setProperty('--t-opacity', String(session.settings.touchOpacity));
+    // place the satellites on their arc around the main button (centre 52px from the corner)
+    const main = 88 * k, cx = main / 2, cy = main / 2;
+    for (const [a, deg, rad, size] of ARC) {
+      const b = this.buttons.get(a);
+      if (!b) continue;
+      const th = (deg * Math.PI) / 180, sz = size * k;
+      const x = cx - Math.cos(th) * rad * k, y = cy + Math.sin(th) * rad * k; // distances from the right/bottom edges
+      b.style.width = b.style.height = `${sz}px`;
+      b.style.right = `${x - sz / 2}px`;
+      b.style.bottom = `${y - sz / 2}px`;
+    }
   }
 
   private bindButton(b: HTMLElement, a: Action): void {
@@ -141,7 +164,7 @@ export class TouchControls {
 
   private stickMove = (e: PointerEvent) => {
     if (e.pointerId !== this.stickId) return;
-    const radius = 46 * session.settings.touchScale;
+    const radius = 50 * session.settings.touchScale;
     let dx = e.clientX - this.stickOrigin.x, dy = e.clientY - this.stickOrigin.y;
     const d = Math.hypot(dx, dy);
     if (d > radius) { dx = (dx / d) * radius; dy = (dy / d) * radius; }
@@ -169,7 +192,7 @@ export class TouchControls {
   /** Show controls according to unlocked abilities and party. */
   update(opts: { visible: boolean; ability: boolean; party: boolean; interact: string | null; jump: boolean; dodge: boolean; abilityIcon: string; cycle: boolean }): void {
     this.el.classList.toggle('hidden', !opts.visible);
-    if (!opts.visible) return;
+    if (!opts.visible) { this.el.parentElement?.classList.remove('touch-on'); return; }
     this.buttons.get('secondary')!.classList.toggle('gone', !opts.ability);
     this.buttons.get('cycle')!.classList.toggle('gone', !opts.cycle);
     this.buttons.get('switch')!.classList.toggle('gone', !opts.party);
@@ -179,7 +202,11 @@ export class TouchControls {
     ib.classList.toggle('gone', !opts.interact);
     if (opts.interact && this.interactLabel.textContent !== opts.interact) this.interactLabel.textContent = opts.interact;
     const sb = this.buttons.get('secondary')!;
-    if (sb.textContent !== opts.abilityIcon) sb.textContent = opts.abilityIcon;
+    if (sb.dataset.ab !== opts.abilityIcon) {
+      sb.dataset.ab = opts.abilityIcon;
+      sb.querySelector('.t-ab')!.innerHTML = icon(opts.abilityIcon || 'ability');
+    }
+    this.el.parentElement?.classList.toggle('touch-on', opts.visible);
   }
 
   release(): void {

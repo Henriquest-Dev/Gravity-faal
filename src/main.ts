@@ -1,6 +1,11 @@
 import { App } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
 import Phaser from 'phaser';
+import '@fontsource/pixelify-sans/400.css';
+import '@fontsource/pixelify-sans/600.css';
+import '@fontsource/im-fell-english/400.css';
+import '@fontsource/im-fell-english/400-italic.css';
+import '@fontsource/im-fell-english-sc/400.css';
 import './styles.css';
 import { BootScene } from './game/scenes/BootScene';
 import { MenuScene } from './game/scenes/MenuScene';

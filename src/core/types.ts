@@ -91,6 +91,8 @@ export interface DialogueNode {
   id: string;
   speaker: string;
   text: string;
+  /** portrait expression: neutral, happy, surprised, scared, thinking, angry, sad, smug */
+  mood?: string;
   effects?: Effect[];
   choices?: DialogueChoice[];
   next?: string;
