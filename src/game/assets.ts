@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import type { Dir } from '../core/types';
 import { CHARACTERS, ENEMIES, MAPS, PROPS, type SheetRef } from './data';
+import { DEFAULT_PROP } from './world/MapBuilder';
 
 export const ASSET_ROOT = 'assets/';
 
@@ -21,6 +22,8 @@ export interface Manifest {
 
 let manifest: Manifest | null = null;
 export const missingAssets: string[] = [];
+/** Textures loaded at boot; area unloading never touches them. */
+export const globalKeys = new Set<string>();
 
 export function setManifest(m: Manifest): void {
   manifest = m;
@@ -71,11 +74,20 @@ export function queueGlobal(scene: Phaser.Scene): void {
   for (const s of ['protag_idle', 'protag_hurt', 'protag_jump', 'protag_dodge', 'protag_climb', 'protag_swim', 'effects']) {
     queueSheet(scene.load, scene.textures, s);
   }
+  for (const [id, kinds] of Object.entries(m.characters)) {
+    if (!CHARACTERS[id]?.playable && id !== 'bill') continue;
+    for (const kind of Object.keys(kinds)) globalKeys.add(sheetKey(`characters/${id}/${kind}`));
+  }
   for (const [id, t] of Object.entries(m.textures)) {
     if (!scene.textures.exists(texKey(id))) scene.load.image(texKey(id), ASSET_ROOT + t.file);
+    globalKeys.add(texKey(id));
   }
-  // props used as item icons or interactables everywhere
-  for (const p of ['nature/lamp_post', 'interiors/crate', 'nature/bench', 'interiors/door']) queueProp(scene, p);
+  // props used by interactables on many maps
+  for (const p of ['nature/lamp_post', 'interiors/crate', 'nature/bench', 'interiors/door', 'rifts/ring', 'rifts/ground_rift', 'rifts/sigil_plate', 'temporal/pad']) {
+    queueProp(scene, p);
+    globalKeys.add(propKey(p));
+  }
+  for (const k of ['protag_idle', 'protag_hurt', 'protag_jump', 'protag_dodge', 'protag_climb', 'protag_swim', 'effects']) globalKeys.add(sheetKey(k));
 }
 
 export function queueProp(scene: Phaser.Scene, id: string): void {
@@ -101,7 +113,10 @@ export function queueMap(scene: Phaser.Scene, mapId: string): string[] {
   const keys: string[] = [];
   const props = new Set<string>();
   for (const p of map.props ?? []) props.add(p.prop);
-  for (const i of map.interactables ?? []) if (i.prop) props.add(i.prop);
+  for (const i of map.interactables ?? []) {
+    const p = i.prop ?? DEFAULT_PROP[i.kind];
+    if (p && !p.startsWith('@')) props.add(p);
+  }
   for (const p of props) {
     queueProp(scene, p);
     keys.push(propKey(p));
@@ -215,8 +230,7 @@ export function propInfo(id: string) {
 export function unloadUnused(scene: Phaser.Scene, previous: string[], next: string[]): void {
   const keep = new Set(next);
   for (const k of previous) {
-    if (keep.has(k)) continue;
-    if (k.startsWith('sheet:') && (k.includes('characters/dipper') || k.includes('characters/mabel') || k.includes('protag_') || k.includes('characters/bill'))) continue;
+    if (keep.has(k) || globalKeys.has(k)) continue;
     if (!scene.textures.exists(k)) continue;
     // animations referencing the texture must go first
     const anims = (scene.anims as unknown as { anims: Phaser.Structs.Map<string, Phaser.Animations.Animation> }).anims;

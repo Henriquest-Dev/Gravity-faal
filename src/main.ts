@@ -1,3 +1,5 @@
+import { App } from '@capacitor/app';
+import { Capacitor } from '@capacitor/core';
 import Phaser from 'phaser';
 import './styles.css';
 import { BootScene } from './game/scenes/BootScene';
@@ -9,8 +11,10 @@ import { Ui } from './game/ui/Ui';
 const host = document.getElementById('game')!;
 const ui = new Ui(document.getElementById('ui-root')!);
 
+// ?renderer=canvas forces the 2D canvas renderer (fallback for devices with poor WebGL drivers)
+const forceCanvas = new URLSearchParams(location.search).get('renderer') === 'canvas' || session.settings.renderer === 'canvas';
 const game = new Phaser.Game({
-  type: Phaser.AUTO,
+  type: forceCanvas ? Phaser.CANVAS : Phaser.AUTO,
   parent: host,
   backgroundColor: '#14110f',
   pixelArt: true, // nearest-neighbour sampling everywhere
@@ -45,3 +49,13 @@ for (const ev of ['pointerdown', 'keydown'] as const) window.addEventListener(ev
 // avoid page scroll / zoom gestures while playing on touch screens
 document.addEventListener('touchmove', (e) => { if ((e.target as HTMLElement).closest('.p-body, textarea')) return; e.preventDefault(); }, { passive: false });
 document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+// Android back button: closes menus or pauses instead of leaving the game.
+if (Capacitor.isNativePlatform()) {
+  void App.addListener('backButton', () => {
+    const world = game.scene.getScene('world');
+    if (ui.panel) ui.close();
+    else if (world?.scene.isActive() && !ui.blocking) ui.open('pause');
+    else if (!world?.scene.isActive()) void App.exitApp();
+  });
+}

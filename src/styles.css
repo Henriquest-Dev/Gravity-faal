@@ -169,6 +169,11 @@ small { color: var(--muted); }
   .prompt { bottom: calc(240px + var(--safe-b)); }
   .dialogue { bottom: calc(230px + var(--safe-b)); }
 }
+@media (max-height: 480px) {
+  .toasts { top: calc(44px + var(--safe-t)); width: min(60vw, 420px); }
+  .toast { font-size: 11px; padding: 3px 8px; }
+  .area-title { font-size: 15px; top: 18%; }
+}
 @media (max-height: 420px) {
   .hud { font-size: 11px; }
   .prompt { bottom: calc(110px + var(--safe-b)); }

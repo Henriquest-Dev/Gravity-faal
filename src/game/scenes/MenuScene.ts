@@ -74,20 +74,12 @@ export class MenuScene extends Phaser.Scene {
   }
 
   private loadMenu(ui: Ui): void {
+    ui.titleLoad = (slot) => this.start(slot);
     ui.open('saves');
-    const panel = ui.root.querySelector('.panel')!;
-    // the in-game panel is reused; loading from the title starts the world scene
-    for (const b of panel.querySelectorAll<HTMLElement>('[data-load]')) {
-      const clone = b.cloneNode(true) as HTMLElement;
-      b.replaceWith(clone);
-      clone.addEventListener('click', () => { ui.close(); this.start(Number(clone.dataset.load)); });
-    }
-    for (const t of panel.querySelectorAll('.p-tabs')) t.remove();
   }
 
   private options(ui: Ui): void {
     ui.open('options');
-    for (const t of ui.root.querySelectorAll('.panel .p-tabs')) t.remove();
   }
 
   private newGame(slot: number): void {

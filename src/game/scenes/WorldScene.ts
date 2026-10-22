@@ -136,6 +136,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
       return;
     }
     this.busy = true;
+    missingAssets.length = 0;
     const art = def.reference ? `assets/environments/${def.reference}.png` : undefined;
     this.ui.loading(true, `A carregar: ${def.name}`, 0, art);
     const keys = queueMap(this, mapId);
@@ -170,7 +171,14 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     this.player?.destroy();
     this.companion?.destroy();
     this.companion = null;
-    if (this.built) for (const o of this.built.destroyables) o.destroy();
+    if (this.built) {
+      for (const o of this.built.destroyables) {
+        this.tweens.killTweensOf(o); // repeating tweens (glints, exit markers) die with their objects
+        o.destroy();
+      }
+      // baked terrain and façades belong to the area: free them
+      for (const k of this.textures.getTextureKeys()) if (k.startsWith(`terrain:${this.built.def.id}`) || k.startsWith(`building:${this.built.def.id}:`)) this.textures.remove(k);
+    }
     this.built = null;
     this.target = null;
     this.seqProgress.clear();
@@ -224,6 +232,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     cam.startFollow(this.player.sprite, true, 0.14, 0.14, 0, 20);
     cam.setRoundPixels(true);
     this.onResize();
+    cam.resetFX(); // a fade-out that just completed would otherwise swallow the fade-in
     cam.fadeIn(250, 0, 0, 0);
 
     const first = !s.visited.includes(def.id);
@@ -284,7 +293,16 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
   }
 
   // ---------------------------------------------------------------- update
+  /** Rolling average of the CPU time spent in update (simulation + render prep), in ms. */
+  cpuMs = 0;
+
   update(_t: number, deltaMs: number): void {
+    const t0 = performance.now();
+    this.updateInner(deltaMs);
+    this.cpuMs = this.cpuMs * 0.95 + (performance.now() - t0) * 0.05;
+  }
+
+  private updateInner(deltaMs: number): void {
     const dt = Math.min(deltaMs / 1000, 0.1);
     this.fpsSamples.push(deltaMs);
     if (this.fpsSamples.length > 60) this.fpsSamples.shift();
@@ -413,6 +431,11 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     }
     // drop presses that could not be used this frame so they do not fire later
     for (const a of ['interact', 'switch', 'cycle', 'jump', 'dodge', 'primary', 'secondary'] as const) inp.consume(a);
+    // an action may have opened a dialogue or menu: locomotion must not overwrite that state
+    if (this.ui.blocking || p.state === 'dialogue' || p.state === 'transition') {
+      p.playFor();
+      return;
+    }
 
     // ------------------------------------------------------- locomotion
     if (p.state === 'dodge' && !p.stateFinished) {
@@ -1591,7 +1614,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     for (const sp of Object.values(this.built.def.spawns)) { g.lineStyle(2, 0x00ffff, 1); g.lineBetween(sp.x * TILE - 5, sp.y * TILE, sp.x * TILE + 5, sp.y * TILE); g.lineBetween(sp.x * TILE, sp.y * TILE - 5, sp.x * TILE, sp.y * TILE + 5); }
     const avg = this.fpsSamples.reduce((a, b) => a + b, 0) / (this.fpsSamples.length || 1);
     this.debugText.setText([
-      `fps ${(1000 / avg).toFixed(0)}  map ${this.built.def.id}`,
+      `fps ${(1000 / avg).toFixed(0)}  update ${this.cpuMs.toFixed(2)} ms  map ${this.built.def.id}`,
       `pos ${this.player.x.toFixed(0)},${this.player.y.toFixed(0)} tile ${this.player.tileX},${this.player.tileY} lvl ${this.player.body.level} z ${this.player.z.toFixed(0)}`,
       `state ${this.player.state} dir ${this.player.dir} speed ${this.player.speedNow.toFixed(0)}`,
       `fx ${this.fx.activeCount} proj ${this.combat.activeProjectiles} hazards ${this.combat.hazards.length} enemies ${this.enemies.filter((e) => e.alive).length}`,

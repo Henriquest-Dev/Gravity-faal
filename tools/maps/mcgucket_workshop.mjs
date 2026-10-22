@@ -16,8 +16,6 @@ export default function build() {
   c.rect(26, 23, 8, 1, 'R');
   c.rect(27, 15, 7, 8, ':');
   c.set(26, 18, ':');
-  // oily puddle
-  c.ellipse(9, 20, 2.5, 1.6, '~');
   return {
     id: 'mcgucket_workshop', name: 'Oficina e sucata de McGucket', arc: 2, theme: 'workshop', music: 'workshop', reference: 'mcgucket_workshop',
     width: W, height: H, terrain: c.rows(),

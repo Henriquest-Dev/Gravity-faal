@@ -54,7 +54,7 @@ export const DEFAULT_STATE: Partial<Record<InteractableDef['kind'], string>> = {
   glyph: 'inactive', rift: 'closed', sequence: 'idle', push: 'idle', portal: 'closed', plate: 'up',
 };
 
-const DEFAULT_PROP: Partial<Record<InteractableDef['kind'], string>> = {
+export const DEFAULT_PROP: Partial<Record<InteractableDef['kind'], string>> = {
   chest: 'interiors/crate', push: 'interiors/crate', glyph: 'rifts/sigil_plate', ring: 'rifts/ring',
   plate: 'temporal/pad', rift: 'rifts/ground_rift', grapple: '@anchor', switch: '@lever_off', save: '@save',
 };

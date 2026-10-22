@@ -14,11 +14,12 @@ export interface Settings {
   reducedEffects: boolean;
   bindings: Partial<Record<Action, string[]>>;
   lastSlot: number;
+  renderer: 'auto' | 'canvas';
 }
 
 const DEFAULT_SETTINGS: Settings = {
   musicVolume: 0.45, sfxVolume: 0.8, masterVolume: 0.8, touchScale: 1, touchOpacity: 0.75,
-  touchControls: 'auto', screenShake: true, reducedEffects: false, bindings: {}, lastSlot: 1,
+  touchControls: 'auto', screenShake: true, reducedEffects: false, bindings: {}, lastSlot: 1, renderer: 'auto',
 };
 
 /** localStorage can throw (private mode, WebView policies): fall back to memory. */

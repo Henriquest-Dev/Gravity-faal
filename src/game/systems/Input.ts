@@ -91,6 +91,8 @@ export class InputManager {
   };
 
   private onKeyUp = (e: KeyboardEvent) => {
+    // bound keys never activate a focused button on release (Space/Enter)
+    if (this.codeToActions.has(e.code) && (e.target as HTMLElement)?.tagName === 'BUTTON') e.preventDefault();
     this.heldCodes.delete(e.code);
     this.latched.delete(e.code);
   };

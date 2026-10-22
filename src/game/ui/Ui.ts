@@ -54,6 +54,8 @@ export class Ui {
   panel: Panel = null;
   private journalTab = 'objective';
   private host: UiHost | null = null;
+  /** Load handler used from the title screen (no running game). */
+  titleLoad: ((slot: number) => void) | null = null;
   private lastHud = '';
 
   constructor(parent: HTMLElement) {
@@ -89,6 +91,11 @@ export class Ui {
       this.advance();
     });
     this.hud.querySelector('.hud-obj')!.addEventListener('click', () => this.open('journal'));
+    // buttons never keep keyboard focus: Space/Enter belong to the game, not to a stale button
+    document.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest?.('button');
+      if (b) window.setTimeout(() => b.blur(), 0);
+    }, true);
   }
 
   setHost(h: UiHost | null): void {
@@ -128,8 +135,11 @@ export class Ui {
     const t = document.createElement('div');
     t.className = 'toast';
     t.textContent = text;
+    // identical messages are not stacked
+    for (const c of this.toasts.children) if (c.textContent === text) c.remove();
     this.toasts.appendChild(t);
-    while (this.toasts.children.length > 4) this.toasts.firstChild!.remove();
+    const max = window.innerHeight < 480 ? 2 : 4;
+    while (this.toasts.children.length > max) this.toasts.firstChild!.remove();
     window.setTimeout(() => t.classList.add('out'), ms);
     window.setTimeout(() => t.remove(), ms + 400);
   }
@@ -271,8 +281,10 @@ export class Ui {
   }
 
   private render(): void {
-    if (!this.host || !this.panel) return;
-    const s = this.host.gameState();
+    if (!this.panel) return;
+    // saves and options also work from the title screen, where there is no running game
+    if (!this.host && this.panel !== 'saves' && this.panel !== 'options') return;
+    const s = this.host?.gameState() as GameState;
     let html = '';
     switch (this.panel) {
       case 'pause': html = this.frame('Pausa', `<div class="menu-list">
@@ -284,8 +296,8 @@ export class Ui {
       case 'inventory': html = this.frame('Inventário', this.inventoryHtml(s)); break;
       case 'journal': html = this.frame('Diário de investigação', this.journalHtml(s)); break;
       case 'map': html = this.frame('Mapa', `<canvas class="minimap"></canvas><div class="areas">${this.areasHtml(s)}</div>`); break;
-      case 'saves': html = this.frame('Gravações', this.savesHtml()); break;
-      case 'options': html = this.frame('Opções', this.optionsHtml()); break;
+      case 'saves': html = this.frame('Gravações', this.savesHtml(), !!this.host); break;
+      case 'options': html = this.frame('Opções', this.optionsHtml(), !!this.host); break;
     }
     this.panelEl.innerHTML = html;
     this.bindPanel();
@@ -314,7 +326,13 @@ export class Ui {
         else doSave();
       });
     }
-    for (const b of q('[data-load]')) b.addEventListener('click', () => this.confirm('Carregar esta gravação? O progresso não gravado perde-se.', () => { this.close(); this.host?.loadSlot(Number(b.dataset.load)); }));
+    for (const b of q('[data-load]')) {
+      b.addEventListener('click', () => {
+        const slot = Number(b.dataset.load);
+        if (!this.host) { this.close(); this.titleLoad?.(slot); return; }
+        this.confirm('Carregar esta gravação? O progresso não gravado perde-se.', () => { this.close(); this.host?.loadSlot(slot); });
+      });
+    }
     for (const b of q('[data-export]')) b.addEventListener('click', () => this.exportSlot(Number(b.dataset.export)));
     for (const b of q('[data-import]')) b.addEventListener('click', () => this.importSlot(Number(b.dataset.import)));
     for (const b of q('[data-delete]')) b.addEventListener('click', () => this.confirm('Apagar esta gravação?', () => { session.saves.remove(Number(b.dataset.delete)); this.render(); }));
@@ -475,6 +493,7 @@ export class Ui {
     const binds = (Object.keys(ACTION_LABELS) as Action[]).map((a) => `<div class="bind"><span>${ACTION_LABELS[a]}</span>${[0, 1].map((i) => `<button data-bind="${a}" data-i="${i}">${esc(session.input.bindings[a][i] ?? '—')}</button>`).join('')}</div>`).join('');
     return `<h3>Áudio</h3>${range('masterVolume', 'Volume geral', st.masterVolume)}${range('musicVolume', 'Música', st.musicVolume)}${range('sfxVolume', 'Efeitos', st.sfxVolume)}
       <h3>Ecrã</h3>${toggle('screenShake', 'Tremor de câmara', st.screenShake)}${toggle('reducedEffects', 'Reduzir efeitos intensos', st.reducedEffects)}${toggle('debug', 'Modo de depuração (F3)', session.debug)}
+      <label class="opt"><span>Renderizador <small>(reinicia o jogo)</small></span><select data-opt="renderer"><option value="auto" ${st.renderer === 'auto' ? 'selected' : ''}>Automático (WebGL)</option><option value="canvas" ${st.renderer === 'canvas' ? 'selected' : ''}>Canvas 2D (compatibilidade)</option></select></label>
       <h3>Controlos tácteis</h3><label class="opt"><span>Mostrar</span><select data-opt="touchControls"><option value="auto" ${st.touchControls === 'auto' ? 'selected' : ''}>Automático</option><option value="on" ${st.touchControls === 'on' ? 'selected' : ''}>Sempre</option><option value="off" ${st.touchControls === 'off' ? 'selected' : ''}>Nunca</option></select></label>
       ${range('touchScale', 'Tamanho', st.touchScale, 0.75, 1.5, 0.05)}${range('touchOpacity', 'Opacidade', st.touchOpacity, 0.3, 1, 0.05)}
       <h3>Teclado</h3><p class="muted">Clica numa tecla e prime a nova. O rato: botão esquerdo = acção principal; apontar no mundo orienta capacidades.</p>${binds}
@@ -493,6 +512,7 @@ export class Ui {
         session.saveSettings();
         this.touch.applySettings();
         this.host?.applySettings();
+        if (id === 'renderer') this.confirm('Reiniciar agora para mudar o renderizador? O progresso não gravado perde-se.', () => location.reload());
       });
     }
     for (const b of this.panelEl.querySelectorAll<HTMLElement>('[data-bind]')) {
@@ -514,16 +534,22 @@ export class Ui {
     this.bannerEl.innerHTML = `<div class="b-box">${art ? `<img src="${art}" alt="">` : ''}<h1>${esc(title)}</h1>${text.split('\n').map((p) => `<p>${esc(p)}</p>`).join('')}${ms ? '' : '<button class="b-ok">Continuar</button>'}</div>`;
     this.bannerEl.classList.remove('hidden');
     session.input.setContext('ui');
+    let finished = false;
     const finish = () => {
+      // idempotent: a stale button can never re-run the continuation
+      if (finished) return;
+      finished = true;
       this.bannerEl.classList.add('hidden');
+      this.bannerEl.innerHTML = '';
       if (!this.panel && !this.runner) session.input.setContext('world');
       onDone?.();
     };
     if (ms) window.setTimeout(finish, ms);
-    else this.bannerEl.querySelector('.b-ok')!.addEventListener('click', finish);
+    else this.bannerEl.querySelector('.b-ok')!.addEventListener('click', finish, { once: true });
   }
 
   areaTitle(name: string): void {
+    for (const old of this.root.querySelectorAll('.area-title')) old.remove();
     const t = document.createElement('div');
     t.className = 'area-title';
     t.textContent = name;
