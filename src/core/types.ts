@@ -138,6 +138,7 @@ export interface ExitDef {
   id: string;
   x: number; y: number; w: number; h: number;
   to: string; spawn: string;
+  if?: Condition; // exit exists only when true (e.g. leads elsewhere after an event)
   requires?: Condition;
   lockedText?: string;
   kind?: 'edge' | 'door' | 'portal' | 'stairs';
@@ -179,6 +180,8 @@ export interface InteractableDef {
   requires?: Condition; // can be used only when true
   requiresText?: string; // explains how to progress
   effects?: Effect[]; // applied on success
+  offEffects?: Effect[]; // switches: applied when turned off
+  onSolve?: Effect[]; // puzzle groups: applied once when the whole group is solved
   states?: string[]; // ordered states; default ["closed","open"] etc.
   hidden?: boolean; // revealed by perception / flashlight
   reveal?: 'perceive' | 'flashlight';

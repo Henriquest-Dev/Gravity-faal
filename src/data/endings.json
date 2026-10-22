@@ -1,3 +1,454 @@
-{ "endings": { "arc1": { "arc": 1, "outcomes": [ { "id": "repair", "title": "R", "text": "t" }, { "id": "exile", "title": "E", "text": "t" }, { "id": "ascension", "title": "A", "text": "t" } ], "tieBreak": ["repair", "exile", "ascension"] },
-  "arc2": { "arc": 2, "outcomes": [ { "id": "balance", "title": "B", "text": "t" }, { "id": "costly", "title": "C", "text": "t" }, { "id": "rupture", "title": "R", "text": "t" } ], "tieBreak": ["balance", "costly", "rupture"] } },
-  "arc2Setup": { "repair": { "effects": [], "journal": "x" }, "exile": { "effects": [], "journal": "x" }, "ascension": { "effects": [], "journal": "x" } } }
+{
+ "_doc": "Deterministic ending rules. score = base + sum(var * weight) + points whose condition holds. Highest eligible score wins; ties resolved by tieBreak order. A final choice is worth +4: it tips a balanced trajectory but cannot erase a strongly built one.",
+ "endings": {
+  "arc1": {
+   "arc": 1,
+   "tieBreak": [
+    "repair",
+    "exile",
+    "ascension"
+   ],
+   "outcomes": [
+    {
+     "id": "repair",
+     "title": "Reparação e preservação",
+     "text": "Bill usa o que aprendeu para coser a fenda. Perde parte do poder, mas Euclydia sobrevive — e lembra-se dele como a criança que viu o perigo primeiro.",
+     "weights": {
+      "empathy": 1,
+      "trust": 0.7,
+      "ambition": -0.6
+     },
+     "points": [
+      {
+       "when": {
+        "event": "rescued",
+        "countGte": 2
+       },
+       "points": 3,
+       "reason": "resgataste a maioria dos presos"
+      },
+      {
+       "when": {
+        "flag": "fountain_repaired"
+       },
+       "points": 2,
+       "reason": "reparaste a fonte"
+      },
+      {
+       "when": {
+        "event": "promisesKept",
+        "value": "tri"
+       },
+       "points": 1,
+       "reason": "cumpriste a promessa à Tri"
+      },
+      {
+       "when": {
+        "flag": "reported"
+       },
+       "points": 1,
+       "reason": "partilhaste a visão"
+      },
+      {
+       "when": {
+        "flag": "bola8_calm"
+       },
+       "points": 1,
+       "reason": "acalmaste o Bola 8"
+      },
+      {
+       "when": {
+        "flag": "final_seal"
+       },
+       "points": 4,
+       "reason": "escolheste selar a fenda"
+      }
+     ]
+    },
+    {
+     "id": "exile",
+     "title": "Exílio e ruptura incompleta",
+     "text": "Bill afasta-se de todos. A fenda fecha-se só em parte; Euclydia segue em frente sem ele e ele segue sem nome pelo vazio, nem herói nem tirano.",
+     "base": 3,
+     "weights": {
+      "empathy": 0.2,
+      "ambition": 0.2,
+      "trust": -0.4
+     },
+     "points": [
+      {
+       "when": {
+        "flag": "final_leave"
+       },
+       "points": 4,
+       "reason": "escolheste partir"
+      },
+      {
+       "when": {
+        "all": [
+         {
+          "event": "rescued",
+          "countGte": 1
+         },
+         {
+          "not": {
+           "event": "rescued",
+           "countGte": 2
+          }
+         }
+        ]
+       },
+       "points": 1,
+       "reason": "salvaste alguém, mas não todos"
+      },
+      {
+       "when": {
+        "flag": "hid_visions"
+       },
+       "points": 1,
+       "reason": "escondeste as visões da Anciã"
+      },
+      {
+       "when": {
+        "event": "promisesBroken",
+        "value": "tri"
+       },
+       "points": 1,
+       "reason": "quebraste a promessa à Tri"
+      },
+      {
+       "when": {
+        "flag": "secret_vision"
+       },
+       "points": 1,
+       "reason": "guardaste a visão em segredo"
+      }
+     ]
+    },
+    {
+     "id": "ascension",
+     "title": "Ascensão e domínio dimensional",
+     "text": "Bill bebe o coração da fenda. Deixa de ser criança e de ser triângulo comum: torna-se um poder que dobra dimensões. Euclydia não volta a ser plana.",
+     "weights": {
+      "ambition": 1.1,
+      "empathy": -0.5
+     },
+     "points": [
+      {
+       "when": {
+        "flag": "final_absorb"
+       },
+       "points": 4,
+       "reason": "absorveste o coração"
+      },
+      {
+       "when": {
+        "item": "geometry_shard",
+        "count": 2
+       },
+       "points": 2,
+       "reason": "guardaste estilhaços em vez de os usar"
+      },
+      {
+       "when": {
+        "event": "deals",
+        "value": "pyronica"
+       },
+       "points": 2,
+       "reason": "fizeste um acordo com a Pyronica"
+      },
+      {
+       "when": {
+        "flag": "scared_merchant"
+       },
+       "points": 1,
+       "reason": "assustaste o Mercador com o teu poder"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "when": {
+      "event": "rescued",
+      "value": "tri"
+     },
+     "text": "A Tri guarda o teu primeiro desenho da porta no céu."
+    },
+    {
+     "when": {
+      "not": {
+       "event": "rescued",
+       "value": "tri"
+      }
+     },
+     "text": "Ninguém encontrou a Tri nos escombros a tempo."
+    },
+    {
+     "when": {
+      "flag": "fountain_repaired"
+     },
+     "text": "A fonte de cristal volta a cantar na praça."
+    }
+   ]
+  },
+  "arc2": {
+   "arc": 2,
+   "tieBreak": [
+    "balance",
+    "costly",
+    "rupture"
+   ],
+   "outcomes": [
+    {
+     "id": "balance",
+     "title": "Equilíbrio entre os mundos",
+     "text": "As linhas temporais voltam a correr lado a lado. Gravity Falls fica estranha como sempre — mas inteira — e as portas entre mundos ficam fechadas por dentro.",
+     "weights": {
+      "empathy": 1,
+      "trust": 0.6,
+      "reality": 0.4,
+      "timeDebt": -0.7,
+      "ambition": -0.4
+     },
+     "points": [
+      {
+       "when": {
+        "arc1": "repair"
+       },
+       "points": 2,
+       "reason": "o Bill de Euclydia ajudou a fechar as fendas"
+      },
+      {
+       "when": {
+        "all": [
+         {
+          "event": "rescued",
+          "value": "soos"
+         },
+         {
+          "event": "rescued",
+          "value": "pacifica"
+         },
+         {
+          "event": "rescued",
+          "value": "wendy"
+         }
+        ]
+       },
+       "points": 2,
+       "reason": "salvaram toda a gente na cidade"
+      },
+      {
+       "when": {
+        "flag": "baby_calmed"
+       },
+       "points": 3,
+       "reason": "acalmaram o Bebé do Tempo"
+      },
+      {
+       "when": {
+        "flag": "ford_rescued"
+       },
+       "points": 1,
+       "reason": "libertaram o Ford"
+      },
+      {
+       "when": {
+        "flag": "final_restore"
+       },
+       "points": 4,
+       "reason": "escolheram restaurar o tempo"
+      },
+      {
+       "when": {
+        "flag": "final_sacrifice"
+       },
+       "points": -3,
+       "reason": "o sacrifício deixa algo do lado de lá"
+      },
+      {
+       "when": {
+        "flag": "final_dominate"
+       },
+       "points": -4,
+       "reason": "dominar o tempo não é equilíbrio"
+      }
+     ]
+    },
+    {
+     "id": "costly",
+     "title": "Vitória com um custo persistente",
+     "text": "A intrusão termina, mas alguma coisa fica do lado de lá: um ano de memórias, uma porta que nunca se fecha bem, um nome que ninguém recorda. Gravity Falls ganha — e paga.",
+     "base": 4,
+     "weights": {
+      "reality": 0.1,
+      "timeDebt": 0.2
+     },
+     "points": [
+      {
+       "when": {
+        "flag": "final_sacrifice"
+       },
+       "points": 4,
+       "reason": "escolheram sacrificar"
+      },
+      {
+       "when": {
+        "defeated": "time_baby"
+       },
+       "points": 1,
+       "reason": "derrotaram o Bebé do Tempo à força"
+      },
+      {
+       "when": {
+        "flag": "bill_deal_accepted"
+       },
+       "points": 2,
+       "reason": "aceitaram o acordo do Bill"
+      },
+      {
+       "when": {
+        "not": {
+         "all": [
+          {
+           "event": "rescued",
+           "value": "soos"
+          },
+          {
+           "event": "rescued",
+           "value": "pacifica"
+          },
+          {
+           "event": "rescued",
+           "value": "wendy"
+          }
+         ]
+        }
+       },
+       "points": 1,
+       "reason": "nem todos foram salvos"
+      },
+      {
+       "when": {
+        "arc1": "exile"
+       },
+       "points": 1,
+       "reason": "o exílio de Bill deixou fendas por fechar"
+      }
+     ]
+    },
+    {
+     "id": "rupture",
+     "title": "Ruptura dimensional",
+     "text": "As dimensões rasgam-se de vez. Gravity Falls passa a ser uma encruzilhada onde Euclydia, o futuro e o pesadelo se tocam — e alguém terá de governar o caos.",
+     "weights": {
+      "ambition": 1,
+      "timeDebt": 0.6,
+      "reality": -0.5
+     },
+     "points": [
+      {
+       "when": {
+        "arc1": "ascension"
+       },
+       "points": 2,
+       "reason": "o Bill ascendido empurrou as dimensões"
+      },
+      {
+       "when": {
+        "flag": "final_dominate"
+       },
+       "points": 4,
+       "reason": "escolheram dominar as linhas temporais"
+      },
+      {
+       "when": {
+        "flag": "baby_bargain"
+       },
+       "points": 2,
+       "reason": "ficaram a dever tempo ao Bebé do Tempo"
+      },
+      {
+       "when": {
+        "flag": "bill_deal_accepted"
+       },
+       "points": 1,
+       "reason": "aceitaram o acordo do Bill"
+      }
+     ]
+    }
+   ],
+   "variations": [
+    {
+     "when": {
+      "arc1": "repair"
+     },
+     "text": "Bill — o de Euclydia — fica do lado certo da porta, a guardá-la."
+    },
+    {
+     "when": {
+      "arc1": "exile"
+     },
+     "text": "Bill continua a vaguear entre dimensões; às vezes, deixa um triângulo desenhado no pó da Cabana."
+    },
+    {
+     "when": {
+      "arc1": "ascension"
+     },
+     "text": "Bill, o poder de Euclydia, observa tudo. Ainda não acabou."
+    },
+    {
+     "when": {
+      "flag": "waddles_home"
+     },
+     "text": "O Waddles dorme ao pé da lareira."
+    },
+    {
+     "when": {
+      "flag": "ford_rescued"
+     },
+     "text": "O Ford regressa à Cabana com trinta anos de histórias por contar."
+    }
+   ]
+  }
+ },
+ "arc2Setup": {
+  "repair": {
+   "effects": [
+    {
+     "setFlag": "bill_ally"
+    },
+    {
+     "var": "reality",
+     "add": 2
+    }
+   ],
+   "journal": "Em Euclydia, Bill escolheu reparar. Nesta história, ele pode ser um aliado — com condições."
+  },
+  "exile": {
+   "effects": [
+    {
+     "setFlag": "bill_ambiguous"
+    }
+   ],
+   "journal": "Bill partiu de Euclydia sem nome. Nesta história ele é uma figura ambígua: oferece acordos."
+  },
+  "ascension": {
+   "effects": [
+    {
+     "setFlag": "bill_threat"
+    },
+    {
+     "var": "reality",
+     "add": -3
+    },
+    {
+     "var": "timeDebt",
+     "add": 2
+    }
+   ],
+   "journal": "Bill ascendeu em Euclydia. Nesta história ele é uma ameaça e as suas criaturas rondam Gravity Falls."
+  }
+ }
+}

@@ -220,18 +220,28 @@ export class Grid {
         if (!this.boxBlocked(b, x + sx, y)) x += sx;
         else {
           const n = sy === 0 ? this.nudge(b, x + sx, y, 'y') : 0;
-          if (n !== 0) { y += n; x += sx; } else blockedX = true;
+          if (n !== 0) { y += n; x += sx; } else { blockedX = true; x = this.contact(b, x, y, sx, 0).x; }
         }
       }
       if (sy !== 0 && !blockedY) {
         if (!this.boxBlocked(b, x, y + sy)) y += sy;
         else {
           const n = sx === 0 ? this.nudge(b, x, y + sy, 'x') : 0;
-          if (n !== 0) { x += n; y += sy; } else blockedY = true;
+          if (n !== 0) { x += n; y += sy; } else { blockedY = true; y = this.contact(b, x, y, 0, sy).y; }
         }
       }
     }
     return { x, y, blockedX, blockedY };
+  }
+
+  /** Closes the remaining gap to an obstacle so bodies rest flush against it. */
+  private contact(b: Body, x: number, y: number, dx: number, dy: number): { x: number; y: number } {
+    let step = 0.5;
+    for (let i = 0; i < 5; i++) {
+      if (!this.boxBlocked(b, x + dx * step, y + dy * step)) { x += dx * step; y += dy * step; }
+      step /= 2;
+    }
+    return { x, y };
   }
 
   private nudge(b: Body, x: number, y: number, axis: 'x' | 'y'): number {

@@ -218,6 +218,11 @@ export function startArc2(s: GameState, data: RuleData): void {
   for (const a of s.abilities) s.flags[`arc1_ability_${a}`] = true;
   s.abilities = [];
   s.inventory = {};
+  // personal traits belong to Bill; world-level values (reality, time debt) carry over
+  for (const v of ['empathy', 'ambition', 'trust'] as const) {
+    s.flags[`arc1_${v}_${s.vars[v] >= 0 ? 'pos' : 'neg'}`] = true;
+    s.vars[v] = 0;
+  }
   s.flags[`arc1_${ending}`] = true;
   const setup = data.arc2Setup[ending];
   const out: Signal[] = [];

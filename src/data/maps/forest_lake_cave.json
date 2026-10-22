@@ -1,0 +1,1067 @@
+{
+ "id": "forest_lake_cave",
+ "name": "Floresta, lago e gruta",
+ "arc": 2,
+ "theme": "forest",
+ "music": "forest",
+ "reference": "forest_lake_cave",
+ "width": 50,
+ "height": 36,
+ "ambient": {
+  "tint": "#cfe8c0"
+ },
+ "props": [
+  {
+   "prop": "nature/dead_tree",
+   "x": 0.29,
+   "y": 1.1,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 2.75,
+   "y": 0.89,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 4.37,
+   "y": 1.13,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 6.42,
+   "y": 1.01,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 8.72,
+   "y": 0.91,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 10.73,
+   "y": 0.91,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 12.7,
+   "y": 1.06,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 16.6,
+   "y": 0.94,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 18.3,
+   "y": 1.01,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 20.55,
+   "y": 1.03,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 28.31,
+   "y": 1.13,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 30.59,
+   "y": 1.14,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 34.6,
+   "y": 1.04,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 36.68,
+   "y": 0.92,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 38.76,
+   "y": 1.06,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 40.39,
+   "y": 1.06,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 44.39,
+   "y": 1.01,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 46.69,
+   "y": 1.06,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 48.22,
+   "y": 0.91,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 1.36,
+   "y": 3.12,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 0.32,
+   "y": 4.88,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 48.7,
+   "y": 4.89,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 1.43,
+   "y": 7.13,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 49.49,
+   "y": 6.93,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 0.42,
+   "y": 8.95,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 48.69,
+   "y": 9.07,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 1.2,
+   "y": 11.13,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 49.73,
+   "y": 11.08,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.69,
+   "y": 12.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 48.73,
+   "y": 12.86,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 49.6,
+   "y": 15.04,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.39,
+   "y": 17.12,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 48.21,
+   "y": 16.89,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 1.48,
+   "y": 18.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 49.77,
+   "y": 18.99,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 0.25,
+   "y": 20.91,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 48.44,
+   "y": 21.03,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 49.72,
+   "y": 22.94,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 48.59,
+   "y": 24.94,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 1.76,
+   "y": 27.08,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 49.69,
+   "y": 27.15,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.27,
+   "y": 29.12,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 48.73,
+   "y": 29.07,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 1.42,
+   "y": 31.04,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 49.4,
+   "y": 31.03,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 0.66,
+   "y": 33.01,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 48.65,
+   "y": 33.06,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 1.42,
+   "y": 34.86,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 3.21,
+   "y": 35.06,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 5.78,
+   "y": 35.13,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 7.37,
+   "y": 34.86,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 9.73,
+   "y": 35.04,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 11.32,
+   "y": 35.05,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 13.29,
+   "y": 34.96,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 15.24,
+   "y": 35.07,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 17.59,
+   "y": 35.08,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 19.34,
+   "y": 34.99,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 21.7,
+   "y": 35.14,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 23.34,
+   "y": 35.11,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 25.25,
+   "y": 35.1,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 27.55,
+   "y": 34.89,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 29.8,
+   "y": 34.94,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 33.35,
+   "y": 34.93,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 35.52,
+   "y": 35.07,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 37.37,
+   "y": 34.86,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 39.71,
+   "y": 35,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 41.39,
+   "y": 35.07,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 43.48,
+   "y": 35,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 45.72,
+   "y": 34.94,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 49.72,
+   "y": 34.87,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 16.5,
+   "y": 25.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 14.5,
+   "y": 27.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 22.5,
+   "y": 31.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/autumn_tree",
+   "x": 8.5,
+   "y": 27.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 17.5,
+   "y": 6.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/autumn_tree",
+   "x": 23.5,
+   "y": 9.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 23.5,
+   "y": 23.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 13.5,
+   "y": 10.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 5.5,
+   "y": 14.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/autumn_tree",
+   "x": 21.5,
+   "y": 26.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/autumn_tree",
+   "x": 4.5,
+   "y": 19.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 4.5,
+   "y": 8.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 27.5,
+   "y": 7.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 26.5,
+   "y": 24.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 26.5,
+   "y": 12.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 5.5,
+   "y": 13.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 22.5,
+   "y": 27.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/flower",
+   "x": 28.5,
+   "y": 17.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/flower",
+   "x": 21.5,
+   "y": 32.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/fern",
+   "x": 39.5,
+   "y": 33.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/fern",
+   "x": 4.5,
+   "y": 25.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/flower",
+   "x": 18.5,
+   "y": 5.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 27.5,
+   "y": 26.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/fern",
+   "x": 25.5,
+   "y": 12.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 16.5,
+   "y": 12.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/flower",
+   "x": 17.5,
+   "y": 32.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/mushrooms",
+   "x": 15.5,
+   "y": 26.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/flower",
+   "x": 5.5,
+   "y": 31.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/flower",
+   "x": 47.5,
+   "y": 28.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/fern",
+   "x": 2.5,
+   "y": 16.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/mushrooms",
+   "x": 35.5,
+   "y": 2.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/flower",
+   "x": 12.5,
+   "y": 28.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/mushrooms",
+   "x": 41.5,
+   "y": 29.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 2.5,
+   "y": 11.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/flower",
+   "x": 18.5,
+   "y": 8.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/mushrooms",
+   "x": 35.5,
+   "y": 17.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/mushrooms",
+   "x": 39.5,
+   "y": 13.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/mushrooms",
+   "x": 45.5,
+   "y": 12.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/mushrooms",
+   "x": 44.5,
+   "y": 18.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/mushrooms",
+   "x": 46.5,
+   "y": 16.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/mushrooms",
+   "x": 43.5,
+   "y": 12.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/cattails",
+   "x": 6.5,
+   "y": 15.6
+  },
+  {
+   "prop": "nature/cattails",
+   "x": 21.5,
+   "y": 22.2
+  },
+  {
+   "prop": "nature/log",
+   "x": 26.5,
+   "y": 12.6
+  },
+  {
+   "prop": "nature/cave_entrance",
+   "x": 33.6,
+   "y": 14.2,
+   "solid": false,
+   "layer": "ground"
+  },
+  {
+   "prop": "nature/rock",
+   "x": 36.5,
+   "y": 25.2
+  },
+  {
+   "prop": "nature/rock_b",
+   "x": 46,
+   "y": 24.5
+  },
+  {
+   "prop": "nature/stump",
+   "x": 12.5,
+   "y": 5.6
+  },
+  {
+   "prop": "nature/pine",
+   "x": 2.5,
+   "y": 33.5,
+   "scale": 2,
+   "layer": "foreground"
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 47.5,
+   "y": 34,
+   "scale": 2,
+   "layer": "foreground",
+   "flip": true
+  }
+ ],
+ "spawns": {
+  "default": {
+   "x": 24.5,
+   "y": 3,
+   "dir": "south"
+  },
+  "north": {
+   "x": 24.5,
+   "y": 3,
+   "dir": "south"
+  }
+ },
+ "exits": [
+  {
+   "id": "to_shack",
+   "x": 23,
+   "y": 0,
+   "w": 3,
+   "h": 1,
+   "to": "shack_exterior",
+   "spawn": "south",
+   "if": {
+    "not": {
+     "flag": "town_invaded"
+    }
+   }
+  },
+  {
+   "id": "to_shack_invaded",
+   "x": 23,
+   "y": 0,
+   "w": 3,
+   "h": 1,
+   "to": "shack_exterior",
+   "spawn": "south",
+   "if": {
+    "flag": "town_invaded"
+   }
+  }
+ ],
+ "npcs": [
+  {
+   "id": "waddles_lost",
+   "character": "waddles",
+   "x": 7.5,
+   "y": 30.5,
+   "dialogue": "waddles_lost",
+   "wander": 2,
+   "if": {
+    "not": {
+     "flag": "waddles_home"
+    }
+   }
+  }
+ ],
+ "enemies": [
+  {
+   "id": "forest_teeth_1",
+   "type": "teeth",
+   "x": 37,
+   "y": 19
+  },
+  {
+   "id": "forest_teeth_2",
+   "type": "teeth",
+   "x": 44,
+   "y": 21
+  }
+ ],
+ "interactables": [
+  {
+   "id": "hollow_tree",
+   "kind": "examine",
+   "x": 12.5,
+   "y": 6.4,
+   "hidden": true,
+   "reveal": "flashlight",
+   "label": "Examinar o tronco oco",
+   "text": "Dentro do tronco oco, embrulhado em oleado: um livro com uma mão de seis dedos e o número 3. Dipper fica sem fôlego. (Nova capacidade: Analisar com o diário)",
+   "effects": [
+    {
+     "give": "journal3"
+    },
+    {
+     "unlock": "journal_scan"
+    },
+    {
+     "setFlag": "found_journal"
+    },
+    {
+     "journal": "j_journal3"
+    }
+   ]
+  },
+  {
+   "id": "stump_hint",
+   "kind": "examine",
+   "x": 15,
+   "y": 7.6,
+   "text": "Há marcas de garras a apontar para o tronco ao lado. Está escuro lá dentro — a lanterna do Dipper (K) revelaria mais."
+  },
+  {
+   "id": "power_cell",
+   "kind": "pickup",
+   "x": 14.5,
+   "y": 19.6,
+   "item": "power_cell",
+   "prop": "interiors/generator",
+   "label": "Apanhar a célula de energia"
+  },
+  {
+   "id": "lake_post",
+   "kind": "grapple",
+   "x": 15.6,
+   "y": 18.5,
+   "landing": {
+    "x": 14,
+    "y": 19.4
+   }
+  },
+  {
+   "id": "lake_shore_post",
+   "kind": "grapple",
+   "x": 22.5,
+   "y": 16.4,
+   "landing": {
+    "x": 23.4,
+    "y": 16.6
+   }
+  },
+  {
+   "id": "ravine_post_w",
+   "kind": "grapple",
+   "x": 28.4,
+   "y": 14.6,
+   "landing": {
+    "x": 28.2,
+    "y": 15.4
+   }
+  },
+  {
+   "id": "ravine_post_e",
+   "kind": "grapple",
+   "x": 32.5,
+   "y": 15.4,
+   "landing": {
+    "x": 33.6,
+    "y": 15.6
+   }
+  },
+  {
+   "id": "ravine_sign",
+   "kind": "examine",
+   "x": 26.5,
+   "y": 16.6,
+   "prop": "nature/signpost",
+   "text": "Uma ravina sem fundo. Há postes de ancoragem amarelos dos dois lados: só o gancho da Mabel atravessa."
+  },
+  {
+   "id": "ledge_chest",
+   "kind": "chest",
+   "x": 11.5,
+   "y": 31.4,
+   "prop": "interiors/crate",
+   "item": "medkit",
+   "solid": true
+  },
+  {
+   "id": "cave_sym_1",
+   "kind": "examine",
+   "x": 37.5,
+   "y": 10.4,
+   "hidden": true,
+   "reveal": "flashlight",
+   "text": "Símbolo na rocha: um triângulo com um olho.",
+   "effects": [
+    {
+     "setFlag": "cave_sym_1"
+    },
+    {
+     "journal": "j_sym1"
+    }
+   ]
+  },
+  {
+   "id": "cave_sym_2",
+   "kind": "examine",
+   "x": 45.5,
+   "y": 23.4,
+   "hidden": true,
+   "reveal": "flashlight",
+   "text": "Símbolo na rocha: uma mão de seis dedos.",
+   "effects": [
+    {
+     "setFlag": "cave_sym_2"
+    },
+    {
+     "journal": "j_sym2"
+    }
+   ]
+  },
+  {
+   "id": "cave_sym_3",
+   "kind": "examine",
+   "x": 36.5,
+   "y": 22.4,
+   "hidden": true,
+   "reveal": "flashlight",
+   "text": "Símbolo na rocha: uma estrela de cadente com um ponto de interrogação.",
+   "effects": [
+    {
+     "setFlag": "cave_sym_3"
+    },
+    {
+     "journal": "j_sym3"
+    }
+   ]
+  },
+  {
+   "id": "cave_door",
+   "kind": "door",
+   "x": 41.5,
+   "y": 12.9,
+   "prop": "nature/rock",
+   "label": "Empurrar a pedra",
+   "requires": {
+    "all": [
+     {
+      "flag": "cave_sym_1"
+     },
+     {
+      "flag": "cave_sym_2"
+     },
+     {
+      "flag": "cave_sym_3"
+     }
+    ]
+   },
+   "requiresText": "A pedra tem três cavidades vazias. A gruta esconde três símbolos — a lanterna mostra-os."
+  },
+  {
+   "id": "bunker_card",
+   "kind": "pickup",
+   "x": 44.5,
+   "y": 11.4,
+   "item": "bunker_key",
+   "prop": "interiors/control_console",
+   "label": "Apanhar o cartão",
+   "effects": [
+    {
+     "journal": "j_bunker_card"
+    }
+   ]
+  },
+  {
+   "id": "forest_rest",
+   "kind": "save",
+   "x": 21.5,
+   "y": 8.6,
+   "prop": "nature/stump",
+   "label": "Descansar e gravar"
+  }
+ ],
+ "triggers": [
+  {
+   "id": "forest_intro",
+   "x": 22,
+   "y": 2,
+   "w": 5,
+   "h": 3,
+   "once": true,
+   "effects": [
+    {
+     "toast": "Na água profunda nadas devagar e não podes atacar. Sai pelas margens de terra."
+    }
+   ]
+  },
+  {
+   "id": "cave_dark",
+   "x": 32,
+   "y": 13,
+   "w": 3,
+   "h": 5,
+   "once": true,
+   "effects": [
+    {
+     "toast": "Está escuro na gruta. A lanterna do Dipper revela símbolos e atordoa os Teeth."
+    }
+   ]
+  }
+ ],
+ "onEnter": [
+  {
+   "questStart": "b_q3"
+  }
+ ],
+ "terrain": [
+  "xxxxxxxxxxxxxxxxxxxxxxx:::xxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxxxxx:::xxxxxxxxxxxxxxxxxxxxxxxx",
+  "xx.............G....G.G.::...vvv................xx",
+  "xx~~~...................::...vvv....G....G......xx",
+  "xx~=~~..................::...vvv...G............xx",
+  "xx~~=~~.................::...vvv......G.........xx",
+  "xx.~~=~~........G......G::G..vvv.CCCCCCCCCCCCCCCxx",
+  "xx..~~=~~........G......::...vvv.CCCCCCCCCCCCCCCxx",
+  "xx...~~=~~...:::........::...vvv.CCCCCCCCCCCCCCCxx",
+  "xx....~~=~~.G::::.......::...vvv.CC;;;;;;C;;;;;Cxx",
+  "xx.....~~=~~..:::::....:::G..vvv.CC;;;;;;C;;;;;Cxx",
+  "xx......~~=~~...::::G..:::...vvv.CC;;;;;;C;;;;;Cxx",
+  "xx.......~~=~~...::::::::....vvv;CC;;;;;;;;;;;;Cxx",
+  "xx.......~~~~~~~~~~::::::.G..vvv;CC;;;;;;C;;;;;Cxx",
+  "xx......~~~======~~~::::.....vvv;;;;;;;;;C;;;;;Cxx",
+  "xx....~~~==========~~~::.G.G.vvv;;;;;;;;;C;;;;;Cxx",
+  "xx....~~============~~::.....vvv;;;;;;;;;;;;;;;Cxx",
+  "xx...~~==============~~::..G.vvv;CC;;;;;;;;;;;;Cxx",
+  "xxGG.~~======...=====~~::....vvv;CC;;;;;;;;;;;;Cxx",
+  "xx...~~======...=====~~::....vvv.CC;;;;;;;;;;;;Cxx",
+  "xx..G~~==============~~::::..vvv.CC;;;;;;;;;;;;Cxx",
+  "xx....~~============~~..::::.vvv.CC;;;;;;;;;;;;Cxx",
+  "xx....~~~==========~~~..:::::vvv.CC;;;;;;;;;;;;Cxx",
+  "xx......~~~======~~~....::G::vvv.CC;;;;;;;;;;;;Cxx",
+  "xx......G~~~~~~~~~~.....::...vvv.CC;;;;;;;;;;;;Cxx",
+  "xx...............GG...G.::...vvv.CCCCCCCCCCCCCCCxx",
+  "xx....GG....GG..........::...vvv.CCCCCCCCCCCCCCCxx",
+  "xx.....................G::...vvv.CCCCCCCCCCCCCCCxx",
+  "xx......G......G...G....::G..vvv.....G..........xx",
+  "xx....::::::::::::::::::::...vvv..G..........G..xx",
+  "xx..G.::::::::::::::::::::...vvv......G.........xx",
+  "xxG...::....................Gvvv.............G..xx",
+  "xx.........G......G..........vvv...G...G........xx",
+  "xx.................G......G..vvv................xx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+ ]
+}

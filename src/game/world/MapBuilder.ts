@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { check } from '../../core/conditions';
 import { Grid, TILE } from '../../core/grid';
+import { applyVariants, buildingRects, footRect } from '../../core/mapgeom';
 import type { GameState } from '../../core/state';
 import { objKey } from '../../core/state';
 import type { BuildingDef, ExitDef, InteractableDef, MapDef, TriggerDef } from '../../core/types';
@@ -58,31 +59,6 @@ const DEFAULT_PROP: Partial<Record<InteractableDef['kind'], string>> = {
   plate: 'temporal/pad', rift: 'rifts/ground_rift', grapple: '@anchor', switch: '@lever_off', save: '@save',
 };
 
-export function applyVariants(def: MapDef, s: GameState): string[] {
-  const rows = [...def.terrain];
-  for (const v of def.variants ?? []) {
-    if (!check(v.when, s, def.id)) continue;
-    for (const p of v.patches ?? []) {
-      p.rows.forEach((row, j) => {
-        const y = p.y + j;
-        if (y < 0 || y >= rows.length) return;
-        const chars = [...rows[y]];
-        [...row].forEach((c, i) => { if (c !== ' ' && p.x + i < chars.length) chars[p.x + i] = c; });
-        rows[y] = chars.join('');
-      });
-    }
-  }
-  return rows;
-}
-
-export function footRect(propId: string, x: number, y: number, scale = 1): { x: number; y: number; w: number; h: number } | null {
-  const info = PROPS[propId];
-  if (!info?.foot) return null;
-  const k = scale / (info.div ?? 1);
-  const w = info.foot[0] * k, h = info.foot[1] * k;
-  return { x: x - w / 2, y: y - h, w, h };
-}
-
 export class MapBuilder {
   constructor(private scene: Phaser.Scene, private state: GameState) {}
 
@@ -104,16 +80,7 @@ export class MapBuilder {
       out.buildings.push({ def: b, img });
       out.destroyables.push(img);
       out.fades.push({ img, baseY, bounds: new Phaser.Geom.Rectangle(img.x, baseY - baked.h, baked.w, baked.h), alpha: 1 });
-      // solid footprint with a notch for the door
-      const id = `bld:${b.id}`;
-      if (b.door) {
-        const dx = b.door.x;
-        if (dx > b.x) grid.addRect({ id: `${id}:l`, x: b.x * TILE, y: b.y * TILE, w: (dx - b.x) * TILE, h: b.h * TILE });
-        if (dx + 1 < b.x + b.w) grid.addRect({ id: `${id}:r`, x: (dx + 1) * TILE, y: b.y * TILE, w: (b.x + b.w - dx - 1) * TILE, h: b.h * TILE });
-        grid.addRect({ id: `${id}:back`, x: dx * TILE, y: b.y * TILE, w: TILE, h: (b.h - 1) * TILE });
-      } else {
-        grid.addRect({ id, x: b.x * TILE, y: b.y * TILE, w: b.w * TILE, h: b.h * TILE });
-      }
+      for (const r of buildingRects(b)) grid.addRect(r);
     }
 
     (def.props ?? []).forEach((p, i) => {
@@ -145,7 +112,7 @@ export class MapBuilder {
     }
     out.exits = def.exits;
     out.triggers = def.triggers ?? [];
-    this.exitMarkers(def, grid, out);
+    this.exitMarkers(grid, out);
     this.waterGlints(grid, out);
     return out;
   }
@@ -185,10 +152,23 @@ export class MapBuilder {
       out.destroyables.push(overlay);
     }
     const o: IObj = { def: d, key, x, y, sprite, overlay, solidId: null, state, revealed: !d.hidden || !!s.flags[`revealed:${key}`] };
+    if (d.kind === 'push' && state === 'filled') {
+      // a block pushed into a void becomes floor
+      grid.setCode(Math.floor(x / TILE), Math.floor((y - 4) / TILE), 'k');
+      sprite?.setDepth(DEPTH.ground + y).setTint(0x6a6070);
+      this.refreshObject({ def: d, key, x, y, sprite, overlay: null, solidId: null, state, revealed: true });
+      return { def: d, key, x, y, sprite, overlay: null, solidId: null, state, revealed: true };
+    }
     const solid = d.solid ?? (d.kind === 'push' || (d.kind === 'door' && state !== 'open'));
     if (solid) {
       const foot = propId && !propId.startsWith('@') ? footRect(propId, x, y) : null;
-      const r = d.kind === 'push' ? { x: x - 15, y: y - 22, w: 30, h: 22 } : foot ?? { x: x - 14, y: y - 12, w: 28, h: 12 };
+      let r = d.kind === 'push' ? { x: x - 15, y: y - 22, w: 30, h: 22 } : foot ?? { x: x - 14, y: y - 12, w: 28, h: 12 };
+      if (d.kind === 'door') {
+        // a closed door always seals its whole tile, whatever the art's footprint
+        const tx = Math.floor(x / TILE) * TILE, ty = Math.floor((y - 1) / TILE) * TILE;
+        const x0 = Math.min(r.x, tx), y0 = Math.min(r.y, ty);
+        r = { x: x0, y: y0, w: Math.max(r.x + r.w, tx + TILE) - x0, h: Math.max(r.y + r.h, ty + TILE) - y0 };
+      }
       o.solidId = `obj:${d.id}`;
       grid.addRect({ id: o.solidId, ...r, dynamic: d.kind === 'push' });
     }
@@ -235,9 +215,9 @@ export class MapBuilder {
     }
   }
 
-  private exitMarkers(def: MapDef, grid: Grid, out: BuiltMap): void {
-    for (const e of def.exits) {
-      if (e.kind === 'door') continue;
+  private exitMarkers(grid: Grid, out: BuiltMap): void {
+    for (const e of out.exits) {
+      if (e.kind === 'door' || !check(e.if, this.state, out.def.id)) continue;
       const cx = (e.x + e.w / 2) * TILE, cy = (e.y + e.h / 2) * TILE;
       let dir = 0;
       if (e.x + e.w >= grid.w) dir = 0;

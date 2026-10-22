@@ -1,0 +1,619 @@
+{
+ "id": "observatory",
+ "name": "Observatório de Euclydia",
+ "arc": 1,
+ "theme": "euclid",
+ "music": "euclydia",
+ "reference": "observatory",
+ "width": 34,
+ "height": 28,
+ "ambient": {
+  "tint": "#1e1a33"
+ },
+ "props": [
+  {
+   "prop": "euclydia/round_tree",
+   "x": 4.36,
+   "y": 0.93,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 6.78,
+   "y": 0.94,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 8.25,
+   "y": 0.91,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 10.72,
+   "y": 1.04,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 12.57,
+   "y": 1.01,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 14.38,
+   "y": 1.13,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 18.47,
+   "y": 1.1,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 20.39,
+   "y": 0.91,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 22.53,
+   "y": 1,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 32.79,
+   "y": 0.89,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 33.65,
+   "y": 3.08,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 0.5,
+   "y": 5.02,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 1.2,
+   "y": 6.87,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 32.43,
+   "y": 8.86,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 33.65,
+   "y": 10.98,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 0.72,
+   "y": 12.89,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 32.29,
+   "y": 12.94,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 1.35,
+   "y": 14.85,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 33.5,
+   "y": 14.88,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 0.62,
+   "y": 16.88,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 32.43,
+   "y": 16.93,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 1.8,
+   "y": 18.94,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 33.68,
+   "y": 19.02,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 32.53,
+   "y": 21.03,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 1.68,
+   "y": 23.04,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 33.55,
+   "y": 23.01,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 0.7,
+   "y": 25.04,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 1.63,
+   "y": 27.03,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 5.28,
+   "y": 26.93,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 9.71,
+   "y": 27.12,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 13.3,
+   "y": 27.02,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 19.69,
+   "y": 26.89,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 21.41,
+   "y": 26.93,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 23.21,
+   "y": 27.03,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 25.3,
+   "y": 26.85,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 27.43,
+   "y": 27.11,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 29.4,
+   "y": 27.1,
+   "flip": true
+  },
+  {
+   "prop": "nature/fern",
+   "x": 9.5,
+   "y": 2.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 23.5,
+   "y": 17.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 11.5,
+   "y": 14.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/flower",
+   "x": 10.5,
+   "y": 24.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/flower",
+   "x": 9.5,
+   "y": 14.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/flower",
+   "x": 19.5,
+   "y": 14.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/flower",
+   "x": 14.5,
+   "y": 23.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/flower",
+   "x": 6.5,
+   "y": 24.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 2.5,
+   "y": 7.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/fern",
+   "x": 20.5,
+   "y": 23.9,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/observatory",
+   "x": 17,
+   "y": 6.2
+  },
+  {
+   "prop": "euclydia/stairs",
+   "x": 17,
+   "y": 14.2,
+   "layer": "ground"
+  },
+  {
+   "prop": "euclydia/planter",
+   "x": 12.5,
+   "y": 18.4
+  },
+  {
+   "prop": "euclydia/planter",
+   "x": 21.5,
+   "y": 18.4
+  },
+  {
+   "prop": "euclydia/lamp",
+   "x": 14.6,
+   "y": 23.6
+  },
+  {
+   "prop": "euclydia/lamp",
+   "x": 19.4,
+   "y": 23.6
+  },
+  {
+   "prop": "euclydia/obelisk",
+   "x": 6.5,
+   "y": 9.6
+  },
+  {
+   "prop": "euclydia/obelisk",
+   "x": 9.5,
+   "y": 9.6
+  },
+  {
+   "prop": "euclydia/crystal_cluster",
+   "x": 4.5,
+   "y": 5.2
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 6.5,
+   "y": 22.6
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 27.5,
+   "y": 22.4
+  }
+ ],
+ "spawns": {
+  "default": {
+   "x": 17,
+   "y": 25.6,
+   "dir": "north"
+  },
+  "from_rupture": {
+   "x": 17,
+   "y": 25.6,
+   "dir": "north"
+  }
+ },
+ "exits": [
+  {
+   "id": "to_plaza",
+   "x": 16,
+   "y": 27,
+   "w": 3,
+   "h": 1,
+   "to": "euclydia_plaza",
+   "spawn": "from_observatory",
+   "if": {
+    "not": {
+     "flag": "rupture_started"
+    }
+   }
+  },
+  {
+   "id": "to_rupture",
+   "x": 16,
+   "y": 27,
+   "w": 3,
+   "h": 1,
+   "to": "euclydia_rupture",
+   "spawn": "north",
+   "if": {
+    "flag": "rupture_started"
+   }
+  }
+ ],
+ "interactables": [
+  {
+   "id": "terrace_gate",
+   "kind": "door",
+   "x": 17,
+   "y": 12.2,
+   "prop": "euclydia/stone_door",
+   "label": "Activar a porta geométrica",
+   "requires": {
+    "ability": "geometry"
+   },
+   "requiresText": "A porta tem um triângulo vazio no centro. Só abre a quem saiba activar geometria."
+  },
+  {
+   "id": "plaque",
+   "kind": "examine",
+   "x": 13.5,
+   "y": 10.6,
+   "text": "Inscrição: \"Alinha o céu como o desenhaste em criança\". Os três anéis em volta da cúpula mostram símbolos. Consulta a carta estelar no inventário.",
+   "effects": [
+    {
+     "journal": "j_plaque"
+    }
+   ]
+  },
+  {
+   "id": "ring_a",
+   "kind": "ring",
+   "x": 11.5,
+   "y": 9.4,
+   "group": "obs_rings",
+   "value": 0,
+   "requires": {
+    "ability": "geometry"
+   },
+   "requiresText": "O anel não se mexe sem geometria.",
+   "label": "Rodar o anel (1.º)",
+   "onSolve": [
+    {
+     "setFlag": "obs_rings_solved"
+    },
+    {
+     "journal": "j_rings"
+    }
+   ]
+  },
+  {
+   "id": "ring_b",
+   "kind": "ring",
+   "x": 17,
+   "y": 10.6,
+   "group": "obs_rings",
+   "value": 1,
+   "requires": {
+    "ability": "geometry"
+   },
+   "requiresText": "O anel não se mexe sem geometria.",
+   "label": "Rodar o anel (2.º)"
+  },
+  {
+   "id": "ring_c",
+   "kind": "ring",
+   "x": 22.5,
+   "y": 9.4,
+   "group": "obs_rings",
+   "value": 2,
+   "requires": {
+    "ability": "geometry"
+   },
+   "requiresText": "O anel não se mexe sem geometria.",
+   "label": "Rodar o anel (3.º)"
+  },
+  {
+   "id": "telescope",
+   "kind": "repair",
+   "x": 17,
+   "y": 7.6,
+   "label": "Reparar o telescópio",
+   "requires": {
+    "all": [
+     {
+      "item": "lens_shard"
+     },
+     {
+      "flag": "obs_rings_solved"
+     }
+    ]
+   },
+   "requiresText": "O telescópio está sem lente e os anéis não estão alinhados. Procura a lente no nicho a nordeste e alinha os anéis.",
+   "effects": [
+    {
+     "unlock": "rift"
+    },
+    {
+     "setFlag": "telescope_fixed"
+    },
+    {
+     "journal": "j_telescope"
+    },
+    {
+     "var": "reality",
+     "add": -1
+    }
+   ]
+  },
+  {
+   "id": "block_a",
+   "kind": "push",
+   "x": 26.5,
+   "y": 4.95,
+   "group": "obs_blocks",
+   "label": "Empurrar bloco"
+  },
+  {
+   "id": "block_b",
+   "kind": "push",
+   "x": 26.5,
+   "y": 5.95,
+   "group": "obs_blocks",
+   "label": "Empurrar bloco"
+  },
+  {
+   "id": "blocks_reset",
+   "kind": "switch",
+   "x": 22.6,
+   "y": 6.6,
+   "group": "obs_blocks",
+   "value": -1,
+   "label": "Repor os blocos"
+  },
+  {
+   "id": "lens",
+   "kind": "pickup",
+   "x": 27.5,
+   "y": 3.9,
+   "item": "lens_shard",
+   "prop": "rifts/pink_crystal",
+   "label": "Apanhar a lente",
+   "effects": [
+    {
+     "journal": "j_lens"
+    }
+   ]
+  },
+  {
+   "id": "rift_terrace",
+   "kind": "rift",
+   "x": 6.5,
+   "y": 6.6,
+   "pair": "rift_garden",
+   "requires": {
+    "ability": "rift"
+   },
+   "requiresText": "Um ponto onde o ar está mais fino. Ainda não sabes abri-lo.",
+   "label": "Abrir fenda"
+  },
+  {
+   "id": "rift_garden",
+   "kind": "rift",
+   "x": 8.5,
+   "y": 19.6,
+   "pair": "rift_terrace",
+   "requires": {
+    "ability": "rift"
+   },
+   "requiresText": "Um ponto onde o ar está mais fino. Ainda não sabes abri-lo.",
+   "label": "Abrir fenda"
+  },
+  {
+   "id": "obs_bench",
+   "kind": "save",
+   "x": 21.5,
+   "y": 22.4,
+   "prop": "euclydia/bench",
+   "solid": true
+  }
+ ],
+ "triggers": [
+  {
+   "id": "vision",
+   "x": 14,
+   "y": 7,
+   "w": 7,
+   "h": 4,
+   "once": true,
+   "if": {
+    "flag": "telescope_fixed"
+   },
+   "dialogue": "telescope_vision"
+  }
+ ],
+ "onEnter": [
+  {
+   "questStart": "a1_q3"
+  }
+ ],
+ "terrain": [
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xx......................xxxxx...xx",
+  "xx.pppppppppppppppppppppxpppxpp.xx",
+  "xx.ppppppppppppggggpppppxpppxpp.xx",
+  "xx.ppppppppppggggggggpppppppxpp.xx",
+  "xx.pppppppppggggggggggppxpppxpp.xx",
+  "xx.pppppppppggggggggggppxxxxxpp.xx",
+  "xx.pppppppppggggggggggppppppppp.xx",
+  "xx.ppppppppppggggggggpppppppppp.xx",
+  "xx.ppppppppppppggggpppppppppppp.xx",
+  "xx.pppppppppppppppppppppppppppp.xx",
+  "xxCCCCCCCCCCCCCCppCCCCCCCCCCCCCCxx",
+  "xxCCCCCCCCCCCCCCppCCCCCCCCCCCCCCxx",
+  "xx..............ppp.............xx",
+  "xx..............ppp.............xx",
+  "xx..............ppp.............xx",
+  "xx...........mmmmmmmm...........xx",
+  "xx..........mmmmmmmmmm..........xx",
+  "xx.........mmmmmmmmmmmm.........xx",
+  "xx.........mmmmmmmmmmmm.........xx",
+  "xx..........mmmmmmmmmm..........xx",
+  "xx...........mmmmmmmm...........xx",
+  "xx..............ppp.............xx",
+  "xx..............ppp.............xx",
+  "xx..............ppp.............xx",
+  "xxxxxxxxxxxxxxxxpppxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxpppxxxxxxxxxxxxxxx"
+ ]
+}

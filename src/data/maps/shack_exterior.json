@@ -898,6 +898,18 @@
    "kind": "door"
   },
   {
+   "id": "to_town_invaded",
+   "x": 43,
+   "y": 11,
+   "w": 1,
+   "h": 3,
+   "to": "town_invaded",
+   "spawn": "west",
+   "if": {
+    "flag": "town_invaded"
+   }
+  },
+  {
    "id": "to_town",
    "x": 43,
    "y": 11,
@@ -905,6 +917,11 @@
    "h": 3,
    "to": "town_center",
    "spawn": "west",
+   "if": {
+    "not": {
+     "flag": "town_invaded"
+    }
+   },
    "requires": {
     "flag": "stan_briefing"
    },

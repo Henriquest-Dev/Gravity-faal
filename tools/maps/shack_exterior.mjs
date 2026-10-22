@@ -64,7 +64,8 @@ export default function build() {
     },
     exits: [
       { id: 'shack_door', x: 21, y: 10, w: 1, h: 1, to: 'shack_interior', spawn: 'door', kind: 'door' },
-      { id: 'to_town', x: 43, y: 11, w: 1, h: 3, to: 'town_center', spawn: 'west', requires: { flag: 'stan_briefing' }, lockedText: 'O Stan quer falar convosco antes de irem à cidade. Ele está dentro da Cabana.' },
+      { id: 'to_town_invaded', x: 43, y: 11, w: 1, h: 3, to: 'town_invaded', spawn: 'west', if: { flag: 'town_invaded' } },
+      { id: 'to_town', x: 43, y: 11, w: 1, h: 3, to: 'town_center', spawn: 'west', if: { not: { flag: 'town_invaded' } }, requires: { flag: 'stan_briefing' }, lockedText: 'O Stan quer falar convosco antes de irem à cidade. Ele está dentro da Cabana.' },
       { id: 'to_forest', x: 20, y: 31, w: 4, h: 1, to: 'forest_lake_cave', spawn: 'north', requires: { flag: 'stan_briefing' }, lockedText: 'Primeiro falem com o Stan, dentro da Cabana.' },
     ],
     npcs: [

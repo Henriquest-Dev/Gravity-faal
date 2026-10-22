@@ -1,0 +1,678 @@
+{
+ "id": "town_center",
+ "name": "Centro de Gravity Falls",
+ "arc": 2,
+ "theme": "town",
+ "music": "town",
+ "reference": "town_center",
+ "width": 44,
+ "height": 30,
+ "ambient": {
+  "tint": "#ffe9c4"
+ },
+ "buildings": [
+  {
+   "id": "diner",
+   "x": 5,
+   "y": 7,
+   "w": 8,
+   "h": 4,
+   "style": "shop",
+   "wallHeight": 2,
+   "roofHeight": 1.5,
+   "sign": "GREASY'S",
+   "door": {
+    "x": 9
+   },
+   "windows": [
+    6,
+    7,
+    11
+   ]
+  },
+  {
+   "id": "town_hall",
+   "x": 16,
+   "y": 6,
+   "w": 10,
+   "h": 5,
+   "style": "stone",
+   "wallHeight": 2.5,
+   "roofHeight": 2,
+   "sign": "CAMARA",
+   "door": {
+    "x": 21
+   },
+   "windows": [
+    17,
+    19,
+    23,
+    24
+   ]
+  },
+  {
+   "id": "hardware",
+   "x": 29,
+   "y": 7,
+   "w": 8,
+   "h": 4,
+   "style": "workshop",
+   "wallHeight": 2,
+   "roofHeight": 1.5,
+   "sign": "FERRAGENS",
+   "door": {
+    "x": 33
+   },
+   "windows": [
+    30,
+    35
+   ]
+  }
+ ],
+ "props": [
+  {
+   "prop": "nature/pine_b",
+   "x": 0.73,
+   "y": 1.07,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 2.45,
+   "y": 0.97,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 4.64,
+   "y": 0.97,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 6.49,
+   "y": 1,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 8.78,
+   "y": 0.91,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 12.6,
+   "y": 0.91,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 14.29,
+   "y": 1.1,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 16.5,
+   "y": 0.88,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 18.23,
+   "y": 1.09,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 20.22,
+   "y": 1.07,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 22.79,
+   "y": 0.96,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 24.3,
+   "y": 1.09,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 26.64,
+   "y": 1.13,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 30.73,
+   "y": 0.89,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 32.47,
+   "y": 0.91,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 34.35,
+   "y": 1.03,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 36.39,
+   "y": 1.11,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 38.28,
+   "y": 0.91,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 42.34,
+   "y": 1.09,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 1.48,
+   "y": 3.05,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 43.42,
+   "y": 2.86,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 42.4,
+   "y": 5,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 1.5,
+   "y": 6.88,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.33,
+   "y": 8.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 42.56,
+   "y": 9.11,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 1.73,
+   "y": 10.87,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 43.44,
+   "y": 10.95,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 43.52,
+   "y": 19.14,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 0.76,
+   "y": 21.08,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 42.74,
+   "y": 21.08,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 1.37,
+   "y": 23.1,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 43.46,
+   "y": 23.07,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.57,
+   "y": 25.08,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 42.71,
+   "y": 24.87,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 1.8,
+   "y": 26.92,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.79,
+   "y": 29.06,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 2.78,
+   "y": 28.93,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 4.34,
+   "y": 29.12,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 6.43,
+   "y": 28.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 8.51,
+   "y": 28.86,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 12.48,
+   "y": 29.09,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 14.27,
+   "y": 28.88,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 18.27,
+   "y": 29.13,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 20.35,
+   "y": 28.93,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 22.46,
+   "y": 29.06,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 24.76,
+   "y": 29.13,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 26.69,
+   "y": 28.92,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 28.55,
+   "y": 28.98,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 32.61,
+   "y": 29.1,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 34.57,
+   "y": 29.13,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 38.54,
+   "y": 29.09,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 40.65,
+   "y": 29,
+   "flip": false
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 4.5,
+   "y": 12.6
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 15.5,
+   "y": 12.6
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 27.5,
+   "y": 12.6
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 39.5,
+   "y": 12.6
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 9.5,
+   "y": 18.6
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 22.5,
+   "y": 18.6
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 36.5,
+   "y": 18.6
+  },
+  {
+   "prop": "nature/autumn_tree",
+   "x": 7,
+   "y": 21
+  },
+  {
+   "prop": "nature/autumn_tree",
+   "x": 19,
+   "y": 25.6
+  },
+  {
+   "prop": "nature/pine",
+   "x": 6.5,
+   "y": 26.4
+  },
+  {
+   "prop": "nature/fence",
+   "x": 26.5,
+   "y": 19.4
+  },
+  {
+   "prop": "nature/fence",
+   "x": 35.5,
+   "y": 19.4
+  },
+  {
+   "prop": "interiors/wrecked_car",
+   "x": 36,
+   "y": 24
+  },
+  {
+   "prop": "nature/bush",
+   "x": 25.5,
+   "y": 25.6
+  },
+  {
+   "prop": "nature/flower",
+   "x": 16.5,
+   "y": 19.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/fern",
+   "x": 8.5,
+   "y": 19.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/flower",
+   "x": 17.5,
+   "y": 26.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 5.5,
+   "y": 22.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 15.5,
+   "y": 25.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 12.5,
+   "y": 26.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 20.5,
+   "y": 26.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 19.5,
+   "y": 19.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/flower",
+   "x": 6.5,
+   "y": 20.9,
+   "flip": false
+  }
+ ],
+ "spawns": {
+  "default": {
+   "x": 3,
+   "y": 15,
+   "dir": "east"
+  },
+  "west": {
+   "x": 2.5,
+   "y": 15,
+   "dir": "east"
+  },
+  "east": {
+   "x": 41.5,
+   "y": 15,
+   "dir": "west"
+  }
+ },
+ "exits": [
+  {
+   "id": "to_shack",
+   "x": 0,
+   "y": 13,
+   "w": 1,
+   "h": 4,
+   "to": "shack_exterior",
+   "spawn": "east"
+  },
+  {
+   "id": "to_workshop",
+   "x": 43,
+   "y": 13,
+   "w": 1,
+   "h": 4,
+   "to": "mcgucket_workshop",
+   "spawn": "west"
+  }
+ ],
+ "npcs": [
+  {
+   "id": "pacifica",
+   "character": "pacifica",
+   "x": 12,
+   "y": 21.4,
+   "dialogue": "pacifica",
+   "wander": 2
+  },
+  {
+   "id": "felicia",
+   "character": "felicia",
+   "x": 31.5,
+   "y": 21.6,
+   "dialogue": "felicia",
+   "wander": 2
+  },
+  {
+   "id": "wendy_town",
+   "character": "wendy",
+   "x": 8.5,
+   "y": 12.6,
+   "dir": "south",
+   "dialogue": "wendy_town",
+   "if": {
+    "quest": "b_q4",
+    "state": "active"
+   }
+  }
+ ],
+ "interactables": [
+  {
+   "id": "notice_board",
+   "kind": "examine",
+   "x": 18.5,
+   "y": 12.2,
+   "prop": "nature/signpost",
+   "label": "Ler o quadro",
+   "text": "Avisos: \"Luzes verdes sobre o lago — terceira noite seguida.\" \"Perdido: porco chamado Waddles, responde a bolachas de milho.\" \"Oficina McGucket: compram-se peças.\"",
+   "effects": [
+    {
+     "setFlag": "rumor_cave"
+    },
+    {
+     "questStart": "b_s1"
+    },
+    {
+     "journal": "j_notice"
+    }
+   ]
+  },
+  {
+   "id": "hardware_crate",
+   "kind": "chest",
+   "x": 34.5,
+   "y": 12.2,
+   "prop": "interiors/crate",
+   "item": "wire_coil",
+   "label": "Procurar no caixote",
+   "requires": {
+    "quest": "b_q4",
+    "state": [
+     "active",
+     "done"
+    ]
+   },
+   "requiresText": "Caixotes de material da loja de ferragens. Por agora não precisas de nada.",
+   "solid": true
+  },
+  {
+   "id": "park_bench",
+   "kind": "save",
+   "x": 16.5,
+   "y": 23.6,
+   "prop": "nature/bench",
+   "solid": true
+  },
+  {
+   "id": "diner_menu",
+   "kind": "examine",
+   "x": 11.5,
+   "y": 11.6,
+   "text": "Menu do Greasy's: panquecas com forma de cara. A Lazy Susan pisca um olho a quem passa."
+  },
+  {
+   "id": "town_snack",
+   "kind": "pickup",
+   "x": 26.5,
+   "y": 24,
+   "item": "energy_snack",
+   "prop": "interiors/barrel",
+   "label": "Apanhar Pitt Cola"
+  }
+ ],
+ "onEnter": [
+  {
+   "questStart": "b_q2"
+  }
+ ],
+ "terrain": [
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xx........................................xx",
+  "xx........................................xx",
+  "xx........................................xx",
+  "xx........................................xx",
+  "xx........................................xx",
+  "xx........................................xx",
+  "xx........................................xx",
+  "xx........................................xx",
+  "xx........................................xx",
+  "xx.pppppppppppppppppppppppppppppppppppppp.xx",
+  "xx.pppppppppppppppppppppppppppppppppppppp.xx",
+  "oooooooooooooooooooooooooooooooooooooooooooo",
+  "oooooooooooooooooooooooooooooooooooooooooooo",
+  "oooooooooooooooooooooooooooooooooooooooooooo",
+  "oooooooooooooooooooooooooooooooooooooooooooo",
+  "xx.pppppppppppppppppppppppppppppppppppppp.xx",
+  "xx.pppppppppppppppppppppppppppppppppppppp.xx",
+  "xx...........::..........;;;;;;pp;;;;;;...xx",
+  "xx...........::..........;;;;;;pp;;;;;;...xx",
+  "xx..........pp:..........;;;;;;pp;;;;;;...xx",
+  "xx.........pppp..........;;;;;;pp;;;;;;...xx",
+  "xx.....::::pppp::::::....;;;;;;pp;;;;;;...xx",
+  "xx.....:::::pp:::::::....;;;;;;pp;;;;;;...xx",
+  "xx...........::..........;;;;;;pp;;;;;;...xx",
+  "xx...........::...........................xx",
+  "xx...........::...........................xx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+ ]
+}

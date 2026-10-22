@@ -1,0 +1,43 @@
+import { Canvas } from './lib.mjs';
+
+export default function build() {
+  const W = 22, H = 14;
+  const c = new Canvas(W, H, '#');
+  c.rect(1, 3, 13, 8, 'e'); // main room
+  c.rect(15, 3, 6, 8, 'l'); // Bill's room
+  c.rect(14, 7, 1, 2, 'e'); // inner doorway
+  c.rect(6, 11, 2, 3, 'e'); // front door corridor
+  return {
+    id: 'bill_house', name: 'Casa de Bill', arc: 1, theme: 'euclid', music: 'interior', reference: 'bill_house',
+    width: W, height: H, terrain: c.rows(),
+    ambient: { tint: '#2a2238' },
+    props: [
+      { prop: 'euclydia/rug', x: 7, y: 9.2, layer: 'ground' },
+      { prop: 'euclydia/table', x: 7, y: 7.4 },
+      { prop: 'euclydia/chair', x: 5.2, y: 7.2 }, { prop: 'euclydia/chair', x: 8.9, y: 7.2, flip: true },
+      { prop: 'euclydia/bookshelf', x: 2.4, y: 4.2 },
+      { prop: 'euclydia/lamp', x: 12.6, y: 4.4 },
+      { prop: 'euclydia/planter', x: 11.5, y: 10.6 },
+      { prop: 'euclydia/tri_bed', x: 18.5, y: 5.6 },
+      { prop: 'euclydia/plush', x: 20, y: 10.4 },
+      { prop: 'euclydia/rug', x: 17.6, y: 9.4, layer: 'ground' },
+    ],
+    spawns: { default: { x: 7, y: 10.4, dir: 'north' }, door: { x: 7, y: 10.4, dir: 'north' } },
+    exits: [
+      { id: 'front_door', x: 6, y: 13, w: 2, h: 1, to: 'euclydia_plaza', spawn: 'from_house', kind: 'door', if: { not: { flag: 'rupture_started' } } },
+      { id: 'front_door_rupture', x: 6, y: 13, w: 2, h: 1, to: 'euclydia_rupture', spawn: 'from_house', kind: 'door', if: { flag: 'rupture_started' } },
+    ],
+    npcs: [
+      { id: 'tri_visit', character: 'artisan_triangle', x: 10, y: 8.6, dir: 'west', dialogue: 'tri_house', if: { all: [{ quest: 'a1_q2', state: 'active' }, { not: { flag: 'tri_talked' } }] } },
+    ],
+    interactables: [
+      { id: 'drawings', kind: 'examine', x: 4.5, y: 3.4, label: 'Ver os desenhos', text: 'Desenhos de Bill pequeno: estrelas com mais pontas do que as possíveis, e uma porta no céu. A mãe escreveu por baixo: "não contes isto aos vizinhos".', effects: [{ setFlag: 'memory_drawings' }, { journal: 'j_drawings' }] },
+      { id: 'family_portrait', kind: 'examine', x: 9.5, y: 3.4, label: 'Ver o retrato', text: 'Um retrato de família. Dois triângulos adultos sorriem; Bill está ao meio, com o olho fechado. Lembras-te do dia: tinhas medo de que o flash revelasse o que vês.', effects: [{ setFlag: 'memory_family' }, { var: 'empathy', add: 1 }, { journal: 'j_family' }] },
+      { id: 'mirror', kind: 'examine', x: 12.6, y: 6.4, prop: 'rifts/mirror', solid: true, label: 'Olhar o espelho', text: 'No reflexo, por um instante, o teu olho acende-se como uma janela para outro sítio. Depois volta ao normal.', effects: [{ setFlag: 'memory_mirror' }] },
+      { id: 'bill_drawer', kind: 'chest', x: 16.4, y: 4.4, prop: 'euclydia/bookshelf', item: 'star_chart', label: 'Abrir a gaveta', effects: [{ journal: 'j_star_chart' }], solid: true },
+      { id: 'bed_rest', kind: 'save', x: 18.5, y: 7.2, label: 'Descansar e gravar' },
+      { id: 'window', kind: 'examine', x: 17.5, y: 3.4, text: 'Pela janela vê-se a cúpula do observatório. Esta noite está acesa, como se alguém lá estivesse à tua espera.', effects: [{ journal: 'j_window' }] },
+    ],
+    onEnter: [{ questStart: 'a1_q2' }],
+  };
+}

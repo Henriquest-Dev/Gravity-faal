@@ -1,0 +1,55 @@
+import { Canvas } from './lib.mjs';
+
+export default function build() {
+  const W = 36, H = 28;
+  const c = new Canvas(W, H, '#');
+  c.rect(2, 3, 6, 5, 't'); // arrival
+  c.rect(8, 5, 14, 2, 't'); // corridor east
+  c.rect(14, 9, 8, 6, 'T'); // circuit room
+  c.rect(17, 7, 2, 2, 't');
+  c.rect(22, 5, 2, 2, 't');
+  c.rect(24, 3, 8, 6, 't'); // keyhole hall
+  c.rect(27, 9, 2, 5, 't'); // corridor to the blast door
+  c.rect(16, 15, 18, 10, 'T'); // portal room
+  c.rect(27, 14, 2, 1, 't'); // blast door gap
+  c.rect(4, 8, 1, 1, '#');
+  return {
+    id: 'portal_bunker', name: 'Bunker do portal', arc: 2, theme: 'bunker', music: 'bunker', reference: 'portal_bunker',
+    width: W, height: H, terrain: c.rows(),
+    ambient: { tint: '#0a1418', strange: true, darkness: 0.2 },
+    props: [
+      { prop: 'interiors/lab_table', x: 4.5, y: 4.4 },
+      { prop: 'interiors/control_console', x: 30, y: 4.4 },
+      { prop: 'interiors/generator', x: 25.5, y: 4.4 },
+      { prop: 'interiors/portal_model', x: 25, y: 18.8 },
+      { prop: 'interiors/floor_lamp', x: 17, y: 16 }, { prop: 'interiors/floor_lamp', x: 33, y: 16 },
+      { prop: 'interiors/display_case', x: 19, y: 23.6 },
+      { prop: 'interiors/barrel', x: 32.4, y: 23.4 },
+    ],
+    spawns: { default: { x: 4.5, y: 6.4, dir: 'south' }, stairs: { x: 4.5, y: 6.4, dir: 'south' } },
+    exits: [{ id: 'stairs_up', x: 2, y: 3, w: 2, h: 1, to: 'shack_interior', spawn: 'vending', kind: 'stairs' }],
+    npcs: [
+      { id: 'bill_ally', character: 'bill', x: 21, y: 19.4, dialogue: 'bill_ally', if: { all: [{ flag: 'bill_ally' }, { not: { flag: 'town_invaded' } }] } },
+      { id: 'bill_deal', character: 'bill', x: 21, y: 19.4, dialogue: 'bill_deal', if: { all: [{ flag: 'bill_ambiguous' }, { not: { flag: 'town_invaded' } }] } },
+      { id: 'bill_threat', character: 'bill', x: 21, y: 19.4, dialogue: 'bill_threat', if: { all: [{ flag: 'bill_threat' }, { not: { flag: 'town_invaded' } }] } },
+    ],
+    enemies: [
+      { id: 'bunker_keyhole', type: 'keyhole', x: 28, y: 7 },
+      { id: 'bunker_pyronica', type: 'pyronica', x: 30, y: 21, if: { flag: 'bill_threat' } },
+      { id: 'bunker_teeth', type: 'teeth', x: 18, y: 22, if: { flag: 'bill_threat' } },
+    ],
+    interactables: [
+      { id: 'b_sw_1', kind: 'switch', x: 15.5, y: 10.4, group: 'bunker_circuit', value: 1, label: 'Interruptor 1', onSolve: [{ setObject: 'blast_door', state: 'open' }, { journal: 'j_bunker_power' }] },
+      { id: 'b_sw_2', kind: 'switch', x: 17.5, y: 10.4, group: 'bunker_circuit', value: 3, label: 'Interruptor 2' },
+      { id: 'b_sw_3', kind: 'switch', x: 19.5, y: 10.4, group: 'bunker_circuit', value: 6, label: 'Interruptor 3' },
+      { id: 'b_sw_4', kind: 'switch', x: 21, y: 12.4, group: 'bunker_circuit', value: 12, label: 'Interruptor 4' },
+      { id: 'b_sw_reset', kind: 'switch', x: 15, y: 13.6, group: 'bunker_circuit', value: -1, label: 'Repor interruptores' },
+      { id: 'b_circuit_note', kind: 'examine', x: 18, y: 13.6, text: 'Nota na letra do autor: "Quatro relés. Cada interruptor inverte relés vizinhos. Todos acesos = energia na porta blindada." O diário sugere começar pelo último interruptor.', effects: [{ journal: 'j_bunker_note' }] },
+      { id: 'blast_door', kind: 'door', x: 28, y: 14.9, prop: 'interiors/door', label: 'Porta blindada', requires: { flag: 'bunker_circuit_solved' }, requiresText: 'A porta blindada não tem energia. Os interruptores estão na sala a oeste.' },
+      { id: 'portal_console', kind: 'portal', x: 25, y: 20.4, label: 'Ligar o estabilizador ao portal', requires: { item: 'stabilizer' }, requiresText: 'O portal precisa de um estabilizador dimensional. O McGucket sabe construir um.', effects: [{ setFlag: 'town_invaded' }, { journal: 'j_portal_opened' }, { var: 'reality', add: -2 }, { teleport: { map: 'town_invaded', spawn: 'west' } }] },
+      { id: 'bunker_rest', kind: 'save', x: 6.5, y: 4.6, label: 'Descansar e gravar' },
+      { id: 'author_note', kind: 'examine', x: 31.5, y: 22.6, hidden: true, reveal: 'flashlight', text: 'Escrito a lápis por baixo da vitrine: "Se o portal abrir sem âncora, o tempo vai querer cobrar a dívida. Encontra o meu irmão."', effects: [{ journal: 'j_author_note' }] },
+    ],
+    onEnter: [{ questStart: 'b_q5' }],
+  };
+}

@@ -25,7 +25,7 @@ function declutter(map) {
 }
 const round = (v) => (typeof v === 'number' ? Math.round(v * 100) / 100 : v);
 
-for (const f of readdirSync(join(here, 'maps')).filter((f) => f.endsWith('.mjs') && f !== 'lib.mjs').sort()) {
+for (const f of readdirSync(join(here, 'maps')).filter((f) => f.endsWith('.mjs') && f !== 'lib.mjs' && !f.endsWith('_layout.mjs')).sort()) {
   const id = f.replace('.mjs', '');
   if (only.length && !only.includes(id)) continue;
   const mod = await import(pathToFileURL(join(here, 'maps', f)).href);

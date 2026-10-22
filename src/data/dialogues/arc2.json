@@ -1,0 +1,380 @@
+[
+  {
+    "id": "soos",
+    "entries": [
+      { "if": { "flag": "waddles_home" }, "start": "waddles" },
+      { "if": { "all": [{ "flag": "stan_briefing" }, { "not": { "ability": "grapple" } }] }, "start": "hook" },
+      { "start": "a" }
+    ],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Soos", "text": "Ei, meus! Bem-vindos à Cabana do Mistério! Já experimentaram o \"Buraco Misterioso\"? É um buraco. Muito misterioso." },
+      "hook": { "id": "hook", "speaker": "Soos", "text": "A Mabel tem uma caixa na sala, à direita. Acho que é um gancho! O Stan disse para não vos dizer, por isso... eu não disse nada." },
+      "waddles": { "id": "waddles", "speaker": "Soos", "text": "O Waddles voltou! Estava a dormir dentro do meu boné, meu." }
+    }
+  },
+  {
+    "id": "wendy",
+    "entries": [
+      { "if": { "flag": "stan_briefing" }, "start": "b" },
+      { "start": "a" }
+    ],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Wendy", "text": "Ei, miúdos. O Stan quer-vos lá dentro. Diz que é \"trabalho\", o que quer dizer que é pior." },
+      "b": { "id": "b", "speaker": "Wendy", "text": "Luzes no lago, hã? Cuidado com a ravina a leste do lago — só com corda é que se passa. E a gruta é escura que nem breu." }
+    }
+  },
+  {
+    "id": "waddles",
+    "entries": [{ "start": "a" }],
+    "nodes": { "a": { "id": "a", "speaker": "Waddles", "text": "Oinc! (O Waddles roda sobre si próprio de felicidade.)" } }
+  },
+  {
+    "id": "bill_shack",
+    "entries": [{ "start": "a" }],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Bill", "text": "(Um triângulo amarelo, translúcido, olha-vos do outro lado do pátio.) Gémeos Pines. Conheço-vos de um sítio onde ainda não estiveram. Quando quiserem um acordo... chamem.", "effects": [{ "setFlag": "bill_shack_seen" }, { "journal": "j_bill_deal_no" }] }
+    }
+  },
+  {
+    "id": "stan",
+    "entries": [
+      { "if": { "not": { "flag": "stan_briefing" } }, "start": "s1" },
+      { "if": { "item": "bunker_key" }, "start": "s_key" },
+      { "if": { "flag": "machine_fixed" }, "start": "s_late" },
+      { "start": "s2" }
+    ],
+    "nodes": {
+      "s1": { "id": "s1", "speaker": "Stan", "text": "Ah, aí estão vocês. Regras da Cabana: não tocar nas atracções, não ir à floresta à noite e NÃO perguntar pelas luzes do lago.", "choices": [
+        { "text": "Que luzes do lago?", "tag": "Dipper", "next": "s1b" },
+        { "text": "Podemos ajudar na loja, tio-avô Stan!", "tag": "Mabel", "effects": [{ "var": "empathy", "add": 1 }], "next": "s1c" }
+      ] },
+      "s1b": { "id": "s1b", "speaker": "Stan", "text": "Reflexos! Patos fosforescentes! Sei lá. Vão à cidade, arranjem-me clientes, e fiquem longe de problemas. A lanterna está na gaveta da secretária. Só para... ler.", "effects": [{ "setFlag": "stan_briefing" }, { "journal": "j_stan" }] },
+      "s1c": { "id": "s1c", "speaker": "Stan", "text": "Ajudar? Tragam turistas da cidade! E fiquem longe da floresta. A lanterna está na gaveta da secretária, se precisarem... de contar dinheiro no escuro.", "effects": [{ "setFlag": "stan_briefing" }, { "journal": "j_stan" }] },
+      "s2": { "id": "s2", "speaker": "Stan", "text": "Já foram à cidade? Os turistas não se arrastam sozinhos para cá." },
+      "s_key": { "id": "s_key", "speaker": "Stan", "text": "Esse cartão... onde é que... (suspira) A estante ao fundo da loja. Usem-no. E se virem alguém de seis dedos, digam-lhe que o irmão dele ainda está à espera." },
+      "s_late": { "id": "s_late", "speaker": "Stan", "text": "Estabilizador dimensional?! Eu não ouvi isso. Nunca. Mas tenham cuidado lá em baixo." }
+    }
+  },
+  {
+    "id": "ford_home",
+    "entries": [{ "start": "a" }],
+    "nodes": { "a": { "id": "a", "speaker": "Ford", "text": "Trinta anos. Obrigado, miúdos. E digam ao Stan... que o diário ficou em boas mãos." } }
+  },
+  {
+    "id": "pacifica",
+    "entries": [
+      { "if": { "flag": "pacifica_info" }, "start": "after" },
+      { "if": { "character": "mabel" }, "start": "m1" },
+      { "start": "dipper" }
+    ],
+    "nodes": {
+      "dipper": { "id": "dipper", "speaker": "Pacifica", "text": "Ew, o irmão estranho. Não falo com quem usa colete. Manda a tua irmã, se for preciso. (Alterna para a Mabel com Q.)" },
+      "m1": { "id": "m1", "speaker": "Pacifica", "text": "Mabel. Gostei da camisola... não, a sério, não gostei. O que queres?", "choices": [
+        { "text": "Diz-me o que viste no lago, por favor? Prometo não contar a ninguém.", "tag": "Simpatia", "effects": [{ "var": "empathy", "add": 1 }, { "var": "trust", "add": 1 }, { "record": "promisesKept", "value": "segredo da pacifica" }], "next": "m2" },
+        { "text": "Sei que viste alguma coisa. Ou contas, ou digo a todos que tens medo do escuro.", "tag": "Pressão", "effects": [{ "var": "ambition", "add": 1 }, { "var": "trust", "add": -1 }], "next": "m2" }
+      ] },
+      "m2": { "id": "m2", "speaker": "Pacifica", "text": "...Um triângulo. Amarelo. A flutuar sobre o lago. Com um olho. E sorriu-me. Pronto, contei. Desaparece.", "effects": [{ "setFlag": "pacifica_info" }, { "journal": "j_pacifica" }] },
+      "after": { "id": "after", "speaker": "Pacifica", "text": "Já te disse tudo. E não, não estou com medo." }
+    }
+  },
+  {
+    "id": "felicia",
+    "entries": [
+      { "if": { "flag": "felicia_talked" }, "start": "after" },
+      { "start": "a" }
+    ],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Felícia", "text": "Olá! Sou a Felícia. Sabem aquela sensação de que alguém está a ler o vosso nome numa lista? Os relógios da cidade atrasam dez segundos sempre que as luzes aparecem. Eu contei.", "effects": [{ "setFlag": "felicia_talked" }, { "journal": "j_felicia" }] },
+      "after": { "id": "after", "speaker": "Felícia", "text": "Dez segundos. Sempre dez." }
+    }
+  },
+  {
+    "id": "wendy_town",
+    "entries": [{ "start": "a" }],
+    "nodes": { "a": { "id": "a", "speaker": "Wendy", "text": "A loja de ferragens tem caixotes de material à porta. O McGucket costuma \"pedir emprestado\" de lá. Se ele precisar de fio, é aí." } }
+  },
+  {
+    "id": "waddles_lost",
+    "entries": [
+      { "if": { "all": [{ "character": "mabel" }, { "item": "waddles_snack" }] }, "start": "ok" },
+      { "if": { "character": "mabel" }, "start": "mabel" },
+      { "start": "dipper" }
+    ],
+    "nodes": {
+      "dipper": { "id": "dipper", "speaker": "Waddles", "text": "(O Waddles foge do Dipper e esconde-se atrás de um arbusto. Talvez a Mabel tenha mais sorte.)" },
+      "mabel": { "id": "mabel", "speaker": "Mabel", "text": "Waddles! Anda cá, meu porquinho! (O Waddles hesita e cheira o ar. Quer comida... uma bolacha de milho?)" },
+      "ok": { "id": "ok", "speaker": "Mabel", "text": "(A Mabel mostra a bolacha de milho. O Waddles corre para ela.) Vamos para casa, Waddles!", "effects": [{ "take": "waddles_snack" }, { "setFlag": "waddles_home" }, { "record": "helped", "value": "waddles" }] }
+    }
+  },
+  {
+    "id": "mcgucket",
+    "entries": [
+      { "if": { "not": { "flag": "mcg_talked" } }, "start": "m1" },
+      { "if": { "flag": "machine_fixed" }, "start": "done" },
+      { "start": "m2" }
+    ],
+    "nodes": {
+      "m1": { "id": "m1", "speaker": "McGucket", "text": "Ehh?! Visitas! O quê? Luzes? Portais? Hmm-hmm! Eu sei fazer um estabilizador dimensional. Preciso de três peças: uma engrenagem do pátio da sucata, uma célula de energia — perdi-a no lago, hehe — e uma bobine de fio das ferragens da cidade.", "effects": [{ "setFlag": "mcg_talked" }, { "journal": "j_mcg" }], "choices": [
+        { "text": "Contamos consigo, senhor McGucket.", "effects": [{ "var": "empathy", "add": 1 }], "next": "m3" },
+        { "text": "E o que ganhamos com isso?", "effects": [{ "var": "ambition", "add": 1 }], "next": "m1b" }
+      ] },
+      "m1b": { "id": "m1b", "speaker": "McGucket", "text": "Ganham não ser engolidos pelo tempo! Bom negócio! Hehe!", "next": "m3" },
+      "m3": { "id": "m3", "speaker": "McGucket", "text": "O portão da sucata tem duas placas de pressão, uma de cada lado. Precisa de dois pesos ao mesmo tempo — um para cada gémeo!" },
+      "m2": { "id": "m2", "speaker": "McGucket", "text": "Engrenagem, célula, bobine! Depois montem tudo na consola grande, aqui dentro." },
+      "done": { "id": "done", "speaker": "McGucket", "text": "O estabilizador! Prendam-no a um portal... mas que portal? Debaixo de uma cabana, talvez. Hmm-hmm!" }
+    }
+  },
+  {
+    "id": "bill_ally",
+    "entries": [
+      { "if": { "flag": "bill_met" }, "start": "after" },
+      { "start": "a" }
+    ],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Bill", "text": "(Um triângulo amarelo, mais velho, com uma cicatriz de luz.) Gémeos. Eu fechei uma fenda há muito tempo, em Euclydia. Esta não é minha: vem do futuro. Alguém está a usar o tempo como uma lâmina.", "choices": [
+        { "text": "Porque havíamos de confiar em ti?", "effects": [{ "var": "trust", "add": 1 }, { "setFlag": "bill_met" }, { "journal": "j_bill_ally" }], "next": "b" },
+        { "text": "Então ajuda-nos.", "tag": "Confiar", "effects": [{ "var": "trust", "add": 2 }, { "var": "empathy", "add": 1 }, { "setFlag": "bill_met" }, { "journal": "j_bill_ally" }], "next": "c" }
+      ] },
+      "b": { "id": "b", "speaker": "Bill", "text": "Não deviam. Mas olhem para a fenda: tem a cor errada. É temporal. Quando o estabilizador ligar o portal, a cidade vai sofrer — estejam lá." },
+      "c": { "id": "c", "speaker": "Bill", "text": "Ajudo, com uma condição: quando tudo acabar, fechem as portas por dentro. Mesmo que eu fique do lado de fora." },
+      "after": { "id": "after", "speaker": "Bill", "text": "O portal espera pelo estabilizador. Eu espero por vocês." }
+    }
+  },
+  {
+    "id": "bill_deal",
+    "entries": [
+      { "if": { "flag": "bill_met" }, "start": "after" },
+      { "start": "a" }
+    ],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Bill", "text": "(Bill flutua, translúcido.) Olá, Pines. Querem um atalho? Abro o portal sem perigo para a cidade... em troca de um bocadinho de tempo. Ninguém dá falta de um ano.", "choices": [
+        { "text": "Aceitamos.", "tag": "Acordo", "effects": [{ "setFlag": "bill_deal_accepted" }, { "record": "deals", "value": "bill" }, { "var": "timeDebt", "add": 3 }, { "var": "ambition", "add": 2 }, { "var": "reality", "add": 1 }, { "setFlag": "bill_met" }, { "journal": "j_bill_deal_yes" }], "next": "yes" },
+        { "text": "Não fazemos acordos contigo.", "effects": [{ "var": "trust", "add": 1 }, { "setFlag": "bill_met" }, { "journal": "j_bill_deal_no" }], "next": "no" }
+      ] },
+      "yes": { "id": "yes", "speaker": "Bill", "text": "Fantástico! (O sorriso dele não chega ao olho.) A cidade vai sofrer um pouco menos. Vocês, um pouco mais." },
+      "no": { "id": "no", "speaker": "Bill", "text": "Toda a gente diz isso. Até ao dia em que não diz." },
+      "after": { "id": "after", "speaker": "Bill", "text": "O acordo continua de pé... ou não. Depende de vocês." }
+    }
+  },
+  {
+    "id": "bill_threat",
+    "entries": [
+      { "if": { "flag": "bill_met" }, "start": "after" },
+      { "start": "a" }
+    ],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Bill", "text": "(Bill, enorme, envolto em chamas azuis.) Pequenos Pines! Esta cidade é uma janela e eu vou abri-la. Os meus amigos vão fazer-vos companhia.", "effects": [{ "setFlag": "bill_met" }, { "journal": "j_bill_threat" }], "choices": [
+        { "text": "Não vais ganhar.", "effects": [{ "var": "trust", "add": 1 }], "next": "b" },
+        { "text": "O que queres de nós?", "next": "c" }
+      ] },
+      "b": { "id": "b", "speaker": "Bill", "text": "Já ganhei — em Euclydia. Isto é só o desporto." },
+      "c": { "id": "c", "speaker": "Bill", "text": "Que liguem o portal. Vão fazê-lo de qualquer forma: é a única maneira de salvarem a cidade. HAHAHA!" },
+      "after": { "id": "after", "speaker": "Bill", "text": "Tic-tac, Pines." }
+    }
+  },
+  {
+    "id": "rescue_soos",
+    "entries": [{ "start": "a" }],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Soos", "text": "Meus! A laje caiu-me em cima do boné! Eu estou bem, o boné nem por isso.", "choices": [
+        { "text": "Vamos tirar-te daqui, Soos!", "tag": "Resgatar", "effects": [{ "var": "empathy", "add": 1 }, { "record": "rescued", "value": "soos" }, { "record": "helped", "value": "soos" }], "next": "ok" }
+      ] },
+      "ok": { "id": "ok", "speaker": "Soos", "text": "Valeu, meus! Vou para a Cabana proteger o Stan. Ou os chocolates." }
+    }
+  },
+  {
+    "id": "rescue_pacifica",
+    "entries": [
+      { "if": { "character": "mabel" }, "start": "m" },
+      { "start": "d" }
+    ],
+    "nodes": {
+      "d": { "id": "d", "speaker": "Pacifica", "text": "Não fiques aí parado! Tira-me desta ilha!" },
+      "m": { "id": "m", "speaker": "Pacifica", "text": "Mabel?! Vieste... por mim?", "choices": [
+        { "text": "Claro! Agarra-te ao meu braço.", "tag": "Resgatar", "effects": [{ "var": "empathy", "add": 1 }, { "record": "rescued", "value": "pacifica" }, { "record": "helped", "value": "pacifica" }], "next": "ok" }
+      ] },
+      "ok": { "id": "ok", "speaker": "Pacifica", "text": "Obrigada. Não contes a ninguém que eu disse obrigada. (Volta para terra firme pelo gancho da Mabel.)" }
+    }
+  },
+  {
+    "id": "rescue_wendy",
+    "entries": [
+      { "if": { "all": [{ "defeated": "inv_teeth_1" }, { "defeated": "inv_teeth_2" }] }, "start": "ok" },
+      { "start": "busy" }
+    ],
+    "nodes": {
+      "busy": { "id": "busy", "speaker": "Wendy", "text": "Agora não, miúdos — cuidado com os dentes! Ajudem-me a afastar aqueles Teeth!" },
+      "ok": { "id": "ok", "speaker": "Wendy", "text": "Uau. Vocês são mais duros do que parecem. Obrigada.", "effects": [{ "record": "rescued", "value": "wendy" }, { "record": "helped", "value": "wendy" }, { "var": "empathy", "add": 1 }] }
+    }
+  },
+  {
+    "id": "blendin",
+    "entries": [
+      { "if": { "flag": "blendin_met" }, "start": "after" },
+      { "start": "a" }
+    ],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Blendin", "text": "Ah, não, não, não. Agente Blendin Blandin, Polícia do Tempo. Alguém ligou um portal sem âncora e o Bebé do Tempo vai apagar esta cidade da linha temporal!", "choices": [
+        { "text": "Como podemos ajudar?", "tag": "Empatia", "effects": [{ "var": "empathy", "add": 1 }, { "var": "trust", "add": 1 }], "next": "help" },
+        { "text": "Dá-nos a tua tecnologia, ou contamos aos teus chefes que estragaste tudo.", "tag": "Pressão", "effects": [{ "var": "ambition", "add": 1 }, { "var": "timeDebt", "add": 1 }], "next": "force" }
+      ] },
+      "help": { "id": "help", "speaker": "Blendin", "text": "Ajudar?! Ninguém me ajuda desde o ano 207012. Tomem: a fita temporal. Abre o portal para a Cidade do Tempo. No Arquivo há prisioneiros que sabem como parar isto.", "effects": [{ "give": "time_tape" }, { "setFlag": "blendin_met" }, { "setFlag": "blendin_helped" }, { "journal": "j_blendin" }] },
+      "force": { "id": "force", "speaker": "Blendin", "text": "Está bem, está bem! Fita temporal. Não digam a ninguém.", "effects": [{ "give": "time_tape" }, { "setFlag": "blendin_met" }, { "journal": "j_blendin" }] },
+      "after": { "id": "after", "speaker": "Blendin", "text": "O portal está ali ao lado. A fita temporal abre-o. Despachem-se!" }
+    }
+  },
+  {
+    "id": "hectorgon_ally",
+    "entries": [{ "start": "a" }],
+    "nodes": { "a": { "id": "a", "speaker": "Hectorgon", "text": "(Ajeita o chapéu.) O pequeno de Euclydia pediu-me para não vos fazer mal. Hmph. Os Teeth não estão do meu lado — nem do vosso.", "effects": [{ "record": "helped", "value": "hectorgon (trégua)" }] } }
+  },
+  {
+    "id": "pyronica_town",
+    "entries": [
+      { "if": { "var": "trust", "gte": 2 }, "start": "leave" },
+      { "start": "a" }
+    ],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Pyronica", "text": "Pines! O vosso amigo triangular manda cumprimentos. Ardentes." },
+      "leave": { "id": "leave", "speaker": "Pyronica", "text": "Hmph. Têm coragem, miúdos — e confiam uns nos outros. Que aborrecido. Volto quando for divertido.", "effects": [{ "setFlag": "pacified:inv_pyronica" }] }
+    }
+  },
+  {
+    "id": "bola8_town",
+    "entries": [
+      { "if": { "flag": "bola8_calm" }, "start": "calm" },
+      { "start": "a" }
+    ],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Bola 8", "text": "NINGUÉM... PASSA." },
+      "calm": { "id": "calm", "speaker": "Bola 8", "text": "(Olha para os pulsos, livres há muito tempo.) ...o pequeno de Euclydia... foi bom para mim. Eu... vou embora.", "effects": [{ "setFlag": "pacified:inv_bola8" }, { "record": "helped", "value": "bola 8 (memória de Euclydia)" }] }
+    }
+  },
+  {
+    "id": "blendin_city",
+    "entries": [
+      { "if": { "flag": "archive_pass" }, "start": "after" },
+      { "if": { "flag": "blendin_helped" }, "start": "a" },
+      { "start": "cold" }
+    ],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Blendin", "text": "Vocês! Tomem o meu passe de agente. O Arquivo fica a norte — mas a ponte só existe no passado: a alavanca do terraço oeste muda isso. E o código das celas: relógio, ampulheta, engrenagem.", "effects": [{ "setFlag": "archive_pass" }, { "give": "archive_code" }, { "journal": "j_pass" }, { "journal": "j_archive_code" }] },
+      "cold": { "id": "cold", "speaker": "Blendin", "text": "Vocês ameaçaram-me. ...Mas o Bebé do Tempo é pior que vocês. O passe tem um preço: registo uma dívida temporal no vosso nome.", "choices": [
+        { "text": "Aceitamos a dívida.", "effects": [{ "var": "timeDebt", "add": 2 }, { "setFlag": "archive_pass" }, { "journal": "j_pass" }], "next": "after" },
+        { "text": "Desculpa, Blendin. A sério.", "tag": "Empatia", "effects": [{ "var": "empathy", "add": 1 }, { "var": "trust", "add": 1 }, { "setFlag": "archive_pass" }, { "journal": "j_pass" }], "next": "sorry" }
+      ] },
+      "sorry": { "id": "sorry", "speaker": "Blendin", "text": "Pedido de desculpas... registado! O passe é vosso, de graça.", "next": "after" },
+      "after": { "id": "after", "speaker": "Blendin", "text": "Arquivo a norte (passado), Arena a leste (presente). A alavanca do tempo está no terraço oeste." }
+    }
+  },
+  {
+    "id": "rescue_ford",
+    "entries": [{ "start": "a" }],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Ford", "text": "(Um homem de seis dedos e olhar cansado.) Pines? Vocês são... família. Ouçam: o Bebé do Tempo só pode ser ferido quando recupera de um ataque. E há outra forma: biberões de areia temporal, no armazém deste Arquivo.", "choices": [
+        { "text": "Vamos tirá-lo daqui.", "tag": "Resgatar", "effects": [{ "var": "empathy", "add": 1 }, { "record": "rescued", "value": "ford" }, { "setFlag": "ford_rescued" }, { "journal": "j_ford" }], "next": "b" }
+      ] },
+      "b": { "id": "b", "speaker": "Ford", "text": "Eu vou à frente até às linhas temporais. Encontramo-nos lá. E... obrigado." }
+    }
+  },
+  {
+    "id": "prisoner_felicia",
+    "entries": [
+      { "if": { "object": "time_archive/cell_felicia", "state": "open" }, "start": "free" },
+      { "start": "a" }
+    ],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Felícia?", "text": "Estou aqui há... dez segundos? Dez anos? Os relógios mentem aqui dentro. (É igual à Felícia da cidade. Identidade por confirmar.)" },
+      "free": { "id": "free", "speaker": "Felícia?", "text": "Livre! Obrigada, Pines. Se me virem na cidade... finjam que não sabem de nada." }
+    }
+  },
+  {
+    "id": "baby_intro",
+    "entries": [
+      { "if": { "any": [{ "flag": "baby_calmed" }, { "flag": "baby_bargain" }, { "flag": "baby_fight" }] }, "start": "after" },
+      { "start": "b1" }
+    ],
+    "nodes": {
+      "b1": { "id": "b1", "speaker": "Bebé do Tempo", "text": "(Flutua, com uma ampulheta acesa na testa.) QUEM OUSA ACORDAR-ME?", "choices": [
+        { "text": "Viemos parar a intrusão. Deixa-nos passar.", "next": "b2" },
+        { "text": "Trouxemos-te uma coisa... (mostrar o biberão temporal)", "tag": "Acalmar", "if": { "item": "time_bottle" }, "next": "bottle" },
+        { "text": "Um acordo: dás-nos passagem e pagamos-te em tempo.", "tag": "Negociar", "next": "bargain" },
+        { "text": "Então lutamos!", "tag": "Combate", "next": "fight" }
+      ] },
+      "b2": { "id": "b2", "speaker": "Bebé do Tempo", "text": "PASSAR? NINGUÉM PASSA. A NÃO SER QUE ME VENÇAM... OU ME DÊEM ALGO MELHOR.", "choices": [
+        { "text": "(mostrar o biberão temporal)", "tag": "Acalmar", "if": { "item": "time_bottle" }, "next": "bottle" },
+        { "text": "Pagamos em tempo.", "tag": "Negociar", "next": "bargain" },
+        { "text": "Lutamos.", "tag": "Combate", "next": "fight" },
+        { "text": "Ainda não estamos prontos. (sair)" }
+      ] },
+      "bottle": { "id": "bottle", "speaker": "Bebé do Tempo", "text": "(Os olhos fixam-se no biberão. Hesita.)", "choices": [
+        { "text": "Shhh... está tudo bem. Ninguém te vai apagar a ti.", "tag": "Empatia", "if": { "any": [{ "var": "empathy", "gte": 3 }, { "character": "mabel" }] }, "next": "calm" },
+        { "text": "Toma, bebe isto!", "if": { "not": { "any": [{ "var": "empathy", "gte": 3 }, { "character": "mabel" }] } }, "next": "reject" }
+      ] },
+      "reject": { "id": "reject", "speaker": "Bebé do Tempo", "text": "NÃO QUERO! (Empurra o biberão para trás de vocês.) Talvez... com mais jeito. (A Mabel tem mais jeito para isto — ou ganhem a confiança de mais gente.)" },
+      "calm": { "id": "calm", "speaker": "Bebé do Tempo", "text": "(Bebe... boceja... e adormece a flutuar. O caminho para norte abre-se.)", "effects": [{ "take": "time_bottle" }, { "setFlag": "baby_calmed" }, { "var": "timeDebt", "add": -2 }, { "var": "empathy", "add": 1 }, { "journal": "j_baby_calm" }, { "teleport": { "map": "time_baby_arena", "spawn": "default" } }] },
+      "bargain": { "id": "bargain", "speaker": "Bebé do Tempo", "text": "UM ACORDO. QUATRO ANOS DO VOSSO TEMPO. ACEITE.", "effects": [{ "setFlag": "baby_bargain" }, { "var": "timeDebt", "add": 4 }, { "var": "ambition", "add": 1 }, { "record": "deals", "value": "bebé do tempo" }, { "journal": "j_baby_bargain" }, { "teleport": { "map": "time_baby_arena", "spawn": "default" } }] },
+      "fight": { "id": "fight", "speaker": "Bebé do Tempo", "text": "ENTÃO SINTAM O TEMPO!", "effects": [{ "setFlag": "baby_fight" }, { "journal": "j_baby_fight" }, { "teleport": { "map": "time_baby_arena", "spawn": "default" } }] },
+      "after": { "id": "after", "speaker": "Bebé do Tempo", "text": "..." }
+    }
+  },
+  {
+    "id": "baby_after",
+    "entries": [{ "start": "a" }],
+    "nodes": { "a": { "id": "a", "speaker": "Bebé do Tempo", "text": "(Resmunga no sono... ou conta os anos que lhe devem.)" } }
+  },
+  {
+    "id": "bill_final",
+    "entries": [
+      { "if": { "flag": "bill_ally" }, "start": "ally" },
+      { "start": "amb" }
+    ],
+    "nodes": {
+      "ally": { "id": "ally", "speaker": "Bill", "text": "Chegaram. Três portões: restaurar, sacrificar, dominar. Eu já escolhi uma vez — fechei. Não vos digo o que escolher. Só que tudo o que fizeram até aqui conta." },
+      "amb": { "id": "amb", "speaker": "Bill", "text": "O portão de Euclydia é o mais bonito, não acham? (risos) Escolham. Eu cá fico a ver." }
+    }
+  },
+  {
+    "id": "bill_final_threat",
+    "entries": [{ "start": "a" }],
+    "nodes": { "a": { "id": "a", "speaker": "Bill", "text": "A ESCOLHA É VOSSA, PINES. MAS EU SEI BEM QUAL ESCOLHERIA. (O portão de Euclydia brilha mais quando ele fala.)" } }
+  },
+  {
+    "id": "ford_final",
+    "entries": [{ "start": "a" }],
+    "nodes": { "a": { "id": "a", "speaker": "Ford", "text": "Restaurar o tempo funciona melhor quando a dívida temporal é pequena e as pessoas confiam umas nas outras. Sacrificar custa sempre alguém. Dominar... é o que o Bill faria." } }
+  },
+  {
+    "id": "gate_restore",
+    "entries": [{ "if": { "flag": "arc2_decided" }, "start": "done" }, { "start": "a" }],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Portão do tempo", "text": "Fechar as fendas por dentro e devolver cada segundo ao seu lugar. Tudo o que fizeram até aqui decide se o tempo aceita.", "choices": [
+        { "text": "Restaurar.", "tag": "Equilíbrio", "effects": [{ "setFlag": "final_restore" }, { "setFlag": "arc2_decided" }, { "evaluateEnding": 2 }] },
+        { "text": "Ainda não." }
+      ] },
+      "done": { "id": "done", "speaker": "", "text": "A escolha já foi feita." }
+    }
+  },
+  {
+    "id": "gate_sacrifice",
+    "entries": [{ "if": { "flag": "arc2_decided" }, "start": "done" }, { "start": "a" }],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Portão de Gravity Falls", "text": "Para fechar tudo depressa, algo tem de ficar do lado de lá: o estabilizador, a fita temporal... e uma memória.", "choices": [
+        { "text": "Sacrificar.", "tag": "Custo", "effects": [{ "record": "sacrificed", "value": "estabilizador, fita temporal e um Verão de memórias" }, { "setFlag": "final_sacrifice" }, { "setFlag": "arc2_decided" }, { "evaluateEnding": 2 }] },
+        { "text": "Ainda não." }
+      ] },
+      "done": { "id": "done", "speaker": "", "text": "A escolha já foi feita." }
+    }
+  },
+  {
+    "id": "gate_dominate",
+    "entries": [{ "if": { "flag": "arc2_decided" }, "start": "done" }, { "start": "a" }],
+    "nodes": {
+      "a": { "id": "a", "speaker": "Portão de Euclydia", "text": "Segurar as linhas temporais nas vossas mãos. Ninguém voltaria a apagar Gravity Falls — porque seriam vocês a decidir tudo.", "choices": [
+        { "text": "Dominar.", "tag": "Ambição", "effects": [{ "var": "ambition", "add": 2 }, { "setFlag": "final_dominate" }, { "setFlag": "arc2_decided" }, { "evaluateEnding": 2 }] },
+        { "text": "Ainda não." }
+      ] },
+      "done": { "id": "done", "speaker": "", "text": "A escolha já foi feita." }
+    }
+  }
+]

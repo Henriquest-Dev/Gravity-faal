@@ -1,0 +1,778 @@
+{
+ "id": "town_invaded",
+ "name": "Gravity Falls sob intrusão dimensional",
+ "arc": 2,
+ "theme": "town",
+ "music": "invaded",
+ "reference": "town_invaded",
+ "width": 44,
+ "height": 30,
+ "ambient": {
+  "tint": "#2a1438",
+  "strange": true,
+  "darkness": 0.3
+ },
+ "buildings": [
+  {
+   "id": "diner",
+   "x": 5,
+   "y": 7,
+   "w": 8,
+   "h": 4,
+   "style": "shop",
+   "wallHeight": 2,
+   "roofHeight": 1.5,
+   "sign": "GREASY'S",
+   "door": {
+    "x": 9
+   },
+   "windows": [
+    6,
+    7,
+    11
+   ]
+  },
+  {
+   "id": "town_hall",
+   "x": 16,
+   "y": 6,
+   "w": 10,
+   "h": 5,
+   "style": "stone",
+   "wallHeight": 2.5,
+   "roofHeight": 2,
+   "sign": "CAMARA",
+   "door": {
+    "x": 21
+   },
+   "windows": [
+    17,
+    19,
+    23,
+    24
+   ]
+  },
+  {
+   "id": "hardware",
+   "x": 29,
+   "y": 7,
+   "w": 8,
+   "h": 4,
+   "style": "workshop",
+   "wallHeight": 2,
+   "roofHeight": 1.5,
+   "sign": "FERRAGENS",
+   "door": {
+    "x": 33
+   },
+   "windows": [
+    30,
+    35
+   ]
+  }
+ ],
+ "props": [
+  {
+   "prop": "nature/pine_b",
+   "x": 0.73,
+   "y": 1.07,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 2.45,
+   "y": 0.97,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 4.64,
+   "y": 0.97,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 6.49,
+   "y": 1,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 8.78,
+   "y": 0.91,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 12.6,
+   "y": 0.91,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 14.29,
+   "y": 1.1,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 16.5,
+   "y": 0.88,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 18.23,
+   "y": 1.09,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 20.22,
+   "y": 1.07,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 22.79,
+   "y": 0.96,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 24.3,
+   "y": 1.09,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 26.64,
+   "y": 1.13,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 30.73,
+   "y": 0.89,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 32.47,
+   "y": 0.91,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 34.35,
+   "y": 1.03,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 36.39,
+   "y": 1.11,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 38.28,
+   "y": 0.91,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 42.34,
+   "y": 1.09,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 1.48,
+   "y": 3.05,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 43.42,
+   "y": 2.86,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 42.4,
+   "y": 5,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 1.5,
+   "y": 6.88,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.33,
+   "y": 8.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 42.56,
+   "y": 9.11,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 1.73,
+   "y": 10.87,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 43.44,
+   "y": 10.95,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 43.52,
+   "y": 19.14,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 0.76,
+   "y": 21.08,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 42.74,
+   "y": 21.08,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 1.37,
+   "y": 23.1,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 43.46,
+   "y": 23.07,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.57,
+   "y": 25.08,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 42.71,
+   "y": 24.87,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 1.8,
+   "y": 26.92,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.79,
+   "y": 29.06,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 2.78,
+   "y": 28.93,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 4.34,
+   "y": 29.12,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 6.43,
+   "y": 28.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 8.51,
+   "y": 28.86,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 12.48,
+   "y": 29.09,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 14.27,
+   "y": 28.88,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 18.27,
+   "y": 29.13,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 20.35,
+   "y": 28.93,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 22.46,
+   "y": 29.06,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 24.76,
+   "y": 29.13,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 26.69,
+   "y": 28.92,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 28.55,
+   "y": 28.98,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 32.61,
+   "y": 29.1,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 34.57,
+   "y": 29.13,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 38.54,
+   "y": 29.09,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 40.65,
+   "y": 29,
+   "flip": false
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 4.5,
+   "y": 12.6
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 15.5,
+   "y": 12.6
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 27.5,
+   "y": 12.6
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 39.5,
+   "y": 12.6
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 9.5,
+   "y": 18.6
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 22.5,
+   "y": 18.6
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 36.5,
+   "y": 18.6
+  },
+  {
+   "prop": "nature/autumn_tree",
+   "x": 7,
+   "y": 21
+  },
+  {
+   "prop": "nature/autumn_tree",
+   "x": 19,
+   "y": 25.6
+  },
+  {
+   "prop": "nature/pine",
+   "x": 6.5,
+   "y": 26.4
+  },
+  {
+   "prop": "nature/fence",
+   "x": 26.5,
+   "y": 19.4
+  },
+  {
+   "prop": "nature/fence",
+   "x": 35.5,
+   "y": 19.4
+  },
+  {
+   "prop": "interiors/wrecked_car",
+   "x": 36,
+   "y": 24
+  },
+  {
+   "prop": "nature/bush",
+   "x": 25.5,
+   "y": 25.6
+  },
+  {
+   "prop": "rifts/void_portal",
+   "x": 36,
+   "y": 22.6
+  },
+  {
+   "prop": "rifts/broken_piece_a",
+   "x": 27.5,
+   "y": 9.6
+  },
+  {
+   "prop": "rifts/broken_piece_b",
+   "x": 15,
+   "y": 18.4
+  },
+  {
+   "prop": "rifts/eye_sigil",
+   "x": 22,
+   "y": 4.4,
+   "solid": false
+  },
+  {
+   "prop": "rifts/floating_rock",
+   "x": 40,
+   "y": 6,
+   "layer": "ground"
+  }
+ ],
+ "spawns": {
+  "default": {
+   "x": 2.5,
+   "y": 15,
+   "dir": "east"
+  },
+  "west": {
+   "x": 2.5,
+   "y": 15,
+   "dir": "east"
+  },
+  "east": {
+   "x": 41.5,
+   "y": 15,
+   "dir": "west"
+  },
+  "portal": {
+   "x": 33,
+   "y": 22.5,
+   "dir": "west"
+  }
+ },
+ "exits": [
+  {
+   "id": "to_shack",
+   "x": 0,
+   "y": 13,
+   "w": 1,
+   "h": 4,
+   "to": "shack_exterior",
+   "spawn": "east"
+  },
+  {
+   "id": "to_workshop",
+   "x": 43,
+   "y": 13,
+   "w": 1,
+   "h": 4,
+   "to": "mcgucket_workshop",
+   "spawn": "west"
+  }
+ ],
+ "npcs": [
+  {
+   "id": "soos_trapped",
+   "character": "soos",
+   "x": 4.5,
+   "y": 22,
+   "dialogue": "rescue_soos",
+   "if": {
+    "not": {
+     "event": "rescued",
+     "value": "soos"
+    }
+   }
+  },
+  {
+   "id": "pacifica_trapped",
+   "character": "pacifica",
+   "x": 13.5,
+   "y": 23.2,
+   "dialogue": "rescue_pacifica",
+   "if": {
+    "not": {
+     "event": "rescued",
+     "value": "pacifica"
+    }
+   }
+  },
+  {
+   "id": "wendy_fight",
+   "character": "wendy",
+   "x": 30.5,
+   "y": 21.4,
+   "dialogue": "rescue_wendy",
+   "if": {
+    "not": {
+     "event": "rescued",
+     "value": "wendy"
+    }
+   }
+  },
+  {
+   "id": "blendin",
+   "character": "blendin",
+   "x": 33.5,
+   "y": 21.2,
+   "dialogue": "blendin",
+   "if": {
+    "event": "rescued",
+    "countGte": 1
+   }
+  },
+  {
+   "id": "hectorgon_ally",
+   "character": "hectorgon",
+   "x": 22,
+   "y": 8.4,
+   "dialogue": "hectorgon_ally",
+   "if": {
+    "flag": "bill_ally"
+   }
+  }
+ ],
+ "enemies": [
+  {
+   "id": "inv_teeth_1",
+   "type": "teeth",
+   "x": 28,
+   "y": 22
+  },
+  {
+   "id": "inv_teeth_2",
+   "type": "teeth",
+   "x": 33,
+   "y": 24
+  },
+  {
+   "id": "inv_pyronica",
+   "type": "pyronica",
+   "x": 21,
+   "y": 15,
+   "dialogue": "pyronica_town",
+   "if": {
+    "any": [
+     {
+      "flag": "bill_threat"
+     },
+     {
+      "flag": "bill_ambiguous"
+     }
+    ]
+   }
+  },
+  {
+   "id": "inv_bola8",
+   "type": "bola8",
+   "x": 11,
+   "y": 15,
+   "dialogue": "bola8_town",
+   "if": {
+    "flag": "bill_threat"
+   }
+  },
+  {
+   "id": "inv_shard",
+   "type": "shard",
+   "x": 37,
+   "y": 15
+  }
+ ],
+ "interactables": [
+  {
+   "id": "soos_weak",
+   "kind": "examine",
+   "x": 4.5,
+   "y": 18.6,
+   "hidden": true,
+   "reveal": "flashlight",
+   "text": "A lanterna mostra uma fissura na laje de cima: um empurrão no sítio certo e tudo cede para o lado.",
+   "effects": [
+    {
+     "setFlag": "soos_weakpoint"
+    }
+   ]
+  },
+  {
+   "id": "soos_slab",
+   "kind": "door",
+   "x": 4.5,
+   "y": 19.9,
+   "prop": "rifts/broken_piece_b",
+   "label": "Empurrar a laje",
+   "requires": {
+    "flag": "soos_weakpoint"
+   },
+   "requiresText": "A laje é demasiado pesada para empurrar às cegas. Procura o ponto fraco — a lanterna do Dipper ajuda.",
+   "effects": [
+    {
+     "toast": "A laje tomba para o lado!"
+    }
+   ]
+  },
+  {
+   "id": "park_post_a",
+   "kind": "grapple",
+   "x": 15.5,
+   "y": 19.4,
+   "landing": {
+    "x": 15.5,
+    "y": 18.6
+   }
+  },
+  {
+   "id": "park_post_b",
+   "kind": "grapple",
+   "x": 13.5,
+   "y": 22.3,
+   "landing": {
+    "x": 12.6,
+    "y": 22.9
+   }
+  },
+  {
+   "id": "park_hint",
+   "kind": "examine",
+   "x": 17.5,
+   "y": 18.6,
+   "text": "A Pacifica está numa ilhota no meio do vazio. Há postes amarelos dos dois lados: o gancho da Mabel chega lá."
+  },
+  {
+   "id": "time_gate",
+   "kind": "portal",
+   "x": 36,
+   "y": 22.4,
+   "label": "Entrar no portal temporal",
+   "requires": {
+    "item": "time_tape"
+   },
+   "requiresText": "Um portal instável. Sem a fita temporal do Blendin não tem destino.",
+   "effects": [
+    {
+     "teleport": {
+      "map": "time_city",
+      "spawn": "default"
+     }
+    }
+   ]
+  },
+  {
+   "id": "inv_bench",
+   "kind": "save",
+   "x": 24.5,
+   "y": 12.2,
+   "prop": "nature/bench",
+   "solid": true
+  }
+ ],
+ "triggers": [
+  {
+   "id": "inv_intro",
+   "x": 0,
+   "y": 12,
+   "w": 6,
+   "h": 6,
+   "once": true,
+   "effects": [
+    {
+     "toast": "A cidade foi invadida. Há pessoas encurraladas: Soos, Pacifica e Wendy."
+    },
+    {
+     "journal": "j_invaded"
+    }
+   ]
+  }
+ ],
+ "onEnter": [
+  {
+   "questStart": "b_q6"
+  }
+ ],
+ "terrain": [
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xx.......;;..;.......;........;.;;.;;;....xx",
+  "xx.;.....;...;........;..;...;....;;....;.xx",
+  "xx...................;..........;.........xx",
+  "xx......;;;.....;...;.;..............;.;..xx",
+  "xx...;....;......;;............;;....;....xx",
+  "xx..;.........;............;..;..;....;.;.xx",
+  "xx...;......;..;.......;;.............;...xx",
+  "xx..................;;..;...;;..;....;;;..xx",
+  "xx...;..;..;...;;..;..............;...;;..xx",
+  "xx.pppppppppppppppppppvpppppppppppppppppp;xx",
+  "xx.pppppppppppppppppppvpppppppppppppppppp.xx",
+  "kokoooookooooooooooooovvookokookookkoooooook",
+  "oooooooookoooooookokooovookookooooooookooooo",
+  "okoooookkookoookokkkkkovkooooooooooookoooooo",
+  "oookkooooooooookooookokvoookooookookkkoookok",
+  "xx;pppppppppppppppppppppvpppppppppppppppp.xx",
+  "xx.pppppppppppppppppppppvpppppppppppppppp.xx",
+  "xxRRkRR;..;..::;.........;;;;;;pp;;;;;;...xx",
+  "xxRkkkR..vvvvvvvvv..;....;;;;;;pp;;;;;;...xx",
+  "xxRkkkR..vvvvvvvvv.......;;;;;;pp;;;;;;.;.xx",
+  "xxRkkkR..vvvkkkvvv.;.....;;;;;;pp;;;;;;...xx",
+  "xxRRRRR::vvvkkkvvv:::...;;;;;;;pp;;;;;;...xx",
+  "xx.....::vvvvvvvvv:::....;;;;;;pp;;;;;;.;.xx",
+  "xx..;....vvvvvvvvv.;;....;;;;;;pp;;;;;;.;.xx",
+  "xx;.....;.;;.::......;........;;;;...;;...xx",
+  "xx...........::.;.;....;..........;...;...xx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+ ]
+}

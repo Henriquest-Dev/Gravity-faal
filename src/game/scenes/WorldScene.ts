@@ -772,6 +772,24 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     const v = dirVector(d);
     const tx = Math.floor(o.x / TILE) + v.x, ty = Math.floor((o.y - 4) / TILE) + v.y;
     const grid = this.grid;
+    if (o.state === 'filled') return false;
+    if (grid.tile(tx, ty).pit) {
+      // the block drops into the void and fills it: a permanent walkway
+      const nx = tx * TILE + TILE / 2, ny = ty * TILE + TILE - 2;
+      grid.setCode(tx, ty, 'k');
+      grid.removeRect(o.solidId!);
+      o.solidId = null;
+      o.x = nx;
+      o.y = ny;
+      o.state = 'filled';
+      this.s.objects[o.key] = 'filled';
+      this.s.objectPos[o.key] = { x: nx / TILE, y: ny / TILE };
+      if (o.sprite) this.tweens.add({ targets: o.sprite, x: nx, y: ny + 6, duration: 220, onComplete: () => o.sprite!.setDepth(DEPTH.ground + ny).setTint(0x6a6070) });
+      session.audio.play('land');
+      this.fx.anim('run_dust', nx, ny, ny + 1, 1);
+      this.ui.toast('O bloco caiu no vazio e formou chão firme.', 1600);
+      return true;
+    }
     if (!grid.pathable(tx, ty)) return false;
     const nx = tx * TILE + TILE / 2, ny = ty * TILE + TILE - 2;
     for (const r of grid.rectsNear(nx - 14, ny - 20, nx + 14, ny)) {
@@ -946,7 +964,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
         }
         setState(o.state === 'on' ? 'off' : 'on');
         session.audio.play(o.state === 'on' ? 'open' : 'close');
-        if (o.state === 'on') apply(d.effects);
+        apply(o.state === 'on' ? d.effects : d.offEffects);
         this.checkCircuit(d.group);
         return;
       }
@@ -1049,10 +1067,9 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     this.s.flags[`${group}_solved`] = true;
     session.audio.play('puzzle');
     this.fx.flash(0xffe066, 150);
-    const first = [...this.built!.objects.values()].find((x) => x.def.group === group && x.def.effects);
-    // group effects live on the member flagged with value 0 or the first one listed
-    const owner = [...this.built!.objects.values()].find((x) => x.def.group === group && x.def.kind === 'examine') ?? first;
-    if (owner?.def.effects) this.handleSignals(applyEffects(this.s, owner.def.effects, RULES));
+    // group effects live on the member that declares onSolve
+    const owner = [...this.built!.objects.values()].find((x) => x.def.group === group && x.def.onSolve);
+    if (owner?.def.onSolve) this.handleSignals(applyEffects(this.s, owner.def.onSolve, RULES));
     this.handleSignals(updateQuests(this.s, RULES));
     this.ui.toast('Mecanismo resolvido!');
     this.autosave();
@@ -1062,12 +1079,14 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
   private checkCircuit(group?: string): void {
     if (!group || this.s.flags[`${group}_solved`]) return;
     const objs = [...this.built!.objects.values()].filter((x) => x.def.group === group);
-    const lamps = objs.filter((x) => x.def.kind === 'repair' || x.def.kind === 'examine').length;
     const switches = objs.filter((x) => x.def.kind === 'switch' && (x.def.value ?? 0) > 0);
-    if (!switches.length || !lamps) return;
-    let mask = 0;
-    for (const sw of switches) if (sw.state === 'on') mask ^= sw.def.value ?? 0;
-    const full = (1 << lamps) - 1;
+    if (!switches.length) return;
+    let mask = 0, full = 0;
+    for (const sw of switches) {
+      full |= sw.def.value ?? 0;
+      if (sw.state === 'on') mask ^= sw.def.value ?? 0;
+    }
+    const lamps = Math.ceil(Math.log2(full + 1));
     this.ui.toast(`Circuito: ${[...Array(lamps)].map((_, i) => (mask >> i) & 1 ? '●' : '○').join(' ')}`, 1400);
     if (mask === full) this.solveGroup(group);
   }
@@ -1318,6 +1337,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     let inside = '';
     for (const e of this.built!.exits) {
       if (tx < e.x || ty < e.y || tx >= e.x + e.w || ty >= e.y + e.h) continue;
+      if (!check(e.if, this.s)) continue;
       inside = e.id;
       if (!check(e.requires, this.s)) {
         if (this.exitBlockedShown !== e.id) {

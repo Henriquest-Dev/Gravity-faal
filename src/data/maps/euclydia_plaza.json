@@ -1,0 +1,845 @@
+{
+ "id": "euclydia_plaza",
+ "name": "Praça de Euclydia",
+ "arc": 1,
+ "theme": "euclid",
+ "music": "euclydia",
+ "reference": "euclydia_plaza",
+ "width": 40,
+ "height": 30,
+ "ambient": {
+  "tint": "#fff1d6"
+ },
+ "props": [
+  {
+   "prop": "euclydia/round_tree",
+   "x": 0.58,
+   "y": 1.01,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 2.47,
+   "y": 0.87,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 4.4,
+   "y": 1.14,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 8.69,
+   "y": 0.94,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 14.43,
+   "y": 0.9,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 16.71,
+   "y": 0.9,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 18.5,
+   "y": 1.08,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 20.53,
+   "y": 0.9,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 22.36,
+   "y": 1.11,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 34.54,
+   "y": 0.89,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 36.43,
+   "y": 1.1,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 1.75,
+   "y": 3.03,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 23.38,
+   "y": 3.03,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 25.58,
+   "y": 2.93,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 39.64,
+   "y": 2.89,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 0.7,
+   "y": 5.06,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 22.76,
+   "y": 4.93,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 38.35,
+   "y": 5.02,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 1.31,
+   "y": 6.93,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 39.79,
+   "y": 7,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 0.64,
+   "y": 8.9,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 38.8,
+   "y": 8.91,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 1.7,
+   "y": 10.92,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 39.33,
+   "y": 10.89,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 0.4,
+   "y": 13.09,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 38.56,
+   "y": 12.88,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 1.75,
+   "y": 15.14,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 39.59,
+   "y": 14.93,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 0.46,
+   "y": 16.86,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 38.4,
+   "y": 17.03,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 1.65,
+   "y": 19.06,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 0.59,
+   "y": 20.93,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 38.29,
+   "y": 21,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 1.71,
+   "y": 22.93,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 0.63,
+   "y": 24.88,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 38.63,
+   "y": 24.88,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 1.55,
+   "y": 26.96,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 39.62,
+   "y": 26.95,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 0.49,
+   "y": 29.1,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 2.73,
+   "y": 29.08,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 4.3,
+   "y": 28.88,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 8.43,
+   "y": 28.89,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 14.45,
+   "y": 29.09,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 16.46,
+   "y": 28.85,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 18.49,
+   "y": 28.89,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 20.75,
+   "y": 29.04,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 22.22,
+   "y": 29.14,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 24.79,
+   "y": 29.12,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 28.76,
+   "y": 28.87,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 30.34,
+   "y": 28.96,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 32.73,
+   "y": 29.04,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 34.35,
+   "y": 29,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 36.61,
+   "y": 28.96,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 38.22,
+   "y": 28.87,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 3.5,
+   "y": 3.9,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 6.5,
+   "y": 4.9,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 14.5,
+   "y": 3.9,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 19.5,
+   "y": 4.9,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 30.5,
+   "y": 3.9,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 35.5,
+   "y": 4.9,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 37.5,
+   "y": 12.9,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 37.5,
+   "y": 19.9,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 36.5,
+   "y": 27.9,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 28.5,
+   "y": 27.9,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 20.5,
+   "y": 27.9,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 6.5,
+   "y": 27.9,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 3.5,
+   "y": 20.9,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 14.5,
+   "y": 19.9,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 36.5,
+   "y": 7.9,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/a_frame_house",
+   "x": 17,
+   "y": 8.4
+  },
+  {
+   "prop": "euclydia/hex_house",
+   "x": 15.5,
+   "y": 24.6
+  },
+  {
+   "prop": "euclydia/dome_house",
+   "x": 32,
+   "y": 23.5
+  },
+  {
+   "prop": "euclydia/hex_house",
+   "x": 5.5,
+   "y": 8.6
+  },
+  {
+   "prop": "euclydia/a_frame_house",
+   "x": 34,
+   "y": 8.6,
+   "id": "bill_house_front"
+  },
+  {
+   "prop": "nature/fern",
+   "x": 4.5,
+   "y": 24.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 2.5,
+   "y": 5.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/flower",
+   "x": 5.5,
+   "y": 2.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/flower",
+   "x": 5.5,
+   "y": 6.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/fern",
+   "x": 23.5,
+   "y": 8.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/flower",
+   "x": 15.5,
+   "y": 3.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/flower",
+   "x": 5.5,
+   "y": 27.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/flower",
+   "x": 33.5,
+   "y": 12.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/flower",
+   "x": 14.5,
+   "y": 12.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/flower",
+   "x": 2.5,
+   "y": 3.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/fern",
+   "x": 18.5,
+   "y": 24.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/flower",
+   "x": 3.5,
+   "y": 19.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/flower",
+   "x": 8.5,
+   "y": 2.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 32.5,
+   "y": 4.9,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/fountain",
+   "x": 24.5,
+   "y": 16.2
+  },
+  {
+   "prop": "euclydia/crystal_cluster",
+   "x": 24.5,
+   "y": 15.4,
+   "solid": false
+  },
+  {
+   "prop": "euclydia/lamp",
+   "x": 17.5,
+   "y": 12.2
+  },
+  {
+   "prop": "euclydia/lamp",
+   "x": 31.5,
+   "y": 12.2
+  },
+  {
+   "prop": "euclydia/lamp",
+   "x": 17.5,
+   "y": 19.4
+  },
+  {
+   "prop": "euclydia/lamp",
+   "x": 31.5,
+   "y": 19.4
+  },
+  {
+   "prop": "euclydia/planter",
+   "x": 20.5,
+   "y": 10.3
+  },
+  {
+   "prop": "euclydia/planter",
+   "x": 28.5,
+   "y": 10.3
+  },
+  {
+   "prop": "euclydia/obelisk",
+   "x": 13.5,
+   "y": 12.4
+  },
+  {
+   "prop": "euclydia/vine_arch",
+   "x": 24.5,
+   "y": 6.2,
+   "solid": false
+  },
+  {
+   "prop": "interiors/crate",
+   "x": 29.6,
+   "y": 11.2
+  },
+  {
+   "prop": "interiors/crate",
+   "x": 30.4,
+   "y": 11.9
+  },
+  {
+   "prop": "interiors/barrel",
+   "x": 27.4,
+   "y": 11.6
+  },
+  {
+   "prop": "euclydia/table",
+   "x": 30.5,
+   "y": 19.8
+  }
+ ],
+ "spawns": {
+  "default": {
+   "x": 24.5,
+   "y": 20.5,
+   "dir": "north"
+  },
+  "from_house": {
+   "x": 34,
+   "y": 9.8,
+   "dir": "south"
+  },
+  "from_observatory": {
+   "x": 24.5,
+   "y": 2.8,
+   "dir": "south"
+  }
+ },
+ "exits": [
+  {
+   "id": "bill_door",
+   "x": 33.6,
+   "y": 8.6,
+   "w": 0.8,
+   "h": 0.8,
+   "to": "bill_house",
+   "spawn": "door",
+   "kind": "door"
+  },
+  {
+   "id": "to_observatory",
+   "x": 24,
+   "y": 0,
+   "w": 1,
+   "h": 1,
+   "to": "observatory",
+   "spawn": "default"
+  }
+ ],
+ "npcs": [
+  {
+   "id": "professor",
+   "character": "professor_circle",
+   "x": 20.5,
+   "y": 12.6,
+   "dialogue": "professor"
+  },
+  {
+   "id": "merchant",
+   "character": "merchant_square",
+   "x": 28.5,
+   "y": 12.8,
+   "dialogue": "merchant"
+  },
+  {
+   "id": "artisan",
+   "character": "artisan_triangle",
+   "x": 29.5,
+   "y": 19.2,
+   "dialogue": "artisan_plaza"
+  },
+  {
+   "id": "elder",
+   "character": "elder_hexagon",
+   "x": 5.5,
+   "y": 11.8,
+   "dialogue": "elder"
+  }
+ ],
+ "interactables": [
+  {
+   "id": "fountain_core",
+   "kind": "examine",
+   "x": 24.5,
+   "y": 17.4,
+   "label": "Examinar o cristal",
+   "text": "O cristal da fonte zumbe. Quando Bill o toca, as arestas do mundo ficam nítidas como nunca: há formas a tremer onde mais ninguém olha. (Nova capacidade: Perceber anomalias — K)",
+   "effects": [
+    {
+     "unlock": "perceive"
+    },
+    {
+     "setFlag": "fountain_examined"
+    },
+    {
+     "journal": "j_fountain"
+    }
+   ]
+  },
+  {
+   "id": "anomaly_1",
+   "kind": "examine",
+   "x": 14.5,
+   "y": 8.6,
+   "hidden": true,
+   "reveal": "perceive",
+   "text": "Um triângulo desenhado no chão... que não projecta sombra. Está virado para o observatório.",
+   "effects": [
+    {
+     "setFlag": "anomaly_1"
+    },
+    {
+     "journal": "j_anom1"
+    }
+   ]
+  },
+  {
+   "id": "anomaly_2",
+   "kind": "examine",
+   "x": 34.5,
+   "y": 18.8,
+   "hidden": true,
+   "reveal": "perceive",
+   "text": "Pedras dispostas em forma de olho. Quando pestanejas, o olho pestaneja contigo.",
+   "effects": [
+    {
+     "setFlag": "anomaly_2"
+    },
+    {
+     "journal": "j_anom2"
+    }
+   ]
+  },
+  {
+   "id": "anomaly_3",
+   "kind": "examine",
+   "x": 4.5,
+   "y": 21.6,
+   "hidden": true,
+   "reveal": "perceive",
+   "text": "Uma espiral suspensa no ar, do outro lado do rio. Gira ao contrário dos ponteiros do relógio de sol.",
+   "effects": [
+    {
+     "setFlag": "anomaly_3"
+    },
+    {
+     "journal": "j_anom3"
+    }
+   ]
+  },
+  {
+   "id": "north_gate",
+   "kind": "door",
+   "x": 24.5,
+   "y": 4.9,
+   "prop": "euclydia/stone_door",
+   "label": "Abrir o portão",
+   "requires": {
+    "all": [
+     {
+      "item": "elder_token"
+     },
+     {
+      "ability": "geometry"
+     }
+    ]
+   },
+   "requiresText": "O portão do observatório tem um selo hexagonal e um triângulo vazio. Precisa do Selo do Ancião e de quem saiba activar geometria."
+  },
+  {
+   "id": "plaza_bench",
+   "kind": "save",
+   "x": 19.5,
+   "y": 21.4,
+   "prop": "euclydia/bench",
+   "label": "Descansar e gravar",
+   "solid": true
+  },
+  {
+   "id": "sign_plaza",
+   "kind": "examine",
+   "x": 14.5,
+   "y": 16.6,
+   "text": "Placa: \"Praça das Arestas. A oeste, a casa da Anciã Hexágono. A norte, o observatório (acesso com selo).\""
+  }
+ ],
+ "triggers": [
+  {
+   "id": "intro",
+   "x": 20,
+   "y": 18,
+   "w": 9,
+   "h": 5,
+   "once": true,
+   "effects": [
+    {
+     "toast": "Fala com as pessoas (E). Algo no cristal da fonte chama por ti."
+    }
+   ]
+  }
+ ],
+ "checkpoints": [
+  {
+   "id": "fountain",
+   "x": 24.5,
+   "y": 20.5
+  }
+ ],
+ "onEnter": [
+  {
+   "questStart": "a1_q1"
+  }
+ ],
+ "terrain": [
+  "xxxxxxxxx~==~xxxxxxxxxxxpxxxxxxxxxxxxxxx",
+  "xxxxxxxxx~==~xxxxxxxxxxxpxxxxxxxxxxxxxxx",
+  "xx.......~==~.........xxpxx...........xx",
+  "xx.......~==~.........xxpxx...........xx",
+  "xx.......~==~.........xxpxx...........xx",
+  "xx.......~==~.........xxpxx...........xx",
+  "xx.......~==~...........eee...........xx",
+  "xx.......~==~...........eee...........xx",
+  "xx.......~==~...........eee...........xx",
+  "xx.mmmmm.~==~........eeeleee.....eee..xx",
+  "xx.mmmmm.~==~......eeeeeeeeleeeeeeee..xx",
+  "xx.mmmmm.~==~.....eeeeeeeeeleeeeee....xx",
+  "xx.mmmmm.~==~....eeeeeeeeeeelele......xx",
+  "xx.......~==~...leeeeegggggeeeeee.....xx",
+  "xx.ppppppBBBBpppppeeeegggggeeeeee.....xx",
+  "xx.ppppppBBBBpppppeeegggggggeeeee.....xx",
+  "xx.......~==~...eeeleegggggeeeeee.....xx",
+  "xx.......~==~...eeeelegggggeeelle.....xx",
+  "xx.......~==~....eeeeelleeeeeeee......xx",
+  "xx.......~==~.....eeeeeeeeeeeee.......xx",
+  "xx.......~==~......eeeeeeeleee........xx",
+  "xx.......~==~....ppp.eeeeeee..........xx",
+  "xx.......~==~....ppp....pp............xx",
+  "xx.......~==~...ppp.....pp............xx",
+  "xx.......~==~...pp......pp............xx",
+  "xx.......~==~...pp......pp............xx",
+  "xx.......~==~...........pp............xx",
+  "xx.......~==~...........pp............xx",
+  "xxxxxxxxx~==~xxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxx~==~xxxxxxxxxxxxxxxxxxxxxxxxxxx"
+ ]
+}

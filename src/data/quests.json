@@ -1,4 +1,190 @@
 [
- { "id": "b_q1", "arc": 2, "title": "Verão estranho", "summary": "Luzes estranhas na floresta.", "main": true,
-   "steps": [ { "id": "stan", "text": "Fala com o Stan dentro da Cabana.", "hint": "A porta da Cabana está ao centro.", "complete": { "flag": "stan_briefing" } } ] }
+  {
+    "id": "a1_q1", "arc": 1, "main": true, "title": "Olhos novos",
+    "summary": "Na Praça de Euclydia, Bill começa a ver formas que mais ninguém vê.",
+    "steps": [
+      { "id": "professor", "text": "Fala com o Professor Círculo.", "hint": "Está a noroeste da fonte, junto ao canteiro.", "complete": { "flag": "talked_professor" } },
+      { "id": "crystal", "text": "Examina o cristal da fonte.", "hint": "Aproxima-te da fonte no centro da praça e prime E.", "complete": { "flag": "fountain_examined" } },
+      { "id": "anomalies", "text": "Encontra as três anomalias da praça.", "hint": "Usa Perceber anomalias (K): junto à casa a noroeste, no extremo leste da praça e do outro lado do rio, a sudoeste.", "complete": { "all": [{ "flag": "anomaly_1" }, { "flag": "anomaly_2" }, { "flag": "anomaly_3" }] } },
+      { "id": "merchant", "text": "O Mercador Quadrado quer falar contigo.", "hint": "A banca dele fica a nordeste da fonte.", "complete": { "flag": "merchant_resolved" } }
+    ],
+    "onDone": [{ "unlock": "geometry" }, { "journal": "j_geometry" }, { "questStart": "a1_q2" }],
+    "reward": "Capacidade: activar geometria."
+  },
+  {
+    "id": "a1_q2", "arc": 1, "main": true, "title": "Memórias de casa",
+    "summary": "Bill regressa a casa para perceber de onde vêm as visões.",
+    "steps": [
+      { "id": "memories", "text": "Revê as memórias da casa (desenhos e retrato).", "hint": "A casa de Bill é a de telhado triangular a nordeste da praça.", "complete": { "all": [{ "flag": "memory_drawings" }, { "flag": "memory_family" }] } },
+      { "id": "chart", "text": "Encontra a carta estelar.", "hint": "Na gaveta do quarto de Bill, à direita.", "complete": { "item": "star_chart" } },
+      { "id": "tri", "text": "Fala com a Tri.", "hint": "A tua amiga artesã passa por tua casa — ou procura-a na praça.", "complete": { "flag": "tri_talked" } },
+      { "id": "token", "text": "Pede à Anciã Hexágono passagem para o observatório.", "hint": "Ela vive do outro lado do rio, a oeste. Atravessa a ponte.", "complete": { "item": "elder_token" } }
+    ],
+    "onDone": [{ "questStart": "a1_q3" }]
+  },
+  {
+    "id": "a1_q3", "arc": 1, "main": true, "title": "Alinhamento",
+    "summary": "O observatório guarda um telescópio capaz de ver outras dimensões.",
+    "steps": [
+      { "id": "gate", "text": "Abre o portão geométrico do terraço.", "hint": "Sobe as escadas a norte do pátio e activa a porta (E).", "complete": { "object": "observatory/terrace_gate", "state": "open" } },
+      { "id": "lens", "text": "Recupera a lente do telescópio.", "hint": "Está no nicho a nordeste do terraço; empurra os blocos (E) para abrir caminho. A alavanca ao lado repõe-nos.", "complete": { "item": "lens_shard" } },
+      { "id": "rings", "text": "Alinha os três anéis do céu.", "hint": "Pela ordem da carta estelar: triângulo, olho, espiral (da esquerda para a direita).", "complete": { "flag": "obs_rings_solved" } },
+      { "id": "telescope", "text": "Repara o telescópio.", "hint": "Com a lente e os anéis alinhados, interage com o telescópio sob a cúpula.", "complete": { "flag": "telescope_fixed" } },
+      { "id": "vision", "text": "Olha através do telescópio.", "hint": "Fica junto ao telescópio.", "complete": { "flag": "vision_done" } }
+    ],
+    "onDone": [{ "questStart": "a1_q4" }],
+    "reward": "Capacidade: abrir pequenas fendas."
+  },
+  {
+    "id": "a1_q4", "arc": 1, "main": true, "title": "A ruptura",
+    "summary": "O que Bill viu abriu uma ferida em Euclydia.",
+    "steps": [
+      { "id": "elder", "text": "Encontra a Anciã Hexágono junto à fonte.", "hint": "Desce do observatório para a praça destruída.", "complete": { "flag": "rupture_choice" } },
+      { "id": "enter", "text": "Entra na fenda do coração da praça.", "hint": "A fenda abriu-se onde estava a fonte.", "complete": { "visited": "nightmare_realm" } }
+    ],
+    "onDone": [{ "questStart": "a1_q5" }]
+  },
+  {
+    "id": "a1_s1", "arc": 1, "main": false, "title": "Ninguém fica para trás",
+    "summary": "Três pessoas ficaram presas na praça destruída.",
+    "steps": [
+      { "id": "rescue", "text": "Resgata o Professor, o Mercador e a Tri.", "hint": "Professor: enche o vazio com blocos ou abre a fenda. Mercador: salta o vazio estreito ou tapa-o com o bloco. Tri: procura um glifo escondido junto aos escombros.", "complete": { "event": "rescued", "countGte": 3 } }
+    ],
+    "onDone": [{ "var": "empathy", "add": 2 }, { "journal": "j_all_rescued" }],
+    "reward": "Empatia; muda o desfecho do arco."
+  },
+  {
+    "id": "a1_s2", "arc": 1, "main": false, "title": "A fonte partida",
+    "summary": "A fonte pode ser reparada com um estilhaço geométrico — ou o estilhaço pode alimentar o teu poder.",
+    "steps": [
+      { "id": "repair", "text": "Repara a fonte com um estilhaço geométrico.", "hint": "Os estilhaços brilham a rosa pela praça.", "complete": { "flag": "fountain_repaired" } }
+    ],
+    "reward": "Integridade da realidade."
+  },
+  {
+    "id": "a1_q5", "arc": 1, "main": true, "title": "O Reino dos Pesadelos",
+    "summary": "Do outro lado da fenda há seres que conhecem o nome de Bill.",
+    "steps": [
+      { "id": "key", "text": "Obtém a chave do vazio.", "hint": "Na plataforma a oeste (usa a fenda) ou negociando com a Pyronica, a leste.", "complete": { "item": "void_key" } },
+      { "id": "door", "text": "Abre a porta rúnica a norte.", "hint": "Passa o corredor do Keyhole.", "complete": { "object": "nightmare_realm/void_door", "state": "open" } },
+      { "id": "bola8", "text": "Passa pelo Bola 8.", "hint": "Luta (espera pelo golpe pesado e ataca depois) ou fala com ele se tiveres sido gentil.", "complete": { "any": [{ "defeated": "nm_bola8" }, { "flag": "bola8_calm" }] } },
+      { "id": "heart", "text": "Decide no coração da fenda.", "hint": "Toca no coração (E).", "complete": { "flag": "arc1_decided" } }
+    ]
+  },
+  {
+    "id": "b_q1", "arc": 2, "main": true, "title": "Verão estranho",
+    "summary": "Dipper e Mabel chegam à Cabana do Mistério. Há luzes estranhas na floresta.",
+    "steps": [
+      { "id": "stan", "text": "Fala com o Stan dentro da Cabana.", "hint": "A porta está ao centro da fachada.", "complete": { "flag": "stan_briefing" } },
+      { "id": "flashlight", "text": "Arranja uma lanterna (Dipper).", "hint": "Gaveta da secretária da loja. Só o Dipper a abre.", "complete": { "ability": "flashlight" } },
+      { "id": "hook", "text": "Abre o presente da Mabel (Mabel).", "hint": "Caixa na sala, à direita. Alterna para a Mabel com Q.", "complete": { "ability": "grapple" } },
+      { "id": "town", "text": "Vai ao centro de Gravity Falls.", "hint": "Pelo caminho a leste da Cabana.", "complete": { "visited": "town_center" } }
+    ],
+    "onDone": [{ "questStart": "b_q2" }]
+  },
+  {
+    "id": "b_q2", "arc": 2, "main": true, "title": "Rumores no centro",
+    "summary": "A cidade fala das luzes. Alguém sabe mais do que diz.",
+    "steps": [
+      { "id": "board", "text": "Lê o quadro de avisos.", "hint": "No passeio norte, entre o Greasy's e a Câmara.", "complete": { "flag": "rumor_cave" } },
+      { "id": "pacifica", "text": "Descobre o que a Pacifica viu.", "hint": "Ela no parque só dá conversa à Mabel.", "complete": { "flag": "pacifica_info" } },
+      { "id": "felicia", "text": "Fala com a Felícia.", "hint": "No terreno vazio a sudeste.", "complete": { "flag": "felicia_talked" } }
+    ],
+    "onDone": [{ "questStart": "b_q3" }, { "questStart": "b_q4" }]
+  },
+  {
+    "id": "b_q3", "arc": 2, "main": true, "title": "O diário e a gruta",
+    "summary": "A floresta esconde um diário e uma gruta com símbolos.",
+    "steps": [
+      { "id": "journal", "text": "Encontra o diário escondido.", "hint": "Num tronco oco a noroeste do lago. Ilumina-o com a lanterna (K).", "complete": { "flag": "found_journal" } },
+      { "id": "symbols", "text": "Revela os três símbolos da gruta.", "hint": "Atravessa a ravina com o gancho da Mabel e ilumina as paredes da gruta.", "complete": { "all": [{ "flag": "cave_sym_1" }, { "flag": "cave_sym_2" }, { "flag": "cave_sym_3" }] } },
+      { "id": "card", "text": "Recupera o cartão do bunker.", "hint": "Atrás da pedra com três cavidades, no fundo da gruta.", "complete": { "item": "bunker_key" } }
+    ]
+  },
+  {
+    "id": "b_q4", "arc": 2, "main": true, "title": "Peças para o McGucket",
+    "summary": "O McGucket sabe construir um estabilizador dimensional — se lhe levarem as peças.",
+    "steps": [
+      { "id": "talk", "text": "Fala com o McGucket na oficina.", "hint": "A leste do centro da cidade.", "complete": { "flag": "mcg_talked" } },
+      { "id": "parts", "text": "Junta engrenagem, célula de energia e bobine de fio.", "hint": "Engrenagem: pátio da sucata (portão de duas placas). Célula: ilhota do lago. Bobine: caixote das ferragens no centro.", "complete": { "any": [{ "flag": "machine_fixed" }, { "all": [{ "item": "gear_part" }, { "item": "power_cell" }, { "item": "wire_coil" }] }] } },
+      { "id": "build", "text": "Monta o estabilizador na consola.", "hint": "Dentro da oficina.", "complete": { "flag": "machine_fixed" } }
+    ],
+    "reward": "Estabilizador dimensional."
+  },
+  {
+    "id": "b_q5", "arc": 2, "main": true, "title": "O bunker",
+    "summary": "Debaixo da Cabana há um laboratório e um portal.",
+    "steps": [
+      { "id": "shelf", "text": "Abre a estante secreta da Cabana com o cartão.", "hint": "Na loja, a estante ao fundo.", "complete": { "object": "shack_interior/vending", "state": "open" } },
+      { "id": "power", "text": "Restabelece a energia da porta blindada.", "hint": "Quatro interruptores; cada um inverte relés vizinhos. Há uma alavanca para repor.", "complete": { "flag": "bunker_circuit_solved" } },
+      { "id": "bill", "text": "Enfrenta quem espera junto ao portal.", "hint": "Na sala do portal.", "complete": { "flag": "bill_met" } },
+      { "id": "portal", "text": "Liga o estabilizador ao portal.", "hint": "Consola em frente ao portal.", "complete": { "flag": "town_invaded" } }
+    ]
+  },
+  {
+    "id": "b_q6", "arc": 2, "main": true, "title": "Intrusão",
+    "summary": "O portal rasgou Gravity Falls. Há pessoas presas.",
+    "steps": [
+      { "id": "rescue", "text": "Resgata quem estiver encurralado.", "hint": "Soos (laje junto ao Greasy's — ponto fraco com a lanterna), Pacifica (ilhota do parque — gancho), Wendy (terreno a sudeste — combate).", "complete": { "any": [{ "event": "rescued", "value": "soos" }, { "event": "rescued", "value": "pacifica" }, { "event": "rescued", "value": "wendy" }] } },
+      { "id": "blendin", "text": "Fala com o estranho do macacão laranja.", "hint": "Apareceu junto ao portal, a sudeste.", "complete": { "flag": "blendin_met" } },
+      { "id": "portal", "text": "Atravessa o portal temporal.", "hint": "Com a fita temporal do Blendin.", "complete": { "visited": "time_city" } }
+    ]
+  },
+  {
+    "id": "b_s3", "arc": 2, "main": false, "title": "Todos a salvo",
+    "summary": "Soos, Pacifica e Wendy ainda estão em perigo.",
+    "steps": [
+      { "id": "all", "text": "Resgata os três.", "hint": "Cada resgate pede um gémeo diferente.", "complete": { "all": [{ "event": "rescued", "value": "soos" }, { "event": "rescued", "value": "pacifica" }, { "event": "rescued", "value": "wendy" }] } }
+    ],
+    "onDone": [{ "var": "empathy", "add": 2 }, { "var": "reality", "add": 1 }],
+    "reward": "Empatia e integridade da realidade."
+  },
+  {
+    "id": "b_q7", "arc": 2, "main": true, "title": "Domínio temporal",
+    "summary": "A cidade dos agentes do tempo. O Arquivo guarda prisioneiros.",
+    "steps": [
+      { "id": "pass", "text": "Consegue um passe para o Arquivo.", "hint": "O Blendin está no posto dos agentes, a sudeste da praça.", "complete": { "flag": "archive_pass" } },
+      { "id": "archive", "text": "Entra no Arquivo (a norte).", "hint": "A ponte do Arquivo só existe no passado: usa a alavanca do tempo no terraço oeste.", "complete": { "visited": "time_archive" } }
+    ]
+  },
+  {
+    "id": "b_q8", "arc": 2, "main": true, "title": "Arquivo e prisão",
+    "summary": "Alguém importante está preso numa cela temporal.",
+    "steps": [
+      { "id": "sequence", "text": "Descobre a sequência dos terminais.", "hint": "Relógio, ampulheta, engrenagem — a pista está nas estantes (lanterna).", "complete": { "flag": "archive_seq_solved" } },
+      { "id": "ford", "text": "Liberta o prisioneiro da cela oeste.", "hint": "Fala com ele.", "complete": { "flag": "ford_rescued" } }
+    ]
+  },
+  {
+    "id": "b_q9", "arc": 2, "main": true, "title": "O Bebé do Tempo",
+    "summary": "Para chegar às linhas temporais é preciso passar pelo Bebé do Tempo.",
+    "steps": [
+      { "id": "baby", "text": "Resolve o encontro com o Bebé do Tempo.", "hint": "Lutar (ataca só nas oportunidades), acalmá-lo com o biberão temporal, ou negociar.", "complete": { "any": [{ "defeated": "time_baby" }, { "flag": "baby_calmed" }, { "flag": "baby_bargain" }] } }
+    ]
+  },
+  {
+    "id": "b_q10", "arc": 2, "main": true, "title": "Travessia",
+    "summary": "Três portões, três futuros.",
+    "steps": [
+      { "id": "gate", "text": "Escolhe um portão.", "hint": "Tempo restaurado (centro), Gravity Falls (leste) ou Euclydia (oeste).", "complete": { "flag": "arc2_decided" } }
+    ]
+  },
+  {
+    "id": "b_s1", "arc": 2, "main": false, "title": "Onde está o Waddles?",
+    "summary": "O porco da Mabel fugiu para a floresta.",
+    "steps": [
+      { "id": "snack", "text": "Arranja uma bolacha de milho.", "hint": "Na ilhota da lagoa, junto à Cabana (gancho).", "complete": { "any": [{ "item": "waddles_snack" }, { "flag": "waddles_home" }] } },
+      { "id": "find", "text": "Encontra o Waddles com a Mabel.", "hint": "Sul da floresta, junto ao lago.", "complete": { "flag": "waddles_home" } }
+    ],
+    "onDone": [{ "var": "empathy", "add": 1 }, { "record": "helped", "value": "waddles" }],
+    "reward": "Empatia."
+  },
+  {
+    "id": "b_s2", "arc": 2, "main": false, "title": "O circuito do McGucket",
+    "summary": "Três lâmpadas, três alavancas.",
+    "steps": [
+      { "id": "circuit", "text": "Acende as três lâmpadas do circuito.", "hint": "Cada alavanca inverte lâmpadas diferentes. Experimenta duas de cada vez.", "complete": { "flag": "mcg_circuit_done" } }
+    ],
+    "reward": "Penso rápido e Pitt Cola."
+  }
 ]

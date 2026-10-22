@@ -1,0 +1,702 @@
+{
+ "id": "euclydia_rupture",
+ "name": "Euclydia após a ruptura",
+ "arc": 1,
+ "theme": "rupture",
+ "music": "rupture",
+ "reference": "euclydia_rupture",
+ "width": 40,
+ "height": 30,
+ "ambient": {
+  "tint": "#1a1024",
+  "strange": true,
+  "darkness": 0.25
+ },
+ "props": [
+  {
+   "prop": "euclydia/round_tree",
+   "x": 0.58,
+   "y": 1.01,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 2.47,
+   "y": 0.87,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 4.4,
+   "y": 1.14,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 14.39,
+   "y": 0.93,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 18.49,
+   "y": 0.94,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 20.22,
+   "y": 1.05,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 22.33,
+   "y": 1.07,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 26.31,
+   "y": 1.07,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 30.34,
+   "y": 0.86,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 34.54,
+   "y": 0.89,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 36.43,
+   "y": 1.1,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 1.75,
+   "y": 3.03,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 39.37,
+   "y": 2.91,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 0.29,
+   "y": 4.97,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 26.57,
+   "y": 5.11,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 38.51,
+   "y": 4.87,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 1.55,
+   "y": 6.94,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 39.36,
+   "y": 7.11,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 38.73,
+   "y": 9.09,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 1.33,
+   "y": 10.93,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 39.26,
+   "y": 11.01,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 0.49,
+   "y": 13.11,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 39.77,
+   "y": 14.95,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 0.73,
+   "y": 17.03,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 1.75,
+   "y": 19.14,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 39.59,
+   "y": 18.93,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 0.46,
+   "y": 20.86,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 38.4,
+   "y": 21.03,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 1.65,
+   "y": 23.06,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 0.59,
+   "y": 24.93,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 38.29,
+   "y": 25,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 39.35,
+   "y": 27.05,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 0.63,
+   "y": 28.88,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 2.63,
+   "y": 28.88,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 4.55,
+   "y": 28.96,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 6.62,
+   "y": 28.95,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 8.49,
+   "y": 29.1,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 14.73,
+   "y": 29.08,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 16.3,
+   "y": 28.88,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 22.28,
+   "y": 29.09,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 24.68,
+   "y": 28.92,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 26.2,
+   "y": 29.13,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 28.29,
+   "y": 28.97,
+   "flip": true
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 30.57,
+   "y": 28.97,
+   "flip": false
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 32.78,
+   "y": 29.01,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 34.74,
+   "y": 29.1,
+   "flip": true
+  },
+  {
+   "prop": "nature/dead_tree",
+   "x": 36.76,
+   "y": 28.87,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/round_tree",
+   "x": 38.34,
+   "y": 28.96,
+   "flip": false
+  },
+  {
+   "prop": "euclydia/a_frame_house",
+   "x": 34,
+   "y": 8.6,
+   "id": "bill_house_front"
+  },
+  {
+   "prop": "rifts/broken_piece_a",
+   "x": 17,
+   "y": 8.6
+  },
+  {
+   "prop": "rifts/broken_piece_b",
+   "x": 15.5,
+   "y": 25
+  },
+  {
+   "prop": "euclydia/hex_house",
+   "x": 5.5,
+   "y": 8.6
+  },
+  {
+   "prop": "rifts/ruined_arch",
+   "x": 32,
+   "y": 24,
+   "solid": false
+  },
+  {
+   "prop": "rifts/floating_rock",
+   "x": 36.5,
+   "y": 12.6
+  },
+  {
+   "prop": "rifts/pink_crystal",
+   "x": 20.5,
+   "y": 18.6
+  },
+  {
+   "prop": "rifts/blue_crystal",
+   "x": 29,
+   "y": 13
+  },
+  {
+   "prop": "euclydia/lamp",
+   "x": 17.5,
+   "y": 19.4
+  },
+  {
+   "prop": "euclydia/lamp",
+   "x": 31.5,
+   "y": 19.4
+  },
+  {
+   "prop": "rifts/chains",
+   "x": 8.5,
+   "y": 24.6,
+   "solid": false
+  },
+  {
+   "prop": "interiors/crate",
+   "x": 33.6,
+   "y": 7.2
+  }
+ ],
+ "spawns": {
+  "default": {
+   "x": 24.5,
+   "y": 2.8,
+   "dir": "south"
+  },
+  "north": {
+   "x": 24.5,
+   "y": 2.8,
+   "dir": "south"
+  },
+  "from_house": {
+   "x": 34,
+   "y": 9.8,
+   "dir": "south"
+  }
+ },
+ "exits": [
+  {
+   "id": "bill_door",
+   "x": 33.6,
+   "y": 8.6,
+   "w": 0.8,
+   "h": 0.8,
+   "to": "bill_house",
+   "spawn": "door",
+   "kind": "door"
+  },
+  {
+   "id": "to_observatory",
+   "x": 24,
+   "y": 0,
+   "w": 1,
+   "h": 1,
+   "to": "observatory",
+   "spawn": "from_rupture"
+  }
+ ],
+ "npcs": [
+  {
+   "id": "elder_r",
+   "character": "elder_hexagon",
+   "x": 21.5,
+   "y": 19.4,
+   "dialogue": "elder_rupture"
+  },
+  {
+   "id": "professor_r",
+   "character": "professor_circle",
+   "x": 16.5,
+   "y": 7.4,
+   "dialogue": "rescue_professor",
+   "if": {
+    "not": {
+     "event": "rescued",
+     "value": "professor"
+    }
+   }
+  },
+  {
+   "id": "merchant_r",
+   "character": "merchant_square",
+   "x": 33,
+   "y": 7.4,
+   "dialogue": "rescue_merchant",
+   "if": {
+    "not": {
+     "event": "rescued",
+     "value": "merchant"
+    }
+   }
+  },
+  {
+   "id": "artisan_r",
+   "character": "artisan_triangle",
+   "x": 16,
+   "y": 24.4,
+   "dialogue": "rescue_tri",
+   "if": {
+    "not": {
+     "event": "rescued",
+     "value": "tri"
+    }
+   }
+  }
+ ],
+ "enemies": [
+  {
+   "id": "rupt_shard_1",
+   "type": "shard",
+   "x": 27,
+   "y": 21
+  },
+  {
+   "id": "rupt_shard_2",
+   "type": "shard",
+   "x": 22,
+   "y": 12
+  },
+  {
+   "id": "rupt_shard_3",
+   "type": "shard",
+   "x": 6,
+   "y": 18
+  },
+  {
+   "id": "rupt_teeth",
+   "type": "teeth",
+   "x": 33,
+   "y": 16
+  }
+ ],
+ "interactables": [
+  {
+   "id": "prof_block_1",
+   "kind": "push",
+   "x": 16.5,
+   "y": 13.95,
+   "label": "Empurrar bloco"
+  },
+  {
+   "id": "prof_block_2",
+   "kind": "push",
+   "x": 16.5,
+   "y": 15.95,
+   "label": "Empurrar bloco"
+  },
+  {
+   "id": "prof_rift_a",
+   "kind": "rift",
+   "x": 21.5,
+   "y": 13.6,
+   "pair": "prof_rift_b",
+   "requires": {
+    "ability": "rift"
+   },
+   "label": "Abrir fenda"
+  },
+  {
+   "id": "prof_rift_b",
+   "kind": "rift",
+   "x": 15,
+   "y": 8.4,
+   "pair": "prof_rift_a",
+   "requires": {
+    "ability": "rift"
+   },
+   "label": "Abrir fenda"
+  },
+  {
+   "id": "merchant_block",
+   "kind": "push",
+   "x": 32.5,
+   "y": 11.95,
+   "label": "Empurrar bloco"
+  },
+  {
+   "id": "tri_glyph",
+   "kind": "glyph",
+   "x": 12.4,
+   "y": 20.4,
+   "hidden": true,
+   "reveal": "perceive",
+   "requires": {
+    "ability": "geometry"
+   },
+   "label": "Activar glifo",
+   "effects": [
+    {
+     "setObject": "tri_rubble",
+     "state": "open"
+    },
+    {
+     "toast": "O glifo ergue os escombros!"
+    }
+   ]
+  },
+  {
+   "id": "tri_rubble",
+   "kind": "door",
+   "x": 15.5,
+   "y": 21.9,
+   "prop": "rifts/broken_piece_a",
+   "label": "Escombros",
+   "requires": {
+    "flag": "never"
+   },
+   "requiresText": "Os escombros não cedem à força. Há qualquer coisa escondida por perto — usa Perceber anomalias (K)."
+  },
+  {
+   "id": "broken_fountain",
+   "kind": "repair",
+   "x": 24.5,
+   "y": 17.6,
+   "prop": "euclydia/crystal_cluster",
+   "label": "Reparar a fonte com um estilhaço",
+   "requires": {
+    "item": "geometry_shard"
+   },
+   "requiresText": "A fonte racharam. Um estilhaço geométrico podia repará-la.",
+   "effects": [
+    {
+     "take": "geometry_shard"
+    },
+    {
+     "var": "reality",
+     "add": 2
+    },
+    {
+     "var": "empathy",
+     "add": 1
+    },
+    {
+     "setFlag": "fountain_repaired"
+    },
+    {
+     "journal": "j_fountain_repair"
+    }
+   ]
+  },
+  {
+   "id": "shard_1",
+   "kind": "pickup",
+   "x": 7.5,
+   "y": 21.6,
+   "item": "geometry_shard",
+   "prop": "rifts/pink_crystal"
+  },
+  {
+   "id": "shard_2",
+   "kind": "pickup",
+   "x": 35.5,
+   "y": 27,
+   "item": "geometry_shard",
+   "prop": "rifts/pink_crystal"
+  },
+  {
+   "id": "shard_3",
+   "kind": "pickup",
+   "x": 28.5,
+   "y": 4.4,
+   "item": "geometry_shard",
+   "prop": "rifts/pink_crystal"
+  },
+  {
+   "id": "heart_portal",
+   "kind": "portal",
+   "x": 24.5,
+   "y": 15.8,
+   "prop": "rifts/void_portal",
+   "label": "Entrar na fenda",
+   "requires": {
+    "flag": "rupture_choice"
+   },
+   "requiresText": "A fenda pulsa. Antes de entrares, fala com a Anciã Hexágono — ela está junto à fonte.",
+   "effects": [
+    {
+     "teleport": {
+      "map": "nightmare_realm",
+      "spawn": "default"
+     }
+    }
+   ]
+  },
+  {
+   "id": "rupt_bench",
+   "kind": "save",
+   "x": 26.5,
+   "y": 23.6,
+   "prop": "euclydia/bench",
+   "solid": true
+  }
+ ],
+ "triggers": [
+  {
+   "id": "surge",
+   "x": 22,
+   "y": 1,
+   "w": 5,
+   "h": 4,
+   "once": true,
+   "effects": [
+    {
+     "unlock": "telekinesis"
+    },
+    {
+     "unlock": "energy_bolt"
+    },
+    {
+     "toast": "A ruptura acorda mais poder em Bill: Manipular objectos e Energia dimensional (R para mudar)."
+    },
+    {
+     "journal": "j_surge"
+    }
+   ]
+  }
+ ],
+ "onEnter": [
+  {
+   "questStart": "a1_q4"
+  }
+ ],
+ "terrain": [
+  "xxxxxxxxx~==~xxxxxxxxxxxkxxxxxxxxxxxxxxx",
+  "xxxxxxxxx~==~xxxxxxxxxxxkxxxxxxxxxxxxxxx",
+  "xx....;..~==~......;..xxkxx.....;.....xx",
+  "xx..;....~==~.........xxkxx......;....xx",
+  "xx.....;.~==~...;;....xxkxx;..........xx",
+  "xx;......~==~vkkkkkv..xxkxx..;...;..;.xx",
+  "xx...;.;.~==~vkkkkkv....kkk...v..;....xx",
+  "xx.....;.~==~vkkkkkv....kkk...v..;....xx",
+  "xx.......~==~vkkkkkvv...kkk...v...;...xx",
+  "xx.mmmmm.~==~vkkkkkvvkkknkkk..vvvvvvv.xx",
+  "xx.mmmmm.~==~vvvvvvvkvkkkkknkkkkkkkk..xx",
+  "xx.mmmmm.~==~vvvvvvvkkkkkkknkkkkkk;..;xx",
+  "xx.mmmmm.~==~....kkkkkkkkkkknknk...;..xx",
+  "xx.....;;~==~...nkkkkknnnnnkkkkkk..;..xx",
+  "xx;ppppppB==Bpppppkkkknnnnnkkkkkk.....xx",
+  "xx.ppppppB==Bpppppkkknnnnnnnkkkkk;....xx",
+  "xx;....;.~==~...kkknkknnnnnkkkkkk.....xx",
+  "xx.......~==~...kkkknknnnnnkkknnk....;xx",
+  "xx.......~==~....kkkkknnkkkkkkkk;;....xx",
+  "xx;......~==~.....kkkkkkkkkkkkk.......xx",
+  "xx....;.;~==~;.....kkkkkkknkkk......;.xx",
+  "xx.......~==~RRkRRRp.kkkkkkk;;....vvv.xx",
+  "xx;......~==~RkkkkRp....pp.......vvvv;xx",
+  "xx..;....~==~RkkkkR;;...pp......vvvv..xx",
+  "xx......;~==~RkkkkR.....pp...;.vvvv...xx",
+  "xx.......~==~RkkkkR..;..pp....vvvv....xx",
+  "xx.......~==~RRRRRR.;...pp...;vvv.;...xx",
+  "xx.;.....~==~..;.......;pp....vv.....;xx",
+  "xxxxxxxxx~==~xxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxx~==~xxxxxxxxxxxxxxxxxxxxxxxxxxx"
+ ]
+}
