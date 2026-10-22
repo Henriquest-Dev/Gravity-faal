@@ -6,6 +6,10 @@
     <meta name="theme-color" content="#14110f" />
     <link rel="icon" href="data:," />
     <title>Gravity Falls — Dimensões</title>
+    <script>
+      // GitHub Pages serves this branch's root: send players to the compiled build in play/.
+      if (location.hostname.endsWith('github.io') && !location.pathname.includes('/play/')) location.replace('./play/' + location.search);
+    </script>
   </head>
   <body>
     <div id="game"></div>

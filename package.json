@@ -20,12 +20,16 @@
     "e2e:combat": "node tools/e2e/combat.mjs test-results/combat",
     "e2e:save": "node tools/e2e/save.mjs",
     "e2e:perf": "node tools/e2e/perf.mjs",
-    "android:apk": "npm run cap:sync && cd android && ./gradlew assembleDebug"
+    "android:apk": "npm run cap:sync && cd android && ./gradlew assembleDebug",
+    "build:pages": "tsc --noEmit && vite build --outDir play --emptyOutDir"
   },
   "dependencies": {
     "@capacitor/android": "8.5.3",
     "@capacitor/app": "8.1.2",
     "@capacitor/core": "8.5.3",
+    "@fontsource/im-fell-english": "5.3.0",
+    "@fontsource/im-fell-english-sc": "5.3.0",
+    "@fontsource/pixelify-sans": "5.3.0",
     "phaser": "3.90.0"
   },
   "devDependencies": {
