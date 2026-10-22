@@ -1,15 +1,18 @@
 import { decorate, forest } from './lib.mjs';
-import { BILL_DOOR, BILL_HOUSE, H, HOUSES, W, baseCanvas, trees } from './euclydia_layout.mjs';
+import { BILL_DOOR, BILL_HOUSE, H, HOUSES, W, baseCanvas, terraces, trees } from './euclydia_layout.mjs';
 
 export default function build() {
   const c = baseCanvas();
+  c.path([[30, 11], [34, 9.5]], 2, '.', ['e']);
+  const stairs = terraces(c);
   const border = forest(c, 'x', ['euclydia/round_tree'], 41, { step: 2, gap: 0.25 });
   return {
     id: 'euclydia_plaza', name: 'Praça de Euclydia', arc: 1, theme: 'euclid', music: 'euclydia', reference: 'euclydia_plaza',
     width: W, height: H, terrain: c.rows(),
     ambient: { tint: '#fff1d6' },
+    buildings: [...HOUSES, BILL_HOUSE],
     props: [
-      ...border, ...trees(), ...HOUSES, BILL_HOUSE,
+      ...border, ...trees(), ...stairs,
       ...decorate(c, '.', ['nature/flower', 'nature/fern'], 14, 77),
       { prop: 'euclydia/fountain', x: 24.5, y: 16.2 },
       { prop: 'euclydia/crystal_cluster', x: 24.5, y: 15.4, solid: false },

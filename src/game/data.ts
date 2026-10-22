@@ -8,10 +8,13 @@ import journalJson from '../data/journal.json';
 import propsJson from '../data/props.json';
 import questsJson from '../data/quests.json';
 import type { RuleData } from '../core/rules';
-import type { AbilityDef, DialogueDef, EndingRules, ItemDef, MapDef, QuestDef } from '../core/types';
+import type { AbilityDef, CutsceneDef, DialogueDef, EndingRules, ItemDef, MapDef, QuestDef } from '../core/types';
 
 const mapModules = import.meta.glob('../data/maps/*.json', { eager: true, import: 'default' });
 const dialogueModules = import.meta.glob('../data/dialogues/*.json', { eager: true, import: 'default' });
+const cutsceneModules = import.meta.glob('../data/cutscenes/*.json', { eager: true, import: 'default' });
+export const CUTSCENES: Record<string, CutsceneDef> = {};
+for (const list of Object.values(cutsceneModules) as CutsceneDef[][]) for (const c of list) CUTSCENES[c.id] = c;
 
 export const MAPS: Record<string, MapDef> = {};
 for (const m of Object.values(mapModules) as MapDef[]) MAPS[m.id] = m;

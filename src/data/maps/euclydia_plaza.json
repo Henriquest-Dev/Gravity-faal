@@ -10,6 +10,77 @@
  "ambient": {
   "tint": "#fff1d6"
  },
+ "buildings": [
+  {
+   "id": "house_nw",
+   "x": 15,
+   "y": 7,
+   "w": 5,
+   "h": 2,
+   "style": "euclid",
+   "door": {
+    "x": 17
+   },
+   "windows": [
+    15
+   ]
+  },
+  {
+   "id": "tri_house",
+   "x": 13,
+   "y": 23,
+   "w": 5,
+   "h": 2,
+   "style": "euclid",
+   "door": {
+    "x": 15
+   },
+   "windows": [
+    17
+   ]
+  },
+  {
+   "id": "house_se",
+   "x": 30,
+   "y": 22,
+   "w": 5,
+   "h": 2,
+   "style": "euclid",
+   "door": {
+    "x": 32
+   }
+  },
+  {
+   "id": "elder_house",
+   "x": 3,
+   "y": 7,
+   "w": 5,
+   "h": 2,
+   "style": "euclid",
+   "door": {
+    "x": 5
+   },
+   "windows": [
+    7
+   ]
+  },
+  {
+   "id": "bill_house",
+   "x": 32,
+   "y": 7,
+   "w": 5,
+   "h": 2,
+   "style": "euclid",
+   "sign": "tall",
+   "door": {
+    "x": 34,
+    "exit": "bill_door"
+   },
+   "windows": [
+    36
+   ]
+  }
+ ],
  "props": [
   {
    "prop": "euclydia/round_tree",
@@ -426,30 +497,16 @@
    "flip": true
   },
   {
-   "prop": "euclydia/a_frame_house",
-   "x": 17,
-   "y": 8.4
+   "prop": "euclydia/stairs",
+   "x": 17.5,
+   "y": 11.1,
+   "layer": "ground"
   },
   {
-   "prop": "euclydia/hex_house",
-   "x": 15.5,
-   "y": 24.6
-  },
-  {
-   "prop": "euclydia/dome_house",
-   "x": 32,
-   "y": 23.5
-  },
-  {
-   "prop": "euclydia/hex_house",
-   "x": 5.5,
-   "y": 8.6
-  },
-  {
-   "prop": "euclydia/a_frame_house",
+   "prop": "euclydia/stairs",
    "x": 34,
-   "y": 8.6,
-   "id": "bill_house_front"
+   "y": 11.1,
+   "layer": "ground"
   },
   {
    "prop": "nature/fern",
@@ -628,10 +685,10 @@
  "exits": [
   {
    "id": "bill_door",
-   "x": 33.6,
-   "y": 8.6,
-   "w": 0.8,
-   "h": 0.8,
+   "x": 34,
+   "y": 8,
+   "w": 1,
+   "h": 1,
    "to": "bill_house",
    "spawn": "door",
    "kind": "door"
@@ -820,19 +877,19 @@
   "xx.......~==~...........eee...........xx",
   "xx.......~==~...........eee...........xx",
   "xx.......~==~...........eee...........xx",
-  "xx.mmmmm.~==~........eeeleee.....eee..xx",
-  "xx.mmmmm.~==~......eeeeeeeeleeeeeeee..xx",
-  "xx.mmmmm.~==~.....eeeeeeeeeleeeeee....xx",
-  "xx.mmmmm.~==~....eeeeeeeeeeelele......xx",
-  "xx.......~==~...leeeeegggggeeeeee.....xx",
-  "xx.ppppppBBBBpppppeeeegggggeeeeee.....xx",
+  "xx.mmmmm.~==~....p...eeeeeee.....pp...xx",
+  "xx.mmmmm.~==~CCCC.CCCeeelleeeeCCC..CCCxx",
+  "xx.mmmmm.~==~.....eeeeeeeeeeee........xx",
+  "xx.mmmmm.~==~....eeeeeeelleeee........xx",
+  "xx.......~==~...eeeeeegggggeeeeee.....xx",
   "xx.ppppppBBBBpppppeeegggggggeeeee.....xx",
-  "xx.......~==~...eeeleegggggeeeeee.....xx",
-  "xx.......~==~...eeeelegggggeeelle.....xx",
-  "xx.......~==~....eeeeelleeeeeeee......xx",
-  "xx.......~==~.....eeeeeeeeeeeee.......xx",
-  "xx.......~==~......eeeeeeeleee........xx",
-  "xx.......~==~....ppp.eeeeeee..........xx",
+  "xx.ppppppBBBBpppplelelgggggglelel.....xx",
+  "xx.......~==~...elelelgggggglelel.....xx",
+  "xx.......~==~...eeeeeegggggeeeeee.....xx",
+  "xx.......~==~....eeeeeeeeeeeeeee......xx",
+  "xx.......~==~.....eeeeeelleeeee.......xx",
+  "xx.......~==~......eeeeeeeeeee........xx",
+  "xx.......~==~....ppp.eeellee..........xx",
   "xx.......~==~....ppp....pp............xx",
   "xx.......~==~...ppp.....pp............xx",
   "xx.......~==~...pp......pp............xx",

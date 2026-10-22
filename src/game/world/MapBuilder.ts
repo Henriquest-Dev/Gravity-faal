@@ -7,7 +7,7 @@ import { objKey } from '../../core/state';
 import type { BuildingDef, ExitDef, InteractableDef, MapDef, TriggerDef } from '../../core/types';
 import { missingAssets, propKey } from '../assets';
 import { PROPS } from '../data';
-import { bakeBuilding, bakeShack } from './BuildingRenderer';
+import { bakeBuilding, bakeEuclid, bakeShack } from './BuildingRenderer';
 import { TerrainRenderer, THEMES } from './TerrainRenderer';
 
 export const DEPTH = {
@@ -79,7 +79,7 @@ export class MapBuilder {
 
     for (const b of def.buildings ?? []) {
       if (!check(b.if, s, def.id)) continue;
-      const baked = (b.style === 'shack' ? bakeShack : bakeBuilding)(this.scene, b, `building:${def.id}:${b.id}`);
+      const baked = (b.style === 'shack' ? bakeShack : b.style === 'euclid' ? bakeEuclid : bakeBuilding)(this.scene, b, `building:${def.id}:${b.id}`);
       const baseY = (b.y + b.h) * TILE;
       const img = this.scene.add.image(b.x * TILE - 6, baseY, baked.key).setOrigin(0, 1).setDepth(baseY);
       out.buildings.push({ def: b, img });

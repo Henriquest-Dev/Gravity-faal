@@ -52,6 +52,7 @@ export type Effect =
   | { startArc2: true }
   | { party: string[] }
   | { toast: string }
+  | { cutscene: string }
   | { checkpoint: true };
 
 // ------------------------------------------------------------------- quests
@@ -276,4 +277,37 @@ export interface EndingRules {
   outcomes: EndingOutcome[];
   tieBreak: string[];
   variations?: { when: Condition; text: string }[];
+}
+
+// --------------------------------------------------------------- cutscenes
+/** Tile coordinates, or an actor reference (player, companion, npc:<id> or a spawned id). */
+export type CsPoint = [number, number] | string;
+
+export type CutsceneStep =
+  | { wait: number }
+  | { fade: 'out' | 'in'; ms?: number }
+  | { card: string; sub?: string; lines?: string[]; ms?: number }
+  | { say: string; text: string; mood?: string; as?: string }
+  | { dialogue: string }
+  | { camera: CsPoint; ms?: number; zoom?: number }
+  | { shake: number; ms?: number }
+  | { flash: string; ms?: number }
+  | { spawn: string; char: string; at: [number, number]; dir?: Dir; alpha?: number }
+  | { move: string; to: [number, number]; speed?: number; run?: boolean; async?: boolean }
+  | { face: string; dir: Dir | string }
+  | { anim: string; state: string; ms?: number }
+  | { remove: string }
+  | { alpha: string; to: number; ms?: number; async?: boolean }
+  | { sfx: string }
+  | { music: string }
+  | { glow: [number, number]; r?: number; color?: string; ms?: number }
+  | { effects: Effect[] };
+
+export interface CutsceneDef {
+  id: string;
+  /** plays only when this holds */
+  if?: Condition;
+  /** default true: a cutscene plays once per save (flag cs:<id>) */
+  once?: boolean;
+  steps: CutsceneStep[];
 }

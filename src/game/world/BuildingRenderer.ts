@@ -326,3 +326,107 @@ export function bakeShack(scene: Phaser.Scene, b: BuildingDef, key: string): { k
   tex.refresh();
   return { key, w: W, h: H };
 }
+
+/**
+ * A house of Euclydia as the catalogue's reference paints them: a steep
+ * triangle of lavender roof planes, a cream gable framed in gold, a pointed
+ * door, a triangular window and a diamond sigil; banners on poles at the side.
+ * `windows` lists banner columns (tile x); `sign` set to "tall" makes it taller.
+ */
+export function bakeEuclid(scene: Phaser.Scene, b: BuildingDef, key: string): { key: string; w: number; h: number } {
+  const over = 6;
+  const W = b.w * TILE + over * 2;
+  const tall = b.sign === 'tall';
+  const roofH = Math.round((b.roofHeight ?? (tall ? 5.2 : 4.2)) * TILE);
+  const plinth = 10;
+  const H = roofH + plinth + 30;
+  if (scene.textures.exists(key)) scene.textures.remove(key);
+  const tex = scene.textures.createCanvas(key, W, H)!;
+  const c = tex.getContext();
+  c.imageSmoothingEnabled = false;
+  const r = (col: string, x: number, y: number, w: number, h: number) => { c.fillStyle = col; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); };
+  const base = H;
+  const cx = b.door ? (b.door.x - b.x) * TILE + over + TILE / 2 : W / 2;
+  const half = Math.min(cx - 2, W - cx - 2);
+  const top = base - plinth - roofH;
+  const C = { roofA: '#9a8cc6', roofB: '#8a7cb8', roofDark: '#6c5f9a', line: '#3b3360', gable: '#efdcae', gableShade: '#d9c393', gold: '#d6a63a', goldHi: '#f2cf6a', door: '#3e2a24', glow: '#ffe08a', stone: '#c8b896', stoneDark: '#a39274' };
+  const halfAt = (y: number) => ((y - top) / (base - plinth - top)) * half;
+
+  // banners on poles behind the house edges
+  for (const bt of b.windows ?? []) {
+    const px = (bt - b.x) * TILE + over + TILE / 2;
+    r('#2c2540', px - 1, top + 20, 3, base - top - 20);
+    r(C.gold, px - 2, top + 16, 5, 5);
+    r('#5b3f8c', px + 2, top + 26, 16, 34);
+    for (let i = 0; i < 6; i++) r('#5b3f8c', px + 2 + i, top + 60, 16 - i * 2 > 0 ? 8 - i : 0, i);
+    r(C.goldHi, px + 8, top + 36, 4, 4);
+    r(C.gold, px + 7, top + 37, 6, 2);
+    r('#4a3275', px + 2, top + 26, 2, 34);
+  }
+  // stone plinth
+  r(C.stoneDark, cx - half - 4, base - plinth, half * 2 + 8, plinth);
+  r(C.stone, cx - half - 4, base - plinth, half * 2 + 8, 3);
+  for (let x = cx - half; x < cx + half; x += 14) r(C.stoneDark, x, base - plinth + 3, 1, plinth - 3);
+  // roof planes: shingle courses following the slope
+  for (let y = top; y < base - plinth; y++) {
+    const hw = halfAt(y);
+    const row = Math.floor((y - top) / 5);
+    for (const s of [-1, 1]) {
+      const x0 = s < 0 ? cx - hw - 3 : cx, x1 = s < 0 ? cx : cx + hw + 3;
+      r(s < 0 ? C.roofA : C.roofB, x0, y, x1 - x0, 1);
+      if ((y - top) % 5 === 4) r(C.roofDark, x0, y, x1 - x0, 1);
+      for (let x = Math.floor(x0) + ((row * 7) % 12); x < x1; x += 12) if ((y - top) % 5 !== 4) r(C.roofDark, x, y, 1, 1);
+    }
+    r(C.line, cx - hw - 4, y, 2, 1);
+    r(C.line, cx + hw + 2, y, 2, 1);
+  }
+  // cream gable inset with gold frame
+  const inset = 16;
+  const gTop = top + 34;
+  for (let y = gTop; y < base - plinth; y++) {
+    const hw = halfAt(y) - inset;
+    if (hw <= 0) continue;
+    r(C.gold, cx - hw - 3, y, hw * 2 + 6, 1);
+    r(C.gable, cx - hw, y, hw * 2, 1);
+    if (h32(Math.floor(y / 6), 3) < 0.5) r(C.gableShade, cx - hw, y, 3, 1);
+  }
+  // timber lines on the gable
+  for (let y = gTop + 30; y < base - plinth; y += 22) {
+    const hw = halfAt(y) - inset;
+    if (hw > 6) r(C.gableShade, cx - hw, y, hw * 2, 2);
+  }
+  // diamond sigil near the apex
+  const dy = gTop + 22;
+  for (let i = 0; i < 7; i++) r(i % 2 ? C.goldHi : C.gold, cx - i, dy - 7 + i, i * 2 + 1, 1);
+  for (let i = 0; i < 7; i++) r(C.gold, cx - (6 - i), dy + i, (6 - i) * 2 + 1, 1);
+  r(C.line, cx - 1, dy - 1, 3, 3);
+  // triangular window above the door, lit from inside
+  const wy = base - plinth - 74;
+  for (let i = 0; i < 16; i++) {
+    r(C.line, cx - i - 2, wy + i, i * 2 + 4, 1);
+    if (i > 1) r(i < 6 ? '#fff4c4' : C.glow, cx - i + 1, wy + i, i * 2 - 2, 1);
+  }
+  r(C.line, cx - 18, wy + 16, 36, 2);
+  // pointed door
+  if (b.door) {
+    const dw = 22, dh = 36, x = cx - dw / 2, y = base - plinth - dh;
+    for (let i = 0; i < dh; i++) {
+      const hw = i < 10 ? (i / 10) * (dw / 2) : dw / 2;
+      r(C.gold, cx - hw - 2, y + i, hw * 2 + 4, 1);
+      r(C.door, cx - hw, y + i, hw * 2, 1);
+    }
+    r('#2c1d18', cx - 1, y + 6, 2, dh - 6);
+    r(C.goldHi, x + dw - 6, y + dh / 2 + 2, 2, 2);
+    r(C.stone, x - 6, base - plinth, dw + 12, 3);
+  }
+  // small side windows low on the gable
+  for (const s of [-1, 1]) {
+    const x = cx + s * 30 - 5, y = base - plinth - 30;
+    if (halfAt(y) - inset < 40) continue;
+    r(C.line, x - 2, y - 2, 14, 16);
+    r(C.glow, x, y, 10, 12);
+    r(C.line, x + 4, y, 2, 12);
+  }
+  tex.refresh();
+  return { key, w: W, h: H };
+}

@@ -293,7 +293,27 @@ small { color: var(--muted); }
   .p-head h2 { font-size: 21px; }
 }
 
+/* ---------------------------------------------------------- cinematics */
+.cine { position: absolute; inset: 0; pointer-events: none; }
+.cine-bar { position: absolute; left: 0; right: 0; height: 0; background: #000; transition: height .6s ease-in-out; }
+.cine-bar.top { top: 0; } .cine-bar.bottom { bottom: 0; }
+.cine.on .cine-bar { height: 11vh; }
+.cine-skip { position: absolute; right: calc(14px + var(--safe-r)); top: calc(2vh + var(--safe-t)); pointer-events: auto; opacity: 0; transition: opacity .6s;
+  font-family: var(--f-sc); font-size: 15px; letter-spacing: 2px; color: #8f8670; min-height: 44px; }
+.cine.on .cine-skip { opacity: .8; }
+.cine-skip:hover { color: var(--gold); }
+.in-cine .hud, .in-cine .touch, .in-cine .prompt { opacity: 0; pointer-events: none !important; transition: opacity .4s; }
+.in-cine .touch * { pointer-events: none !important; }
+.in-cine .dialogue { bottom: calc(11vh + 8px); }
+.card { position: absolute; inset: 0; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; pointer-events: auto; animation: noteIn .8s; }
+.card.out { opacity: 0; transition: opacity .6s; }
+.card small { font-family: var(--f-serif); font-style: italic; color: var(--muted); font-size: 16px; letter-spacing: 2px; margin-bottom: 8px; opacity: 0; animation: reveal 1.2s .2s forwards; }
+.card h1 { font-family: var(--f-sc); font-weight: normal; margin: 0; color: #f2e4bd; font-size: clamp(30px, 6vw, 58px); letter-spacing: 5px; animation: reveal 1.6s ease-out both, track 4s ease-out; }
+.card p { font-family: var(--f-serif); font-style: italic; font-size: clamp(16px, 2.4vw, 21px); color: #d6ccb3; max-width: 640px; line-height: 1.6; margin: 6px 0; opacity: 0; animation: reveal 1.4s ease-out forwards; }
+
 /* stacking order of overlays */
+.cine { z-index: 9; }
+.card { z-index: 19; }
 .title { z-index: 1; }
 .hud, .toasts, .prompt { z-index: 2; }
 .touch { z-index: 3; }

@@ -12,6 +12,38 @@
   "strange": true,
   "darkness": 0.25
  },
+ "buildings": [
+  {
+   "id": "bill_house",
+   "x": 32,
+   "y": 7,
+   "w": 5,
+   "h": 2,
+   "style": "euclid",
+   "sign": "tall",
+   "door": {
+    "x": 34,
+    "exit": "bill_door"
+   },
+   "windows": [
+    36
+   ]
+  },
+  {
+   "id": "elder_house",
+   "x": 3,
+   "y": 7,
+   "w": 5,
+   "h": 2,
+   "style": "euclid",
+   "door": {
+    "x": 5
+   },
+   "windows": [
+    7
+   ]
+  }
+ ],
  "props": [
   {
    "prop": "euclydia/round_tree",
@@ -302,12 +334,6 @@
    "flip": false
   },
   {
-   "prop": "euclydia/a_frame_house",
-   "x": 34,
-   "y": 8.6,
-   "id": "bill_house_front"
-  },
-  {
    "prop": "rifts/broken_piece_a",
    "x": 17,
    "y": 8.6
@@ -318,11 +344,6 @@
    "y": 25
   },
   {
-   "prop": "euclydia/hex_house",
-   "x": 5.5,
-   "y": 8.6
-  },
-  {
    "prop": "rifts/ruined_arch",
    "x": 32,
    "y": 24,
@@ -330,8 +351,8 @@
   },
   {
    "prop": "rifts/floating_rock",
-   "x": 36.5,
-   "y": 12.6
+   "x": 30.5,
+   "y": 26.6
   },
   {
    "prop": "rifts/pink_crystal",
@@ -361,8 +382,8 @@
   },
   {
    "prop": "interiors/crate",
-   "x": 33.6,
-   "y": 7.2
+   "x": 37,
+   "y": 11.4
   }
  ],
  "spawns": {
@@ -385,10 +406,10 @@
  "exits": [
   {
    "id": "bill_door",
-   "x": 33.6,
-   "y": 8.6,
-   "w": 0.8,
-   "h": 0.8,
+   "x": 34,
+   "y": 8,
+   "w": 1,
+   "h": 1,
    "to": "bill_house",
    "spawn": "door",
    "kind": "door"
@@ -427,8 +448,8 @@
   {
    "id": "merchant_r",
    "character": "merchant_square",
-   "x": 33,
-   "y": 7.4,
+   "x": 36,
+   "y": 12.4,
    "dialogue": "rescue_merchant",
    "if": {
     "not": {
@@ -517,7 +538,7 @@
   {
    "id": "merchant_block",
    "kind": "push",
-   "x": 32.5,
+   "x": 31.5,
    "y": 11.95,
    "label": "Empurrar bloco"
   },
@@ -674,22 +695,22 @@
   "xx..;....~==~.........xxkxx......;....xx",
   "xx.....;.~==~...;;....xxkxx;..........xx",
   "xx;......~==~vkkkkkv..xxkxx..;...;..;.xx",
-  "xx...;.;.~==~vkkkkkv....kkk...v..;....xx",
-  "xx.....;.~==~vkkkkkv....kkk...v..;....xx",
-  "xx.......~==~vkkkkkvv...kkk...v...;...xx",
-  "xx.mmmmm.~==~vkkkkkvvkkknkkk..vvvvvvv.xx",
-  "xx.mmmmm.~==~vvvvvvvkvkkkkknkkkkkkkk..xx",
-  "xx.mmmmm.~==~vvvvvvvkkkkkkknkkkkkk;..;xx",
-  "xx.mmmmm.~==~....kkkkkkkkkkknknk...;..xx",
-  "xx.....;;~==~...nkkkkknnnnnkkkkkk..;..xx",
-  "xx;ppppppB==Bpppppkkkknnnnnkkkkkk.....xx",
-  "xx.ppppppB==Bpppppkkknnnnnnnkkkkk;....xx",
-  "xx;....;.~==~...kkknkknnnnnkkkkkk.....xx",
-  "xx.......~==~...kkkknknnnnnkkknnk....;xx",
-  "xx.......~==~....kkkkknnkkkkkkkk;;....xx",
-  "xx;......~==~.....kkkkkkkkkkkkk.......xx",
-  "xx....;.;~==~;.....kkkkkkknkkk......;.xx",
-  "xx.......~==~RRkRRRp.kkkkkkk;;....vvv.xx",
+  "xx...;.;.~==~vkkkkkv....kkk...;..;....xx",
+  "xx.....;.~==~vkkkkkv....kkk......;....xx",
+  "xx.......~==~vkkkkkvv...kkk.......;...xx",
+  "xx.mmmmm.~==~vkkkkkvvkkkkkkk.....kkk..xx",
+  "xx.mmmmm.~==~vvvvvvvkvkknnkkkkkkkvvvvvxx",
+  "xx.mmmmm.~==~vvvvvvvkkkkkkkkkkkkkvkkkkxx",
+  "xx.mmmmm.~==~....kkkkkkknnkkkkkk.vkkkkxx",
+  "xx.....;;~==~...kkkkkknnnnnkkkkkkvkkkkxx",
+  "xx;ppppppB==Bpppppkkknnnnnnnkkkkkvvvvvxx",
+  "xx.ppppppB==Bppppnknknnnnnnnnknkn;....xx",
+  "xx;....;.~==~...knknknnnnnnnnknkn.....xx",
+  "xx.......~==~...kkkkkknnnnnkkkkkk....;xx",
+  "xx.......~==~....kkkkkkkkkkkkkkk;;....xx",
+  "xx;......~==~.....kkkkkknnkkkkk.......xx",
+  "xx....;.;~==~;.....kkkkkkkkkkk......;.xx",
+  "xx.......~==~RRkRRRp.kkknnkk;;....vvv.xx",
   "xx;......~==~RkkkkRp....pp.......vvvv;xx",
   "xx..;....~==~RkkkkR;;...pp......vvvv..xx",
   "xx......;~==~RkkkkR.....pp...;.vvvv...xx",

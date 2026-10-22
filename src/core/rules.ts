@@ -30,7 +30,8 @@ export type Signal =
   | { type: 'unlock'; ability: string }
   | { type: 'item'; id: string; count: number }
   | { type: 'objectChanged'; key: string; state: string }
-  | { type: 'party' };
+  | { type: 'party' }
+  | { type: 'cutscene'; id: string };
 
 export function applyEffects(s: GameState, effects: Effect[] | undefined, data: RuleData, mapId = s.mapId): Signal[] {
   const out: Signal[] = [];
@@ -105,6 +106,7 @@ function applyOne(s: GameState, e: Effect, data: RuleData, mapId: string, out: S
     out.push({ type: 'party' });
   } else if ('toast' in e) out.push({ type: 'toast', text: e.toast });
   else if ('checkpoint' in e) out.push({ type: 'checkpoint' });
+  else if ('cutscene' in e) out.push({ type: 'cutscene', id: e.cutscene });
 }
 
 const VAR_LIMITS = { min: -20, max: 20 };

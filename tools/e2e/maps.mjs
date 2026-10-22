@@ -31,10 +31,11 @@ for (const m of maps) {
     s.arc = arc2 ? 2 : 1;
     s.party = arc2 ? ['dipper', 'mabel'] : ['bill_child'];
     s.character = s.party[0];
-    gf.teleport(id);
+    if (s.mapId !== id) gf.teleport(id);
   }, m);
   await page.waitForFunction((id) => window.__gf.state().mapId === id && !document.querySelector('.loading:not(.hidden)'), m, { timeout: 30000 });
   await page.waitForTimeout(900);
+  if (process.env.EVAL) await page.evaluate(process.env.EVAL);
   if (process.env.LOOK) {
     // frame a world point (tiles) for a still: "x,y"
     await page.evaluate((v) => { const [x, y] = v.split(',').map(Number); const cam = window.__gf.scene.cameras.main; cam.stopFollow(); cam.centerOn(x * 32, y * 32); }, process.env.LOOK);

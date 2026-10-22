@@ -8,12 +8,13 @@ import { applyEffects, endingVariations, evaluateEnding, updateQuests, type Sign
 import { createState, objKey, record } from '../../core/state';
 import type { DialogueDef, Dir, Effect, MapDef } from '../../core/types';
 import { buildCharacterAnims, buildEffectAnims, buildEnemyAnims, missingAssets, queueMap, unloadUnused } from '../assets';
-import { ABILITIES, CHARACTERS, DIALOGUES, ENEMIES, ITEMS, MAPS, QUESTS, RULES } from '../data';
+import { ABILITIES, CHARACTERS, CUTSCENES, DIALOGUES, ENEMIES, ITEMS, MAPS, QUESTS, RULES } from '../data';
 import { Actor } from '../entities/Actor';
 import { Enemy, type EnemyHost } from '../entities/Enemy';
 import { Npc } from '../entities/Npc';
 import { session } from '../session';
 import { Combat, type Target } from '../systems/Combat';
+import { Director } from '../systems/Cutscene';
 import { Fx } from '../systems/Fx';
 import type { Ui, UiHost } from '../ui/Ui';
 import { Atmosphere, ATMOS_DEPTH, type LightSource } from '../world/Atmosphere';
@@ -91,8 +92,44 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, this.shutdown, this);
     this.input.on('pointerdown', this.onPointerDown, this);
     this.input.on('pointermove', this.onPointerMove, this);
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const self = this;
+    this.director = new Director({
+      scene: this, ui: this.ui, rules: RULES,
+      get state() { return session.state; },
+      get atmos() { return self.atmos; },
+      actor: (ref) => ref === 'player' ? this.player : ref === 'companion' ? this.companion : this.npcs.find((n) => `npc:${n.id}` === ref)?.actor ?? null,
+      talk: (id, done) => this.talk(id, done),
+      signals: (sg) => this.handleSignals(sg),
+      baseZoom: () => this.zoomBase,
+      followPlayer: () => this.cameras.main.startFollow(this.player.sprite, true, 0.14, 0.14, this.cameras.main.followOffset.x, this.cameras.main.followOffset.y),
+    });
     this.exposeDebug();
     this.loadArea(this.s.mapId, data.spawn);
+  }
+
+  // -------------------------------------------------------------- cutscenes
+  private director!: Director;
+  private csQueue: string[] = [];
+  private zoomBase = 1;
+
+  /** Plays a cutscene if its condition holds and it has not been seen (unless it repeats). */
+  playCutscene(id: string, force = false): void {
+    const def = CUTSCENES[id];
+    if (!def) { console.warn(`cutscene em falta: ${id}`); return; }
+    if (!force && def.once !== false && this.s.flags[`cs:${id}`]) return;
+    if (!force && def.if && !check(def.if, this.s)) return;
+    if (this.director.running || this.busy || this.ui.inDialogue) {
+      if (!this.csQueue.includes(id)) this.csQueue.push(id);
+      return;
+    }
+    this.s.flags[`cs:${id}`] = true;
+    this.player.force('idle');
+    void this.director.play(def).then(() => {
+      this.autosave();
+      const next = this.csQueue.shift();
+      if (next) this.time.delayedCall(200, () => this.playCutscene(next));
+    });
   }
 
   // ------------------------------------------------------------------ input
@@ -255,6 +292,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     this.setupAmbient(def);
     this.busy = false;
     this.autosave();
+    if (this.csQueue.length) this.time.delayedCall(500, () => this.playCutscene(this.csQueue.shift()!));
   }
 
   /**
@@ -337,6 +375,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     const forced = Number(new URLSearchParams(location.search).get('zoom'));
     const zoom = forced > 0 ? forced : Math.max(1, Math.floor(Math.min(w / 560, h / 330)));
     cam.setZoom(zoom);
+    this.zoomBase = zoom;
     if (!this.built) return;
     const vw = w / zoom, vh = h / zoom;
     const mw = this.grid.pxW, mh = this.grid.pxH;
@@ -1496,6 +1535,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
         case 'teleport': this.time.delayedCall(10, () => this.transition(sg.map, sg.spawn)); break;
         case 'ending': this.time.delayedCall(30, () => this.showEnding(sg.arc, sg.id)); break;
         case 'arc2': break;
+        case 'cutscene': this.time.delayedCall(this.busy ? 700 : 50, () => this.playCutscene(sg.id)); break;
       }
     }
   }

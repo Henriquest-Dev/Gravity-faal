@@ -134,6 +134,20 @@ export class TerrainRenderer {
       return;
     }
     if (t.wall || t.cliff) return; // drawn in structures pass
+    if (t.code === 'l' && this.theme === THEMES.euclid) {
+      // lavender inlay: a diamond set into the warm paving, as on Euclydia's square
+      this.mat('euclid_peach', px, py, TILE, TILE);
+      const c = this.ctx;
+      c.save();
+      c.beginPath();
+      c.moveTo(px + 16, py + 1); c.lineTo(px + 31, py + 16); c.lineTo(px + 16, py + 31); c.lineTo(px + 1, py + 16); c.closePath();
+      c.clip();
+      this.mat('euclid_lavender', px, py, TILE, TILE);
+      c.restore();
+      this.fill('rgba(59,51,96,0.55)', px + 15, py + 1, 2, 2);
+      this.fill('rgba(255,240,210,0.35)', px + 15, py + 4, 2, 6);
+      return;
+    }
     this.mat(t.texture, px, py, TILE, TILE);
     // subtle per-tile value variation breaks visible repetition
     const v = hash(x, y, 3);

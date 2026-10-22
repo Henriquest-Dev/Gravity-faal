@@ -78,6 +78,8 @@ export class Ui {
         <div class="d-body"><div class="d-speaker"></div><div class="d-text"></div><div class="d-choices"></div></div>
         <div class="d-next" aria-hidden="true"></div>
       </div>
+      <div class="cine hidden"><div class="cine-bar top"></div><div class="cine-bar bottom"></div><button class="cine-skip">Saltar</button></div>
+      <div class="card hidden"></div>
       <div class="panel hidden"></div>
       <div class="banner hidden"></div>
       <div class="loading hidden"><div class="l-art"></div><div class="l-text"></div><div class="l-bar"><i></i></div><div class="l-err"></div></div>`;
@@ -99,6 +101,9 @@ export class Ui {
       this.advance();
     });
     this.hud.querySelector('.hud-obj')!.addEventListener('click', () => this.open('journal'));
+    const skip = this.root.querySelector('.cine-skip') as HTMLElement;
+    skip.addEventListener('pointerdown', (e) => e.stopPropagation());
+    skip.addEventListener('click', () => this.onSkip?.());
     // buttons never keep keyboard focus: Space/Enter belong to the game, not to a stale button
     document.addEventListener('click', (e) => {
       const b = (e.target as HTMLElement).closest?.('button');
@@ -111,7 +116,56 @@ export class Ui {
   }
 
   get blocking(): boolean {
-    return !!this.runner || this.panel !== null || !this.bannerEl.classList.contains('hidden');
+    return this.cinematic || !!this.runner || this.panel !== null || !this.bannerEl.classList.contains('hidden');
+  }
+
+  // ------------------------------------------------------------- cinematics
+  /** True while a cutscene runs: the world keeps rendering but the player has no control. */
+  cinematic = false;
+  private onSkip: (() => void) | null = null;
+
+  /** Letterbox bars and the skip button. */
+  setCinematic(on: boolean, onSkip: (() => void) | null = null): void {
+    this.cinematic = on;
+    this.onSkip = onSkip;
+    const el = this.root.querySelector('.cine') as HTMLElement;
+    el.classList.remove('hidden');
+    el.classList.toggle('on', on);
+    this.root.classList.toggle('in-cine', on);
+    if (on) for (const t of this.root.querySelectorAll('.area-title')) t.remove();
+    if (on) session.input.setContext('ui');
+    else if (!this.panel && !this.runner) session.input.setContext('world');
+    if (!on) window.setTimeout(() => { if (!this.cinematic) el.classList.add('hidden'); }, 700);
+  }
+
+  /** Full-screen title card on black; resolves after `ms` or on tap. */
+  card(title: string, lines: string[] = [], ms = 3600, sub = ''): Promise<void> {
+    const el = this.root.querySelector('.card') as HTMLElement;
+    el.innerHTML = `${sub ? `<small>${esc(sub)}</small>` : ''}<h1>${esc(title)}</h1>${title ? '<div class="b-rule"></div>' : ''}${lines.map((l, i) => `<p style="animation-delay:${0.5 + i * 0.9}s">${esc(l)}</p>`).join('')}`;
+    el.classList.remove('hidden', 'out');
+    return new Promise((res) => {
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        el.removeEventListener('pointerdown', finish);
+        el.classList.add('out');
+        window.setTimeout(() => { el.classList.add('hidden'); res(); }, 600);
+      };
+      el.addEventListener('pointerdown', finish);
+      this.cardSkip = finish;
+      window.setTimeout(finish, ms + lines.length * 900);
+    });
+  }
+  private cardSkip: (() => void) | null = null;
+
+  /** Ends whatever cinematic element is on screen (used by Skip). */
+  skipCinematic(closeLine: boolean): void {
+    this.cardSkip?.();
+    if (closeLine && this.runner) {
+      this.runner.node = null;
+      this.closeDialogue();
+    }
   }
 
   get inDialogue(): boolean {
@@ -274,6 +328,7 @@ export class Ui {
   /** Per-frame UI work: typewriter and keyboard navigation in UI context. */
   update(dt: number): void {
     const inp = session.input;
+    if (this.cinematic && !this.panel && inp.consumeUi('pause')) this.onSkip?.();
     if (this.runner) {
       if (this.typing < this.fullText.length) {
         this.typing = Math.min(this.fullText.length, this.typing + dt * 60);

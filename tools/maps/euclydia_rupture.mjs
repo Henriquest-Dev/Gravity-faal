@@ -1,5 +1,5 @@
 import { forest } from './lib.mjs';
-import { BILL_DOOR, BILL_HOUSE, H, W, baseCanvas } from './euclydia_layout.mjs';
+import { BILL_DOOR, BILL_HOUSE, ELDER_HOUSE, H, W, baseCanvas } from './euclydia_layout.mjs';
 
 /** Same square as euclydia_plaza, torn by the rupture. Landmarks stay in place. */
 export default function build() {
@@ -17,9 +17,11 @@ export default function build() {
   c.rect(13, 5, 1, 5, 'v');
   c.rect(19, 5, 1, 5, 'v');
   c.rect(14, 5, 5, 5, 'k');
-  // merchant's stall isolated by a single void line (jump it, or fill it)
-  c.rect(30, 9, 7, 1, 'v');
-  c.rect(30, 6, 1, 3, 'v');
+  // merchant's stall: an island east of the square ringed by a single void line (jump it, or fill it)
+  c.rect(33, 10, 5, 1, 'v');
+  c.rect(33, 14, 5, 1, 'v');
+  c.rect(33, 10, 1, 5, 'v');
+  c.rect(34, 11, 4, 3, 'k');
   // bridge half destroyed: middle is gone, swim or go around
   c.set(10, 14, '=').set(11, 14, '=').set(10, 15, '=').set(11, 15, '=');
   // the gate to the observatory lies broken open
@@ -36,16 +38,16 @@ export default function build() {
     id: 'euclydia_rupture', name: 'Euclydia após a ruptura', arc: 1, theme: 'rupture', music: 'rupture', reference: 'euclydia_rupture',
     width: W, height: H, terrain: c.rows(),
     ambient: { tint: '#1a1024', strange: true, darkness: 0.25 },
+    buildings: [BILL_HOUSE, ELDER_HOUSE],
     props: [
-      ...border, BILL_HOUSE,
+      ...border,
       { prop: 'rifts/broken_piece_a', x: 17, y: 8.6 }, { prop: 'rifts/broken_piece_b', x: 15.5, y: 25 },
-      { prop: 'euclydia/hex_house', x: 5.5, y: 8.6 },
       { prop: 'rifts/ruined_arch', x: 32, y: 24, solid: false },
-      { prop: 'rifts/floating_rock', x: 36.5, y: 12.6 },
+      { prop: 'rifts/floating_rock', x: 30.5, y: 26.6 },
       { prop: 'rifts/pink_crystal', x: 20.5, y: 18.6 }, { prop: 'rifts/blue_crystal', x: 29, y: 13 },
       { prop: 'euclydia/lamp', x: 17.5, y: 19.4 }, { prop: 'euclydia/lamp', x: 31.5, y: 19.4 },
       { prop: 'rifts/chains', x: 8.5, y: 24.6, solid: false },
-      { prop: 'interiors/crate', x: 33.6, y: 7.2 },
+      { prop: 'interiors/crate', x: 37, y: 11.4 },
     ],
     spawns: {
       default: { x: 24.5, y: 2.8, dir: 'south' },
@@ -59,7 +61,7 @@ export default function build() {
     npcs: [
       { id: 'elder_r', character: 'elder_hexagon', x: 21.5, y: 19.4, dialogue: 'elder_rupture' },
       { id: 'professor_r', character: 'professor_circle', x: 16.5, y: 7.4, dialogue: 'rescue_professor', if: { not: { event: 'rescued', value: 'professor' } } },
-      { id: 'merchant_r', character: 'merchant_square', x: 33, y: 7.4, dialogue: 'rescue_merchant', if: { not: { event: 'rescued', value: 'merchant' } } },
+      { id: 'merchant_r', character: 'merchant_square', x: 36, y: 12.4, dialogue: 'rescue_merchant', if: { not: { event: 'rescued', value: 'merchant' } } },
       { id: 'artisan_r', character: 'artisan_triangle', x: 16, y: 24.4, dialogue: 'rescue_tri', if: { not: { event: 'rescued', value: 'tri' } } },
     ],
     enemies: [
@@ -73,7 +75,7 @@ export default function build() {
       { id: 'prof_block_2', kind: 'push', x: 16.5, y: 15.95, label: 'Empurrar bloco' },
       { id: 'prof_rift_a', kind: 'rift', x: 21.5, y: 13.6, pair: 'prof_rift_b', requires: { ability: 'rift' }, label: 'Abrir fenda' },
       { id: 'prof_rift_b', kind: 'rift', x: 15, y: 8.4, pair: 'prof_rift_a', requires: { ability: 'rift' }, label: 'Abrir fenda' },
-      { id: 'merchant_block', kind: 'push', x: 32.5, y: 11.95, label: 'Empurrar bloco' },
+      { id: 'merchant_block', kind: 'push', x: 31.5, y: 11.95, label: 'Empurrar bloco' },
       { id: 'tri_glyph', kind: 'glyph', x: 12.4, y: 20.4, hidden: true, reveal: 'perceive', requires: { ability: 'geometry' }, label: 'Activar glifo', effects: [{ setObject: 'tri_rubble', state: 'open' }, { toast: 'O glifo ergue os escombros!' }] },
       { id: 'tri_rubble', kind: 'door', x: 15.5, y: 21.9, prop: 'rifts/broken_piece_a', label: 'Escombros', requires: { flag: 'never' }, requiresText: 'Os escombros não cedem à força. Há qualquer coisa escondida por perto — usa Perceber anomalias (K).' },
       { id: 'broken_fountain', kind: 'repair', x: 24.5, y: 17.6, prop: 'euclydia/crystal_cluster', label: 'Reparar a fonte com um estilhaço', requires: { item: 'geometry_shard' }, requiresText: 'A fonte racharam. Um estilhaço geométrico podia repará-la.', effects: [{ take: 'geometry_shard' }, { var: 'reality', add: 2 }, { var: 'empathy', add: 1 }, { setFlag: 'fountain_repaired' }, { journal: 'j_fountain_repair' }] },
