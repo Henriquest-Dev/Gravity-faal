@@ -1,0 +1,736 @@
+{
+ "_doc": "Per-prop world scale and collision. div = integer downscale (1, 2 or 3) selecting the catalogue variant that matches character scale. foot=[width,height] footprint in SOURCE (1x) pixels from the bottom-centre pivot, scaled by 1/div at runtime; jump=true marks low obstacles a jump clears; fade=true makes tall props translucent when an actor is behind them; flat=true draws on the ground layer.",
+ "nature/pine": {
+  "foot": [
+   18,
+   12
+  ],
+  "fade": true,
+  "div": 1
+ },
+ "nature/pine_b": {
+  "foot": [
+   18,
+   12
+  ],
+  "fade": true,
+  "div": 1
+ },
+ "nature/autumn_tree": {
+  "foot": [
+   18,
+   12
+  ],
+  "fade": true,
+  "div": 1
+ },
+ "nature/dead_tree": {
+  "foot": [
+   14,
+   10
+  ],
+  "fade": true,
+  "div": 1
+ },
+ "nature/bush": {
+  "foot": [
+   84,
+   22
+  ],
+  "div": 2
+ },
+ "nature/fern": {
+  "div": 3
+ },
+ "nature/rock": {
+  "foot": [
+   96,
+   30
+  ],
+  "div": 2
+ },
+ "nature/rock_b": {
+  "foot": [
+   96,
+   30
+  ],
+  "div": 2
+ },
+ "nature/stump": {
+  "foot": [
+   58,
+   22
+  ],
+  "jump": true,
+  "div": 3
+ },
+ "nature/log": {
+  "foot": [
+   100,
+   20
+  ],
+  "jump": true,
+  "div": 2
+ },
+ "nature/mushrooms": {
+  "div": 3
+ },
+ "nature/flower": {
+  "div": 3
+ },
+ "nature/cattails": {
+  "div": 2
+ },
+ "nature/fence": {
+  "foot": [
+   100,
+   10
+  ],
+  "jump": true,
+  "div": 2
+ },
+ "nature/gate": {
+  "foot": [
+   96,
+   10
+  ],
+  "div": 2
+ },
+ "nature/signpost": {
+  "foot": [
+   12,
+   8
+  ],
+  "div": 3
+ },
+ "nature/mailbox": {
+  "foot": [
+   12,
+   8
+  ],
+  "div": 3
+ },
+ "nature/bench": {
+  "foot": [
+   96,
+   16
+  ],
+  "div": 2
+ },
+ "nature/bridge_arch": {
+  "flat": true,
+  "div": 1
+ },
+ "nature/dock": {
+  "flat": true,
+  "div": 1
+ },
+ "nature/cabin": {
+  "foot": [
+   104,
+   40
+  ],
+  "fade": true,
+  "div": 1
+ },
+ "nature/woodshed": {
+  "foot": [
+   100,
+   36
+  ],
+  "div": 1
+ },
+ "nature/cave_entrance": {
+  "foot": [
+   104,
+   30
+  ],
+  "div": 1
+ },
+ "nature/lamp_post": {
+  "foot": [
+   10,
+   8
+  ],
+  "div": 2
+ },
+ "interiors/desk": {
+  "foot": [
+   104,
+   24
+  ],
+  "div": 2
+ },
+ "interiors/bookshelf": {
+  "foot": [
+   88,
+   22
+  ],
+  "div": 2
+ },
+ "interiors/display_case": {
+  "foot": [
+   104,
+   30
+  ],
+  "div": 2
+ },
+ "interiors/armchair": {
+  "foot": [
+   80,
+   26
+  ],
+  "div": 2
+ },
+ "interiors/round_table": {
+  "foot": [
+   96,
+   24
+  ],
+  "div": 2
+ },
+ "interiors/chair": {
+  "foot": [
+   60,
+   16
+  ],
+  "div": 3
+ },
+ "interiors/bed": {
+  "foot": [
+   76,
+   70
+  ],
+  "div": 2
+ },
+ "interiors/sofa": {
+  "foot": [
+   104,
+   28
+  ],
+  "div": 2
+ },
+ "interiors/rug": {
+  "flat": true,
+  "div": 1
+ },
+ "interiors/stairs": {
+  "foot": [
+   60,
+   14
+  ],
+  "div": 2
+ },
+ "interiors/trapdoor": {
+  "flat": true,
+  "div": 2
+ },
+ "interiors/door": {
+  "div": 1
+ },
+ "interiors/control_console": {
+  "foot": [
+   104,
+   30
+  ],
+  "div": 2
+ },
+ "interiors/lab_table": {
+  "foot": [
+   104,
+   30
+  ],
+  "div": 2
+ },
+ "interiors/generator": {
+  "foot": [
+   104,
+   34
+  ],
+  "div": 2
+ },
+ "interiors/portal_model": {
+  "foot": [
+   100,
+   30
+  ],
+  "div": 1
+ },
+ "interiors/crate": {
+  "foot": [
+   96,
+   40
+  ],
+  "div": 3
+ },
+ "interiors/barrel": {
+  "foot": [
+   76,
+   30
+  ],
+  "div": 3
+ },
+ "interiors/wrecked_car": {
+  "foot": [
+   106,
+   34
+  ],
+  "div": 1
+ },
+ "interiors/scrap_pile": {
+  "foot": [
+   100,
+   30
+  ],
+  "div": 1
+ },
+ "interiors/toolbox": {
+  "div": 3
+ },
+ "interiors/gear": {
+  "foot": [
+   96,
+   30
+  ],
+  "div": 2
+ },
+ "interiors/floor_lamp": {
+  "foot": [
+   12,
+   8
+  ],
+  "div": 2
+ },
+ "interiors/cash_register": {
+  "foot": [
+   86,
+   26
+  ],
+  "div": 3
+ },
+ "euclydia/a_frame_house": {
+  "foot": [
+   96,
+   40
+  ],
+  "fade": true,
+  "div": 1
+ },
+ "euclydia/hex_house": {
+  "foot": [
+   96,
+   40
+  ],
+  "fade": true,
+  "div": 1
+ },
+ "euclydia/dome_house": {
+  "foot": [
+   96,
+   40
+  ],
+  "fade": true,
+  "div": 1
+ },
+ "euclydia/observatory": {
+  "foot": [
+   100,
+   42
+  ],
+  "fade": true,
+  "div": 1
+ },
+ "euclydia/vine_arch": {
+  "div": 1
+ },
+ "euclydia/stone_door": {
+  "foot": [
+   80,
+   20
+  ],
+  "div": 2
+ },
+ "euclydia/round_tree": {
+  "foot": [
+   16,
+   10
+  ],
+  "fade": true,
+  "div": 1
+ },
+ "euclydia/planter": {
+  "foot": [
+   104,
+   30
+  ],
+  "jump": true,
+  "div": 2
+ },
+ "euclydia/fountain": {
+  "foot": [
+   104,
+   40
+  ],
+  "div": 1
+ },
+ "euclydia/obelisk": {
+  "foot": [
+   34,
+   18
+  ],
+  "div": 2
+ },
+ "euclydia/lamp": {
+  "foot": [
+   10,
+   8
+  ],
+  "div": 2
+ },
+ "euclydia/bench": {
+  "foot": [
+   96,
+   16
+  ],
+  "div": 2
+ },
+ "euclydia/tri_bed": {
+  "foot": [
+   90,
+   40
+  ],
+  "div": 2
+ },
+ "euclydia/table": {
+  "foot": [
+   96,
+   30
+  ],
+  "div": 2
+ },
+ "euclydia/chair": {
+  "foot": [
+   50,
+   14
+  ],
+  "div": 3
+ },
+ "euclydia/bookshelf": {
+  "foot": [
+   90,
+   22
+  ],
+  "div": 2
+ },
+ "euclydia/plush": {
+  "div": 3
+ },
+ "euclydia/rug": {
+  "flat": true,
+  "div": 1
+ },
+ "euclydia/grass_path": {
+  "flat": true,
+  "div": 1
+ },
+ "euclydia/cobble_patch": {
+  "flat": true,
+  "div": 1
+ },
+ "euclydia/stairs": {
+  "div": 2
+ },
+ "euclydia/rope_bridge": {
+  "flat": true,
+  "div": 1
+ },
+ "euclydia/crystal_cluster": {
+  "foot": [
+   70,
+   24
+  ],
+  "div": 2
+ },
+ "euclydia/portal_ring": {
+  "foot": [
+   90,
+   22
+  ],
+  "div": 1
+ },
+ "rifts/square_platform": {
+  "flat": true,
+  "div": 1
+ },
+ "rifts/triangle_platform": {
+  "flat": true,
+  "div": 1
+ },
+ "rifts/broken_piece_a": {
+  "foot": [
+   60,
+   20
+  ],
+  "div": 2
+ },
+ "rifts/broken_piece_b": {
+  "foot": [
+   60,
+   20
+  ],
+  "div": 2
+ },
+ "rifts/ruined_arch": {
+  "div": 1
+ },
+ "rifts/rune_door": {
+  "foot": [
+   86,
+   20
+  ],
+  "div": 1
+ },
+ "rifts/blue_crystal": {
+  "foot": [
+   56,
+   20
+  ],
+  "div": 2
+ },
+ "rifts/holed_monolith": {
+  "foot": [
+   56,
+   20
+  ],
+  "div": 2
+ },
+ "rifts/rune_obelisk": {
+  "foot": [
+   40,
+   18
+  ],
+  "div": 2
+ },
+ "rifts/rope_bridge": {
+  "flat": true,
+  "div": 1
+ },
+ "rifts/spiral_stone": {
+  "foot": [
+   70,
+   26
+  ],
+  "div": 2
+ },
+ "rifts/mirror": {
+  "foot": [
+   50,
+   14
+  ],
+  "div": 2
+ },
+ "rifts/floating_rock": {
+  "foot": [
+   90,
+   30
+  ],
+  "div": 2
+ },
+ "rifts/pink_crystal": {
+  "foot": [
+   56,
+   20
+  ],
+  "div": 2
+ },
+ "rifts/stairs": {
+  "div": 2
+ },
+ "rifts/pillar": {
+  "foot": [
+   44,
+   18
+  ],
+  "div": 2
+ },
+ "rifts/ground_rift": {
+  "flat": true,
+  "div": 2
+ },
+ "rifts/void_portal": {
+  "foot": [
+   90,
+   24
+  ],
+  "div": 1
+ },
+ "rifts/chains": {
+  "div": 2
+ },
+ "rifts/eye_sigil": {
+  "div": 2
+ },
+ "rifts/lantern": {
+  "div": 3
+ },
+ "rifts/sigil_plate": {
+  "flat": true,
+  "div": 3
+ },
+ "rifts/gold_plaque": {
+  "flat": true,
+  "div": 3
+ },
+ "rifts/ring": {
+  "div": 3
+ },
+ "temporal/clock_tower": {
+  "foot": [
+   80,
+   26
+  ],
+  "fade": true,
+  "div": 1
+ },
+ "temporal/hourglass_frame": {
+  "foot": [
+   80,
+   22
+  ],
+  "div": 2
+ },
+ "temporal/time_gate": {
+  "foot": [
+   100,
+   20
+  ],
+  "div": 1
+ },
+ "temporal/time_console": {
+  "foot": [
+   104,
+   30
+  ],
+  "div": 2
+ },
+ "temporal/time_capsule": {
+  "foot": [
+   56,
+   20
+  ],
+  "div": 2
+ },
+ "temporal/cell_door": {
+  "foot": [
+   96,
+   20
+  ],
+  "div": 1
+ },
+ "temporal/hover_platform": {
+  "flat": true,
+  "div": 2
+ },
+ "temporal/time_bridge": {
+  "flat": true,
+  "div": 1
+ },
+ "temporal/railing": {
+  "foot": [
+   100,
+   10
+  ],
+  "jump": true,
+  "div": 2
+ },
+ "temporal/pad": {
+  "flat": true,
+  "div": 3
+ },
+ "temporal/tape_measure": {
+  "div": 3
+ },
+ "temporal/time_bottle": {
+  "div": 3
+ },
+ "temporal/time_cube": {
+  "foot": [
+   96,
+   40
+  ],
+  "div": 3
+ },
+ "temporal/throne": {
+  "foot": [
+   100,
+   34
+  ],
+  "div": 1
+ },
+ "temporal/archive_shelf": {
+  "foot": [
+   100,
+   26
+  ],
+  "div": 2
+ },
+ "temporal/doorway": {
+  "div": 1
+ },
+ "temporal/barrier": {
+  "foot": [
+   100,
+   14
+  ],
+  "div": 2
+ },
+ "temporal/lamp": {
+  "foot": [
+   10,
+   8
+  ],
+  "div": 2
+ },
+ "temporal/checkpoint_booth": {
+  "foot": [
+   104,
+   30
+  ],
+  "div": 1
+ },
+ "temporal/elevator": {
+  "foot": [
+   100,
+   24
+  ],
+  "div": 1
+ },
+ "temporal/capsule": {
+  "foot": [
+   56,
+   20
+  ],
+  "div": 2
+ },
+ "temporal/gear": {
+  "foot": [
+   96,
+   30
+  ],
+  "div": 2
+ },
+ "temporal/wheel": {
+  "foot": [
+   96,
+   24
+  ],
+  "div": 2
+ },
+ "temporal/terminal": {
+  "foot": [
+   100,
+   26
+  ],
+  "div": 2
+ }
+}

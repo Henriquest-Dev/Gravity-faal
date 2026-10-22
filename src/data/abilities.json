@@ -1,0 +1,11 @@
+{
+  "perceive": { "id": "perceive", "name": "Perceber anomalias", "owner": "bill_child", "description": "Onda que revela símbolos e passagens escondidas num raio de 5 casas.", "energy": 1, "cooldown": 1.2, "range": 160 },
+  "geometry": { "id": "geometry", "name": "Activar geometria", "description": "Permite activar mecanismos geométricos (glifos e anéis).", "owner": "bill_child", "energy": 0, "cooldown": 0 },
+  "rift": { "id": "rift", "name": "Abrir fenda", "owner": "bill_child", "description": "Abre uma pequena fenda entre dois pontos de fenda marcados. Não atravessa paredes comuns.", "energy": 3, "cooldown": 1.5 },
+  "telekinesis": { "id": "telekinesis", "name": "Manipular objectos", "owner": "bill_child", "description": "Empurra blocos geométricos à distância (até 4 casas, com linha de visão).", "energy": 1, "cooldown": 0.6, "range": 128 },
+  "energy_bolt": { "id": "energy_bolt", "name": "Energia dimensional", "owner": "bill_child", "description": "Projéctil de energia que pára em paredes.", "energy": 2, "cooldown": 0.5, "range": 220 },
+  "flashlight": { "id": "flashlight", "name": "Lanterna", "owner": "dipper", "description": "Cone de luz: revela símbolos, atordoa Teeth e abre o Keyhole.", "energy": 1, "cooldown": 0.8, "range": 140 },
+  "journal_scan": { "id": "journal_scan", "name": "Analisar com o diário", "owner": "dipper", "description": "Identifica o inimigo mais próximo e expõe o ponto fraco (dano a dobrar durante 6 s).", "energy": 2, "cooldown": 4, "range": 200 },
+  "grapple": { "id": "grapple", "name": "Gancho", "owner": "mabel", "description": "Dispara para um poste de ancoragem dentro de 6 casas e com linha de visão; puxa a Mabel por cima de água e vazios.", "energy": 1, "cooldown": 0.7, "range": 200 },
+  "charm": { "id": "charm", "name": "Simpatia", "owner": "mabel", "description": "Acalma inimigos hesitantes e abre opções sociais em diálogos.", "energy": 2, "cooldown": 3, "range": 90 }
+}

@@ -1,0 +1,1143 @@
+{
+ "id": "shack_exterior",
+ "name": "Exterior da Cabana do Mistério",
+ "arc": 2,
+ "theme": "forest",
+ "music": "shack",
+ "reference": "shack_exterior",
+ "width": 44,
+ "height": 32,
+ "ambient": {
+  "tint": "#ffe7b0",
+  "motes": "pollen"
+ },
+ "buildings": [
+  {
+   "id": "mystery_shack",
+   "x": 14,
+   "y": 6,
+   "w": 15,
+   "h": 5,
+   "style": "shack",
+   "wallHeight": 2.5,
+   "roofHeight": 3,
+   "door": {
+    "x": 21,
+    "exit": "shack_door"
+   },
+   "windows": [
+    16,
+    18,
+    25,
+    27
+   ],
+   "sign": "MYSTERY SHACK"
+  },
+  {
+   "id": "shed",
+   "x": 31,
+   "y": 7,
+   "w": 4,
+   "h": 3,
+   "style": "cabin",
+   "wallHeight": 2,
+   "roofHeight": 2
+  }
+ ],
+ "props": [
+  {
+   "prop": "nature/pine_b",
+   "x": 4.51,
+   "y": 0.97,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 6.64,
+   "y": 0.93,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 8.32,
+   "y": 0.96,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 10.79,
+   "y": 0.92,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 12.29,
+   "y": 0.94,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 14.75,
+   "y": 1.02,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 16.57,
+   "y": 1.13,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 20.46,
+   "y": 0.86,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 22.46,
+   "y": 0.99,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 24.4,
+   "y": 0.96,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 26.39,
+   "y": 0.91,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 28.61,
+   "y": 1.13,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 30.75,
+   "y": 0.89,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 32.78,
+   "y": 1.1,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 34.53,
+   "y": 1.1,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 36.63,
+   "y": 1.01,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 38.69,
+   "y": 0.98,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 40.39,
+   "y": 0.92,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 1.58,
+   "y": 2.85,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 3.8,
+   "y": 2.93,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 5.57,
+   "y": 3.1,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 7.54,
+   "y": 2.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 9.72,
+   "y": 3.07,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 11.64,
+   "y": 3.14,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 13.68,
+   "y": 3.11,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 15.52,
+   "y": 2.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 17.3,
+   "y": 2.85,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 23.24,
+   "y": 2.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 25.42,
+   "y": 2.96,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 27.52,
+   "y": 3.09,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 29.52,
+   "y": 3.08,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 31.7,
+   "y": 3.08,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 33.35,
+   "y": 2.96,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 35.78,
+   "y": 3.02,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 37.38,
+   "y": 3.12,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 39.5,
+   "y": 2.98,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 41.59,
+   "y": 2.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 43.71,
+   "y": 2.97,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 2.78,
+   "y": 4.95,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 6.67,
+   "y": 5.1,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 8.37,
+   "y": 5.01,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 10.57,
+   "y": 5.07,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 42.7,
+   "y": 4.99,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 1.54,
+   "y": 7.02,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 3.26,
+   "y": 6.94,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 41.71,
+   "y": 7.01,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 43.76,
+   "y": 7.05,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.78,
+   "y": 9.1,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 2.26,
+   "y": 8.87,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 10.36,
+   "y": 9.09,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 1.25,
+   "y": 10.88,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.36,
+   "y": 13,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 2.53,
+   "y": 12.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.7,
+   "y": 16.86,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 42.37,
+   "y": 17.1,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 1.26,
+   "y": 19.15,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 41.24,
+   "y": 19,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 43.64,
+   "y": 18.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.22,
+   "y": 20.86,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 2.55,
+   "y": 21.06,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 1.56,
+   "y": 23.07,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 2.23,
+   "y": 25.13,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 42.41,
+   "y": 25.09,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 1.62,
+   "y": 27.11,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 41.39,
+   "y": 26.97,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 43.5,
+   "y": 27.03,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 0.34,
+   "y": 29.07,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 2.69,
+   "y": 28.89,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 42.58,
+   "y": 28.87,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 1.51,
+   "y": 31.06,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 3.66,
+   "y": 30.98,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 5.71,
+   "y": 31.15,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 7.49,
+   "y": 30.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 9.33,
+   "y": 30.85,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 11.52,
+   "y": 31.13,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 13.38,
+   "y": 30.88,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 17.6,
+   "y": 31.1,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 27.52,
+   "y": 31.08,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 29.61,
+   "y": 31.08,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 31.6,
+   "y": 31.04,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 33.32,
+   "y": 31.12,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 35.69,
+   "y": 30.93,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 37.59,
+   "y": 30.95,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 39.26,
+   "y": 30.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 41.63,
+   "y": 30.85,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 43.57,
+   "y": 30.97,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 37.5,
+   "y": 7.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 6.5,
+   "y": 22.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 28.5,
+   "y": 25.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 35.5,
+   "y": 5.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 9.5,
+   "y": 23.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/mushrooms",
+   "x": 3.5,
+   "y": 18.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/mushrooms",
+   "x": 39.5,
+   "y": 7.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 34.5,
+   "y": 6.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/flower",
+   "x": 37.5,
+   "y": 10.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/mushrooms",
+   "x": 9.5,
+   "y": 27.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/flower",
+   "x": 28.5,
+   "y": 4.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/flower",
+   "x": 13.5,
+   "y": 24.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/fern",
+   "x": 15.5,
+   "y": 27.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/fern",
+   "x": 32.5,
+   "y": 16.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/mushrooms",
+   "x": 37.5,
+   "y": 18.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/mushrooms",
+   "x": 6.5,
+   "y": 8.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/mushrooms",
+   "x": 14.5,
+   "y": 22.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/flower",
+   "x": 4.5,
+   "y": 11.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/fern",
+   "x": 29.5,
+   "y": 7.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/flower",
+   "x": 14.5,
+   "y": 10.9,
+   "flip": false
+  },
+  {
+   "prop": "nature/fern",
+   "x": 34.5,
+   "y": 9.9,
+   "flip": true
+  },
+  {
+   "prop": "nature/pine",
+   "x": 1,
+   "y": 33.6,
+   "scale": 2,
+   "layer": "foreground",
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 4,
+   "y": 33.6,
+   "scale": 2,
+   "layer": "foreground",
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 7,
+   "y": 33.6,
+   "scale": 2,
+   "layer": "foreground",
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 10,
+   "y": 33.6,
+   "scale": 2,
+   "layer": "foreground",
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 13,
+   "y": 33.6,
+   "scale": 2,
+   "layer": "foreground",
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 16,
+   "y": 33.6,
+   "scale": 2,
+   "layer": "foreground",
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 19,
+   "y": 33.6,
+   "scale": 2,
+   "layer": "foreground",
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 22,
+   "y": 33.6,
+   "scale": 2,
+   "layer": "foreground",
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 25,
+   "y": 33.6,
+   "scale": 2,
+   "layer": "foreground",
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 28,
+   "y": 33.6,
+   "scale": 2,
+   "layer": "foreground",
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 31,
+   "y": 33.6,
+   "scale": 2,
+   "layer": "foreground",
+   "flip": false
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 34,
+   "y": 33.6,
+   "scale": 2,
+   "layer": "foreground",
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 37,
+   "y": 33.6,
+   "scale": 2,
+   "layer": "foreground",
+   "flip": true
+  },
+  {
+   "prop": "nature/pine_b",
+   "x": 40,
+   "y": 33.6,
+   "scale": 2,
+   "layer": "foreground",
+   "flip": false
+  },
+  {
+   "prop": "nature/pine",
+   "x": 43,
+   "y": 33.6,
+   "scale": 2,
+   "layer": "foreground",
+   "flip": false
+  },
+  {
+   "prop": "nature/mailbox",
+   "x": 24.5,
+   "y": 14.8
+  },
+  {
+   "prop": "nature/lamp_post",
+   "x": 19.2,
+   "y": 11.2
+  },
+  {
+   "prop": "nature/woodshed",
+   "x": 36.5,
+   "y": 10.6
+  },
+  {
+   "prop": "nature/stump",
+   "x": 31.5,
+   "y": 15.2
+  },
+  {
+   "prop": "nature/rock",
+   "x": 13.5,
+   "y": 23.2
+  },
+  {
+   "prop": "nature/rock_b",
+   "x": 29.5,
+   "y": 23.5
+  },
+  {
+   "prop": "nature/cattails",
+   "x": 10.5,
+   "y": 15.8
+  },
+  {
+   "prop": "nature/cattails",
+   "x": 28.5,
+   "y": 18.6
+  },
+  {
+   "prop": "nature/log",
+   "id": "tutorial_log",
+   "x": 9.8,
+   "y": 13.6
+  },
+  {
+   "prop": "nature/fence",
+   "x": 31.5,
+   "y": 13.6
+  },
+  {
+   "prop": "nature/fence",
+   "x": 34.5,
+   "y": 13.6
+  }
+ ],
+ "spawns": {
+  "default": {
+   "x": 21.5,
+   "y": 15,
+   "dir": "south"
+  },
+  "door": {
+   "x": 21.5,
+   "y": 12.2,
+   "dir": "south"
+  },
+  "east": {
+   "x": 41,
+   "y": 13,
+   "dir": "west"
+  },
+  "south": {
+   "x": 21.5,
+   "y": 29.5,
+   "dir": "north"
+  }
+ },
+ "exits": [
+  {
+   "id": "shack_door",
+   "x": 21,
+   "y": 10,
+   "w": 1,
+   "h": 1,
+   "to": "shack_interior",
+   "spawn": "door",
+   "kind": "door"
+  },
+  {
+   "id": "to_town",
+   "x": 43,
+   "y": 11,
+   "w": 1,
+   "h": 3,
+   "to": "town_center",
+   "spawn": "west",
+   "requires": {
+    "flag": "stan_briefing"
+   },
+   "lockedText": "O Stan quer falar convosco antes de irem à cidade. Ele está dentro da Cabana."
+  },
+  {
+   "id": "to_forest",
+   "x": 20,
+   "y": 31,
+   "w": 4,
+   "h": 1,
+   "to": "forest_lake_cave",
+   "spawn": "north",
+   "requires": {
+    "flag": "stan_briefing"
+   },
+   "lockedText": "Primeiro falem com o Stan, dentro da Cabana."
+  }
+ ],
+ "npcs": [
+  {
+   "id": "soos",
+   "character": "soos",
+   "x": 17.5,
+   "y": 14.2,
+   "dialogue": "soos",
+   "wander": 2,
+   "if": {
+    "not": {
+     "flag": "town_invaded"
+    }
+   }
+  },
+  {
+   "id": "wendy",
+   "character": "wendy",
+   "x": 26.5,
+   "y": 13.2,
+   "dir": "south",
+   "dialogue": "wendy",
+   "if": {
+    "not": {
+     "flag": "town_invaded"
+    }
+   }
+  },
+  {
+   "id": "waddles_home",
+   "character": "waddles",
+   "x": 30.5,
+   "y": 16.5,
+   "dialogue": "waddles",
+   "wander": 2,
+   "if": {
+    "flag": "waddles_home"
+   }
+  },
+  {
+   "id": "bill_echo_shack",
+   "character": "bill",
+   "x": 37.5,
+   "y": 16.5,
+   "dialogue": "bill_shack",
+   "if": {
+    "all": [
+     {
+      "flag": "bill_ambiguous"
+     },
+     {
+      "not": {
+       "flag": "bill_shack_seen"
+      }
+     }
+    ]
+   }
+  }
+ ],
+ "enemies": [
+  {
+   "id": "shack_teeth",
+   "type": "teeth",
+   "x": 34,
+   "y": 16.5,
+   "if": {
+    "flag": "bill_threat"
+   }
+  }
+ ],
+ "interactables": [
+  {
+   "id": "sign_shack",
+   "kind": "examine",
+   "x": 19.5,
+   "y": 15.6,
+   "prop": "nature/signpost",
+   "text": "CABANA DO MISTÉRIO — entrada pela porta da frente. À direita: cidade de Gravity Falls. A sul, a ponte leva à floresta e ao lago."
+  },
+  {
+   "id": "sign_jump",
+   "kind": "examine",
+   "x": 12.5,
+   "y": 15.2,
+   "text": "Um tronco caído bloqueia o atalho. Salta por cima dele (Espaço / botão ⤒). Paredes e árvores não se saltam."
+  },
+  {
+   "id": "ladder_note",
+   "kind": "examine",
+   "x": 8.5,
+   "y": 11.4,
+   "text": "Uma escada de mão sobe ao miradouro. Aproxima-te dela e sobe com ↑."
+  },
+  {
+   "id": "lookout_chest",
+   "kind": "chest",
+   "x": 6.5,
+   "y": 6.8,
+   "prop": "interiors/crate",
+   "item": "medkit",
+   "label": "Abrir caixa",
+   "solid": true
+  },
+  {
+   "id": "rest_bench",
+   "kind": "save",
+   "x": 28.5,
+   "y": 14.6,
+   "prop": "nature/bench",
+   "label": "Descansar e gravar",
+   "solid": true
+  },
+  {
+   "id": "grapple_post_pond",
+   "kind": "grapple",
+   "x": 35.6,
+   "y": 25.7,
+   "landing": {
+    "x": 34.5,
+    "y": 25.9
+   },
+   "label": "Poste de ancoragem"
+  },
+  {
+   "id": "islet_snack",
+   "kind": "pickup",
+   "x": 34.4,
+   "y": 25.6,
+   "item": "waddles_snack",
+   "label": "Apanhar bolacha",
+   "prop": "nature/mushrooms"
+  },
+  {
+   "id": "mailbox_note",
+   "kind": "examine",
+   "x": 24.5,
+   "y": 15.2,
+   "text": "Correio para \"Stanford Pines\". Parece que ninguém o abre há trinta anos.",
+   "if": {
+    "arc": 2
+   }
+  }
+ ],
+ "triggers": [
+  {
+   "id": "tut_move",
+   "x": 18,
+   "y": 13,
+   "w": 8,
+   "h": 4,
+   "once": true,
+   "effects": [
+    {
+     "toast": "Mover: WASD/setas ou joystick. Correr: Shift ou empurrar o joystick até ao fim."
+    }
+   ]
+  },
+  {
+   "id": "tut_water",
+   "x": 18,
+   "y": 16,
+   "w": 8,
+   "h": 2,
+   "once": true,
+   "effects": [
+    {
+     "toast": "Água rasa abranda. Na água profunda nadas — só sais por margens acessíveis."
+    }
+   ]
+  }
+ ],
+ "checkpoints": [
+  {
+   "id": "shack_front",
+   "x": 21.5,
+   "y": 14.5
+  }
+ ],
+ "onEnter": [
+  {
+   "questStart": "b_q1"
+  }
+ ],
+ "terrain": [
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxx..............................xxx",
+  "xxxx......x..............................xxx",
+  "xxxx......x..............................xxx",
+  "xxxx......x..............................xxx",
+  "xxxx......x..............................xxx",
+  "xxxCCCCHCCC..............................xxx",
+  "xxxCCCCHCCC..........:::.................xxx",
+  "xxx..........:::::::::::::::::::::::::::::::",
+  "xxx....:::::::::::::::::::::::::::::::::::::",
+  "x~~~~~~:::::::::::::::::::::::::::::::::::::",
+  "x~====~~~...::.......:::.................xxx",
+  "x~======~~~..........:::.................xxx",
+  "x~~~======~~~~.......:::.................xxx",
+  "xxx~~~~======~~~.....:::.................xxx",
+  "xxx...~~~======~~~...:::.................xxx",
+  "xxx.....~~~======~~~~BB~~~~~~~~~~~~~~~~~~~~~",
+  "xxx.......~~~~=======BB=====================",
+  "xxx..........~~~=====BB=====================",
+  "xxx............~~~~~~BB~~~~~~~~~~~~~~~~~~~~=",
+  "xxx..................:::......~~======~~.x~~",
+  "xxx..................::::....~~========~~xxx",
+  "xxx..................::::::..~~===..===~~xxx",
+  "xxx..................:::::::..~~======~~.xxx",
+  "xxx..................:::.::::::~~~~~~~~..xxx",
+  "xxx..................:::...::::::........xxx",
+  "xxxxxxxxxxxxxxxxxxxxx:::xxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxxx:::xxxxxxxxxxxxxxxxxxxx",
+  "xxxxxxxxxxxxxxxxxxxx::::xxxxxxxxxxxxxxxxxxxx"
+ ]
+}

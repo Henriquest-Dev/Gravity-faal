@@ -1,0 +1,22 @@
+{
+  "pocket_prism": { "id": "pocket_prism", "name": "Prisma de bolso", "description": "Um prisma que Bill guarda desde pequeno. Vibra perto de anomalias.", "key": true, "icon": "rifts/blue_crystal" },
+  "star_chart": { "id": "star_chart", "name": "Carta estelar", "description": "Desenho de Bill com três símbolos: triângulo, olho e espiral. A ordem do alinhamento do observatório.", "key": true, "icon": "rifts/gold_plaque" },
+  "lens_shard": { "id": "lens_shard", "name": "Fragmento de lente", "description": "Pedaço da lente do observatório. Repara o telescópio.", "key": true, "icon": "rifts/pink_crystal" },
+  "elder_token": { "id": "elder_token", "name": "Selo do Ancião", "description": "Autoriza a passagem para o observatório.", "key": true, "icon": "rifts/sigil_plate" },
+  "geometry_shard": { "id": "geometry_shard", "name": "Estilhaço geométrico", "description": "Energia solidificada da ruptura. Pode ser usada para reparar ou para absorver poder.", "icon": "rifts/pink_crystal" },
+  "void_key": { "id": "void_key", "name": "Chave do vazio", "description": "Abre a fechadura viva do Reino dos Pesadelos.", "key": true, "icon": "rifts/chains" },
+  "grappling_hook": { "id": "grappling_hook", "name": "Gancho da Mabel", "description": "Prende-se aos postes de ancoragem marcados a amarelo.", "key": true, "icon": "interiors/toolbox" },
+  "flashlight": { "id": "flashlight", "name": "Lanterna", "description": "Revela símbolos escondidos e expõe pontos fracos.", "key": true, "icon": "nature/lamp_post" },
+  "journal3": { "id": "journal3", "name": "Diário 3", "description": "O diário do autor. Identifica criaturas e padrões.", "key": true, "icon": "interiors/bookshelf" },
+  "bunker_key": { "id": "bunker_key", "name": "Cartão do bunker", "description": "Abre a porta blindada do bunker do portal.", "key": true, "icon": "interiors/control_console" },
+  "gear_part": { "id": "gear_part", "name": "Engrenagem", "description": "Componente para a máquina de McGucket.", "icon": "interiors/gear" },
+  "power_cell": { "id": "power_cell", "name": "Célula de energia", "description": "Componente para a máquina de McGucket.", "icon": "interiors/generator" },
+  "wire_coil": { "id": "wire_coil", "name": "Bobine de fio", "description": "Componente para a máquina de McGucket.", "icon": "interiors/toolbox" },
+  "stabilizer": { "id": "stabilizer", "name": "Estabilizador dimensional", "description": "Invenção de McGucket. Fecha fendas pequenas e protege da estase.", "key": true, "icon": "temporal/time_capsule" },
+  "time_tape": { "id": "time_tape", "name": "Fita temporal", "description": "Dispositivo dos agentes do tempo. Abre portais de serviço.", "key": true, "icon": "temporal/tape_measure" },
+  "time_bottle": { "id": "time_bottle", "name": "Biberão temporal", "description": "Um biberão com areia do tempo. Talvez acalme alguém muito poderoso.", "icon": "temporal/time_bottle" },
+  "archive_code": { "id": "archive_code", "name": "Código do arquivo", "description": "Sequência: relógio, ampulheta, engrenagem.", "key": true, "icon": "temporal/terminal" },
+  "waddles_snack": { "id": "waddles_snack", "name": "Bolacha de milho", "description": "O petisco favorito do Waddles.", "icon": "nature/mushrooms" },
+  "medkit": { "id": "medkit", "name": "Penso rápido", "description": "Recupera 2 corações.", "icon": "interiors/toolbox", "use": [{ "heal": 2 }] },
+  "energy_snack": { "id": "energy_snack", "name": "Pitt Cola", "description": "Recupera 5 de energia.", "icon": "interiors/barrel", "use": [{ "restoreEnergy": 5 }] }
+}

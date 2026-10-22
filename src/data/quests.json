@@ -1,0 +1,4 @@
+[
+ { "id": "b_q1", "arc": 2, "title": "Verão estranho", "summary": "Luzes estranhas na floresta.", "main": true,
+   "steps": [ { "id": "stan", "text": "Fala com o Stan dentro da Cabana.", "hint": "A porta da Cabana está ao centro.", "complete": { "flag": "stan_briefing" } } ] }
+]

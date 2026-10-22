@@ -1,0 +1,3 @@
+{ "endings": { "arc1": { "arc": 1, "outcomes": [ { "id": "repair", "title": "R", "text": "t" }, { "id": "exile", "title": "E", "text": "t" }, { "id": "ascension", "title": "A", "text": "t" } ], "tieBreak": ["repair", "exile", "ascension"] },
+  "arc2": { "arc": 2, "outcomes": [ { "id": "balance", "title": "B", "text": "t" }, { "id": "costly", "title": "C", "text": "t" }, { "id": "rupture", "title": "R", "text": "t" } ], "tieBreak": ["balance", "costly", "rupture"] } },
+  "arc2Setup": { "repair": { "effects": [], "journal": "x" }, "exile": { "effects": [], "journal": "x" }, "ascension": { "effects": [], "journal": "x" } } }

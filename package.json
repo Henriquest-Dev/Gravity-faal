@@ -1,0 +1,30 @@
+{
+  "name": "gravity-falls-dimensoes",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Jogo de aventura 2D em pixel art no universo de Gravity Falls (Phaser 3 + Vite + Capacitor).",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "validate:data": "vitest run tests/maps.test.ts",
+    "assets:extract": "python3 -I tools/extract_catalog.py assets-src/Gravity_Falls_Catalogo_Assets.docx public/assets",
+    "cap:sync": "npm run build && npx cap sync android",
+    "cap:open": "npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/core": "8.5.3",
+    "phaser": "3.90.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.3",
+    "playwright-core": "1.56.1",
+    "typescript": "5.9.3",
+    "vite": "7.3.7",
+    "vitest": "3.2.7"
+  }
+}

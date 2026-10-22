@@ -1,0 +1,6 @@
+[
+ { "id": "soos", "entries": [ { "start": "a" } ], "nodes": { "a": { "id": "a", "speaker": "Soos", "text": "Olá, meus! Bem-vindos à Cabana do Mistério." } } },
+ { "id": "wendy", "entries": [ { "start": "a" } ], "nodes": { "a": { "id": "a", "speaker": "Wendy", "text": "Ei. O Stan está lá dentro.", "effects": [ { "setFlag": "stan_briefing" } ] } } },
+ { "id": "waddles", "entries": [ { "start": "a" } ], "nodes": { "a": { "id": "a", "speaker": "Waddles", "text": "Oinc." } } },
+ { "id": "bill_shack", "entries": [ { "start": "a" } ], "nodes": { "a": { "id": "a", "speaker": "Bill", "text": "..." } } }
+]

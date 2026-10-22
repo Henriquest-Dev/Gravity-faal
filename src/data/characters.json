@@ -1,0 +1,60 @@
+{
+  "_doc": "Animation sources per character. dir sheets have rows south/west/east/north. Single-row states reference a collective sheet row; 'facing' tells which way that row looks so it is never reused as another direction (west uses a horizontal flip of an east-facing row only).",
+  "bill_child": {
+    "name": "Bill", "playable": true, "walkSpeed": 88, "runSpeed": 150,
+    "walk": "characters/bill_child/walk", "run": "characters/bill_child/run", "ability": "characters/bill_child/ability",
+    "idle": { "sheet": "protag_idle", "row": 0, "facing": "south" },
+    "hurt": { "sheet": "protag_hurt", "row": 0, "facing": "south" },
+    "jump": { "sheet": "protag_jump", "row": 0, "facing": "south" },
+    "dodge": { "sheet": "protag_dodge", "row": 0, "facing": "south" },
+    "climb": { "sheet": "protag_climb", "row": 0, "facing": "north" },
+    "swim": { "sheet": "protag_swim", "row": 0, "facing": "east" }
+  },
+  "bill": {
+    "name": "Bill Cipher", "playable": false, "walkSpeed": 88, "runSpeed": 150,
+    "walk": "characters/bill/walk", "run": "characters/bill/run", "ability": "characters/bill/ability",
+    "idle": { "sheet": "protag_idle", "row": 1, "facing": "south" },
+    "hurt": { "sheet": "protag_hurt", "row": 1, "facing": "south" }
+  },
+  "dipper": {
+    "name": "Dipper", "playable": true, "walkSpeed": 92, "runSpeed": 160,
+    "walk": "characters/dipper/walk", "run": "characters/dipper/run", "ability": "characters/dipper/ability",
+    "idle": { "sheet": "protag_idle", "row": 2, "facing": "south" },
+    "hurt": { "sheet": "protag_hurt", "row": 2, "facing": "south" },
+    "jump": { "sheet": "protag_jump", "row": 2, "facing": "south" },
+    "dodge": { "sheet": "protag_dodge", "row": 2, "facing": "south" },
+    "climb": { "sheet": "protag_climb", "row": 2, "facing": "north" },
+    "swim": { "sheet": "protag_swim", "row": 2, "facing": "east" }
+  },
+  "mabel": {
+    "name": "Mabel", "playable": true, "walkSpeed": 92, "runSpeed": 160,
+    "walk": "characters/mabel/walk", "run": "characters/mabel/run", "ability": "characters/mabel/ability",
+    "idle": { "sheet": "protag_idle", "row": 3, "facing": "south" },
+    "hurt": { "sheet": "protag_hurt", "row": 3, "facing": "south" },
+    "jump": { "sheet": "protag_jump", "row": 3, "facing": "south" },
+    "dodge": { "sheet": "protag_dodge", "row": 3, "facing": "south" },
+    "climb": { "sheet": "protag_climb", "row": 3, "facing": "north" },
+    "swim": { "sheet": "protag_swim", "row": 3, "facing": "east" }
+  },
+  "stan": { "name": "Stan", "walkSpeed": 70, "runSpeed": 130, "walk": "characters/stan/walk", "run": "characters/stan/run", "idle": { "sheet": "cast_a", "row": 0, "facing": "south" } },
+  "soos": { "name": "Soos", "walkSpeed": 66, "runSpeed": 120, "walk": "characters/soos/walk", "run": "characters/soos/run", "idle": { "sheet": "cast_a", "row": 1, "facing": "south" } },
+  "wendy": { "name": "Wendy", "walkSpeed": 76, "runSpeed": 140, "walk": "characters/wendy/walk", "run": "characters/wendy/run", "idle": { "sheet": "cast_a", "row": 2, "facing": "south" } },
+  "mcgucket": { "name": "McGucket", "walkSpeed": 70, "runSpeed": 140, "walk": "characters/mcgucket/walk", "run": "characters/mcgucket/run", "idle": { "sheet": "cast_a", "row": 3, "facing": "south" } },
+  "ford": { "name": "Ford", "walkSpeed": 76, "runSpeed": 140, "walk": "characters/ford/walk", "run": "characters/ford/run", "idle": { "sheet": "cast_b", "row": 0, "facing": "south" } },
+  "pacifica": { "name": "Pacifica", "walkSpeed": 76, "runSpeed": 140, "walk": "characters/pacifica/walk", "run": "characters/pacifica/run", "idle": { "sheet": "cast_b", "row": 1, "facing": "south" } },
+  "felicia": { "name": "Felícia", "provisional": true, "walkSpeed": 76, "runSpeed": 140, "walk": "characters/felicia/walk", "run": "characters/felicia/run", "idle": { "sheet": "cast_b", "row": 2, "facing": "south" } },
+  "waddles": { "name": "Waddles", "walkSpeed": 50, "single": { "sheet": "cast_b", "row": 3, "facing": "south" } },
+  "professor_circle": { "name": "Professor Círculo", "single": { "sheet": "euclydia_adults", "row": 0, "facing": "south" } },
+  "artisan_triangle": { "name": "Artesã Triângulo", "single": { "sheet": "euclydia_adults", "row": 1, "facing": "south" } },
+  "merchant_square": { "name": "Mercador Quadrado", "single": { "sheet": "euclydia_adults", "row": 2, "facing": "south" } },
+  "elder_hexagon": { "name": "Anciã Hexágono", "single": { "sheet": "euclydia_adults", "row": 3, "facing": "south" } },
+  "blendin": { "name": "Blendin Blandin", "walkSpeed": 60, "single": { "sheet": "time_agents", "row": 0, "facing": "east" } },
+  "lolph": { "name": "Agente Lolph", "walkSpeed": 60, "single": { "sheet": "time_agents", "row": 1, "facing": "south" } },
+  "dundgren": { "name": "Agente Dundgren", "walkSpeed": 60, "single": { "sheet": "time_agents", "row": 2, "facing": "south" } },
+  "cyclock": { "name": "Cyclock", "single": { "sheet": "time_agents", "row": 3, "facing": "south" } },
+  "pyronica": { "name": "Pyronica", "single": { "sheet": "dimensional_presence", "row": 0, "facing": "south" } },
+  "hectorgon": { "name": "Hectorgon", "single": { "sheet": "dimensional_presence", "row": 1, "facing": "south" } },
+  "keyhole": { "name": "Keyhole", "single": { "sheet": "dimensional_presence", "row": 2, "facing": "south" } },
+  "teeth": { "name": "Teeth", "single": { "sheet": "dimensional_presence", "row": 3, "facing": "south" } },
+  "time_baby": { "name": "Bebé do Tempo", "single": { "sheet": "time_baby", "row": 0, "facing": "south" } }
+}
