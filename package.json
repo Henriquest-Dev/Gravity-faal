@@ -13,7 +13,14 @@
     "validate:data": "vitest run tests/maps.test.ts",
     "assets:extract": "python3 -I tools/extract_catalog.py assets-src/Gravity_Falls_Catalogo_Assets.docx public/assets",
     "cap:sync": "npm run build && npx cap sync android",
-    "cap:open": "npx cap open android"
+    "cap:open": "npx cap open android",
+    "maps:build": "node tools/build-maps.mjs",
+    "e2e:maps": "node tools/e2e/maps.mjs test-results/maps",
+    "e2e:mechanics": "node tools/e2e/mechanics.mjs test-results/mechanics",
+    "e2e:combat": "node tools/e2e/combat.mjs test-results/combat",
+    "e2e:save": "node tools/e2e/save.mjs",
+    "e2e:perf": "node tools/e2e/perf.mjs",
+    "android:apk": "npm run cap:sync && cd android && ./gradlew assembleDebug"
   },
   "dependencies": {
     "@capacitor/android": "8.5.3",

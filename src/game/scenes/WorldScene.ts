@@ -168,6 +168,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     for (const e of this.enemies) e.destroy();
     this.npcs = [];
     this.enemies = [];
+    this.tweens.killTweensOf(this.darkness);
     this.player?.destroy();
     this.companion?.destroy();
     this.companion = null;
@@ -244,8 +245,42 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     const amb = def.ambient;
     this.darkness.setVisible(!!amb?.darkness).setAlpha(amb?.darkness ?? 0);
     if (amb?.tint) cam.setBackgroundColor(amb.tint);
+    this.setupAmbient(def);
     this.busy = false;
     this.autosave();
+  }
+
+  /**
+   * Atmosphere. Human areas get gentle pollen; Bill's and the time domain's areas
+   * feel wrong: floating debris bobs, light breathes and sparks drift upwards.
+   * Everything is pooled and capped, and reduced-effects turns it down.
+   */
+  private setupAmbient(def: MapDef): void {
+    const amb = def.ambient ?? {};
+    const built = this.built!;
+    if (amb.strange) {
+      for (const f of built.destroyables) {
+        const img = f as Phaser.GameObjects.Image;
+        const key = img.texture?.key ?? '';
+        if (!/floating_rock|eye_sigil|crystal|void_portal|ring/.test(key)) continue;
+        this.tweens.add({ targets: img, y: img.y - 6, duration: 1600 + (img.x % 7) * 200, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
+      }
+      if (amb.darkness) this.tweens.add({ targets: this.darkness, alpha: (amb.darkness ?? 0) * 0.6, duration: 2600, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
+    }
+    const count = session.settings.reducedEffects ? 0 : amb.strange ? 18 : amb.motes ? 14 : 0;
+    const color = amb.strange ? (def.theme === 'temporal' ? 0x7af0ff : 0xb070ff) : 0xfff2b0;
+    for (let i = 0; i < count; i++) {
+      const m = this.add.image(Math.random() * this.grid.pxW, Math.random() * this.grid.pxH, 'px').setTint(color).setAlpha(0).setDepth(DEPTH.foreground - 1);
+      built.destroyables.push(m);
+      const drift = () => {
+        m.setPosition(this.player.x + (Math.random() - 0.5) * 560, this.player.y + (Math.random() - 0.3) * 320).setAlpha(0);
+        this.tweens.add({
+          targets: m, alpha: { from: 0, to: 0.7 }, x: m.x + (Math.random() - 0.5) * 40, y: m.y - (amb.strange ? 60 : 20) - Math.random() * 30,
+          duration: 2600 + Math.random() * 2400, yoyo: false, onComplete: () => { if (m.active) drift(); },
+        });
+      };
+      this.time.delayedCall(Math.random() * 3000, () => { if (m.active) drift(); });
+    }
   }
 
   private makeHero(id: string, x: number, y: number): Actor {
@@ -837,8 +872,10 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     for (const o of this.built!.objects.values()) {
       if (!o.revealed || o.def.kind === 'plate') continue;
       if (o.def.kind === 'pickup' && o.state === 'taken') continue;
+      if (o.def.kind === 'door' && o.state === 'open' && !check(o.def.requires, this.s)) continue;
       if (o.def.kind === 'grapple' && !(this.s.character === 'mabel' && this.s.abilities.includes('grapple'))) continue;
-      out.push({ kind: 'obj', id: o.def.id, x: o.x, y: o.y, label: o.def.label ?? LABELS[o.def.kind] ?? 'Examinar' });
+      const label = o.def.kind === 'door' && o.state === 'open' ? 'Fechar' : o.def.label ?? LABELS[o.def.kind] ?? 'Examinar';
+      out.push({ kind: 'obj', id: o.def.id, x: o.x, y: o.y, label });
     }
     for (const e of this.enemies) if (e.alive && e.def.dialogue) out.push({ kind: 'enemy', id: e.id, x: e.x, y: e.y, label: `Falar com ${e.type.name}` });
     return out;
@@ -955,7 +992,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
         this.grapple({ x: o.x - this.player.x, y: o.y - this.player.y }, o);
         return;
     }
-    if (!allowed) {
+    if (!allowed && !(d.kind === 'door' && o.state === 'open')) {
       session.audio.play('deny');
       this.say('', d.requiresText ?? 'Ainda não é possível. Talvez mais tarde.');
       return;
@@ -974,7 +1011,19 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
         this.autosave();
         return;
       case 'door':
-        if (o.state === 'open') return;
+        if (o.state === 'open') {
+          // doors opened by mechanisms (no way to reopen by hand) stay open: never a soft-lock
+          if (!allowed) return;
+          // close again, unless someone stands in the doorway
+          const tx = Math.floor(o.x / TILE) * TILE, ty = Math.floor((o.y - 1) / TILE) * TILE;
+          const blocked = [this.player, this.companion, ...this.npcs.map((n) => n.actor)].some((a) => a && a.x + a.body.hw > tx && a.x - a.body.hw < tx + TILE && a.y > ty && a.y - a.body.hh * 2 < ty + TILE);
+          if (blocked || !o.solidId) { this.ui.toast('Não dá para fechar: há alguém na passagem.', 1200); return; }
+          setState('closed');
+          const r = this.closedDoorRect(o);
+          this.grid.addRect({ id: o.solidId, ...r });
+          session.audio.play('close');
+          return;
+        }
         setState('open');
         if (o.solidId) this.grid.removeRect(o.solidId);
         session.audio.play('open');
@@ -1078,6 +1127,11 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
         return;
       }
     }
+  }
+
+  private closedDoorRect(o: IObj): { x: number; y: number; w: number; h: number } {
+    const tx = Math.floor(o.x / TILE) * TILE, ty = Math.floor((o.y - 1) / TILE) * TILE;
+    return { x: tx, y: ty, w: TILE, h: TILE };
   }
 
   private checkGroup(group: string | undefined, solved: (o: IObj) => boolean): void {
