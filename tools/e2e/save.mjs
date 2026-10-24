@@ -42,7 +42,7 @@ if (confirmShown) await page.click('.c-no');
 await page.reload();
 await page.waitForSelector('.title');
 const contLabel = await page.$eval('[data-a="continue"]', (e) => e.textContent);
-check('title offers Continue with the latest slot', /ranhura 2/.test(contLabel ?? ''), contLabel ?? '');
+check('title offers Continue with the latest slot', /página 2/i.test(contLabel ?? ''), contLabel ?? '');
 await page.click('[data-a="continue"]');
 await page.waitForFunction(() => !!window.__gf?.scene?.player);
 await page.waitForTimeout(800);

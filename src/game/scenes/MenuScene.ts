@@ -165,7 +165,7 @@ export class MenuScene extends Phaser.Scene {
     el.innerHTML = `<h1>Gravity Falls<small>Dimensões</small></h1>
       <div class="cipher" aria-hidden="true">${runeLine('NADA E O QUE PARECE')}</div>
       <div class="menu-list">
-        ${latest ? `<button data-a="continue">Continuar <small>${latest.file!.summary.mapName}</small></button>` : ''}
+        ${latest ? `<button data-a="continue">Continuar <small>${latest.file!.summary.mapName}, página ${latest.slot}</small></button>` : ''}
         <button data-a="new">Novo jogo</button>
         <button data-a="load">Gravações</button>
         <button data-a="options">Opções</button>
