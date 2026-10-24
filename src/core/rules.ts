@@ -31,7 +31,10 @@ export type Signal =
   | { type: 'item'; id: string; count: number }
   | { type: 'objectChanged'; key: string; state: string }
   | { type: 'party' }
-  | { type: 'cutscene'; id: string };
+  | { type: 'cutscene'; id: string }
+  | { type: 'runes'; letters: string; complete: boolean };
+
+export const CIPHER_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 export function applyEffects(s: GameState, effects: Effect[] | undefined, data: RuleData, mapId = s.mapId): Signal[] {
   const out: Signal[] = [];
@@ -108,6 +111,17 @@ function applyOne(s: GameState, e: Effect, data: RuleData, mapId: string, out: S
   else if ('checkpoint' in e) out.push({ type: 'checkpoint' });
   else if ('cutscene' in e) out.push({ type: 'cutscene', id: e.cutscene });
   else if ('clock' in e) s.clock = e.clock;
+  else if ('learnRunes' in e) {
+    const fresh = [...e.learnRunes.toUpperCase()].filter((l) => /[A-Z]/.test(l) && !s.flags[`rune:${l}`]);
+    for (const l of fresh) s.flags[`rune:${l}`] = true;
+    const complete = [...CIPHER_LETTERS].every((l) => s.flags[`rune:${l}`]);
+    const justDone = complete && !s.flags.cipher_complete;
+    if (justDone) {
+      s.flags.cipher_complete = true;
+      addJournal(s, 'j_cipher', data.journal.j_cipher ?? 'A cifra de Bill está completa.');
+    }
+    if (fresh.length || justDone) out.push({ type: 'runes', letters: fresh.join(''), complete: justDone });
+  }
 }
 
 const VAR_LIMITS = { min: -20, max: 20 };

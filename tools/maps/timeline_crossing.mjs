@@ -43,7 +43,7 @@ export default function build() {
       { id: 'gate_sacrifice', kind: 'npcProxy', x: 34, y: 5.4, text: 'gate_sacrifice', label: 'Portão de Gravity Falls' },
       { id: 'gate_dominate', kind: 'npcProxy', x: 6, y: 5.4, text: 'gate_dominate', label: 'Portão de Euclydia' },
       { id: 'crossing_pad', kind: 'save', x: 17.5, y: 24.4, prop: 'temporal/pad', label: 'Ponto de controlo' },
-      { id: 'echo_euclydia', kind: 'examine', x: 13.4, y: 14.8, text: 'Um eco de Euclydia: a fonte de cristal, tal como Bill a deixou. O que fizeste no primeiro arco ainda brilha (ou range) aqui.' },
+      { id: 'echo_euclydia', kind: 'examine', x: 13.4, y: 14.8, text: 'Um eco de Euclydia: a fonte de cristal, tal como Bill a deixou. O que fizeste no primeiro arco ainda brilha (ou range) aqui.', runes: 'TUDO VOLTA AO TRIANGULO', teaches: 'YZ' },
     ],
     onEnter: [{ questStart: 'b_q10' }, { cutscene: 'a2_crossing' }],
   };

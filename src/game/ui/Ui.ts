@@ -10,6 +10,7 @@ import { session } from '../session';
 import { ACTION_LABELS, type Action } from '../systems/Input';
 import { clockLabel, phaseAt, PHASE_NAMES } from '../../core/daytime';
 import { icon, pipFor } from './icons';
+import { ALPHABET, rune, runeLine, translate } from './runes';
 import { hasPortrait, inferMood, portrait, speakerId, type Mood } from './portraits';
 import { TouchControls } from './Touch';
 
@@ -505,6 +506,12 @@ export class Ui {
       }).join('') || '<p class="muted">Sem missões.</p>';
     } else if (this.journalTab === 'clues') {
       body = s.journal.length ? `<ul class="clues">${[...s.journal].reverse().map((j) => `<li>${esc(j.text)}</li>`).join('')}</ul>` : '<p class="muted">Sem pistas.</p>';
+    } else if (this.journalTab === 'cipher') {
+      const known = (l: string) => !!s.flags[`rune:${l}`];
+      const n = ALPHABET.filter(known).length;
+      body = `<p class="muted">Símbolos copiados de pedras, portas e páginas soltas. Cada pedra-chave ensina algumas letras; o resto lê-se por dedução.</p>
+        <div class="cipher-grid">${ALPHABET.map((l) => `<div class="cg ${known(l) ? 'on' : ''}">${rune(l)}<b>${known(l) ? l : '?'}</b></div>`).join('')}</div>
+        <p class="muted">${n} de 26 letras.</p>${s.flags.cipher_complete ? `<div class="i-runes small">${runeLine('O TRIANGULO NUNCA ESQUECE QUEM O VIU')}</div>` : ''}`;
     } else if (this.journalTab === 'choices') {
       const bar = (label: string, v: number, min: number, max: number) => `<div class="bar"><span>${label}</span><div><i style="width:${((v - min) / (max - min)) * 100}%"></i></div><small>${v}</small></div>`;
       const ev = (label: string, list: string[]) => list.length ? `<p><b>${label}:</b> ${list.map(esc).join(', ')}</p>` : '';
@@ -515,7 +522,7 @@ export class Ui {
       const known = Object.keys(ENEMIES).filter((k) => s.flags[`scanned:${k}`]);
       body = known.length ? known.map((k) => `<div class="quest"><h3>${esc(ENEMIES[k].name)}</h3><p>${esc(BESTIARY[k] ?? '')}</p></div>`).join('') : '<p class="muted">Usa o diário do Dipper (capacidade "Analisar") para registar criaturas.</p>';
     }
-    return `<div class="p-tabs sub">${tab('objective', 'Objectivo')}${tab('quests', 'Missões')}${tab('clues', 'Pistas')}${tab('choices', 'Consequências')}${tab('bestiary', 'Bestiário')}</div>${body}`;
+    return `<div class="p-tabs sub">${tab('objective', 'Objectivo')}${tab('quests', 'Missões')}${tab('clues', 'Pistas')}${tab('cipher', 'Cifra')}${tab('choices', 'Consequências')}${tab('bestiary', 'Bestiário')}</div>${body}`;
   }
 
   private areasHtml(s: GameState): string {
@@ -649,6 +656,36 @@ export class Ui {
       });
     }
     this.panelEl.querySelector('[data-reset-binds]')?.addEventListener('click', () => { session.input.resetBindings(); session.saveSettings(); this.render(); });
+  }
+
+  // ------------------------------------------------------------- the cipher
+  /** An inscription in Bill's runes, with whatever the player can already read of it. */
+  inscription(text: string, known: (l: string) => boolean, caption = ''): Promise<void> {
+    const d = document.createElement('div');
+    d.className = 'inscription';
+    const read = translate(text, known);
+    const count = ALPHABET.filter(known).length;
+    d.innerHTML = `<div class="i-box"><div class="i-runes">${runeLine(text)}</div><div class="b-rule"></div>
+      <p class="i-read">${esc(read)}</p>${caption ? `<p class="i-cap">${esc(caption)}</p>` : ''}
+      <p class="i-count">Letras da cifra: ${count} de 26</p><button class="b-ok">Fechar</button></div>`;
+    d.addEventListener('pointerdown', (e) => e.stopPropagation());
+    this.root.appendChild(d);
+    const prev = session.input.context;
+    session.input.setContext('ui');
+    return new Promise((res) => {
+      let done = false;
+      const close = () => {
+        if (done) return;
+        done = true;
+        d.remove();
+        session.input.setContext(prev);
+        window.removeEventListener('keydown', key);
+        res();
+      };
+      const key = (e: KeyboardEvent) => { if (['Escape', 'Enter', 'KeyE', 'Space'].includes(e.code)) close(); };
+      window.addEventListener('keydown', key);
+      d.querySelector('.b-ok')!.addEventListener('click', close);
+    });
   }
 
   // --------------------------------------------------------- banners/loading

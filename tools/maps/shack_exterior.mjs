@@ -45,7 +45,7 @@ export default function build() {
     width: W, height: H, terrain: c.rows(),
     ambient: { motes: 'fireflies', night: 0.5, eyes: 4 },
     buildings: [
-      { id: 'mystery_shack', x: 14, y: 6, w: 15, h: 5, style: 'shack', wallHeight: 4, roofHeight: 3, door: { x: 21, exit: 'shack_door' }, windows: [15, 17, 25, 27] },
+      { id: 'mystery_shack', x: 18, y: 6, w: 15, h: 5, style: 'shack', door: { x: 21, exit: 'shack_door' } },
     ],
     props: [
       ...trees, ...foreground,
@@ -102,5 +102,7 @@ export default function build() {
     onEnter: [{ questStart: 'b_q1' }, { cutscene: 'a2_intro' }],
   }, 4);
   def.props.push(...topTrees);
+  // window light of the painted Shack: attic triangle, main room, gift shop
+  def.ambient.lights = [{ x: 21.5, y: 8.5, r: 60 }, { x: 26.1, y: 13.1, r: 70 }, { x: 31.6, y: 13.9, r: 60 }];
   return def;
 }

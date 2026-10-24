@@ -31,7 +31,7 @@ export default function build() {
       { id: 'tri_visit', character: 'artisan_triangle', x: 10, y: 8.6, dir: 'west', dialogue: 'tri_house', if: { all: [{ quest: 'a1_q2', state: 'active' }, { not: { flag: 'tri_talked' } }] } },
     ],
     interactables: [
-      { id: 'drawings', kind: 'examine', x: 4.5, y: 3.4, label: 'Ver os desenhos', text: 'Desenhos de Bill pequeno: estrelas com mais pontas do que as possíveis, e uma porta no céu. A mãe escreveu por baixo: "não contes isto aos vizinhos".', effects: [{ setFlag: 'memory_drawings' }, { journal: 'j_drawings' }] },
+      { id: 'drawings', kind: 'examine', x: 4.5, y: 3.4, label: 'Ver os desenhos', text: 'Desenhos de Bill pequeno: estrelas com mais pontas do que as possíveis, e uma porta no céu. A mãe escreveu por baixo: "não contes isto aos vizinhos".', effects: [{ setFlag: 'memory_drawings' }, { journal: 'j_drawings' }], runes: 'BILL', teaches: 'BIL' },
       { id: 'family_portrait', kind: 'examine', x: 9.5, y: 3.4, label: 'Ver o retrato', text: 'Um retrato de família. Dois triângulos adultos sorriem; Bill está ao meio, com o olho fechado. Lembras-te do dia: tinhas medo de que o flash revelasse o que vês.', effects: [{ setFlag: 'memory_family' }, { var: 'empathy', add: 1 }, { journal: 'j_family' }] },
       { id: 'mirror', kind: 'examine', x: 12.6, y: 6.4, prop: 'rifts/mirror', solid: true, label: 'Olhar o espelho', text: 'No reflexo, por um instante, o teu olho acende-se como uma janela para outro sítio. Depois volta ao normal.', effects: [{ setFlag: 'memory_mirror' }] },
       { id: 'bill_drawer', kind: 'chest', x: 16.4, y: 4.4, prop: 'euclydia/bookshelf', item: 'star_chart', label: 'Abrir a gaveta', effects: [{ journal: 'j_star_chart' }], solid: true },

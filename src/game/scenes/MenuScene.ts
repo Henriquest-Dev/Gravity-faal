@@ -3,8 +3,10 @@ import { SLOT_COUNT } from '../../core/save';
 import { createState } from '../../core/state';
 import { propKey, queueProp } from '../assets';
 import { session } from '../session';
+import { runeLine } from '../ui/runes';
 import type { Ui } from '../ui/Ui';
 import { bakeShack } from '../world/BuildingRenderer';
+import type { ShackVariant } from '../world/ShackPainter';
 
 const PINES = ['nature/pine', 'nature/pine_b'];
 
@@ -26,14 +28,15 @@ export class MenuScene extends Phaser.Scene {
   preload(): void {
     for (const p of PINES) queueProp(this, p);
     queueProp(this, 'nature/lamp_post');
+    queueProp(this, 'nature/mushrooms');
   }
 
   private paintScene(): void {
     const w = this.scale.width, h = this.scale.height;
-    const zoom = Math.max(1, Math.min(w / 760, h / 470));
+    const zoom = Math.max(0.8, Math.min(w / 900, h / 600));
     const cam = this.cameras.main;
     const portrait = h > w;
-    cam.setZoom(zoom).centerOn(portrait ? 0 : -150, -40);
+    cam.setZoom(zoom).centerOn(portrait ? 0 : -170, -80);
     cam.setBackgroundColor('#06080b');
     const vw = w / zoom, vh = h / zoom;
     // sky: deep gradient and a pale moon behind the trees
@@ -41,7 +44,7 @@ export class MenuScene extends Phaser.Scene {
     for (let i = 0; i < 24; i++) {
       const t = i / 23;
       sky.fillStyle(Phaser.Display.Color.GetColor(6 + t * 10, 8 + t * 16, 14 + t * 18), 1);
-      sky.fillRect(-vw, -40 - vh / 2 + (i * vh) / 24 - 2, vw * 2, vh / 24 + 4);
+      sky.fillRect(-vw * 2, -40 - vh + (i * vh * 1.5) / 24 - 2, vw * 4, (vh * 1.5) / 24 + 4);
     }
     this.add.image(170, -230, 'light').setScale(1.6).setTint(0xc8d6ff).setAlpha(0.35).setBlendMode(Phaser.BlendModes.ADD);
     this.add.circle(170, -230, 22, 0xe8ecf4, 0.9);
@@ -54,12 +57,23 @@ export class MenuScene extends Phaser.Scene {
     };
     for (let i = 0; i < 26; i++) pine(-vw / 2 - 40 + i * ((vw + 80) / 25), 40 - (i % 3) * 6, 1.05 + (i % 4) * 0.08, 0x0e1a1c, i);
     // the Shack in the clearing
-    const shack = bakeShack(this, { id: 'title', x: 0, y: 0, w: 15, h: 5, style: 'shack', wallHeight: 4, roofHeight: 3, door: { x: 7 }, windows: [] }, 'title:shack');
-    this.add.image(0, 120, shack.key).setOrigin(0.5, 1).setTint(0x8a8a98);
-    // warm light spilling from the windows and the door
-    for (const [x, y, s] of [[-58, 95, 0.9], [58, 95, 0.9], [0, -40, 0.8], [140, 70, 0.9], [-52, -30, 0.6], [52, -30, 0.6]] as const) {
-      this.add.image(x, y, 'light').setScale(s).setTint(0xffb54a).setAlpha(0.55).setBlendMode(Phaser.BlendModes.ADD);
-    }
+    // the Shack in the clearing, in each of its versions, taking turns
+    const versions: ShackVariant[] = ['normal', 'weird', 'ruined', 'rebuilt'];
+    const lightsOf: Record<ShackVariant, [number, number, number][]> = {
+      normal: [[-128, -91, 0.7], [19, 59, 0.9], [195, 84, 0.8], [-128, 95, 0.8]],
+      weird: [[-128, -91, 0.7], [19, 59, 0.9], [195, 84, 0.8]],
+      ruined: [],
+      rebuilt: [[-128, -91, 0.7], [19, 59, 0.9], [195, 84, 0.8], [-128, 95, 0.8]],
+    };
+    this.versions = versions.map((v, i) => {
+      const t = bakeShack(this, { id: 'title', x: 0, y: 0, w: 15, h: 5, style: 'shack', door: { x: 3 } }, `title:shack:${v}`, v);
+      const img = this.add.image(0, 120, t.key).setOrigin(0.5, 1).setTint(0x9a9aa6).setAlpha(i === 0 ? 1 : 0);
+      const glow = lightsOf[v].map(([x, y, sc]) => this.add.image(x, y, 'light').setScale(sc).setTint(v === 'weird' ? 0xff6ad0 : 0xffb54a).setAlpha(0).setBlendMode(Phaser.BlendModes.ADD));
+      return { v, img, glow };
+    });
+    for (const g of this.versions[0].glow) g.setAlpha(0.55);
+    this.sky = this.add.rectangle(0, -40, vw * 4, vh * 5, 0xc02a80, 0).setBlendMode(Phaser.BlendModes.ADD);
+    this.time.addEvent({ delay: 7000, loop: true, callback: () => this.nextVersion() });
     if (this.textures.exists(propKey('nature/lamp_post'))) {
       this.add.image(-150, 150, propKey('nature/lamp_post')).setOrigin(0.5, 1).setTint(0x9a9080);
       this.add.image(-146, 100, 'light').setScale(1.1).setTint(0xffc060).setAlpha(0.5).setBlendMode(Phaser.BlendModes.ADD);
@@ -67,7 +81,14 @@ export class MenuScene extends Phaser.Scene {
     // ground
     const g = this.add.graphics();
     g.fillStyle(0x0d1410, 1).fillRect(-vw, 118, vw * 2, vh);
-    g.fillStyle(0x1a1a14, 1).fillRect(-26, 118, 52, vh);
+    // the worn dirt clearing in front of the porch, as in the show
+    g.fillStyle(0x2c261a, 1).fillEllipse(-40, 168, 420, 80);
+    g.fillStyle(0x3a3222, 1).fillEllipse(-40, 166, 330, 52);
+    if (this.textures.exists(propKey('nature/mushrooms'))) {
+      for (const [x, y, sc, f] of [[-vw / 2 + 70, 205, 1.4, false], [vw / 2 - 80, 190, 1.2, true], [-vw / 2 + 140, 230, 0.9, true]] as const) {
+        this.add.image(x, y, propKey('nature/mushrooms')).setOrigin(0.5, 1).setScale(sc).setFlipX(f).setTint(0x8a7a80);
+      }
+    }
     // near pines framing the view, almost black
     for (const [x, sc, i] of [[-vw / 2 + 20, 2.3, 0], [-vw / 2 + 110, 1.9, 1], [vw / 2 - 30, 2.4, 1], [vw / 2 - 120, 1.8, 0]] as const) {
       pine(x, 220, sc, 0x050909, i);
@@ -87,6 +108,21 @@ export class MenuScene extends Phaser.Scene {
     }
     // vignette over everything
     this.add.image(0, -40, 'vignette').setDisplaySize(vw * 1.02, vh * 1.02);
+  }
+
+  private versions: { v: ShackVariant; img: Phaser.GameObjects.Image; glow: Phaser.GameObjects.Image[] }[] = [];
+  private shown = 0;
+  private sky: Phaser.GameObjects.Rectangle | null = null;
+
+  /** Cross-fades to the next version of the Shack; Weirdmageddon stains the sky. */
+  private nextVersion(): void {
+    const from = this.versions[this.shown];
+    this.shown = (this.shown + 1) % this.versions.length;
+    const to = this.versions[this.shown];
+    this.tweens.add({ targets: [from.img, ...from.glow], alpha: 0, duration: 1800 });
+    this.tweens.add({ targets: to.img, alpha: 1, duration: 1800 });
+    this.tweens.add({ targets: to.glow, alpha: 0.55, duration: 1800 });
+    if (this.sky) this.tweens.add({ targets: this.sky, fillAlpha: to.v === 'weird' ? 0.16 : to.v === 'ruined' ? 0.04 : 0, duration: 1800 });
   }
 
   update(_t: number, dms: number): void {
@@ -111,6 +147,8 @@ export class MenuScene extends Phaser.Scene {
     this.fog = [];
     this.eyes = [];
     this.flies = [];
+    this.versions = [];
+    this.shown = 0;
     this.paintScene();
     session.audio.startMusic('title');
     session.audio.startAmbience('night');
@@ -125,7 +163,7 @@ export class MenuScene extends Phaser.Scene {
     const slots = session.saves.list();
     const latest = slots.filter((s) => s.file).sort((a, b) => (b.file!.savedAt > a.file!.savedAt ? 1 : -1))[0];
     el.innerHTML = `<h1>Gravity Falls<small>Dimensões</small></h1>
-      <div class="cipher" aria-hidden="true">QDGD H R TXH SDUHFH</div>
+      <div class="cipher" aria-hidden="true">${runeLine('NADA E O QUE PARECE')}</div>
       <div class="menu-list">
         ${latest ? `<button data-a="continue">Continuar <small>${latest.file!.summary.mapName}</small></button>` : ''}
         <button data-a="new">Novo jogo</button>

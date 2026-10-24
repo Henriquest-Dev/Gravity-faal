@@ -1078,12 +1078,19 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
       this.lightObject(o);
     };
     switch (d.kind) {
-      case 'examine':
+      case 'examine': {
         session.audio.play('clue');
-        this.say(name ? `${name} examina` : 'Examinar', d.text ?? '…', undefined, () => {
+        const read = () => {
           if (o.state !== 'read') { setState('read'); apply(d.effects); }
-        });
+          if (!d.runes) return;
+          // an inscription: key stones teach letters, then it is shown with what can be read
+          if (d.teaches) this.handleSignals(applyEffects(this.s, [{ learnRunes: d.teaches }], RULES));
+          void this.ui.inscription(d.runes, (l) => !!this.s.flags[`rune:${l}`], d.teaches ? 'Pedra-chave: o significado destes símbolos fica no diário.' : '');
+        };
+        if (d.text) this.say(name ? `${name} examina` : 'Examinar', d.text, undefined, read);
+        else read();
         return;
+      }
       case 'npcProxy':
         if (d.text) this.talk(d.text);
         return;
@@ -1578,6 +1585,10 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
         case 'teleport': this.time.delayedCall(10, () => this.transition(sg.map, sg.spawn)); break;
         case 'ending': this.time.delayedCall(30, () => this.showEnding(sg.arc, sg.id)); break;
         case 'arc2': break;
+        case 'runes':
+          if (sg.letters) this.ui.toast(sg.letters.split('').join(' '), 3200, 'item', 'Cifra: letras novas');
+          if (sg.complete) { this.ui.toast('As 26 letras estão decifradas. O diário guarda a mensagem escondida.', 4200, 'quest', 'Cifra completa'); session.audio.play('puzzle'); }
+          break;
         case 'cutscene':
           // the world holds still from the moment a cutscene is due
           if (CUTSCENES[sg.id] && !this.s.flags[`cs:${sg.id}`] && !NO_CUTSCENES) this.csPending++;

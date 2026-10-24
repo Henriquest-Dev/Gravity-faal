@@ -915,7 +915,9 @@
     {
      "journal": "j_sym1"
     }
-   ]
+   ],
+   "runes": "NAO CONFIES EM NINGUEM",
+   "teaches": "FG"
   },
   {
    "id": "cave_sym_2",
@@ -932,7 +934,9 @@
     {
      "journal": "j_sym2"
     }
-   ]
+   ],
+   "runes": "SEIS DEDOS NA PEDRA",
+   "teaches": "V"
   },
   {
    "id": "cave_sym_3",
@@ -949,7 +953,9 @@
     {
      "journal": "j_sym3"
     }
-   ]
+   ],
+   "runes": "UMA ESTRELA CAIU AQUI",
+   "teaches": "QW"
   },
   {
    "id": "cave_door",

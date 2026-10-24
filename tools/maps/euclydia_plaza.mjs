@@ -46,6 +46,7 @@ export default function build() {
       { id: 'anomaly_3', kind: 'examine', x: 4.5, y: 21.6, hidden: true, reveal: 'perceive', text: 'Uma espiral suspensa no ar, do outro lado do rio. Gira ao contrário dos ponteiros do relógio de sol.', effects: [{ setFlag: 'anomaly_3' }, { journal: 'j_anom3' }] },
       { id: 'north_gate', kind: 'door', x: 24.5, y: 4.9, prop: 'euclydia/stone_door', label: 'Abrir o portão', requires: { all: [{ item: 'elder_token' }, { ability: 'geometry' }] }, requiresText: 'O portão do observatório tem um selo hexagonal e um triângulo vazio. Precisa do Selo do Ancião e de quem saiba activar geometria.' },
       { id: 'plaza_bench', kind: 'save', x: 19.5, y: 21.4, prop: 'euclydia/bench', label: 'Descansar e gravar', solid: true },
+      { id: 'obelisk_runes', kind: 'examine', x: 13.5, y: 13.2, label: 'Ler o obelisco', text: 'Símbolos gravados no obelisco. Ninguém em Euclydia os sabe ler... mas Bill reconhece-os dos próprios sonhos.', runes: 'OLHA PARA CIMA', teaches: 'OHAPRCM' },
       { id: 'sign_plaza', kind: 'examine', x: 14.5, y: 16.6, text: 'Placa: "Praça das Arestas. A oeste, a casa da Anciã Hexágono. A norte, o observatório (acesso com selo)."' },
     ],
     triggers: [

@@ -8,6 +8,7 @@ import type { BuildingDef, ExitDef, InteractableDef, MapDef, TriggerDef } from '
 import { missingAssets, propKey } from '../assets';
 import { PROPS } from '../data';
 import { bakeBuilding, bakeEuclid, bakeShack } from './BuildingRenderer';
+import type { ShackVariant } from './ShackPainter';
 import { TerrainRenderer, THEMES } from './TerrainRenderer';
 
 export const DEPTH = {
@@ -79,7 +80,8 @@ export class MapBuilder {
 
     for (const b of def.buildings ?? []) {
       if (!check(b.if, s, def.id)) continue;
-      const baked = (b.style === 'shack' ? bakeShack : b.style === 'euclid' ? bakeEuclid : bakeBuilding)(this.scene, b, `building:${def.id}:${b.id}`);
+      const key = `building:${def.id}:${b.id}`;
+      const baked = b.style === 'shack' ? bakeShack(this.scene, b, key, shackVariant(s)) : (b.style === 'euclid' ? bakeEuclid : bakeBuilding)(this.scene, b, key);
       const baseY = (b.y + b.h) * TILE;
       const img = this.scene.add.image(b.x * TILE - 6, baseY, baked.key).setOrigin(0, 1).setDepth(baseY);
       out.buildings.push({ def: b, img });
@@ -222,4 +224,12 @@ export class MapBuilder {
       }
     }
   }
+}
+
+/** Which Mystery Shack stands today: Weirdmageddon tears it up, the last gate decides whether it is rebuilt. */
+export function shackVariant(s: GameState): ShackVariant {
+  if (s.arc2Ending === 'rupture') return 'ruined';
+  if (s.arc2Ending) return 'rebuilt';
+  if (s.flags.town_invaded) return 'weird';
+  return 'normal';
 }

@@ -54,6 +54,7 @@ export type Effect =
   | { toast: string }
   | { cutscene: string }
   | { clock: number }
+  | { learnRunes: string }
   | { checkpoint: true };
 
 // ------------------------------------------------------------------- quests
@@ -197,6 +198,8 @@ export interface InteractableDef {
   value?: number; // ring target, sequence order...
   facing?: boolean; // must face the target
   character?: string; // only this character can use it
+  runes?: string; // an inscription in Bill's cipher, shown when examined
+  teaches?: string; // cipher letters learned by reading it
 }
 
 export interface TriggerDef {

@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { TILE } from '../../core/grid';
 import type { BuildingDef } from '../../core/types';
 import { texKey } from '../assets';
+import { paintShack, SHACK_SIZE, type ShackVariant } from './ShackPainter';
 
 /**
  * Builds a façade texture from catalogue materials: walls, roof, door, windows
@@ -150,179 +151,15 @@ function h32(x: number, y: number): number {
   return ((n ^ (n >>> 16)) >>> 0) / 4294967296;
 }
 
-/**
- * The Mystery Shack as the show draws it: a tall, steep A-frame whose roof
- * almost reaches the ground, a lower gift-shop wing to the east, a lean-to to
- * the west, the big yellow MYSTERY SHACK sign on the roof with its S fallen
- * over, and the question-mark weathervane.
- */
-export function bakeShack(scene: Phaser.Scene, b: BuildingDef, key: string): { key: string; w: number; h: number } {
+/** The Mystery Shack (see ShackPainter); its version follows the story. */
+export function bakeShack(scene: Phaser.Scene, b: BuildingDef, key: string, variant: ShackVariant = 'normal'): { key: string; w: number; h: number } {
   const over = 6;
   const W = b.w * TILE + over * 2;
+  const H = SHACK_SIZE.H;
   const doorX = b.door ? (b.door.x - b.x) * TILE + over + TILE / 2 : W / 2;
-  const aHalf = 128;                       // half width of the A-frame at its eaves
-  const aPeak = Math.round((b.roofHeight ?? 3) * TILE + (b.wallHeight ?? 4) * TILE) + 20;
-  const H = aPeak + 40;
   if (scene.textures.exists(key)) scene.textures.remove(key);
   const tex = scene.textures.createCanvas(key, W, H)!;
-  const c = tex.getContext();
-  c.imageSmoothingEnabled = false;
-  const r = (col: string, x: number, y: number, w: number, h: number) => { c.fillStyle = col; c.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h)); };
-  const base = H;
-  const peakY = base - aPeak;
-  const P = { boardA: '#5a3820', boardB: '#4e301b', boardHi: '#73492a', gap: '#22130a', roofA: '#3b2f25', roofB: '#45372a', roofLine: '#1e160f', moss: '#4f5a28', mossB: '#5f6a2e' };
-
-  /** vertical board siding inside a clip region */
-  const boards = (x0: number, y0: number, w: number, h: number, clip?: (x: number, y: number) => boolean) => {
-    for (let x = x0; x < x0 + w; x += 2) {
-      const plank = Math.floor((x - x0) / 10);
-      const col = plank % 2 ? P.boardA : P.boardB;
-      for (let y = y0; y < y0 + h; y += 2) {
-        if (clip && !clip(x, y)) continue;
-        r(col, x, y, 2, 2);
-        if ((x - x0) % 10 === 0) r(P.gap, x, y, 1, 2);
-        else if ((x - x0) % 10 === 2) r(P.boardHi, x, y, 1, 2);
-        if (h32(x >> 1, y >> 3) < 0.012) r('#2e1b0e', x, y, 2, 2);
-      }
-    }
-  };
-  /** shingle rows between two x bounds per row */
-  const shingles = (y0: number, y1: number, span: (y: number) => [number, number] | null) => {
-    for (let y = y0; y < y1; y += 6) {
-      const sp = span(y);
-      if (!sp) continue;
-      const row = (y - y0) / 6;
-      for (let x = Math.round(sp[0]); x < sp[1]; x += 2) {
-        r(h32(x >> 3, row) < 0.5 ? P.roofA : P.roofB, x, y, 2, 6);
-        if (((x + row * 5) % 12) === 0) r(P.roofLine, x, y, 1, 6);
-        if (h32(x >> 2, row * 3) < 0.13) r(h32(x, y) < 0.5 ? P.moss : P.mossB, x, y + 1, 2, 3);
-      }
-      r(P.roofLine, sp[0], y + 5, sp[1] - sp[0], 1);
-    }
-  };
-
-  // ---------------------------------------------------- east wing (gift shop)
-  const eX0 = doorX + aHalf - 20, eX1 = W - over, eWall = 92, eRoof = 54;
-  const eTop = base - eWall;
-  shingles(eTop - eRoof, eTop + 6, (y) => {
-    const t = (y - (eTop - eRoof)) / eRoof;
-    return [eX0, eX1 - (1 - Math.min(1, t)) * 30];
-  });
-  boards(eX0, eTop, eX1 - eX0, eWall);
-  r('rgba(0,0,0,0.38)', eX0, eTop, eX1 - eX0, 8);
-  // shop window and the "GIFT SHOP" board
-  const swx = eX0 + 44, swy = eTop + 22;
-  r('#1e140c', swx - 3, swy - 3, 46, 34);
-  r('#ffc861', swx, swy, 40, 28);
-  r('#ffe6a0', swx + 3, swy + 3, 12, 10);
-  r('#1e140c', swx + 19, swy, 2, 28);
-  r('#7a2a20', swx, swy, 6, 28);
-  // ---------------------------------------------------- west lean-to
-  const wX1 = doorX - aHalf + 20, wX0 = over + 8, wWall = 64;
-  const wTop = base - wWall;
-  shingles(wTop - 30, wTop + 6, (y) => [wX0 + (1 - (y - (wTop - 30)) / 30) * 20, wX1]);
-  boards(wX0, wTop, wX1 - wX0, wWall);
-  r('rgba(0,0,0,0.38)', wX0, wTop, wX1 - wX0, 6);
-  r('#1e140c', wX0 + 22, wTop + 18, 26, 24);
-  r('#e9b45a', wX0 + 25, wTop + 21, 20, 18);
-  r('#1e140c', wX0 + 34, wTop + 21, 2, 18);
-
-  // ---------------------------------------------------- the A-frame
-  const aSide = (y: number) => ((y - peakY) / (base - 18 - peakY)) * aHalf; // half width at y
-  // roof slopes: thick shingled bands along both sides
-  shingles(peakY, base - 12, (y) => [doorX - aSide(y) - 22, doorX + aSide(y) + 22]);
-  // front face, inset from the roof edges
-  const face = (x: number, y: number) => y > peakY + 30 && Math.abs(x - doorX) <= aSide(y) - 18;
-  boards(doorX - aHalf, peakY, aHalf * 2, base - peakY, face);
-  // bargeboards
-  for (let y = peakY; y < base - 10; y += 2) {
-    const hw = aSide(y) + 22;
-    for (const s of [-1, 1]) {
-      const x = doorX + s * hw;
-      r('#2a1d12', x - (s > 0 ? 6 : 2), y, 8, 3);
-      r('#4a3420', x - (s > 0 ? 6 : 2), y, 8, 1);
-    }
-  }
-  r('#2a1d12', doorX - 4, peakY - 10, 8, 14); // ridge cap
-  // attic window: tall, warm, with its cross
-  const awx = doorX - 15, awy = peakY + 88;
-  r('#1a110a', awx - 4, awy - 4, 38, 46);
-  r('#ffc861', awx, awy, 30, 38);
-  r('#ffe6a0', awx + 3, awy + 3, 10, 12);
-  r('#1a110a', awx + 14, awy, 2, 38);
-  r('#1a110a', awx, awy + 18, 30, 2);
-  r('#3a2414', awx - 6, awy + 42, 42, 4);
-  // second floor windows on the face
-  for (const s of [-1, 1]) {
-    const x = doorX + s * 52 - 13, y = base - 150;
-    r('#1a110a', x - 3, y - 3, 32, 34);
-    r('#ffc861', x, y, 26, 28);
-    r('#ffe6a0', x + 2, y + 2, 9, 9);
-    r('#1a110a', x + 12, y, 2, 28);
-    r('#1a110a', x, y + 13, 26, 2);
-    r('#7a2a20', s < 0 ? x : x + 21, y, 5, 28);
-  }
-  // porch roof across the A-frame front, on two posts
-  const pTop = base - 78, pw = aHalf * 2 - 40;
-  for (let y = pTop; y < pTop + 14; y += 2) r(((y - pTop) / 2) % 2 ? P.roofB : P.roofA, doorX - pw / 2 - (y - pTop) / 2, y, pw + (y - pTop), 2);
-  r(P.roofLine, doorX - pw / 2 - 7, pTop + 14, pw + 14, 2);
-  r('rgba(0,0,0,0.3)', doorX - pw / 2, pTop + 16, pw, 10);
-  for (const s of [-1, 1]) {
-    const x = doorX + s * (pw / 2 - 8) - 3;
-    r('#3a2414', x, pTop + 16, 6, base - pTop - 24);
-    r('#5c3a22', x + 1, pTop + 16, 2, base - pTop - 24);
-  }
-  for (let x = doorX - pw / 2 - 4; x < doorX + pw / 2 + 4; x += 4) {
-    r(((x - doorX) / 4) % 2 ? '#7a5636' : '#6a4a2e', x, base - 8, 4, 8);
-    r('#2a1a0e', x + 3, base - 8, 1, 8);
-  }
-  // ground-floor windows beside the door
-  for (const s of [-1, 1]) {
-    const x = doorX + s * 58 - 14, y = base - 56;
-    r('#1a110a', x - 3, y - 3, 34, 32);
-    r('#ffc861', x, y, 28, 26);
-    r('#ffe6a0', x + 2, y + 2, 10, 9);
-    r('#c98a3a', x, y + 20, 28, 6);
-    r('#1a110a', x + 13, y, 2, 26);
-  }
-  // door with the "?" plaque
-  if (b.door) {
-    const dw = 28, dh = 50, x = doorX - dw / 2, y = base - 8 - dh;
-    r('#1a110a', x - 4, y - 4, dw + 8, dh + 4);
-    r('#3a2414', x, y, dw, dh);
-    for (let i = 4; i < dw; i += 7) r('#2a180c', x + i, y + 2, 1, dh - 4);
-    r('#d9b45a', x + dw - 7, y + dh / 2, 3, 3);
-  }
-
-  // ---------------------------------------------------- the sign
-  const sc = 3;
-  const l1 = 'MYSTERY', l2 = 'HACK';
-  const sw = textWidth(l1, sc) + 28, sh = 2 * 5 * sc + 30;
-  const sx = Math.round(Math.min(W - sw - 10, doorX + 52)), sy = Math.round(peakY + 40);
-  // posts down onto the east roof
-  for (const px of [sx + 24, sx + sw - 30]) {
-    r('#2a1a0e', px, sy + sh - 2, 6, eTop - eRoof + 12 - (sy + sh) + 2 > 0 ? eTop - eRoof + 12 - (sy + sh) : 24);
-  }
-  r('#2a1a0e', sx - 3, sy - 3, sw + 6, sh + 6);
-  r('#8f6a1c', sx, sy, sw, sh);
-  r('#e6c149', sx + 3, sy + 3, sw - 6, sh - 6);
-  r('#f5d870', sx + 3, sy + 3, sw - 6, 3);
-  for (let i = 0; i < 7; i++) r('rgba(120,80,20,0.25)', sx + 8 + h32(i, 3) * (sw - 20), sy + 6 + h32(i, 9) * (sh - 12), 6, 2);
-  drawPixelText(c, l1, sx + 14, sy + 10, sc, '#4a2610');
-  // second line: an empty gap where the S used to be, then HACK
-  const l2x = sx + 14 + 4 * sc;
-  drawPixelText(c, l2, l2x, sy + 10 + 6 * sc, sc, '#4a2610');
-  // the fallen S, lying crooked on the east roof below the sign
-  const fx = sx + sw - 10, fy = eTop - eRoof + 18;
-  r('#2a1a0e', fx - 3, fy - 3, 30, 22);
-  r('#e6c149', fx, fy, 24, 16);
-  const sG = '011100010001110';
-  for (let i = 0; i < 15; i++) if (sG[i] === '1') r('#4a2610', fx + 3 + Math.floor(i / 3) * 4, fy + 2 + (2 - (i % 3)) * 4, 4, 4);
-  // question-mark weathervane on the east wing
-  const vx = W - over - 40, vy = eTop - eRoof - 54;
-  r('#1a110a', vx, vy + 20, 3, 40);
-  drawPixelText(c, '?', vx - 5, vy, 3, '#1a110a');
-
+  paintShack(tex.getContext(), W, H, doorX, variant);
   tex.refresh();
   return { key, w: W, h: H };
 }

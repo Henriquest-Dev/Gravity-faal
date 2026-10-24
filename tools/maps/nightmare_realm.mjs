@@ -49,7 +49,7 @@ export default function build() {
     ],
     interactables: [
       { id: 'nm_lantern', kind: 'save', x: 25.2, y: 29.4, prop: 'rifts/lantern', label: 'Descansar e gravar' },
-      { id: 'gap_hint', kind: 'examine', x: 20.2, y: 27.4, text: 'O vazio entre as plataformas tem uma casa de largura. Corre (Shift) e salta (Espaço) para atravessar. Se caíres, voltas à última posição segura.' },
+      { id: 'gap_hint', kind: 'examine', x: 20.2, y: 27.4, text: 'O vazio entre as plataformas tem uma casa de largura. Corre (Shift) e salta (Espaço) para atravessar. Se caíres, voltas à última posição segura.', runes: 'O CORACAO SABE O TEU NOME', teaches: 'UD' },
       { id: 'nm_rift_a', kind: 'rift', x: 17.6, y: 24.6, pair: 'nm_rift_b', requires: { ability: 'rift' }, label: 'Abrir fenda' },
       { id: 'nm_rift_b', kind: 'rift', x: 9.5, y: 20.4, pair: 'nm_rift_a', requires: { ability: 'rift' }, label: 'Abrir fenda' },
       { id: 'void_key_pickup', kind: 'pickup', x: 5.5, y: 16.4, item: 'void_key', prop: 'rifts/chains', label: 'Apanhar a chave do vazio' },

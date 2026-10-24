@@ -160,7 +160,9 @@
    "kind": "examine",
    "x": 13.4,
    "y": 14.8,
-   "text": "Um eco de Euclydia: a fonte de cristal, tal como Bill a deixou. O que fizeste no primeiro arco ainda brilha (ou range) aqui."
+   "text": "Um eco de Euclydia: a fonte de cristal, tal como Bill a deixou. O que fizeste no primeiro arco ainda brilha (ou range) aqui.",
+   "runes": "TUDO VOLTA AO TRIANGULO",
+   "teaches": "YZ"
   }
  ],
  "onEnter": [

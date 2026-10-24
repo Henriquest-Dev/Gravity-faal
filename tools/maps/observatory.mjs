@@ -42,7 +42,7 @@ export default function build() {
     ],
     interactables: [
       { id: 'terrace_gate', kind: 'door', x: 17, y: 12.2, prop: 'euclydia/stone_door', label: 'Activar a porta geométrica', requires: { ability: 'geometry' }, requiresText: 'A porta tem um triângulo vazio no centro. Só abre a quem saiba activar geometria.' },
-      { id: 'plaque', kind: 'examine', x: 13.5, y: 10.6, text: 'Inscrição: "Alinha o céu como o desenhaste em criança". Os três anéis em volta da cúpula mostram símbolos. Consulta a carta estelar no inventário.', effects: [{ journal: 'j_plaque' }] },
+      { id: 'plaque', kind: 'examine', x: 13.5, y: 10.6, text: 'Inscrição: "Alinha o céu como o desenhaste em criança". Os três anéis em volta da cúpula mostram símbolos. Consulta a carta estelar no inventário.', effects: [{ journal: 'j_plaque' }], runes: 'AS ESTRELAS MENTEM', teaches: 'ESTN' },
       { id: 'ring_a', kind: 'ring', x: 11.5, y: 9.4, group: 'obs_rings', value: 0, requires: { ability: 'geometry' }, requiresText: 'O anel não se mexe sem geometria.', label: 'Rodar o anel (1.º)', onSolve: [{ setFlag: 'obs_rings_solved' }, { journal: 'j_rings' }] },
       { id: 'ring_b', kind: 'ring', x: 17, y: 10.6, group: 'obs_rings', value: 1, requires: { ability: 'geometry' }, requiresText: 'O anel não se mexe sem geometria.', label: 'Rodar o anel (2.º)' },
       { id: 'ring_c', kind: 'ring', x: 22.5, y: 9.4, group: 'obs_rings', value: 2, requires: { ability: 'geometry' }, requiresText: 'O anel não se mexe sem geometria.', label: 'Rodar o anel (3.º)' },

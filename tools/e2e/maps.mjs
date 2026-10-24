@@ -23,6 +23,7 @@ await page.waitForFunction(() => !!window.__gf, null, { timeout: 30000 });
 await page.waitForTimeout(1200);
 const maps = only.length ? only : await page.evaluate(() => Object.keys(window.__gf.scene.registry.list ?? {}).length >= 0 && ['euclydia_plaza', 'bill_house', 'observatory', 'euclydia_rupture', 'nightmare_realm', 'shack_exterior', 'shack_interior', 'town_center', 'forest_lake_cave', 'mcgucket_workshop', 'portal_bunker', 'town_invaded', 'time_city', 'time_archive', 'time_baby_arena', 'timeline_crossing']);
 for (const m of maps) {
+  if (process.env.PRE) await page.evaluate(process.env.PRE);
   await page.evaluate((id) => {
     const gf = window.__gf;
     const s = gf.state();

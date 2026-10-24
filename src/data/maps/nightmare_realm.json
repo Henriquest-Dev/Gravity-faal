@@ -142,7 +142,9 @@
    "kind": "examine",
    "x": 20.2,
    "y": 27.4,
-   "text": "O vazio entre as plataformas tem uma casa de largura. Corre (Shift) e salta (Espaço) para atravessar. Se caíres, voltas à última posição segura."
+   "text": "O vazio entre as plataformas tem uma casa de largura. Corre (Shift) e salta (Espaço) para atravessar. Se caíres, voltas à última posição segura.",
+   "runes": "O CORACAO SABE O TEU NOME",
+   "teaches": "UD"
   },
   {
    "id": "nm_rift_a",

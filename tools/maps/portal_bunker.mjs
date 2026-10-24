@@ -48,7 +48,7 @@ export default function build() {
       { id: 'blast_door', kind: 'door', x: 28, y: 14.9, prop: 'interiors/door', label: 'Porta blindada', requires: { flag: 'bunker_circuit_solved' }, requiresText: 'A porta blindada não tem energia. Os interruptores estão na sala a oeste.' },
       { id: 'portal_console', kind: 'portal', x: 25, y: 20.4, label: 'Ligar o estabilizador ao portal', requires: { item: 'stabilizer' }, requiresText: 'O portal precisa de um estabilizador dimensional. O McGucket sabe construir um.', effects: [{ setFlag: 'town_invaded' }, { journal: 'j_portal_opened' }, { var: 'reality', add: -2 }, { teleport: { map: 'town_invaded', spawn: 'west' } }] },
       { id: 'bunker_rest', kind: 'save', x: 6.5, y: 4.6, label: 'Descansar e gravar' },
-      { id: 'author_note', kind: 'examine', x: 31.5, y: 22.6, hidden: true, reveal: 'flashlight', text: 'Escrito a lápis por baixo da vitrine: "Se o portal abrir sem âncora, o tempo vai querer cobrar a dívida. Encontra o meu irmão."', effects: [{ journal: 'j_author_note' }] },
+      { id: 'author_note', kind: 'examine', x: 31.5, y: 22.6, hidden: true, reveal: 'flashlight', text: 'Escrito a lápis por baixo da vitrine: "Se o portal abrir sem âncora, o tempo vai querer cobrar a dívida. Encontra o meu irmão."', effects: [{ journal: 'j_author_note' }], runes: 'O PORTAL ESTA VIVO', teaches: 'JKX' },
     ],
     triggers: [
       { id: 'bill_presence', x: 16, y: 15, w: 18, h: 2, once: true, if: { not: { flag: 'town_invaded' } }, effects: [{ cutscene: 'a2_bill_ally' }, { cutscene: 'a2_bill_deal' }, { cutscene: 'a2_bill_threat' }] },

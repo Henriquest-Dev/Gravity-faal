@@ -64,7 +64,7 @@ export class Fx {
   }
 
   text(x: number, y: number, msg: string, color = '#ffffff'): void {
-    const t = this.take(this.texts, () => this.scene.add.text(0, 0, '', { fontFamily: 'monospace', fontSize: '10px', color: '#fff', stroke: '#000', strokeThickness: 3 }).setActive(false).setVisible(false), 12);
+    const t = this.take(this.texts, () => this.scene.add.text(0, 0, '', { fontFamily: '"Cipher Hand", monospace', fontSize: '12px', color: '#fff', stroke: '#000', strokeThickness: 3, resolution: 2 }).setActive(false).setVisible(false), 12);
     if (!t) return;
     t.setActive(true).setVisible(true).setText(msg).setColor(color).setPosition(x, y).setOrigin(0.5, 1).setDepth(DEPTH.overlay).setAlpha(1);
     this.scene.tweens.add({ targets: t, y: y - 18, alpha: 0, duration: 900, onComplete: () => t.setActive(false).setVisible(false) });

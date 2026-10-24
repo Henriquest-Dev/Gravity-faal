@@ -558,12 +558,6 @@
   },
   {
    "prop": "nature/flower",
-   "x": 14.5,
-   "y": 12.9,
-   "flip": true
-  },
-  {
-   "prop": "nature/flower",
    "x": 2.5,
    "y": 3.9,
    "flip": true
@@ -834,6 +828,16 @@
    "prop": "euclydia/bench",
    "label": "Descansar e gravar",
    "solid": true
+  },
+  {
+   "id": "obelisk_runes",
+   "kind": "examine",
+   "x": 13.5,
+   "y": 13.2,
+   "label": "Ler o obelisco",
+   "text": "Símbolos gravados no obelisco. Ninguém em Euclydia os sabe ler... mas Bill reconhece-os dos próprios sonhos.",
+   "runes": "OLHA PARA CIMA",
+   "teaches": "OHAPRCM"
   },
   {
    "id": "sign_plaza",
