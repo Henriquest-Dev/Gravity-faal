@@ -299,6 +299,9 @@ export type CutsceneStep =
   | { shake: number; ms?: number }
   | { flash: string; ms?: number }
   | { spawn: string; char: string; at: [number, number]; dir?: Dir; alpha?: number }
+  | { image: string; key: string; at: [number, number]; flip?: boolean }
+  | { flip: string; value: boolean }
+  | { visible: string; value: boolean }
   | { move: string; to: [number, number]; speed?: number; run?: boolean; async?: boolean }
   | { face: string; dir: Dir | string }
   | { anim: string; state: string; ms?: number }

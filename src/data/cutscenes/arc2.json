@@ -13,20 +13,96 @@
         "ms": 3600
       },
       {
+        "clock": 1105
+      },
+      {
+        "visible": "player",
+        "value": false
+      },
+      {
+        "visible": "companion",
+        "value": false
+      },
+      {
         "move": "player",
         "to": [
-          21.5,
-          19.5
+          37.5,
+          17.6
         ],
-        "speed": 400
+        "speed": 2000
       },
       {
         "move": "companion",
         "to": [
-          22.6,
-          19.9
+          38.6,
+          17.8
         ],
-        "speed": 400
+        "speed": 2000
+      },
+      {
+        "camera": [
+          37,
+          15.5
+        ],
+        "zoom": 1.15,
+        "ms": 20
+      },
+      {
+        "wait": 500
+      },
+      {
+        "image": "bus",
+        "key": "bus",
+        "at": [
+          52,
+          17.3
+        ]
+      },
+      {
+        "sfx": "transition"
+      },
+      {
+        "move": "bus",
+        "to": [
+          38,
+          17.3
+        ],
+        "speed": 150
+      },
+      {
+        "shake": 0.002,
+        "ms": 300
+      },
+      {
+        "wait": 500
+      },
+      {
+        "sfx": "open"
+      },
+      {
+        "visible": "player",
+        "value": true
+      },
+      {
+        "visible": "companion",
+        "value": true
+      },
+      {
+        "move": "player",
+        "to": [
+          37,
+          18.6
+        ],
+        "speed": 60,
+        "async": true
+      },
+      {
+        "move": "companion",
+        "to": [
+          38.6,
+          18.8
+        ],
+        "speed": 60
       },
       {
         "face": "player",
@@ -37,20 +113,95 @@
         "dir": "north"
       },
       {
+        "say": "mabel",
+        "mood": "happy",
+        "text": "Chegámos! Dipper, cheira a pinheiro e a aventura!"
+      },
+      {
+        "say": "dipper",
+        "mood": "thinking",
+        "text": "Cheira a pinheiro e a... humidade. E a alguma coisa queimada."
+      },
+      {
+        "flip": "bus",
+        "value": true
+      },
+      {
+        "sfx": "transition"
+      },
+      {
+        "move": "bus",
+        "to": [
+          54,
+          17.3
+        ],
+        "speed": 170,
+        "async": true
+      },
+      {
+        "face": "player",
+        "dir": "west"
+      },
+      {
+        "face": "companion",
+        "dir": "west"
+      },
+      {
         "camera": [
-          21.5,
-          11
+          22,
+          10
         ],
         "zoom": 0.9,
-        "ms": 20
+        "ms": 3200
+      },
+      {
+        "sfx": "clue"
       },
       {
         "wait": 700
       },
       {
+        "say": "dipper",
+        "mood": "surprised",
+        "text": "Aquilo é... a Cabana do Mistério?"
+      },
+      {
+        "say": "mabel",
+        "mood": "happy",
+        "text": "É torta, tem musgo e um letreiro a cair. É PERFEITA."
+      },
+      {
+        "remove": "bus"
+      },
+      {
         "camera": "player",
         "zoom": 1,
-        "ms": 2400
+        "ms": 1400
+      },
+      {
+        "move": "player",
+        "to": [
+          21.5,
+          19.5
+        ],
+        "speed": 70,
+        "async": true
+      },
+      {
+        "move": "companion",
+        "to": [
+          22.6,
+          19.9
+        ],
+        "speed": 70
+      },
+      {
+        "face": "player",
+        "dir": "north"
+      },
+      {
+        "face": "companion",
+        "dir": "north"
       },
       {
         "spawn": "stan",
@@ -142,9 +293,50 @@
     "id": "a2_journal",
     "steps": [
       {
-        "camera": "player",
+        "camera": [
+          12.5,
+          6.6
+        ],
         "zoom": 1.5,
-        "ms": 900
+        "ms": 1100
+      },
+      {
+        "say": "",
+        "text": "No meio do musgo do tronco há uma coisa que não devia estar ali: uma pega de metal, fria, escondida."
+      },
+      {
+        "face": "player",
+        "dir": "north"
+      },
+      {
+        "anim": "player",
+        "state": "interact",
+        "ms": 600
+      },
+      {
+        "sfx": "open"
+      },
+      {
+        "shake": 0.003,
+        "ms": 400
+      },
+      {
+        "glow": [
+          12.5,
+          6.2
+        ],
+        "r": 120,
+        "color": "#ffe6a0",
+        "ms": 1400
+      },
+      {
+        "say": "",
+        "text": "Uma tampa de madeira abre-se para dentro do tronco. Lá dentro, embrulhado em oleado, um livro gasto com uma mão de seis dedos na capa. E um número: 3."
+      },
+      {
+        "say": "dipper",
+        "mood": "surprised",
+        "text": "Mabel... MABEL! Anda ver isto!"
       },
       {
         "sfx": "clue"
@@ -156,12 +348,17 @@
           "«É difícil acreditar que já passaram seis anos desde que comecei a estudar as maravilhas estranhas de Gravity Falls.»",
           "«...Não confies em ninguém.»"
         ],
-        "ms": 4200
+        "ms": 4400
+      },
+      {
+        "camera": "player",
+        "zoom": 1.3,
+        "ms": 700
       },
       {
         "say": "dipper",
-        "mood": "surprised",
-        "text": "Uma mão de seis dedos. Um número três. Mabel, isto é verdadeiro. Alguém andou a estudar esta vila!"
+        "mood": "happy",
+        "text": "Uma mão de seis dedos. Um número três. Isto é verdadeiro. Alguém andou a estudar esta vila inteira!"
       },
       {
         "say": "mabel",
@@ -171,12 +368,17 @@
       {
         "say": "dipper",
         "mood": "thinking",
-        "text": "Há páginas sobre gnomos, sobre o lago... e uma sobre um triângulo com um olho. Está riscada a vermelho."
+        "text": "Há páginas sobre gnomos, sobre o lago, sobre símbolos... e uma sobre um triângulo com um olho. Está riscada a vermelho."
       },
       {
         "say": "mabel",
         "mood": "scared",
         "text": "Riscado a vermelho é mau, não é? Na escola, vermelho era sempre mau."
+      },
+      {
+        "say": "dipper",
+        "mood": "thinking",
+        "text": "Os símbolos da última página... são letras. Uma cifra. Se encontrarmos as pedras certas, conseguimos lê-la."
       },
       {
         "camera": "player",

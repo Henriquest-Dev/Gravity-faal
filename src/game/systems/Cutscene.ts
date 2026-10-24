@@ -41,6 +41,8 @@ export interface CutsceneHost {
 export class Director {
   private skipping = false;
   private spawned = new Map<string, Actor>();
+  private images = new Map<string, Phaser.GameObjects.Image>();
+  private hidden = new Set<Actor>();
   private wake = new Set<() => void>();
   private moving: { a: Actor; tw: Phaser.Tweens.Tween; to: [number, number] }[] = [];
   private current: CutsceneStep | null = null;
@@ -84,6 +86,11 @@ export class Director {
     const cam = sc.cameras.main;
     for (const a of this.spawned.values()) a.destroy();
     this.spawned.clear();
+    for (const i of this.images.values()) i.destroy();
+    this.images.clear();
+    // nobody stays invisible once the scene is over
+    for (const a of this.hidden) { a.sprite.setVisible(true); a.shadow.setVisible(true); }
+    this.hidden.clear();
     cam.resetFX();
     cam.zoomTo(this.host.baseZoom(), this.skipping ? 1 : 500);
     this.host.followPlayer();
@@ -139,7 +146,28 @@ export class Director {
       this.spawned.set(st.spawn, a);
       return;
     }
+    if ('image' in st) {
+      // a moving set piece (a bus, a falling sign): drawn at its feet like everything else
+      const img = sc.add.image(st.at[0] * TILE, st.at[1] * TILE, st.key).setOrigin(0.5, 1).setFlipX(!!st.flip).setDepth(st.at[1] * TILE);
+      this.images.get(st.image)?.destroy();
+      this.images.set(st.image, img);
+      return;
+    }
+    if ('visible' in st) {
+      const a = this.find(st.visible);
+      a?.sprite.setVisible(st.value);
+      a?.shadow.setVisible(st.value);
+      if (st.value === false && a) this.hidden.add(a);
+      else if (a) this.hidden.delete(a);
+      return;
+    }
+    if ('flip' in st) {
+      this.images.get(st.flip)?.setFlipX(st.value);
+      return;
+    }
     if ('remove' in st) {
+      this.images.get(st.remove)?.destroy();
+      this.images.delete(st.remove);
       this.spawned.get(st.remove)?.destroy();
       this.spawned.delete(st.remove);
       return;
@@ -166,6 +194,18 @@ export class Director {
       a.playFor(true);
       await this.sleep(st.ms ?? 0);
       a.gesturing = false;
+      return;
+    }
+    if ('move' in st && this.images.has(st.move)) {
+      const img = this.images.get(st.move)!;
+      const to: [number, number] = [st.to[0] * TILE, st.to[1] * TILE];
+      if (this.skipping) { img.setPosition(to[0], to[1]); return; }
+      const d = Math.hypot(to[0] - img.x, to[1] - img.y);
+      const p = new Promise<void>((res) => {
+        sc.tweens.add({ targets: img, x: to[0], y: to[1], duration: (d / (st.speed ?? 120)) * 1000, ease: 'Sine.easeInOut', onUpdate: () => img.setDepth(img.y), onComplete: () => res() });
+        this.wake.add(res);
+      });
+      if (!st.async) await p;
       return;
     }
     if ('move' in st) {

@@ -41,7 +41,8 @@ sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "platforms;android-36" "bui
 Outras ferramentas:
 
 ```bash
-npm run assets:extract      # regenera public/assets a partir do catálogo .docx (Python 3 + Pillow)
+npm run assets:extract      # regenera public/assets a partir do catálogo .docx (Python 3 + Pillow);
+                            # depois: python3 tools/stabilize_sheets.py && python3 tools/rebuild_bill.py
 npm run maps:build          # regenera src/data/maps/*.json a partir de tools/maps/*.mjs
 # testes no navegador (com `npm run dev` a correr; usam Playwright/Chromium):
 npm run e2e:maps            # captura os 16 mapas e reporta erros da consola
@@ -73,9 +74,23 @@ npm run build:pages         # actualiza play/ (a versão publicada); fazer commi
 | Saltar cena | Esc | «Saltar», no canto superior direito |
 | Depuração | F3 (ou `?debug`) | Opções → Modo de depuração |
 
+Esquivar (L) é um *dash* de cerca de três casas com rasto e invulnerabilidade curta. Correr funciona com
+Shift, com o botão de correr ou com o joystick empurrado até ao fim.
+
 Durante diálogos e menus o jogo usa um contexto de controlos próprio: a tecla que avança uma fala nunca
 salta nem ataca, e teclas mantidas premidas ao mudar de contexto são ignoradas até serem largadas.
 O multitoque é real: cada dedo mantém o seu `pointerId` (largar um botão não cancela o joystick).
+
+## Tipo de letra, cifra e horas do dia
+
+- **Cipher Hand** (`src/fonts/`, gerado por `tools/make_font.py`): capitais angulosas ao estilo da caligrafia
+  de Bill, usadas em todo o jogo (HUD, diálogos, menus, cartões, título). Desenhada de raiz, traço a traço.
+- **Cifra de Bill** (`src/game/ui/runes.ts`): um símbolo por letra. Há nove inscrições no mundo; as
+  pedras-chave ensinam letras e o separador «Cifra» do diário mostra o alfabeto decifrado. Com as 26 letras,
+  a mensagem escondida fica no diário.
+- **Dia e noite** (`src/core/daytime.ts`): um segundo real é um minuto de jogo. Os exteriores passam por
+  madrugada, manhã, tarde, entardecer e noite; os olhos na floresta e os pirilampos só aparecem no escuro.
+  Interiores e outras dimensões mantêm a sua luz.
 
 ## Organização
 
@@ -85,6 +100,9 @@ tools/extract_catalog.py    pipeline de recursos → public/assets (+ metadata/m
 tools/maps/*.mjs            autoria dos 16 mapas (pintura deliberada da grelha + objectos)
 tools/build-maps.mjs        gera src/data/maps/*.json
 tools/e2e/*.mjs             testes no navegador
+tools/make_font.py          gera o tipo de letra Cipher Hand
+tools/stabilize_sheets.py   alinha os quadros de andar/correr (corrige oscilação lateral)
+tools/rebuild_bill.py       recompõe andar/correr do Bill com o triângulo direito
 public/assets/              personagens, animações, objectos (+ variantes @2/@3), texturas, cenários de referência
 src/core/                   lógica pura e testável: grelha/colisões, pathfinding, estados, condições,
                             efeitos, missões, diálogos, finais, gravações

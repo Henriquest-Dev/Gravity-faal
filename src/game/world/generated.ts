@@ -5,7 +5,7 @@ import Phaser from 'phaser';
  * gradients, fog, shadows and bridge decks. Every visible object of the world
  * comes from the catalogue.
  */
-export const GENERATED = ['px', 'shadow', 'missing', 'light', 'cone', 'fog', 'vignette', 'eyes', 'groundglow', 'bridge_*'];
+export const GENERATED = ['px', 'shadow', 'missing', 'light', 'cone', 'fog', 'vignette', 'eyes', 'groundglow', 'bridge_*', 'bus'];
 
 function canvas(scene: Phaser.Scene, key: string, w: number, h: number, draw: (c: CanvasRenderingContext2D) => void, smooth = false): void {
   if (scene.textures.exists(key)) return;
@@ -103,6 +103,41 @@ export function makeGenerated(scene: Phaser.Scene): void {
     c.fillStyle = g;
     c.fillRect(0, -16, 48, 48);
   }, true);
+
+  // the bus that brings the twins: an old country coach seen from the side, nose to the west
+  canvas(scene, 'bus', 168, 78, (c) => {
+    const W = 168;
+    r(c, 'rgba(0,0,0,0.35)', 10, 72, W - 16, 6);
+    // body
+    r(c, '#2a2a2e', 6, 14, W - 10, 52);
+    r(c, '#d9cfa8', 8, 16, W - 14, 40);
+    r(c, '#b8ad86', 8, 46, W - 14, 10);
+    r(c, '#3f6a6a', 8, 40, W - 14, 6);
+    r(c, '#e8e0c0', 8, 16, W - 14, 3);
+    // nose and windscreen
+    r(c, '#2a2a2e', 2, 22, 8, 40);
+    r(c, '#a8c8d0', 8, 20, 16, 18);
+    r(c, '#d8eef2', 10, 22, 5, 8);
+    r(c, '#ffe6a0', 4, 50, 5, 5);
+    // destination board
+    r(c, '#1a1a1e', 30, 8, 76, 10);
+    for (let i = 0; i < 13; i++) r(c, '#f0b84a', 34 + i * 5.4, 11, 3, 4);
+    // passenger windows with the light on inside
+    for (let x = 30; x < W - 14; x += 18) {
+      r(c, '#2a2a2e', x - 1, 21, 16, 17);
+      r(c, '#f3d98a', x, 22, 14, 15);
+      r(c, '#fff0c0', x + 1, 23, 5, 5);
+    }
+    // door
+    r(c, '#2a2a2e', 26, 21, 2, 35);
+    // wheels
+    for (const x of [30, W - 36]) {
+      r(c, '#121214', x - 12, 54, 24, 18);
+      r(c, '#121214', x - 9, 51, 18, 24);
+      r(c, '#5a5a60', x - 5, 58, 10, 10);
+      r(c, '#8a8a90', x - 2, 61, 4, 4);
+    }
+  });
 
   // bridge decks: weathered planks with nails and posts, rails only on outer edges
   const plank = ['#6f4a2a', '#7c5532', '#5f3f24', '#6a4730'];

@@ -34,12 +34,13 @@ describe('cutscenes', () => {
       for (const st of cs.steps as CutsceneStep[]) {
         const where = `${cs.id}: ${JSON.stringify(st).slice(0, 60)}`;
         if ('dialogue' in st) expect(DIALOGUES[st.dialogue], where).toBeDefined();
+        if ('image' in st) spawned.add(st.image);
         if ('spawn' in st) {
           expect(CHARACTERS[st.char], where).toBeDefined();
           spawned.add(st.spawn);
         }
         if ('say' in st && st.say) expect(CHARACTERS[st.say], where).toBeDefined();
-        for (const key of ['move', 'face', 'anim', 'alpha', 'remove'] as const) {
+        for (const key of ['move', 'face', 'anim', 'alpha', 'remove', 'flip', 'visible'] as const) {
           const ref = (st as Record<string, unknown>)[key];
           if (typeof ref === 'string') {
             const ok = spawned.has(ref) || ref === 'player' || ref === 'companion' || ref.startsWith('npc:');
