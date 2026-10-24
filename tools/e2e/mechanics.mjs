@@ -57,10 +57,10 @@ const hold = async (page, keys, ms) => { for (const k of keys) await page.keyboa
     await page.waitForTimeout(100);
     return { speed: v.reduce((a, b) => a + b, 0) / v.length, anim };
   };
-  await place(page, 24, 16.5);
+  await place(page, 24, 20.5);
   const st = await sampleSpeed(['KeyD']);
   check('walk east plays walk:east animation', (st.anim ?? '').includes('walk:east'), st.anim);
-  await place(page, 24, 16.5);
+  await place(page, 24, 20.5);
   const dg = await sampleSpeed(['KeyD', 'KeyS']);
   const straight = st.speed;
   check('diagonal speed equals straight speed (±5%)', Math.abs(dg.speed - st.speed) / st.speed < 0.05, `straight ${st.speed.toFixed(1)} px/s, diagonal ${dg.speed.toFixed(1)} px/s`);
@@ -69,7 +69,7 @@ const hold = async (page, keys, ms) => { for (const k of keys) await page.keyboa
   check('last facing kept after stopping', ['east', 'south'].includes(b.dir), b.dir);
 
   // run uses its own cycle and is faster
-  await place(page, 24, 16.5);
+  await place(page, 24, 20.5);
   const rn = await sampleSpeed(['ShiftLeft', 'KeyD']);
   check('run uses the run sheet', (rn.anim ?? '').includes(':run:'), rn.anim);
   check('run is faster than walk', rn.speed > straight * 1.4, `${rn.speed.toFixed(0)} vs ${straight.toFixed(0)} px/s`);
@@ -77,13 +77,13 @@ const hold = async (page, keys, ms) => { for (const k of keys) await page.keyboa
   check('animation rate follows ground speed (no sliding)', rate > 0.3 && rate <= 1.6, `timeScale ${rate}`);
 
   // building wall: walking north into the Shack stops at its footprint
-  await place(page, 17.5, 12.6);
+  await place(page, 17.5, 16.6);
   await hold(page, ['KeyW'], 900);
   b = await P(page);
-  check('Shack wall blocks (feet stop at footprint)', b.y >= 11 * 32 && b.y < 11 * 32 + 12, `y=${b.y.toFixed(1)} footprint bottom=352`);
+  check('Shack wall blocks (feet stop at footprint)', b.y >= 15 * 32 && b.y < 15 * 32 + 12, `y=${b.y.toFixed(1)} footprint bottom=480`);
 
   // behind the building: drawn under it and the façade fades
-  await place(page, 19.5, 5.6);
+  await place(page, 19.5, 9.6);
   await page.waitForTimeout(400);
   const behind = await page.evaluate(() => {
     const sc = window.__gf.scene;
@@ -93,7 +93,7 @@ const hold = async (page, keys, ms) => { for (const k of keys) await page.keyboa
   check('behind the Shack the player is drawn under it', behind.pd < behind.bd, JSON.stringify(behind));
   check('façade turns translucent when the player is behind', behind.alpha < 0.9, `alpha ${behind.alpha.toFixed(2)}`);
   await page.screenshot({ path: `${out}/m-behind-shack.png` });
-  await place(page, 19.5, 12.4);
+  await place(page, 19.5, 16.4);
   await page.waitForTimeout(400);
   const front = await page.evaluate(() => {
     const sc = window.__gf.scene;
@@ -105,7 +105,7 @@ const hold = async (page, keys, ms) => { for (const k of keys) await page.keyboa
   // pine: in front of the trunk draws over, behind draws under
   const pine = await page.evaluate(() => {
     const sc = window.__gf.scene;
-    const f = sc.built.fades.find((x) => x.baseY !== Infinity && x.img.texture.key.includes('pine') && x.img.x > 400 && x.img.x < 1100 && x.baseY > 480 && x.baseY < 900);
+    const f = sc.built.fades.filter((x) => x.baseY !== Infinity && x.img.texture.key.includes('pine')).sort((u, v) => Math.hypot(u.img.x - 33.6 * 32, u.baseY - 20.2 * 32) - Math.hypot(v.img.x - 33.6 * 32, v.baseY - 20.2 * 32))[0];
     return f ? { x: f.img.x, y: f.baseY, depth: f.img.depth } : null;
   });
   if (pine) {
@@ -114,7 +114,7 @@ const hold = async (page, keys, ms) => { for (const k of keys) await page.keyboa
     let p1 = await P(page);
     check('in front of a pine trunk: drawn over the tree', p1.depth > pine.depth, `player ${p1.depth.toFixed(0)} tree ${pine.depth.toFixed(0)}`);
     await place(page, (pine.x) / 32, (pine.y - 16) / 32);
-    await page.waitForTimeout(400);
+    await page.waitForTimeout(1200);
     p1 = await P(page);
     const al = await page.evaluate((px) => window.__gf.scene.built.fades.find((f) => Math.abs(f.img.x - px) < 1).img.alpha, pine.x);
     check('behind a pine: drawn under it, canopy translucent', p1.depth < pine.depth && al < 0.9, `alpha ${al.toFixed(2)}`);
@@ -127,7 +127,7 @@ const hold = async (page, keys, ms) => { for (const k of keys) await page.keyboa
   } else check('pine found for depth test', false);
 
   // water: shallow slows, deep swims, exit only on banks
-  await place(page, 31.5, 18.6);
+  await place(page, 31.5, 22.6);
   await hold(page, ['KeyS'], 900);
   b = await P(page);
   check('deep water switches to swimming', b.state === 'swim' && (b.anim ?? '').includes('swim'), `${b.state} ${b.anim}`);
@@ -141,15 +141,15 @@ const hold = async (page, keys, ms) => { for (const k of keys) await page.keyboa
   check('climbs out on the bank and walks again', b.state !== 'swim', b.state);
 
   // bridge: walkers on the deck at level 1, swimmers under it at level 0
-  await place(page, 21.8, 18.4);
+  await place(page, 21.8, 22.4);
   await hold(page, ['KeyS'], 500);
   b = await P(page);
   check('stepping onto the bridge raises to deck level', b.level === 1, `level ${b.level} y ${(b.y / 32).toFixed(2)}`);
   await page.screenshot({ path: `${out}/m-bridge.png` });
-  await hold(page, ['KeyS'], 1200);
+  await hold(page, ['KeyS'], 2400);
   b = await P(page);
   check('leaving the bridge returns to ground level', b.level === 0 && b.state !== 'swim', `level ${b.level} ${b.state}`);
-  await place(page, 25.5, 20.6);
+  await place(page, 25.5, 24.6);
   await page.keyboard.down('KeyA');
   await page.waitForFunction(() => window.__gf.scene.player.x < 20.8 * 32, null, { timeout: 20000 }).catch(() => {});
   await page.keyboard.up('KeyA');
@@ -169,16 +169,16 @@ const hold = async (page, keys, ms) => { for (const k of keys) await page.keyboa
   await page.keyboard.up('KeyW');
   b = await P(page);
   check('jumping clears the log', b.y < log.y, `y ${b.y.toFixed(0)} log top ${log.y.toFixed(0)}`);
-  await place(page, 17.5, 12.6);
+  await place(page, 17.5, 16.6);
   await page.keyboard.down('KeyW');
   await page.keyboard.press('Space');
   await page.waitForTimeout(700);
   await page.keyboard.up('KeyW');
   b = await P(page);
-  check('jumping does not pass through the Shack', b.y >= 11 * 32, `y ${b.y.toFixed(0)}`);
+  check('jumping does not pass through the Shack', b.y >= 15 * 32, `y ${b.y.toFixed(0)}`);
 
   // dialogue: E talks, Space does not jump during dialogue, Enter advances
-  await place(page, 26.5, 14.2);
+  await place(page, 26.5, 17.3);
   await page.evaluate(() => { window.__gf.scene.player.dir = 'north'; });
   await page.waitForTimeout(150);
   await page.keyboard.press('KeyE');
@@ -199,7 +199,7 @@ const hold = async (page, keys, ms) => { for (const k of keys) await page.keyboa
   check('the Enter that closed the dialogue did not trigger an action', b.state === 'idle' || b.state === 'walk', b.state);
 
   // switching characters keeps both on valid ground
-  await place(page, 24, 16.5);
+  await place(page, 24, 20.5);
   await page.waitForTimeout(300);
   await page.keyboard.press('KeyQ');
   await page.waitForTimeout(300);
@@ -210,13 +210,13 @@ const hold = async (page, keys, ms) => { for (const k of keys) await page.keyboa
   check('Q switches to Mabel and both stand on valid tiles', sw.ch === 'mabel' && sw.ok && sw.cok, JSON.stringify(sw));
 
   // grapple with range and a valid target
-  await place(page, 33.5, 22.6);
+  await place(page, 33.5, 26.6);
   await page.evaluate(() => { window.__gf.state().abilities.push('grapple'); window.__gf.state().selectedAbility.mabel = 'grapple'; window.__gf.state().energy = 10; window.__gf.scene.player.dir = 'south'; });
   await page.keyboard.press('KeyK');
   await page.waitForTimeout(700);
   b = await P(page);
-  check('Mabel grapples to the islet post within range', Math.abs(b.x / 32 - 34.5) < 1 && Math.abs(b.y / 32 - 25.9) < 1, `at ${(b.x / 32).toFixed(1)},${(b.y / 32).toFixed(1)}`);
-  await place(page, 24, 16.5);
+  check('Mabel grapples to the islet post within range', Math.abs(b.x / 32 - 34.5) < 1 && Math.abs(b.y / 32 - 29.9) < 1, `at ${(b.x / 32).toFixed(1)},${(b.y / 32).toFixed(1)}`);
+  await place(page, 24, 20.5);
   await page.evaluate(() => { window.__gf.scene.player.dir = 'north'; window.__gf.state().energy = 10; });
   await page.waitForTimeout(800);
   const before = await P(page);
@@ -239,7 +239,7 @@ const hold = async (page, keys, ms) => { for (const k of keys) await page.keyboa
   const ctx = await browser.newContext({ viewport: { width: 844, height: 390 }, hasTouch: true, isMobile: true, deviceScaleFactor: 2 });
   const page = await ctx.newPage();
   await boot(page);
-  await place(page, 24, 16.5);
+  await place(page, 24, 20.5);
   await page.waitForTimeout(300);
   const visible = await page.$eval('.touch', (e) => !e.classList.contains('hidden'));
   check('touch controls visible on a touch device', visible);

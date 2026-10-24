@@ -42,9 +42,11 @@ export interface GameState {
   arc2Ending: Arc2Ending | null;
   playTime: number;
   deaths: number;
+  /** minutes of the day (see daytime.ts) */
+  clock: number;
 }
 
-export const SAVE_VERSION = 3;
+export const SAVE_VERSION = 4;
 
 export function createState(arc: 1 | 2 = 1): GameState {
   const events = {} as Record<EventList, string[]>;
@@ -79,6 +81,8 @@ export function createState(arc: 1 | 2 = 1): GameState {
     arc2Ending: null,
     playTime: 0,
     deaths: 0,
+    // Euclydia's story opens in the morning sun; the twins arrive at dusk
+    clock: arc === 1 ? 600 : 1140,
   };
   for (const c of s.party) s.hp[c] = s.maxHp;
   return s;

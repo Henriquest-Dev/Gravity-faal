@@ -1,12 +1,12 @@
 {
   "_doc": "Animation sources per character. dir sheets have rows south/west/east/north. Single-row states reference a collective sheet row; 'facing' tells which way that row looks so it is never reused as another direction (west uses a horizontal flip of an east-facing row only).",
   "bill_child": {
-    "name": "Bill", "playable": true, "walkSpeed": 88, "runSpeed": 150,
+    "name": "Bill", "playable": true, "walkSpeed": 88, "runSpeed": 168,
     "walk": "characters/bill_child/walk", "run": "characters/bill_child/run", "ability": "characters/bill_child/ability",
     "idle": { "sheet": "protag_idle", "row": 0, "facing": "south" },
     "hurt": { "sheet": "protag_hurt", "row": 0, "facing": "south" },
     "jump": { "sheet": "protag_jump", "row": 0, "facing": "south" },
-    "dodge": { "sheet": "protag_dodge", "row": 0, "facing": "south" },
+    "dodge": { "sheet": "protag_dodge", "row": 0, "facing": "east" },
     "climb": { "sheet": "protag_climb", "row": 0, "facing": "north" },
     "swim": { "sheet": "protag_swim", "row": 0, "facing": "east" }
   },
@@ -17,22 +17,22 @@
     "hurt": { "sheet": "protag_hurt", "row": 1, "facing": "south" }
   },
   "dipper": {
-    "name": "Dipper", "playable": true, "walkSpeed": 92, "runSpeed": 160,
+    "name": "Dipper", "playable": true, "walkSpeed": 92, "runSpeed": 172,
     "walk": "characters/dipper/walk", "run": "characters/dipper/run", "ability": "characters/dipper/ability",
     "idle": { "sheet": "protag_idle", "row": 2, "facing": "south" },
     "hurt": { "sheet": "protag_hurt", "row": 2, "facing": "south" },
     "jump": { "sheet": "protag_jump", "row": 2, "facing": "south" },
-    "dodge": { "sheet": "protag_dodge", "row": 2, "facing": "south" },
+    "dodge": { "sheet": "protag_dodge", "row": 2, "facing": "east" },
     "climb": { "sheet": "protag_climb", "row": 2, "facing": "north" },
     "swim": { "sheet": "protag_swim", "row": 2, "facing": "east" }
   },
   "mabel": {
-    "name": "Mabel", "playable": true, "walkSpeed": 92, "runSpeed": 160,
+    "name": "Mabel", "playable": true, "walkSpeed": 92, "runSpeed": 172,
     "walk": "characters/mabel/walk", "run": "characters/mabel/run", "ability": "characters/mabel/ability",
     "idle": { "sheet": "protag_idle", "row": 3, "facing": "south" },
     "hurt": { "sheet": "protag_hurt", "row": 3, "facing": "south" },
     "jump": { "sheet": "protag_jump", "row": 3, "facing": "south" },
-    "dodge": { "sheet": "protag_dodge", "row": 3, "facing": "south" },
+    "dodge": { "sheet": "protag_dodge", "row": 3, "facing": "east" },
     "climb": { "sheet": "protag_climb", "row": 3, "facing": "north" },
     "swim": { "sheet": "protag_swim", "row": 3, "facing": "east" }
   },

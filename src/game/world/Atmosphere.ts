@@ -84,9 +84,15 @@ export class Atmosphere {
   private coneState = { x: 0, y: 0, angle: 0, range: 140 };
   private t = 0;
   reduced = false;
+  /** exteriors follow the day/night cycle; interiors and other dimensions keep their own light */
+  readonly cycle: boolean;
+  darkness = 1;
+  private base: { night: number; nightColor: number; vignette: number; fog: number };
 
   constructor(private scene: Phaser.Scene, def: MapDef, built: BuiltMap, private grid: Grid) {
     this.cfg = ambientConfig(def);
+    this.base = { night: this.cfg.night, nightColor: this.cfg.nightColor, vignette: this.cfg.vignette, fog: this.cfg.fog };
+    this.cycle = ['forest', 'town', 'euclid'].includes(def.theme) && !def.ambient?.strange && !def.ambient?.fixedTime;
     const cam = scene.cameras.main;
     this.night = scene.add.renderTexture(0, 0, Math.ceil(cam.width / cam.zoom) + 4, Math.ceil(cam.height / cam.zoom) + 4).setOrigin(0, 0).setDepth(ATMOS_DEPTH.night);
     this.stamp = scene.make.image({ key: 'light', add: false }).setOrigin(0.5, 0.5);
@@ -96,6 +102,21 @@ export class Atmosphere {
     this.collectLights(def, built);
     this.placeEyes(def);
     this.resize();
+  }
+
+  /**
+   * Daylight from the clock: by day only a faint warm haze remains, dawn and
+   * dusk tint the world rose and amber, and the night takes the map's own colour.
+   */
+  setDaylight(dark: number, twilight: number): void {
+    if (!this.cycle) return;
+    this.darkness = dark;
+    this.cfg.night = 0.03 + (this.base.night - 0.03) * dark + twilight * 0.17;
+    const day = mixColor(0x2a2010, 0x6e3018, twilight);
+    this.cfg.nightColor = mixColor(day, this.base.nightColor, Math.max(0, dark - twilight * 0.4));
+    // the day is open and clear; the frame closes in as night falls
+    this.vignette.setAlpha(this.base.vignette * (0.45 + 0.55 * dark));
+    this.fog.setAlpha(this.base.fog * (0.4 + 0.6 * Math.max(dark, twilight)));
   }
 
   get config(): AmbientConfig {
@@ -214,7 +235,7 @@ export class Atmosphere {
         if (l.glow && !this.reduced) {
           const g = this.glows[glowIdx] ?? this.makeGlow();
           glowIdx++;
-          g.setVisible(true).setPosition(l.x, l.y).setScale((l.r * 0.8) / 64).setTint(l.color).setAlpha(l.glow * k * 0.55);
+          g.setVisible(true).setPosition(l.x, l.y).setScale((l.r * 0.8) / 64).setTint(l.color).setAlpha(l.glow * k * 0.55 * (this.cycle && !l.follow && !l.until ? 0.15 + 0.85 * this.darkness : 1));
         }
       }
       if (now < this.coneUntil) {
@@ -229,6 +250,8 @@ export class Atmosphere {
     for (const e of this.eyes) {
       if (now < e.next) continue;
       if (!e.open) {
+        // the woods only watch you after dark
+        if (this.cycle && this.darkness < 0.6) { e.next = now + 2000; continue; }
         const spot = e.spots[Math.floor(Math.random() * e.spots.length)];
         if (Math.hypot(spot.x - player.x, spot.y - player.y) < 140) { e.next = now + 800; continue; }
         e.img.setPosition(spot.x, spot.y).setAlpha(0);
@@ -261,4 +284,10 @@ export class Atmosphere {
     this.eyes = [];
     this.lights.length = 0;
   }
+}
+
+function mixColor(a: number, b: number, t: number): number {
+  const k = Math.max(0, Math.min(1, t));
+  const ch = (sh: number) => Math.round(((a >> sh) & 255) + ((((b >> sh) & 255) - ((a >> sh) & 255)) * k));
+  return (ch(16) << 16) | (ch(8) << 8) | ch(0);
 }

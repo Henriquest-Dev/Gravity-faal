@@ -107,6 +107,7 @@ function applyOne(s: GameState, e: Effect, data: RuleData, mapId: string, out: S
   } else if ('toast' in e) out.push({ type: 'toast', text: e.toast });
   else if ('checkpoint' in e) out.push({ type: 'checkpoint' });
   else if ('cutscene' in e) out.push({ type: 'cutscene', id: e.cutscene });
+  else if ('clock' in e) s.clock = e.clock;
 }
 
 const VAR_LIMITS = { min: -20, max: 20 };
@@ -209,6 +210,7 @@ export function endingVariations(rules: EndingRules, s: GameState): string[] {
 export function startArc2(s: GameState, data: RuleData): void {
   const ending = s.arc1Ending ?? 'exile';
   s.arc = 2;
+  s.clock = 1140;
   s.mapId = 'shack_exterior';
   s.party = ['dipper', 'mabel'];
   s.character = 'dipper';

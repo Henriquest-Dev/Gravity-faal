@@ -28,6 +28,10 @@ const G: Record<string, string> = {
   journal_scan: '<path d="M4 4 h7 v16 H4 Z"/><path d="M13 4 h7 v16 h-7 Z"/><path d="M7 9 l1.5 -2.5 l1.5 2.5 l-1.5 3 z"/>',
   grapple: '<path d="M12 3 v13"/><path d="M5 12 a7 7 0 0 0 14 0"/><path d="M9 6 h6"/><circle cx="12" cy="3" r="1"/>',
   charm: '<path d="M12 3 l2.6 5.6 6 .7 -4.4 4.1 1.2 6 -5.4 -3 -5.4 3 1.2 -6 -4.4 -4.1 6 -.7 Z"/>',
+  // time of day
+  sun: '<circle cx="12" cy="12" r="4.5"/><path d="M12 2 v3"/><path d="M12 19 v3"/><path d="M2 12 h3"/><path d="M19 12 h3"/><path d="M4.9 4.9 l2.1 2.1"/><path d="M17 17 l2.1 2.1"/><path d="M4.9 19.1 l2.1 -2.1"/><path d="M17 7 l2.1 -2.1"/>',
+  dusk: '<path d="M3 17 h18"/><path d="M6.5 17 a5.5 5.5 0 0 1 11 0"/><path d="M12 6 v2.5"/><path d="M5 9.5 l1.7 1.7"/><path d="M19 9.5 l-1.7 1.7"/><path d="M7 21 h10"/>',
+  moon: '<path d="M20 14.5 A8.5 8.5 0 1 1 9.5 4 a6.8 6.8 0 0 0 10.5 10.5 Z"/>',
   // vitality pips
   pip_tri: '<path d="M12 3 L22 20 H2 Z"/>',
   pip_pine: '<path d="M12 2 L19 12 h-3 l4 6 H4 l4 -6 H5 Z"/><path d="M12 18 v4"/>',

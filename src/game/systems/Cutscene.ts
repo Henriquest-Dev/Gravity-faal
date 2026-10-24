@@ -23,6 +23,8 @@ export interface CutsceneHost {
   atmos: Atmosphere | null;
   /** player, companion and map NPCs by reference */
   actor(ref: string): Actor | null;
+  /** every actor on the map (player, companion, NPCs) */
+  actors(): Actor[];
   talk(dialogueId: string, done: () => void): void;
   signals(s: Signal[]): void;
   /** camera zoom the area normally uses */
@@ -116,6 +118,10 @@ export class Director {
       h.signals(applyEffects(h.state, st.effects as Effect[], h.rules));
       return;
     }
+    if ('clock' in st) {
+      h.state.clock = st.clock;
+      return;
+    }
     if ('dialogue' in st) {
       // interactive: never skipped
       await new Promise<void>((res) => h.talk(st.dialogue, res));
@@ -125,7 +131,6 @@ export class Director {
       buildCharacterAnims(sc, st.char);
       const a = new Actor(sc, st.char, st.at[0] * TILE, st.at[1] * TILE);
       a.dir = (st.dir ?? 'south') as Dir;
-      a.calm = /^cast_/.test(CHARACTERS[st.char]?.idle?.sheet ?? '');
       a.force('idle');
       a.playFor(true);
       a.sprite.setAlpha(st.alpha ?? 1);
@@ -157,10 +162,10 @@ export class Director {
       const a = this.find(st.anim);
       if (!a) return;
       a.force(st.state as never, (st.ms ?? 800) / 1000);
-      a.calm = false;
+      a.gesturing = true;
       a.playFor(true);
       await this.sleep(st.ms ?? 0);
-      a.calm = /^cast_/.test(CHARACTERS[a.charId]?.idle?.sheet ?? '');
+      a.gesturing = false;
       return;
     }
     if ('move' in st) {
@@ -221,8 +226,11 @@ export class Director {
       const def = { id: '_cs', entries: [{ start: 'a' }], nodes: { a: { id: 'a', speaker: name, text: st.text, mood: st.mood } } };
       const r: DialogueRunner = new Runner(def, h.state, h.rules);
       r.start();
-      // the speaking actor turns to whoever it is with, and gestures while it talks
+      // whoever speaks gestures for the length of the line
+      const speaker = id ? [...this.spawned.values(), ...h.actors()].find((a) => a.charId === id) : undefined;
+      if (speaker && speaker.state === 'idle') { speaker.gesturing = true; speaker.playFor(true); }
       await new Promise<void>((res) => h.ui.openDialogue(r, res));
+      if (speaker) { speaker.gesturing = false; speaker.playFor(true); }
       return;
     }
     if ('camera' in st) {

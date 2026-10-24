@@ -4,6 +4,7 @@ import { DialogueRunner } from '../../core/dialogue';
 import { TILE } from '../../core/grid';
 import { animRate, dirVector, facingFor, isLocomotion, normalizeInput } from '../../core/motion';
 import { findPath, tileCenter } from '../../core/path';
+import { darknessAt, normClock, twilightAt } from '../../core/daytime';
 import { applyEffects, endingVariations, evaluateEnding, updateQuests, type Signal } from '../../core/rules';
 import { createState, objKey, record } from '../../core/state';
 import type { DialogueDef, Dir, Effect, MapDef } from '../../core/types';
@@ -99,6 +100,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
       get state() { return session.state; },
       get atmos() { return self.atmos; },
       actor: (ref) => ref === 'player' ? this.player : ref === 'companion' ? this.companion : this.npcs.find((n) => `npc:${n.id}` === ref)?.actor ?? null,
+      actors: () => [this.player, ...(this.companion ? [this.companion] : []), ...this.npcs.map((n) => n.actor)],
       talk: (id, done) => this.talk(id, done),
       signals: (sg) => this.handleSignals(sg),
       baseZoom: () => this.zoomBase,
@@ -112,6 +114,8 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
   private director!: Director;
   private csQueue: string[] = [];
   private csPending = 0;
+  private ghostT = 0;
+  private pendingTransition: { mapId: string; spawn?: string } | null = null;
   private zoomBase = 1;
 
   /** Plays a cutscene if its condition holds and it has not been seen (unless it repeats). */
@@ -301,6 +305,12 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     this.setupAmbient(def);
     this.busy = false;
     this.autosave();
+    if (this.pendingTransition) {
+      const t = this.pendingTransition;
+      this.pendingTransition = null;
+      this.time.delayedCall(10, () => this.transition(t.mapId, t.spawn));
+      return;
+    }
     if (this.csQueue.length) this.time.delayedCall(500, () => { const next = this.csQueue.shift(); if (next) this.playCutscene(next); });
   }
 
@@ -328,8 +338,10 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
       built.destroyables.push(m);
       const drift = () => {
         m.setPosition(this.player.x + (Math.random() - 0.5) * 560, this.player.y + (Math.random() - 0.3) * 320).setAlpha(0);
+        // fireflies come out after dusk
+        const lit = amb.strange || !this.atmos?.cycle ? 0.7 : Math.max(0, (this.atmos.darkness - 0.4) / 0.6) * 0.7;
         this.tweens.add({
-          targets: m, alpha: { from: 0, to: 0.7 }, x: m.x + (Math.random() - 0.5) * 40, y: m.y - (amb.strange ? 60 : 20) - Math.random() * 30,
+          targets: m, alpha: { from: 0, to: lit }, x: m.x + (Math.random() - 0.5) * 40, y: m.y - (amb.strange ? 60 : 20) - Math.random() * 30,
           duration: 2600 + Math.random() * 2400, yoyo: false, onComplete: () => { if (m.active) drift(); },
         });
       };
@@ -440,6 +452,8 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     if (inp.consume('debug')) session.debug = !session.debug;
     const blocked = this.csPending > 0 || this.ui.blocking;
     if (!blocked) {
+      // one minute of the day per real second
+      s.clock = normClock(s.clock + dt);
       s.energy = Math.min(s.maxEnergy, s.energy + dt * 0.6);
       this.updatePlayer(dt);
     } else if (isLocomotion(this.player.state)) {
@@ -522,10 +536,13 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
         }
       } else if (inp.consume('dodge') && !inDeep && !onLadder && this.dodgeCd <= 0) {
         const v = mv.mag > 0.1 ? mv : dirVector(p.dir);
-        if (p.enter('dodge', 0.24)) {
-          this.dodgeV = { x: v.x * 270, y: v.y * 270 };
-          p.invuln = Math.max(p.invuln, 0.3);
-          this.dodgeCd = 0.55;
+        if (p.enter('dodge', DASH_TIME)) {
+          if (Math.abs(v.x) > 0.3) p.dir = v.x > 0 ? 'east' : 'west';
+          this.dodgeV = { x: v.x * DASH_SPEED, y: v.y * DASH_SPEED };
+          p.invuln = Math.max(p.invuln, DASH_TIME + 0.05);
+          this.dodgeCd = 0.5;
+          this.ghostT = 0;
+          if (session.settings.screenShake && !session.settings.reducedEffects) this.cameras.main.shake(90, 0.0025);
           session.audio.play('dodge');
           this.fx.anim('run_dust', p.x, p.y, p.y - 1, 0.6);
         }
@@ -546,7 +563,11 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
 
     // ------------------------------------------------------- locomotion
     if (p.state === 'dodge' && !p.stateFinished) {
-      p.moveBy(grid, this.dodgeV.x * dt, this.dodgeV.y * dt);
+      // the dash eases out over its last third and leaves afterimages behind
+      const k = p.stateTime > DASH_TIME * 0.66 ? 0.45 : 1;
+      p.moveBy(grid, this.dodgeV.x * dt * k, this.dodgeV.y * dt * k);
+      this.ghostT -= dt;
+      if (this.ghostT <= 0) { this.ghostT = 0.035; this.afterimage(p); }
       p.playFor();
       return;
     }
@@ -595,7 +616,8 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
       this.wasInWater = true;
     } else {
       if (this.wasInWater) { this.fx.ripple(p.x, p.y); this.wasInWater = false; }
-      const running = inp.running() && mv.mag > 0.5;
+      // run with Shift, the run button or a full push of the stick
+      const running = inp.running() && mv.mag > 0.15;
       speed = (running ? c?.runSpeed ?? 150 : c?.walkSpeed ?? 90) * (tile.water === 'shallow' ? 0.7 : 1);
       if (mv.mag > 0.05) p.force(running ? 'run' : 'walk');
       else p.force('idle');
@@ -621,6 +643,14 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
       this.lastSafeT = 0;
       this.lastGround = { x: p.x, y: p.y };
     }
+  }
+
+  /** A fading copy of the sprite, tinted with the character's colour: the trail of a dash. */
+  private afterimage(a: Actor): void {
+    const s = a.sprite;
+    const g = this.add.image(s.x, s.y, s.texture.key, s.frame.name).setOrigin(s.originX, s.originY).setFlipX(s.flipX)
+      .setDepth(s.depth - 1).setTint(a.charId.startsWith('bill') ? 0xffe066 : a.charId === 'mabel' ? 0xff9ad0 : 0x9fd8ff).setAlpha(0.55).setBlendMode(Phaser.BlendModes.ADD);
+    this.tweens.add({ targets: g, alpha: 0, duration: 260, onComplete: () => g.destroy() });
   }
 
   private footsteps(a: Actor, surface: string, shallow: boolean): void {
@@ -1509,7 +1539,11 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
   }
 
   transition(mapId: string, spawn?: string): void {
-    if (this.busy) return;
+    if (this.busy) {
+      // asked while an area is still loading: go there as soon as it is ready
+      this.pendingTransition = { mapId, spawn };
+      return;
+    }
     if (!this.built || !this.player) {
       this.loadArea(mapId, spawn);
       return;
@@ -1666,6 +1700,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
   private render(dt: number): void {
     const p = this.player;
     p.sync();
+    this.atmos?.setDaylight(darknessAt(this.s.clock), twilightAt(this.s.clock));
     this.atmos?.update(dt, p);
     this.lookAhead(dt);
     // depth-sorted fading of tall props the player walks behind
@@ -1789,6 +1824,10 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     this.fx.destroy();
   }
 }
+
+/** Dash: a short burst that crosses about three tiles. */
+const DASH_TIME = 0.3;
+const DASH_SPEED = 380;
 
 /** Background sound bed per terrain theme. */
 const AMBIENCE: Record<string, string> = {

@@ -53,6 +53,7 @@ export type Effect =
   | { party: string[] }
   | { toast: string }
   | { cutscene: string }
+  | { clock: number }
   | { checkpoint: true };
 
 // ------------------------------------------------------------------- quests
@@ -224,7 +225,9 @@ export interface MapDef {
   reference?: string;
   ambient?: {
     tint?: string; strange?: boolean; motes?: string; darkness?: number;
-    night?: number; nightColor?: string; fog?: number; fogColor?: string; vignette?: number; eyes?: number; playerLight?: number;
+    night?: number;
+    /** keep the map's light regardless of the time of day */
+    fixedTime?: boolean; nightColor?: string; fog?: number; fogColor?: string; vignette?: number; eyes?: number; playerLight?: number;
     grade?: { sat: number; mul: string };
     lights?: { x: number; y: number; r?: number; color?: string; intensity?: number; flicker?: number }[];
   };
@@ -301,7 +304,8 @@ export type CutsceneStep =
   | { sfx: string }
   | { music: string }
   | { glow: [number, number]; r?: number; color?: string; ms?: number }
-  | { effects: Effect[] };
+  | { effects: Effect[] }
+  | { clock: number; ms?: number };
 
 export interface CutsceneDef {
   id: string;

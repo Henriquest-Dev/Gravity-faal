@@ -44,9 +44,8 @@ export class Npc {
   update(dt: number, player: { x: number; y: number }): void {
     const a = this.actor;
     a.update(dt);
-    // characters whose idle row is a gesture sequence only gesture while talking
-    const gestures = /^cast_/.test(CHARACTERS[this.def.character]?.idle?.sheet ?? '');
-    if (gestures && a.calm === this.talking) { a.calm = !this.talking; a.playFor(true); }
+    // standing still unless spoken to: then the character gestures as it talks
+    if (a.gesturing !== this.talking) { a.gesturing = this.talking; a.playFor(true); }
     const near = Math.hypot(player.x - a.x, player.y - a.y) < 44;
     const canWalk = !!CHARACTERS[this.def.character]?.walk || this.def.character === 'waddles';
     if (this.talking || near || !this.def.wander || !canWalk) {

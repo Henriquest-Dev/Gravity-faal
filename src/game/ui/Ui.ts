@@ -8,6 +8,7 @@ import { ASSET_ROOT, getManifest } from '../assets';
 import { ABILITIES, CHARACTERS, ENEMIES, ITEMS, MAPS, QUESTS } from '../data';
 import { session } from '../session';
 import { ACTION_LABELS, type Action } from '../systems/Input';
+import { clockLabel, phaseAt, PHASE_NAMES } from '../../core/daytime';
 import { icon, pipFor } from './icons';
 import { hasPortrait, inferMood, portrait, speakerId, type Mood } from './portraits';
 import { TouchControls } from './Touch';
@@ -68,7 +69,7 @@ export class Ui {
       <div class="hud hidden">
         <div class="hud-who">
           <div class="medal"><img alt=""></div>
-          <div class="vitals"><div class="who-name"></div><div class="pips"></div><div class="energy"><i></i></div><div class="hud-ability"></div></div>
+          <div class="vitals"><div class="who-name"></div><div class="pips"></div><div class="energy"><i></i></div><div class="hud-ability"></div><div class="hud-time"></div></div>
         </div>
         <button class="hud-obj" aria-label="Abrir o diário"><span class="q-title"></span><span class="q-text"></span></button>
       </div>
@@ -180,7 +181,7 @@ export class Ui {
 
   updateHud(s: GameState, mapName: string, objective: string, abilityId: string | undefined): void {
     const hp = s.hp[s.character] ?? s.maxHp;
-    const key = `${s.character}|${hp}|${s.maxHp}|${Math.round(s.energy)}|${objective}|${abilityId}|${mapName}`;
+    const key = `${s.character}|${hp}|${s.maxHp}|${Math.round(s.energy)}|${objective}|${abilityId}|${mapName}|${Math.floor(s.clock)}`;
     if (key === this.lastHud) return;
     this.lastHud = key;
     const name = this.hud.querySelector('.who-name')!;
@@ -209,6 +210,11 @@ export class Ui {
       void obj.offsetWidth;
       obj.classList.add('fresh');
     }
+    const ph = phaseAt(s.clock);
+    const glyph = ph === 'noite' ? 'moon' : ph === 'madrugada' || ph === 'entardecer' ? 'dusk' : 'sun';
+    const time = this.hud.querySelector('.hud-time') as HTMLElement;
+    time.dataset.phase = ph;
+    time.innerHTML = `${icon(glyph)}<span>${PHASE_NAMES[ph]}</span><small>${clockLabel(s.clock)}</small>`;
     const ab = abilityId ? ABILITIES[abilityId] : null;
     this.hud.querySelector('.hud-ability')!.innerHTML = ab ? `${icon(abilityId!)}<span>${esc(ab.name)}</span>` : '';
   }

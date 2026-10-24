@@ -56,6 +56,10 @@ const MIGRATIONS: Record<number, Migration> = {
     if (!('selectedAbility' in s)) s.selectedAbility = {};
     s.version = 3;
   },
+  3: (s) => {
+    if (typeof s.clock !== 'number') s.clock = s.arc === 2 ? 1140 : 600;
+    s.version = 4;
+  },
 };
 
 export function migrate(raw: Record<string, unknown>): Record<string, unknown> {

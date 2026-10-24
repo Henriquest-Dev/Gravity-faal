@@ -12,6 +12,9 @@ export const BRIDGE_DEPTH = 40; // depth offset for actors standing on a bridge 
  * Something standing on the ground: feet position + elevation (z) kept apart
  * from the drawn sprite. The shadow stays on the ground while the sprite rises.
  */
+/** Catalogue rows that are talking gestures rather than idle loops. */
+const GESTURE_SHEETS = /^(cast_|euclydia_adults|time_agents|protag_)/;
+
 export class Actor {
   readonly sprite: Phaser.GameObjects.Sprite;
   readonly shadow: Phaser.GameObjects.Image;
@@ -20,8 +23,8 @@ export class Actor {
   vz = 0;
   dir: Dir = 'south';
   state: ActorStateName = 'idle';
-  /** stand still on the walk frame instead of looping the idle gesture row (busy cast gestures are for talking) */
-  calm = false;
+  /** gesture rows (talking poses) only play while this character is speaking; otherwise it stands still */
+  gesturing = false;
   stateTime = 0;
   stateDuration = 0; // 0 = until changed
   hp = 6;
@@ -134,7 +137,7 @@ export class Actor {
       case 'dodge': if (!single('dodge')) key = dirKey('walk'); break;
       case 'hurt': case 'downed': if (!single('hurt')) key = dirKey('stand'); break;
       default:
-        if (this.dir === 'south' && !this.calm && single('idle')) break;
+        if (this.gesturing && single('idle')) break;
         key = dirKey('stand');
     }
     if (!this.scene.anims.exists(key)) {
@@ -143,9 +146,13 @@ export class Actor {
       else if (c.single?.facing === 'south') flip = this.dir === 'west';
     }
     this.sprite.setFlipX(flip);
-    if (force || key !== this.currentAnim) {
-      this.currentAnim = key;
+    // a character drawn only in a gesture row holds its first pose when not speaking
+    const still = !this.gesturing && (this.state === 'idle' || this.state === 'dialogue') && key === animKey(id, 'single') && GESTURE_SHEETS.test(c.single?.sheet ?? '');
+    const token = still ? `${key}|still` : key;
+    if (force || token !== this.currentAnim) {
+      this.currentAnim = token;
       this.sprite.play(key, true);
+      if (still) this.sprite.anims.pause();
     }
   }
 
