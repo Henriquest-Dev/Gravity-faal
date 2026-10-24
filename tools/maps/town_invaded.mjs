@@ -66,6 +66,6 @@ export default function build() {
     triggers: [
       { id: 'inv_intro', x: 0, y: 12, w: 6, h: 6, once: true, effects: [{ toast: 'A cidade foi invadida. Há pessoas encurraladas: Soos, Pacifica e Wendy.' }, { journal: 'j_invaded' }] },
     ],
-    onEnter: [{ questStart: 'b_q6' }],
+    onEnter: [{ questStart: 'b_q6' }, { cutscene: 'a2_invasion' }],
   };
 }

@@ -293,6 +293,32 @@
    ]
   }
  ],
+ "triggers": [
+  {
+   "id": "bill_presence",
+   "x": 16,
+   "y": 15,
+   "w": 18,
+   "h": 2,
+   "once": true,
+   "if": {
+    "not": {
+     "flag": "town_invaded"
+    }
+   },
+   "effects": [
+    {
+     "cutscene": "a2_bill_ally"
+    },
+    {
+     "cutscene": "a2_bill_deal"
+    },
+    {
+     "cutscene": "a2_bill_threat"
+    }
+   ]
+  }
+ ],
  "onEnter": [
   {
    "questStart": "b_q5"

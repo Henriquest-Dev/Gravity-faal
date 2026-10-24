@@ -808,8 +808,11 @@
    "hidden": true,
    "reveal": "flashlight",
    "label": "Examinar o tronco oco",
-   "text": "Dentro do tronco oco, embrulhado em oleado: um livro com uma mão de seis dedos e o número 3. Dipper fica sem fôlego. (Nova capacidade: Analisar com o diário)",
+   "text": "Dentro do tronco oco, embrulhado em oleado, há um livro gasto. Na capa, uma mão de seis dedos e o número 3.",
    "effects": [
+    {
+     "cutscene": "a2_journal"
+    },
     {
      "give": "journal3"
     },

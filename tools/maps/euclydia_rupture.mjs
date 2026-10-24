@@ -88,6 +88,6 @@ export default function build() {
     triggers: [
       { id: 'surge', x: 22, y: 1, w: 5, h: 4, once: true, effects: [{ unlock: 'telekinesis' }, { unlock: 'energy_bolt' }, { toast: 'A ruptura acorda mais poder em Bill: Manipular objectos e Energia dimensional (R para mudar).' }, { journal: 'j_surge' }] },
     ],
-    onEnter: [{ questStart: 'a1_q4' }],
+    onEnter: [{ questStart: 'a1_q4' }, { cutscene: 'a1_rupture' }],
   };
 }

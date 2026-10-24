@@ -741,6 +741,9 @@
  "onEnter": [
   {
    "questStart": "b_q6"
+  },
+  {
+   "cutscene": "a2_invasion"
   }
  ],
  "terrain": [

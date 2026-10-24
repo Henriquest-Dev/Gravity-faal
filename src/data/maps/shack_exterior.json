@@ -1262,6 +1262,9 @@
  "onEnter": [
   {
    "questStart": "b_q1"
+  },
+  {
+   "cutscene": "a2_intro"
   }
  ],
  "terrain": [

@@ -686,6 +686,9 @@
  "onEnter": [
   {
    "questStart": "a1_q4"
+  },
+  {
+   "cutscene": "a1_rupture"
   }
  ],
  "terrain": [

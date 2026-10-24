@@ -4,7 +4,7 @@ import { chromium } from 'playwright-core';
 import { mkdirSync, existsSync } from 'node:fs';
 
 const out = process.argv[2] ?? 'shots';
-const url = process.argv[3] ?? 'http://localhost:5173/?debug';
+const url = process.argv[3] ?? 'http://localhost:5173/?debug&nocs';
 mkdirSync(out, { recursive: true });
 const exe = ['/opt/pw-browsers/chromium-1194/chrome-linux/chrome', '/opt/pw-browsers/chromium'].find(existsSync);
 const browser = await chromium.launch({ executablePath: exe, args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader'] });
@@ -26,7 +26,6 @@ await page.click('[data-a="new"]');
 await page.click('[data-slot="1"]');
 const confirm = await page.$('.c-yes');
 if (confirm) await confirm.click();
-await page.click('.b-ok');
 await page.waitForFunction(() => !!window.__gf, null, { timeout: 30000 });
 await page.waitForTimeout(1500);
 await page.screenshot({ path: `${out}/02-arc1-start.png` });

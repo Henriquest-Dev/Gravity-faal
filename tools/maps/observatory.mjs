@@ -56,7 +56,7 @@ export default function build() {
       { id: 'obs_bench', kind: 'save', x: 21.5, y: 22.4, prop: 'euclydia/bench', solid: true },
     ],
     triggers: [
-      { id: 'vision', x: 14, y: 7, w: 7, h: 4, once: true, if: { flag: 'telescope_fixed' }, dialogue: 'telescope_vision' },
+      { id: 'vision', x: 14, y: 7, w: 7, h: 4, once: true, if: { flag: 'telescope_fixed' }, effects: [{ cutscene: 'a1_vision' }] },
     ],
     onEnter: [{ questStart: 'a1_q3' }],
   };

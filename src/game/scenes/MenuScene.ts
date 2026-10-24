@@ -113,6 +113,7 @@ export class MenuScene extends Phaser.Scene {
     this.flies = [];
     this.paintScene();
     session.audio.startMusic('title');
+    session.audio.startAmbience('night');
     this.render(ui);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => { this.el?.remove(); this.el = null; });
   }
@@ -172,8 +173,9 @@ export class MenuScene extends Phaser.Scene {
     session.settings.lastSlot = slot;
     session.saveSettings();
     session.saves.write(slot, session.state, 'Praça de Euclydia');
-    const ui = this.registry.get('ui') as Ui;
-    ui.banner('Arco 1 — Bill', 'Muito antes de Gravity Falls, num mundo plano chamado Euclydia, uma criança triangular começa a ver coisas que mais ninguém vê.', 0, () => this.scene.start('world'));
+    // the arc opens with its own cutscene in the plaza
+    this.cameras.main.fadeOut(600, 0, 0, 0);
+    this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => this.scene.start('world'));
   }
 
   private start(slot: number): void {

@@ -28,6 +28,11 @@ export class AudioSystem {
   private master!: GainNode;
   private sfxBus!: GainNode;
   private musicBus!: GainNode;
+  private ambBus!: GainNode;
+  private echo!: DelayNode;
+  private ambNodes: AudioNode[] = [];
+  private ambTimer: number | null = null;
+  private ambKind: string | null = null;
   private noiseBuf: AudioBuffer | null = null;
   private musicTimer: number | null = null;
   private theme: string | null = null;
@@ -48,8 +53,20 @@ export class AudioSystem {
     this.master = this.ctx.createGain();
     this.sfxBus = this.ctx.createGain();
     this.musicBus = this.ctx.createGain();
+    this.ambBus = this.ctx.createGain();
     this.sfxBus.connect(this.master);
     this.musicBus.connect(this.master);
+    this.ambBus.connect(this.master);
+    // a long, dark echo gives the music box its empty-room feel
+    this.echo = this.ctx.createDelay(1.5);
+    this.echo.delayTime.value = 0.42;
+    const fb = this.ctx.createGain();
+    fb.gain.value = 0.38;
+    const tone = this.ctx.createBiquadFilter();
+    tone.type = 'lowpass';
+    tone.frequency.value = 1800;
+    this.echo.connect(tone).connect(fb).connect(this.echo);
+    tone.connect(this.musicBus);
     this.master.connect(this.ctx.destination);
     const len = this.ctx.sampleRate * 0.5;
     this.noiseBuf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
@@ -57,6 +74,7 @@ export class AudioSystem {
     for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
     this.applyVolumes();
     if (this.theme) this.startMusic(this.theme, true);
+    if (this.ambKind) this.startAmbience(this.ambKind, true);
   }
 
   applyVolumes(): void {
@@ -64,6 +82,7 @@ export class AudioSystem {
     this.master.gain.value = this.muted ? 0 : this.volumes.master;
     this.sfxBus.gain.value = this.volumes.sfx;
     this.musicBus.gain.value = this.volumes.music * 0.5;
+    this.ambBus.gain.value = this.volumes.music * 0.6;
   }
 
   suspend(): void {
@@ -166,6 +185,49 @@ export class AudioSystem {
     this.theme = null;
   }
 
+  /** A music-box note: bright attack, long decay, a soft octave above, fed to the echo. */
+  private chime(freq: number, vol: number, dur = 1.6, delay = 0): void {
+    if (!this.ctx) return;
+    const t = this.ctx.currentTime + delay;
+    for (const [mul, v, type] of [[1, vol, 'sine'], [2, vol * 0.25, 'triangle'], [3.01, vol * 0.08, 'sine']] as const) {
+      const o = this.ctx.createOscillator();
+      const g = this.ctx.createGain();
+      o.type = type;
+      o.frequency.value = freq * mul;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(v, t + 0.006);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur / mul);
+      o.connect(g);
+      g.connect(this.musicBus);
+      g.connect(this.echo);
+      o.start(t);
+      o.stop(t + dur + 0.05);
+    }
+  }
+
+  /** Slow pad that swells and fades, slightly detuned. */
+  private pad(freq: number, vol: number, dur: number): void {
+    if (!this.ctx) return;
+    const t = this.ctx.currentTime;
+    const f = this.ctx.createBiquadFilter();
+    f.type = 'lowpass';
+    f.frequency.value = 700;
+    const g = this.ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(vol, t + dur * 0.4);
+    g.gain.linearRampToValueAtTime(0.0001, t + dur);
+    f.connect(g).connect(this.musicBus);
+    for (const d of [-4, 4]) {
+      const o = this.ctx.createOscillator();
+      o.type = 'sawtooth';
+      o.frequency.value = freq;
+      o.detune.value = d;
+      o.connect(f);
+      o.start(t);
+      o.stop(t + dur + 0.05);
+    }
+  }
+
   private musicTick(th: Theme): void {
     if (!this.ctx || this.ctx.state !== 'running') return;
     const s = this.step++;
@@ -175,13 +237,125 @@ export class AudioSystem {
       const o = Math.floor(deg / n) + oct;
       return th.root * Math.pow(2, (th.scale[idx] + o * 12) / 12);
     };
-    // deterministic pseudo-melody from the step counter
-    const pattern = [0, 2, 4, 2, 3, 1, 4, 0, 2, 3, 1, 4, 5, 3, 2, 1];
-    const deg = pattern[s % pattern.length] + (Math.floor(s / 16) % 2 ? 1 : 0);
-    if (s % 2 === 0 || th.strange) this.tone(note(deg, 1), th.tempo * 0.9, th.wave, 0.03, th.strange && s % 5 === 0 ? -40 : 0, 0, this.musicBus);
-    if (s % 8 === 0) {
-      this.tone(note(0, -1), th.tempo * 8 * th.pad, 'sine', 0.05, 0, 0, this.musicBus);
-      this.tone(note(2, -1), th.tempo * 8 * th.pad, 'sine', 0.03, 0, 0, this.musicBus);
+    // a sparse, lilting phrase in six with rests (-1); strange areas bend it out of tune
+    const phrase = [0, -1, 2, 4, -1, 3, 2, -1, -1, 1, -1, 0, 4, -1, 5, 3, -1, 2, 1, -1, -1, 0, -1, -1];
+    const deg = phrase[s % phrase.length];
+    if (deg >= 0) {
+      const f = note(deg + (Math.floor(s / phrase.length) % 3 === 2 ? 1 : 0), 1);
+      this.chime(th.strange && s % 7 === 3 ? f * 0.97 : f, 0.035, th.strange ? 2.4 : 1.6);
     }
+    if (s % 12 === 0) this.pad(note(0, -1), 0.018 * th.pad * 2, th.tempo * 12);
+    if (s % 24 === 6) this.pad(note(th.strange ? 1 : 2, -1), 0.012 * th.pad * 2, th.tempo * 10);
+  }
+
+  // ------------------------------------------------------------- ambience
+  /** Continuous background layer: night forest, crystal air, void drone, a room, a cave, temporal hum. */
+  startAmbience(kind: string, force = false): void {
+    if (this.ambKind === kind && !force) return;
+    this.ambKind = kind;
+    this.stopAmbienceNodes();
+    if (!this.ctx || !this.noiseBuf) return;
+    const ctx = this.ctx;
+    const loopNoise = (freq: number, type: BiquadFilterType, vol: number, lfo = 0) => {
+      const src = ctx.createBufferSource();
+      src.buffer = this.noiseBuf;
+      src.loop = true;
+      const f = ctx.createBiquadFilter();
+      f.type = type;
+      f.frequency.value = freq;
+      const g = ctx.createGain();
+      g.gain.value = vol;
+      src.connect(f).connect(g).connect(this.ambBus);
+      if (lfo) {
+        const o = ctx.createOscillator();
+        o.frequency.value = lfo;
+        const og = ctx.createGain();
+        og.gain.value = vol * 0.7;
+        o.connect(og).connect(g.gain);
+        o.start();
+        this.ambNodes.push(o);
+      }
+      src.start();
+      this.ambNodes.push(src, g);
+    };
+    const drone = (freq: number, vol: number) => {
+      const f = ctx.createBiquadFilter();
+      f.type = 'lowpass';
+      f.frequency.value = 260;
+      const g = ctx.createGain();
+      g.gain.value = vol;
+      f.connect(g).connect(this.ambBus);
+      for (const d of [0, 7]) {
+        const o = ctx.createOscillator();
+        o.type = 'sawtooth';
+        o.frequency.value = freq;
+        o.detune.value = d;
+        o.connect(f);
+        o.start();
+        this.ambNodes.push(o);
+      }
+      this.ambNodes.push(g);
+    };
+    let tick: (() => void) | null = null;
+    let every = 1000;
+    switch (kind) {
+      case 'night':
+        loopNoise(380, 'lowpass', 0.05, 0.07);
+        every = 260;
+        tick = () => {
+          // crickets: tiny bandpassed pulses in pairs; an owl now and then
+          if (Math.random() < 0.55) for (let k = 0; k < 3; k++) this.ambTone(4300 + Math.random() * 300, 0.025, 'sine', 0.012, k * 0.045);
+          if (Math.random() < 0.008) { this.ambTone(392, 0.32, 'sine', 0.05, 0, -30); this.ambTone(330, 0.5, 'sine', 0.05, 0.42, -25); }
+          if (Math.random() < 0.004) this.ambTone(140, 0.9, 'sine', 0.03, 0, -40);
+        };
+        break;
+      case 'crystal':
+        loopNoise(900, 'bandpass', 0.02, 0.05);
+        every = 900;
+        tick = () => { if (Math.random() < 0.35) this.ambTone(1568 * Math.pow(2, Math.floor(Math.random() * 5) / 5), 1.4, 'sine', 0.012); };
+        break;
+      case 'void':
+        drone(55, 0.05);
+        loopNoise(200, 'lowpass', 0.05, 0.11);
+        every = 1400;
+        tick = () => { if (Math.random() < 0.2) this.ambTone(90 + Math.random() * 40, 2.2, 'sawtooth', 0.015, 0, 60); if (Math.random() < 0.12) this.ambTone(2200, 0.6, 'sine', 0.006, 0, -1600); };
+        break;
+      case 'room':
+        loopNoise(220, 'lowpass', 0.02);
+        every = 1000;
+        tick = () => { this.ambTone(2400, 0.02, 'square', 0.006); if (Math.random() < 0.06) this.ambTone(120, 0.2, 'triangle', 0.02, 0, -30); };
+        break;
+      case 'cave':
+        loopNoise(160, 'lowpass', 0.05, 0.05);
+        every = 700;
+        tick = () => { if (Math.random() < 0.18) this.ambTone(1300 + Math.random() * 600, 0.12, 'sine', 0.02, 0, -700); };
+        break;
+      case 'temporal':
+        drone(98, 0.03);
+        every = 500;
+        tick = () => { this.ambTone(1760, 0.03, 'square', 0.004); };
+        break;
+    }
+    if (tick) this.ambTimer = window.setInterval(() => { if (this.ctx?.state === 'running') tick!(); }, every);
+  }
+
+  private stopAmbienceNodes(): void {
+    if (this.ambTimer !== null) window.clearInterval(this.ambTimer);
+    this.ambTimer = null;
+    for (const n of this.ambNodes) {
+      try { (n as AudioScheduledSourceNode).stop?.(); } catch { /* already stopped */ }
+      n.disconnect();
+    }
+    this.ambNodes = [];
+  }
+
+  private ambTone(freq: number, dur: number, type: OscillatorType, vol: number, delay = 0, slide = 0): void {
+    this.tone(freq, dur, type, vol, slide, delay, this.ambBus);
+  }
+
+  /** Dialogue voice: a short soft blip whose pitch belongs to the speaker. */
+  blip(pitch: number): void {
+    if (!this.ctx || this.ctx.state !== 'running') return;
+    this.tone(pitch, 0.045, 'triangle', 0.025, pitch * 0.08);
   }
 }

@@ -578,7 +578,11 @@
    "if": {
     "flag": "telescope_fixed"
    },
-   "dialogue": "telescope_vision"
+   "effects": [
+    {
+     "cutscene": "a1_vision"
+    }
+   ]
   }
  ],
  "onEnter": [

@@ -222,6 +222,29 @@
    ]
   },
   {
+   "id": "heart_approach",
+   "x": 18,
+   "y": 4,
+   "w": 9,
+   "h": 4,
+   "once": true,
+   "if": {
+    "any": [
+     {
+      "defeated": "nm_bola8"
+     },
+     {
+      "flag": "bola8_calm"
+     }
+    ]
+   },
+   "effects": [
+    {
+     "cutscene": "a1_heart"
+    }
+   ]
+  },
+  {
    "id": "heart_near",
    "x": 13,
    "y": 2,
@@ -243,6 +266,9 @@
  "onEnter": [
   {
    "questStart": "a1_q5"
+  },
+  {
+   "cutscene": "a1_nightmare"
   }
  ],
  "terrain": [

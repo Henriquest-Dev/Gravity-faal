@@ -175,7 +175,11 @@
      "flag": "baby_fight"
     }
    },
-   "dialogue": "baby_intro"
+   "effects": [
+    {
+     "cutscene": "a2_time_baby"
+    }
+   ]
   }
  ],
  "onEnter": [

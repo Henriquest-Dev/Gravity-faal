@@ -59,8 +59,9 @@ export default function build() {
     ],
     triggers: [
       { id: 'realm_intro', x: 18, y: 27, w: 8, h: 5, once: true, effects: [{ toast: 'Reino dos Pesadelos: o chão é escasso. Cada salto conta.' }, { journal: 'j_realm' }] },
+      { id: 'heart_approach', x: 18, y: 4, w: 9, h: 4, once: true, if: { any: [{ defeated: 'nm_bola8' }, { flag: 'bola8_calm' }] }, effects: [{ cutscene: 'a1_heart' }] },
       { id: 'heart_near', x: 13, y: 2, w: 18, h: 8, once: true, if: { not: { flag: 'bola8_calm' } }, effects: [{ toast: 'Bola 8 guarda o coração da fenda.' }] },
     ],
-    onEnter: [{ questStart: 'a1_q5' }],
+    onEnter: [{ questStart: 'a1_q5' }, { cutscene: 'a1_nightmare' }],
   };
 }

@@ -111,6 +111,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
   // -------------------------------------------------------------- cutscenes
   private director!: Director;
   private csQueue: string[] = [];
+  private csPending = 0;
   private zoomBase = 1;
 
   /** Plays a cutscene if its condition holds and it has not been seen (unless it repeats). */
@@ -119,11 +120,18 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     if (!def) { console.warn(`cutscene em falta: ${id}`); return; }
     if (!force && def.once !== false && this.s.flags[`cs:${id}`]) return;
     if (!force && def.if && !check(def.if, this.s)) return;
-    if (this.director.running || this.busy || this.ui.inDialogue) {
+    if (this.director.running || this.busy || this.ui.inDialogue || this.ui.panel) {
+      // wait for the current scene, line or menu to finish
       if (!this.csQueue.includes(id)) this.csQueue.push(id);
+      this.time.delayedCall(400, () => { if (this.csQueue.includes(id) && !this.director.running) { this.csQueue = this.csQueue.filter((x) => x !== id); this.playCutscene(id); } });
       return;
     }
     this.s.flags[`cs:${id}`] = true;
+    if (NO_CUTSCENES && !force) {
+      // automated runs: only the cutscene's effects apply
+      for (const st of def.steps) if ('effects' in st) this.handleSignals(applyEffects(this.s, st.effects, RULES));
+      return;
+    }
     this.player.force('idle');
     void this.director.play(def).then(() => {
       this.autosave();
@@ -279,6 +287,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     if (first) s.visited.push(def.id);
     this.handleSignals(applyEffects(s, def.onEnter, RULES, def.id));
     session.audio.startMusic(def.music);
+    session.audio.startAmbience(AMBIENCE[def.theme] ?? 'night');
     this.ui.areaTitle(def.name, def.id.startsWith('time') ? 'Fora do tempo' : def.id === 'nightmare_realm' ? 'Dimensão do Pesadelo' : def.arc === 1 ? 'Euclydia, a Segunda Dimensão' : 'Gravity Falls, Oregon');
     if (s.safe.mapId !== def.id || s.safe.x < 0) s.safe = { mapId: def.id, x: safe.x, y: safe.y, level: 0 };
     const amb = def.ambient;
@@ -292,7 +301,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     this.setupAmbient(def);
     this.busy = false;
     this.autosave();
-    if (this.csQueue.length) this.time.delayedCall(500, () => this.playCutscene(this.csQueue.shift()!));
+    if (this.csQueue.length) this.time.delayedCall(500, () => { const next = this.csQueue.shift(); if (next) this.playCutscene(next); });
   }
 
   /**
@@ -429,7 +438,7 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
       else if (inp.consume('map')) this.ui.open('map');
     }
     if (inp.consume('debug')) session.debug = !session.debug;
-    const blocked = this.ui.blocking;
+    const blocked = this.csPending > 0 || this.ui.blocking;
     if (!blocked) {
       s.energy = Math.min(s.maxEnergy, s.energy + dt * 0.6);
       this.updatePlayer(dt);
@@ -1535,7 +1544,11 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
         case 'teleport': this.time.delayedCall(10, () => this.transition(sg.map, sg.spawn)); break;
         case 'ending': this.time.delayedCall(30, () => this.showEnding(sg.arc, sg.id)); break;
         case 'arc2': break;
-        case 'cutscene': this.time.delayedCall(this.busy ? 700 : 50, () => this.playCutscene(sg.id)); break;
+        case 'cutscene':
+          // the world holds still from the moment a cutscene is due
+          if (CUTSCENES[sg.id] && !this.s.flags[`cs:${sg.id}`] && !NO_CUTSCENES) this.csPending++;
+          this.time.delayedCall(this.busy ? 700 : 50, () => { this.csPending = Math.max(0, this.csPending - 1); this.playCutscene(sg.id); });
+          break;
       }
     }
   }
@@ -1558,19 +1571,23 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     const vars = endingVariations(rules, this.s);
     const why = score.reasons.length ? `\nPorque: ${score.reasons.join('; ')}.` : '';
     this.autosave();
-    this.ui.banner(o.title, `${o.text}${vars.length ? '\n' + vars.join('\n') : ''}${why}`, 0, () => {
+    void (async () => {
+      this.ui.setCinematic(true, () => this.ui.skipCinematic(false));
+      await this.ui.card(o.title, [o.text, ...vars], 6000, arc === 1 ? 'Fim do primeiro arco' : 'Fim do segundo arco');
+      if (why) await this.ui.card('', [why.replace(/^\n/, '')], 3000, 'O que pesou na balança');
       if (arc === 1) {
-        this.ui.banner('Arco 2 — Dipper e Mabel', 'Trinta anos depois, em Gravity Falls, os gémeos Pines chegam à Cabana do Mistério.\nO que Bill fez em Euclydia vai pesar neste Verão.', 0, () => {
-          this.handleSignals(applyEffects(this.s, [{ startArc2: true }], RULES));
-          this.s.pos = { x: -1, y: -1, level: 0, dir: 'south' };
-          this.transition('shack_exterior', 'default');
-        });
+        await this.ui.card('Arco 2', ['Trinta anos depois, numa vila do Oregon, dois gémeos chegam para passar o Verão.', 'O que Bill fez em Euclydia vai pesar nesse Verão.'], 4200, 'Dipper e Mabel');
+        this.ui.setCinematic(false);
+        this.handleSignals(applyEffects(this.s, [{ startArc2: true }], RULES));
+        this.s.pos = { x: -1, y: -1, level: 0, dir: 'south' };
+        this.transition('shack_exterior', 'default');
       } else {
         this.s.flags.game_complete = true;
         this.autosave();
-        this.ui.banner('Fim', 'Obrigado por jogar.\nPodes continuar a explorar ou começar de novo para descobrir outros desfechos.', 0);
+        await this.ui.card('Fim', ['Obrigado por jogar.', 'Há outros desfechos à espera de quem escolher de outra maneira.'], 6000, 'Gravity Falls: Dimensões');
+        this.ui.setCinematic(false);
       }
-    });
+    })();
   }
 
   // ------------------------------------------------------------- persistence
@@ -1772,6 +1789,15 @@ export class WorldScene extends Phaser.Scene implements UiHost, EnemyHost {
     this.fx.destroy();
   }
 }
+
+/** Background sound bed per terrain theme. */
+const AMBIENCE: Record<string, string> = {
+  forest: 'night', town: 'night', euclid: 'crystal', rupture: 'void', nightmare: 'void', temporal: 'temporal',
+  interior: 'room', workshop: 'room', cave: 'cave', bunker: 'cave',
+};
+
+/** `?nocs` skips cutscenes (used by the automated browser checks). */
+const NO_CUTSCENES = new URLSearchParams(location.search).has('nocs');
 
 const LABELS: Partial<Record<string, string>> = {
   examine: 'Examinar', door: 'Abrir', switch: 'Accionar', pickup: 'Apanhar', chest: 'Abrir', push: 'Empurrar',

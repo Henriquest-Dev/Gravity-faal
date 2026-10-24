@@ -166,6 +166,9 @@
  "onEnter": [
   {
    "questStart": "b_q10"
+  },
+  {
+   "cutscene": "a2_crossing"
   }
  ],
  "terrain": [

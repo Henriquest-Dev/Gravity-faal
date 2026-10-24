@@ -5,7 +5,7 @@ import { chromium } from 'playwright-core';
 import { existsSync, mkdirSync } from 'node:fs';
 
 const out = process.argv[2] ?? 'shots';
-const base = process.argv[3] ?? 'http://localhost:5173/';
+const base = process.argv[3] ?? 'http://localhost:5173/?nocs';
 mkdirSync(out, { recursive: true });
 const exe = ['/opt/pw-browsers/chromium-1194/chrome-linux/chrome', '/opt/pw-browsers/chromium'].find(existsSync);
 const browser = await chromium.launch({ executablePath: exe, args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader'] });
@@ -19,7 +19,6 @@ await page.click('[data-a="new"]');
 await page.click('[data-slot="1"]');
 const c = await page.$('.c-yes');
 if (c) await c.click();
-await page.click('.b-ok');
 await page.waitForFunction(() => !!window.__gf?.scene?.player, null, { timeout: 30000 });
 
 const cases = [

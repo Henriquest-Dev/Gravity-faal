@@ -34,7 +34,7 @@ export default function build() {
       { id: 'arena_pad', kind: 'save', x: 17.6, y: 24.6, prop: 'temporal/pad', label: 'Ponto de controlo' },
     ],
     triggers: [
-      { id: 'baby_meet', x: 12, y: 13, w: 8, h: 6, once: true, if: { not: { flag: 'baby_fight' } }, dialogue: 'baby_intro' },
+      { id: 'baby_meet', x: 12, y: 13, w: 8, h: 6, once: true, if: { not: { flag: 'baby_fight' } }, effects: [{ cutscene: 'a2_time_baby' }] },
     ],
     onEnter: [{ questStart: 'b_q9' }],
   };

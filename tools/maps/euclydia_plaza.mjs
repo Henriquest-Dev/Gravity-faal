@@ -40,7 +40,7 @@ export default function build() {
       { id: 'elder', character: 'elder_hexagon', x: 5.5, y: 11.8, dialogue: 'elder' },
     ],
     interactables: [
-      { id: 'fountain_core', kind: 'examine', x: 24.5, y: 17.4, label: 'Examinar o cristal', text: 'O cristal da fonte zumbe. Quando Bill o toca, as arestas do mundo ficam nítidas como nunca: há formas a tremer onde mais ninguém olha. (Nova capacidade: Perceber anomalias — K)', effects: [{ unlock: 'perceive' }, { setFlag: 'fountain_examined' }, { journal: 'j_fountain' }] },
+      { id: 'fountain_core', kind: 'examine', x: 24.5, y: 17.4, label: 'Examinar o cristal', text: 'O cristal zumbe mais alto à medida que Bill se aproxima. Ele estende a mão.', effects: [{ unlock: 'perceive' }, { setFlag: 'fountain_examined' }, { journal: 'j_fountain' }, { cutscene: 'a1_fountain' }] },
       { id: 'anomaly_1', kind: 'examine', x: 14.5, y: 8.6, hidden: true, reveal: 'perceive', text: 'Um triângulo desenhado no chão... que não projecta sombra. Está virado para o observatório.', effects: [{ setFlag: 'anomaly_1' }, { journal: 'j_anom1' }] },
       { id: 'anomaly_2', kind: 'examine', x: 34.5, y: 18.8, hidden: true, reveal: 'perceive', text: 'Pedras dispostas em forma de olho. Quando pestanejas, o olho pestaneja contigo.', effects: [{ setFlag: 'anomaly_2' }, { journal: 'j_anom2' }] },
       { id: 'anomaly_3', kind: 'examine', x: 4.5, y: 21.6, hidden: true, reveal: 'perceive', text: 'Uma espiral suspensa no ar, do outro lado do rio. Gira ao contrário dos ponteiros do relógio de sol.', effects: [{ setFlag: 'anomaly_3' }, { journal: 'j_anom3' }] },
@@ -52,6 +52,6 @@ export default function build() {
       { id: 'intro', x: 20, y: 18, w: 9, h: 5, once: true, effects: [{ toast: 'Fala com as pessoas (E). Algo no cristal da fonte chama por ti.' }] },
     ],
     checkpoints: [{ id: 'fountain', x: 24.5, y: 20.5 }],
-    onEnter: [{ questStart: 'a1_q1' }],
+    onEnter: [{ questStart: 'a1_q1' }, { cutscene: 'a1_intro' }],
   };
 }

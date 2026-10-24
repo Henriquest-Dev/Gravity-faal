@@ -51,6 +51,7 @@ export class Ui {
   private runner: DialogueRunner | null = null;
   private dialogueDone: (() => void) | null = null;
   private choiceIndex = 0;
+  private blipPitch = 0;
   private typing = 0;
   private fullText = '';
   panel: Panel = null;
@@ -239,6 +240,12 @@ export class Ui {
 
   // -------------------------------------------------------------- dialogue
   openDialogue(r: DialogueRunner, done: () => void): void {
+    if (this.runner) {
+      const prev = this.dialogueDone;
+      this.dialogueDone = null;
+      this.runner = null;
+      prev?.();
+    }
     this.runner = r;
     this.dialogueDone = done;
     session.input.setContext('ui');
@@ -250,6 +257,9 @@ export class Ui {
     const v = this.runner?.view;
     if (!v) return this.closeDialogue();
     this.dialogueEl.querySelector('.d-speaker')!.textContent = v.speaker;
+    let hsh = 0;
+    for (const ch of v.speaker) hsh = (hsh * 31 + ch.charCodeAt(0)) | 0;
+    this.blipPitch = v.speaker ? 260 + (Math.abs(hsh) % 9) * 45 : 0;
     const who = speakerId(v.speaker, this.host?.gameState().arc ?? 1);
     const narr = !v.speaker;
     this.dialogueEl.classList.toggle('narration', narr);
@@ -304,7 +314,10 @@ export class Ui {
   private advance(): void {
     if (!this.runner) return;
     if (this.typing < this.fullText.length) {
+      // finish the line at once: full text and, if any, the choices
       this.typing = this.fullText.length;
+      this.dialogueEl.querySelector('.d-text')!.textContent = this.fullText;
+      this.showChoices();
       return;
     }
     if (this.runner.visibleChoices().length) return;
@@ -331,7 +344,10 @@ export class Ui {
     if (this.cinematic && !this.panel && inp.consumeUi('pause')) this.onSkip?.();
     if (this.runner) {
       if (this.typing < this.fullText.length) {
+        const before = Math.floor(this.typing);
         this.typing = Math.min(this.fullText.length, this.typing + dt * 60);
+        const now = Math.floor(this.typing);
+        if (this.blipPitch && Math.floor(now / 3) > Math.floor(before / 3) && /\w/.test(this.fullText[now - 1] ?? '')) session.audio.blip(this.blipPitch);
         this.dialogueEl.querySelector('.d-text')!.textContent = this.fullText.slice(0, Math.floor(this.typing));
         if (this.typing >= this.fullText.length) this.showChoices();
       }

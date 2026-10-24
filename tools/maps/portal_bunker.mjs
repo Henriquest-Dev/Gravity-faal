@@ -50,6 +50,9 @@ export default function build() {
       { id: 'bunker_rest', kind: 'save', x: 6.5, y: 4.6, label: 'Descansar e gravar' },
       { id: 'author_note', kind: 'examine', x: 31.5, y: 22.6, hidden: true, reveal: 'flashlight', text: 'Escrito a lápis por baixo da vitrine: "Se o portal abrir sem âncora, o tempo vai querer cobrar a dívida. Encontra o meu irmão."', effects: [{ journal: 'j_author_note' }] },
     ],
+    triggers: [
+      { id: 'bill_presence', x: 16, y: 15, w: 18, h: 2, once: true, if: { not: { flag: 'town_invaded' } }, effects: [{ cutscene: 'a2_bill_ally' }, { cutscene: 'a2_bill_deal' }, { cutscene: 'a2_bill_threat' }] },
+    ],
     onEnter: [{ questStart: 'b_q5' }],
   };
 }

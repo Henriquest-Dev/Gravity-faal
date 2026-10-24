@@ -740,7 +740,7 @@
    "x": 24.5,
    "y": 17.4,
    "label": "Examinar o cristal",
-   "text": "O cristal da fonte zumbe. Quando Bill o toca, as arestas do mundo ficam nítidas como nunca: há formas a tremer onde mais ninguém olha. (Nova capacidade: Perceber anomalias — K)",
+   "text": "O cristal zumbe mais alto à medida que Bill se aproxima. Ele estende a mão.",
    "effects": [
     {
      "unlock": "perceive"
@@ -750,6 +750,9 @@
     },
     {
      "journal": "j_fountain"
+    },
+    {
+     "cutscene": "a1_fountain"
     }
    ]
   },
@@ -865,6 +868,9 @@
  "onEnter": [
   {
    "questStart": "a1_q1"
+  },
+  {
+   "cutscene": "a1_intro"
   }
  ],
  "terrain": [

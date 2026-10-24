@@ -2,216 +2,1373 @@
   {
     "id": "professor",
     "entries": [
-      { "if": { "not": { "flag": "talked_professor" } }, "start": "p1" },
-      { "if": { "all": [{ "flag": "fountain_examined" }, { "not": { "flag": "merchant_resolved" } }] }, "start": "p_hint" },
-      { "if": { "flag": "reported" }, "start": "p_reported" },
-      { "start": "p_default" }
+      {
+        "if": {
+          "not": {
+            "flag": "talked_professor"
+          }
+        },
+        "start": "p1"
+      },
+      {
+        "if": {
+          "all": [
+            {
+              "flag": "fountain_examined"
+            },
+            {
+              "not": {
+                "flag": "merchant_resolved"
+              }
+            }
+          ]
+        },
+        "start": "p_hint"
+      },
+      {
+        "if": {
+          "flag": "reported"
+        },
+        "start": "p_reported"
+      },
+      {
+        "start": "p_default"
+      }
     ],
     "nodes": {
-      "p1": { "id": "p1", "speaker": "Professor Círculo", "text": "Bill! Outra vez de olho fechado ao sol? Os teus colegas dizem que vês \"arestas a mais\" nas coisas.", "choices": [
-        { "text": "Vejo coisas que não estão lá. Formas a tremer.", "tag": "Confiança", "effects": [{ "var": "trust", "add": 1 }], "next": "p2" },
-        { "text": "Não vejo nada, professor. Eles inventam.", "tag": "Esconder", "effects": [{ "setFlag": "hid_from_professor" }], "next": "p2b" }
-      ] },
-      "p2": { "id": "p2", "speaker": "Professor Círculo", "text": "Hum. A fonte de cristal reage a quem vê demasiado. Vai tocar-lhe — e depois conta-me o que viste.", "effects": [{ "setFlag": "talked_professor" }] },
-      "p2b": { "id": "p2b", "speaker": "Professor Círculo", "text": "Se um dia vires, vai à fonte. O cristal não mente, mesmo quando nós mentimos.", "effects": [{ "setFlag": "talked_professor" }] },
-      "p_hint": { "id": "p_hint", "speaker": "Professor Círculo", "text": "Três sítios da praça parecem-me... tortos. Um junto à casa a noroeste, outro no extremo leste, e outro além do rio. Usa esse teu olho (K)." },
-      "p_reported": { "id": "p_reported", "speaker": "Professor Círculo", "text": "Uma porta no céu, dizes tu. Vou estudar isto com todo o cuidado. Obrigado por confiares em mim." },
-      "p_default": { "id": "p_default", "speaker": "Professor Círculo", "text": "Um círculo não tem princípio nem fim, Bill. As melhores perguntas também não." }
+      "p1": {
+        "id": "p1",
+        "speaker": "Professor Círculo",
+        "text": "Bill! Outra vez a olhar para o sol de olho fechado?",
+        "mood": "surprised",
+        "next": "p1__2"
+      },
+      "p2": {
+        "id": "p2",
+        "speaker": "Professor Círculo",
+        "text": "Hum. Formas que tremem... Há um texto antigo sobre isso. Diz que a fonte de cristal reage a quem vê demasiado.",
+        "effects": [
+          {
+            "setFlag": "talked_professor"
+          }
+        ],
+        "mood": "thinking",
+        "next": "p2__2"
+      },
+      "p2b": {
+        "id": "p2b",
+        "speaker": "Professor Círculo",
+        "text": "Está bem. Mas se um dia vires, vai à fonte. O cristal não mente, mesmo quando nós mentimos.",
+        "effects": [
+          {
+            "setFlag": "talked_professor"
+          }
+        ],
+        "mood": "neutral"
+      },
+      "p_hint": {
+        "id": "p_hint",
+        "speaker": "Professor Círculo",
+        "text": "Três pontos da praça parecem-me... tortos. Um junto à casa a noroeste, outro no extremo leste, outro do outro lado do rio.",
+        "mood": "thinking",
+        "next": "p_hint__2"
+      },
+      "p_reported": {
+        "id": "p_reported",
+        "speaker": "Professor Círculo",
+        "text": "Uma porta no céu. E alguém do outro lado.",
+        "mood": "surprised",
+        "next": "p_reported__2"
+      },
+      "p_default": {
+        "id": "p_default",
+        "speaker": "Professor Círculo",
+        "text": "Um círculo não tem princípio nem fim, Bill. As melhores perguntas também não.",
+        "mood": "happy"
+      },
+      "p1__2": {
+        "id": "p1__2",
+        "speaker": "Professor Círculo",
+        "text": "Os teus colegas andam a dizer que vês «arestas a mais» nas coisas. Que tal me contares tu, em vez deles?",
+        "mood": "thinking",
+        "choices": [
+          {
+            "text": "Vejo coisas que não estão lá. Formas a tremer.",
+            "tag": "Confiança",
+            "effects": [
+              {
+                "var": "trust",
+                "add": 1
+              }
+            ],
+            "next": "p2"
+          },
+          {
+            "text": "Não vejo nada, professor. Eles inventam.",
+            "tag": "Esconder",
+            "effects": [
+              {
+                "setFlag": "hid_from_professor"
+              }
+            ],
+            "next": "p2b"
+          }
+        ]
+      },
+      "p2__2": {
+        "id": "p2__2",
+        "speaker": "Professor Círculo",
+        "text": "Vai tocar-lhe. E depois volta e conta-me tudo, com os ângulos todos.",
+        "mood": "happy"
+      },
+      "p_hint__2": {
+        "id": "p_hint__2",
+        "speaker": "Professor Círculo",
+        "text": "Fecha um pouco esse teu olho e olha com o outro lado dele.",
+        "mood": "neutral"
+      },
+      "p_reported__2": {
+        "id": "p_reported__2",
+        "speaker": "Professor Círculo",
+        "text": "Vou estudar isto com todo o cuidado. Obrigado por confiares em mim, Bill. Nem toda a gente confiaria.",
+        "mood": "thinking"
+      }
     }
   },
   {
     "id": "merchant",
     "entries": [
-      { "if": { "all": [{ "flag": "anomaly_1" }, { "flag": "anomaly_2" }, { "flag": "anomaly_3" }, { "not": { "flag": "merchant_resolved" } }] }, "start": "m1" },
-      { "if": { "flag": "scared_merchant" }, "start": "m_scared" },
-      { "start": "m_default" }
+      {
+        "if": {
+          "all": [
+            {
+              "flag": "anomaly_1"
+            },
+            {
+              "flag": "anomaly_2"
+            },
+            {
+              "flag": "anomaly_3"
+            },
+            {
+              "not": {
+                "flag": "merchant_resolved"
+              }
+            }
+          ]
+        },
+        "start": "m1"
+      },
+      {
+        "if": {
+          "flag": "scared_merchant"
+        },
+        "start": "m_scared"
+      },
+      {
+        "start": "m_default"
+      }
     ],
     "nodes": {
-      "m1": { "id": "m1", "speaker": "Mercador Quadrado", "text": "Tu! As minhas caixas mudaram de sítio sozinhas quando passaste. Isto é obra tua, não é?", "choices": [
-        { "text": "Fui eu, sem querer. Vejo coisas... e às vezes elas mexem-se.", "tag": "Honestidade", "effects": [{ "var": "trust", "add": 1 }, { "var": "empathy", "add": 1 }, { "setFlag": "merchant_resolved" }], "next": "m_honest" },
-        { "text": "Foi o vento. As caixas estão mal empilhadas.", "tag": "Mentir", "effects": [{ "var": "ambition", "add": 1 }, { "var": "trust", "add": -1 }, { "setFlag": "merchant_resolved" }], "next": "m_lie" },
-        { "text": "(o olho brilha) Talvez. Queres ver o que mais consigo mexer?", "tag": "Usar poder", "effects": [{ "var": "ambition", "add": 2 }, { "var": "empathy", "add": -1 }, { "setFlag": "scared_merchant" }, { "setFlag": "merchant_resolved" }], "next": "m_scare" }
-      ] },
-      "m_honest": { "id": "m_honest", "speaker": "Mercador Quadrado", "text": "... Hum. Pelo menos és honesto. Arruma-as tu, então. E vê se esse olho aprende a pedir licença." },
-      "m_lie": { "id": "m_lie", "speaker": "Mercador Quadrado", "text": "O vento. Pois. Nesta praça não há vento há dez anos." },
-      "m_scare": { "id": "m_scare", "speaker": "Mercador Quadrado", "text": "Afasta-te da minha banca! (O mercador recua, a tremer. Os vizinhos olham para ti.)" },
-      "m_scared": { "id": "m_scared", "speaker": "Mercador Quadrado", "text": "(Evita olhar-te nos olhos.) Não tenho nada para ti." },
-      "m_default": { "id": "m_default", "speaker": "Mercador Quadrado", "text": "Triângulos, quadrados, círculos... todos pagam o mesmo preço." }
+      "m1": {
+        "id": "m1",
+        "speaker": "Mercador Quadrado",
+        "text": "Tu! As minhas caixas mudaram de sítio sozinhas quando passaste.",
+        "mood": "angry",
+        "next": "m1__2"
+      },
+      "m_honest": {
+        "id": "m_honest",
+        "speaker": "Mercador Quadrado",
+        "text": "...Hum. Pelo menos és honesto, o que é mais do que diz metade desta praça.",
+        "mood": "thinking",
+        "next": "m_honest__2"
+      },
+      "m_lie": {
+        "id": "m_lie",
+        "speaker": "Mercador Quadrado",
+        "text": "O vento. Pois. Nesta praça não sopra vento há dez anos.",
+        "mood": "angry"
+      },
+      "m_scare": {
+        "id": "m_scare",
+        "speaker": "Mercador Quadrado",
+        "text": "Afasta-te da minha banca!",
+        "mood": "scared",
+        "next": "m_scare__2"
+      },
+      "m_scared": {
+        "id": "m_scared",
+        "speaker": "Mercador Quadrado",
+        "text": "Não tenho nada para ti. Não tenho nada para ninguém.",
+        "mood": "scared"
+      },
+      "m_default": {
+        "id": "m_default",
+        "speaker": "Mercador Quadrado",
+        "text": "Triângulos, quadrados, círculos... todos pagam o mesmo preço. É a única coisa justa nesta terra.",
+        "mood": "neutral"
+      },
+      "m1__2": {
+        "id": "m1__2",
+        "speaker": "Mercador Quadrado",
+        "text": "Uma andou meio metro. Caixas não andam. Isto é obra tua, não é?",
+        "mood": "angry",
+        "choices": [
+          {
+            "text": "Fui eu, sem querer. Vejo coisas... e às vezes elas mexem-se.",
+            "tag": "Honestidade",
+            "effects": [
+              {
+                "var": "trust",
+                "add": 1
+              },
+              {
+                "var": "empathy",
+                "add": 1
+              },
+              {
+                "setFlag": "merchant_resolved"
+              }
+            ],
+            "next": "m_honest"
+          },
+          {
+            "text": "Foi o vento. As caixas estão mal empilhadas.",
+            "tag": "Mentir",
+            "effects": [
+              {
+                "var": "ambition",
+                "add": 1
+              },
+              {
+                "var": "trust",
+                "add": -1
+              },
+              {
+                "setFlag": "merchant_resolved"
+              }
+            ],
+            "next": "m_lie"
+          },
+          {
+            "text": "(o olho brilha) Talvez. Queres ver o que mais consigo mexer?",
+            "tag": "Usar poder",
+            "effects": [
+              {
+                "var": "ambition",
+                "add": 2
+              },
+              {
+                "var": "empathy",
+                "add": -1
+              },
+              {
+                "setFlag": "scared_merchant"
+              },
+              {
+                "setFlag": "merchant_resolved"
+              }
+            ],
+            "next": "m_scare"
+          }
+        ]
+      },
+      "m_honest__2": {
+        "id": "m_honest__2",
+        "speaker": "Mercador Quadrado",
+        "text": "Arruma-as tu, então. E ensina esse olho a pedir licença.",
+        "mood": "neutral"
+      },
+      "m_scare__2": {
+        "id": "m_scare__2",
+        "speaker": "",
+        "text": "O mercador recua, a tremer. À volta, as janelas fecham-se uma a uma."
+      }
     }
   },
   {
     "id": "artisan_plaza",
     "entries": [
-      { "if": { "all": [{ "quest": "a1_q2", "state": "active" }, { "not": { "flag": "tri_talked" } }] }, "start": "t1" },
-      { "if": { "flag": "promise_tri" }, "start": "t_wait" },
-      { "start": "t_default" }
+      {
+        "if": {
+          "all": [
+            {
+              "quest": "a1_q2",
+              "state": "active"
+            },
+            {
+              "not": {
+                "flag": "tri_talked"
+              }
+            }
+          ]
+        },
+        "start": "t1"
+      },
+      {
+        "if": {
+          "flag": "promise_tri"
+        },
+        "start": "t_wait"
+      },
+      {
+        "start": "t_default"
+      }
     ],
     "nodes": {
-      "t1": { "id": "t1", "speaker": "Tri", "text": "Bill! Andas estranho. Os outros dizem que o teu olho brilha. Vais ao observatório, não vais?", "choices": [
-        { "text": "Vou. Prometo voltar antes do pôr-do-sol.", "tag": "Promessa", "effects": [{ "setFlag": "promise_tri" }, { "setFlag": "tri_talked" }, { "var": "empathy", "add": 1 }, { "journal": "j_promise" }], "next": "t_prom" },
-        { "text": "Não sei quando volto. Não esperes por mim.", "effects": [{ "setFlag": "tri_talked" }, { "var": "ambition", "add": 1 }, { "journal": "j_no_promise" }], "next": "t_noprom" }
-      ] },
-      "t_prom": { "id": "t_prom", "speaker": "Tri", "text": "Vou fazer-te um colar de triângulos para quando voltares. Não te atrases!" },
-      "t_noprom": { "id": "t_noprom", "speaker": "Tri", "text": "... Está bem. Cuida-te, olho-mágico." },
-      "t_wait": { "id": "t_wait", "speaker": "Tri", "text": "O colar já vai a meio. Antes do pôr-do-sol, lembra-te." },
-      "t_default": { "id": "t_default", "speaker": "Tri", "text": "Estou a esculpir um prisma que reflecte para dentro. Ainda não sei para que serve." }
+      "t1": {
+        "id": "t1",
+        "speaker": "Tri",
+        "text": "Bill! Andas estranho. Os outros dizem que o teu olho brilha à noite.",
+        "mood": "surprised",
+        "next": "t1__2"
+      },
+      "t_prom": {
+        "id": "t_prom",
+        "speaker": "Tri",
+        "text": "Então vou fazer-te um colar de triângulos para quando voltares.",
+        "mood": "happy",
+        "next": "t_prom__2"
+      },
+      "t_noprom": {
+        "id": "t_noprom",
+        "speaker": "Tri",
+        "text": "...Está bem. Cuida-te, olho-mágico.",
+        "mood": "sad"
+      },
+      "t_wait": {
+        "id": "t_wait",
+        "speaker": "Tri",
+        "text": "O colar já vai a meio. Antes do pôr-do-sol, lembra-te.",
+        "mood": "happy"
+      },
+      "t_default": {
+        "id": "t_default",
+        "speaker": "Tri",
+        "text": "Estou a esculpir um prisma que reflecte para dentro. Ainda não sei para que serve. Acho que é para ninguém.",
+        "mood": "thinking"
+      },
+      "t1__2": {
+        "id": "t1__2",
+        "speaker": "Tri",
+        "text": "Vais ao observatório, não vais? Vê-se na tua cara.",
+        "mood": "sad",
+        "choices": [
+          {
+            "text": "Vou. Prometo voltar antes do pôr-do-sol.",
+            "tag": "Promessa",
+            "effects": [
+              {
+                "setFlag": "promise_tri"
+              },
+              {
+                "setFlag": "tri_talked"
+              },
+              {
+                "var": "empathy",
+                "add": 1
+              },
+              {
+                "journal": "j_promise"
+              }
+            ],
+            "next": "t_prom"
+          },
+          {
+            "text": "Não sei quando volto. Não esperes por mim.",
+            "effects": [
+              {
+                "setFlag": "tri_talked"
+              },
+              {
+                "var": "ambition",
+                "add": 1
+              },
+              {
+                "journal": "j_no_promise"
+              }
+            ],
+            "next": "t_noprom"
+          }
+        ]
+      },
+      "t_prom__2": {
+        "id": "t_prom__2",
+        "speaker": "Tri",
+        "text": "E se te atrasares, faço-te um de quadrados. Vais odiar.",
+        "mood": "smug"
+      }
     }
   },
   {
     "id": "tri_house",
-    "entries": [{ "start": "t1" }],
+    "entries": [
+      {
+        "start": "t1"
+      }
+    ],
     "nodes": {
-      "t1": { "id": "t1", "speaker": "Tri", "text": "Bill! A porta estava aberta... Andas estranho. Os outros dizem que o teu olho brilha. Vais ao observatório, não vais?", "choices": [
-        { "text": "Vou. Prometo voltar antes do pôr-do-sol.", "tag": "Promessa", "effects": [{ "setFlag": "promise_tri" }, { "setFlag": "tri_talked" }, { "var": "empathy", "add": 1 }, { "journal": "j_promise" }], "next": "t_prom" },
-        { "text": "Não sei quando volto. Não esperes por mim.", "effects": [{ "setFlag": "tri_talked" }, { "var": "ambition", "add": 1 }, { "journal": "j_no_promise" }], "next": "t_noprom" }
-      ] },
-      "t_prom": { "id": "t_prom", "speaker": "Tri", "text": "Vou fazer-te um colar de triângulos para quando voltares. A Anciã está do outro lado do rio, se precisares do selo." },
-      "t_noprom": { "id": "t_noprom", "speaker": "Tri", "text": "... Está bem. A Anciã tem o selo do observatório. Cuida-te, olho-mágico." }
+      "t1": {
+        "id": "t1",
+        "speaker": "Tri",
+        "text": "Bill! A porta estava aberta, desculpa ter entrado.",
+        "mood": "surprised",
+        "next": "t1__2"
+      },
+      "t_prom": {
+        "id": "t_prom",
+        "speaker": "Tri",
+        "text": "Então vou fazer-te um colar de triângulos para quando voltares.",
+        "mood": "happy",
+        "next": "t_prom__2"
+      },
+      "t_noprom": {
+        "id": "t_noprom",
+        "speaker": "Tri",
+        "text": "...Está bem. A Anciã tem o selo do observatório, do outro lado do rio.",
+        "mood": "sad",
+        "next": "t_noprom__2"
+      },
+      "t1__2": {
+        "id": "t1__2",
+        "speaker": "Tri",
+        "text": "Andas estranho. Os outros dizem que o teu olho brilha. Vais ao observatório, não vais?",
+        "mood": "sad",
+        "choices": [
+          {
+            "text": "Vou. Prometo voltar antes do pôr-do-sol.",
+            "tag": "Promessa",
+            "effects": [
+              {
+                "setFlag": "promise_tri"
+              },
+              {
+                "setFlag": "tri_talked"
+              },
+              {
+                "var": "empathy",
+                "add": 1
+              },
+              {
+                "journal": "j_promise"
+              }
+            ],
+            "next": "t_prom"
+          },
+          {
+            "text": "Não sei quando volto. Não esperes por mim.",
+            "effects": [
+              {
+                "setFlag": "tri_talked"
+              },
+              {
+                "var": "ambition",
+                "add": 1
+              },
+              {
+                "journal": "j_no_promise"
+              }
+            ],
+            "next": "t_noprom"
+          }
+        ]
+      },
+      "t_prom__2": {
+        "id": "t_prom__2",
+        "speaker": "Tri",
+        "text": "A Anciã está do outro lado do rio, se precisares do selo. Ela finge que é severa, mas gosta de ti.",
+        "mood": "neutral"
+      },
+      "t_noprom__2": {
+        "id": "t_noprom__2",
+        "speaker": "Tri",
+        "text": "Cuida-te, olho-mágico.",
+        "mood": "sad"
+      }
     }
   },
   {
     "id": "elder",
     "entries": [
-      { "if": { "item": "elder_token" }, "start": "e_after" },
-      { "if": { "quest": "a1_q1", "state": "done" }, "start": "e_token" },
-      { "start": "e1" }
+      {
+        "if": {
+          "item": "elder_token"
+        },
+        "start": "e_after"
+      },
+      {
+        "if": {
+          "quest": "a1_q1",
+          "state": "done"
+        },
+        "start": "e_token"
+      },
+      {
+        "start": "e1"
+      }
     ],
     "nodes": {
-      "e1": { "id": "e1", "speaker": "Anciã Hexágono", "text": "Ainda és novo para o observatório, Bill. Primeiro aprende a ver o que a praça esconde." },
-      "e_token": { "id": "e_token", "speaker": "Anciã Hexágono", "text": "Disseram-me que encontraste as três anomalias. A fonte escolheu-te. Diz-me: o que vês quando fechas o olho?", "choices": [
-        { "text": "Uma porta no céu. E alguém do outro lado.", "tag": "Confiança", "effects": [{ "var": "trust", "add": 1 }, { "setFlag": "told_elder" }], "next": "e_give" },
-        { "text": "Nada de especial, Anciã.", "tag": "Esconder", "effects": [{ "var": "ambition", "add": 1 }, { "setFlag": "hid_visions" }], "next": "e_give" }
-      ] },
-      "e_give": { "id": "e_give", "speaker": "Anciã Hexágono", "text": "Leva o Selo. O portão norte abre-se a quem tenha selo e geometria. E Bill... há portas que não voltam a fechar.", "effects": [{ "give": "elder_token" }, { "journal": "j_token" }] },
-      "e_after": { "id": "e_after", "speaker": "Anciã Hexágono", "text": "O observatório espera-te a norte da praça." }
+      "e1": {
+        "id": "e1",
+        "speaker": "Anciã Hexágono",
+        "text": "Ainda és novo para o observatório, Bill.",
+        "mood": "neutral",
+        "next": "e1__2"
+      },
+      "e_token": {
+        "id": "e_token",
+        "speaker": "Anciã Hexágono",
+        "text": "Disseram-me que encontraste as três anomalias. A fonte escolheu-te.",
+        "mood": "thinking",
+        "next": "e_token__2"
+      },
+      "e_give": {
+        "id": "e_give",
+        "speaker": "Anciã Hexágono",
+        "text": "Leva o Selo. O portão do norte abre-se a quem traga selo e geometria.",
+        "effects": [
+          {
+            "give": "elder_token"
+          },
+          {
+            "journal": "j_token"
+          }
+        ],
+        "mood": "neutral",
+        "next": "e_give__2"
+      },
+      "e_after": {
+        "id": "e_after",
+        "speaker": "Anciã Hexágono",
+        "text": "O observatório espera-te a norte da praça. Ele tem paciência. Eu já não tanta.",
+        "mood": "neutral"
+      },
+      "e1__2": {
+        "id": "e1__2",
+        "speaker": "Anciã Hexágono",
+        "text": "Primeiro aprende a ver o que a praça esconde. Depois falamos do céu.",
+        "mood": "thinking"
+      },
+      "e_token__2": {
+        "id": "e_token__2",
+        "speaker": "Anciã Hexágono",
+        "text": "Diz-me, criança: o que vês quando fechas o olho?",
+        "mood": "neutral",
+        "choices": [
+          {
+            "text": "Uma porta no céu. E alguém do outro lado.",
+            "tag": "Confiança",
+            "effects": [
+              {
+                "var": "trust",
+                "add": 1
+              },
+              {
+                "setFlag": "told_elder"
+              }
+            ],
+            "next": "e_give"
+          },
+          {
+            "text": "Nada de especial, Anciã.",
+            "tag": "Esconder",
+            "effects": [
+              {
+                "var": "ambition",
+                "add": 1
+              },
+              {
+                "setFlag": "hid_visions"
+              }
+            ],
+            "next": "e_give"
+          }
+        ]
+      },
+      "e_give__2": {
+        "id": "e_give__2",
+        "speaker": "Anciã Hexágono",
+        "text": "E Bill... há portas que não voltam a fechar. Lembra-te que fui eu que ta abri.",
+        "mood": "sad"
+      }
     }
   },
   {
     "id": "telescope_vision",
-    "entries": [{ "start": "v1" }],
+    "entries": [
+      {
+        "start": "v1"
+      }
+    ],
     "nodes": {
-      "v1": { "id": "v1", "speaker": "Visão", "text": "Através da lente o céu dobra-se. Há um lugar feito de pesadelos e, no centro, um coração que pulsa ao ritmo do teu olho. Uma voz: \"Finalmente, alguém que vê.\"", "next": "v2" },
-      "v2": { "id": "v2", "speaker": "Bill", "text": "O telescópio range. Uma linha de luz desce sobre a praça. O que fazes com o que viste?", "choices": [
-        { "text": "Corro a contar ao Professor Círculo.", "tag": "Confiança", "effects": [{ "var": "trust", "add": 1 }, { "var": "empathy", "add": 1 }, { "setFlag": "reported" }, { "journal": "j_reported" }], "next": "v3" },
-        { "text": "Guardo isto para mim. É a MINHA descoberta.", "tag": "Ambição", "effects": [{ "var": "ambition", "add": 2 }, { "setFlag": "secret_vision" }, { "journal": "j_secret" }], "next": "v3" }
-      ] },
-      "v3": { "id": "v3", "speaker": "", "text": "Um estrondo. A cidade lá em baixo racha como vidro. A ruptura começou — desce pela saída sul.", "effects": [{ "setFlag": "vision_done" }, { "setFlag": "rupture_started" }] }
+      "v1": {
+        "id": "v1",
+        "speaker": "Bill",
+        "text": "O telescópio range. A visão desaparece, mas a voz fica, colada ao ouvido.",
+        "mood": "scared",
+        "next": "v2"
+      },
+      "v2": {
+        "id": "v2",
+        "speaker": "Bill",
+        "text": "Uma porta no céu. Alguém do outro lado que sabe o meu nome. O que é que eu faço com isto?",
+        "mood": "thinking",
+        "choices": [
+          {
+            "text": "Corro a contar ao Professor Círculo.",
+            "tag": "Confiança",
+            "effects": [
+              {
+                "var": "trust",
+                "add": 1
+              },
+              {
+                "var": "empathy",
+                "add": 1
+              },
+              {
+                "setFlag": "reported"
+              },
+              {
+                "journal": "j_reported"
+              }
+            ],
+            "next": "v3"
+          },
+          {
+            "text": "Guardo isto para mim. A descoberta é MINHA.",
+            "tag": "Ambição",
+            "effects": [
+              {
+                "var": "ambition",
+                "add": 2
+              },
+              {
+                "setFlag": "secret_vision"
+              },
+              {
+                "journal": "j_secret"
+              }
+            ],
+            "next": "v3"
+          }
+        ]
+      },
+      "v3": {
+        "id": "v3",
+        "speaker": "",
+        "text": "Um estrondo, lá em baixo. A cidade racha como vidro. A ruptura começou: a saída é pelo sul.",
+        "effects": [
+          {
+            "setFlag": "vision_done"
+          },
+          {
+            "setFlag": "rupture_started"
+          }
+        ]
+      }
     }
   },
   {
     "id": "elder_rupture",
     "entries": [
-      { "if": { "not": { "flag": "rupture_choice" } }, "start": "r1" },
-      { "start": "r_after" }
+      {
+        "if": {
+          "not": {
+            "flag": "rupture_choice"
+          }
+        },
+        "start": "r1"
+      },
+      {
+        "start": "r_after"
+      }
     ],
     "nodes": {
-      "r1": { "id": "r1", "speaker": "Anciã Hexágono", "text": "Bill! A fenda abriu-se onde estava a fonte. Há gente presa: o Professor, o Mercador e a Tri. E a fenda chama por ti.", "effects": [{ "questStart": "a1_s1" }, { "questStart": "a1_s2" }], "next": "r2" },
-      "r2": { "id": "r2", "speaker": "Anciã Hexágono", "text": "Antes de entrares, diz-me ao que vais.", "choices": [
-        { "text": "Prometo fechá-la, custe o que custar.", "tag": "Promessa", "effects": [{ "var": "empathy", "add": 1 }, { "setFlag": "promise_elder" }, { "record": "promisesKept", "value": "anciã (intenção)" }], "next": "r3" },
-        { "text": "Vou ver o que está do outro lado. Só isso.", "tag": "Ambição", "effects": [{ "var": "ambition", "add": 1 }], "next": "r3" },
-        { "text": "Se eu for, ninguém mais se magoa. É um acordo?", "tag": "Negociar", "effects": [{ "var": "trust", "add": 1 }, { "record": "deals", "value": "anciã" }], "next": "r3" }
-      ] },
-      "r3": { "id": "r3", "speaker": "Anciã Hexágono", "text": "Vai quando estiveres pronto. Mas os presos ainda podem ser salvos — e um estilhaço pode reparar a fonte.", "effects": [{ "setFlag": "rupture_choice" }] },
-      "r_after": { "id": "r_after", "speaker": "Anciã Hexágono", "text": "A fenda não espera para sempre. Mas também ninguém te obriga a ir sozinho no coração." }
+      "r1": {
+        "id": "r1",
+        "speaker": "Anciã Hexágono",
+        "text": "Bill! A fenda abriu-se onde estava a fonte.",
+        "effects": [
+          {
+            "questStart": "a1_s1"
+          },
+          {
+            "questStart": "a1_s2"
+          }
+        ],
+        "mood": "scared",
+        "next": "r1__2"
+      },
+      "r2": {
+        "id": "r2",
+        "speaker": "Anciã Hexágono",
+        "text": "Antes de entrares, diz-me ao que vais. Quero ouvir da tua boca.",
+        "mood": "neutral",
+        "choices": [
+          {
+            "text": "Prometo fechá-la, custe o que custar.",
+            "tag": "Promessa",
+            "effects": [
+              {
+                "var": "empathy",
+                "add": 1
+              },
+              {
+                "setFlag": "promise_elder"
+              },
+              {
+                "record": "promisesKept",
+                "value": "anciã (intenção)"
+              }
+            ],
+            "next": "r3"
+          },
+          {
+            "text": "Vou ver o que está do outro lado. Só isso.",
+            "tag": "Ambição",
+            "effects": [
+              {
+                "var": "ambition",
+                "add": 1
+              }
+            ],
+            "next": "r3"
+          },
+          {
+            "text": "Se eu for, ninguém mais se magoa. É um acordo?",
+            "tag": "Negociar",
+            "effects": [
+              {
+                "var": "trust",
+                "add": 1
+              },
+              {
+                "record": "deals",
+                "value": "anciã"
+              }
+            ],
+            "next": "r3"
+          }
+        ]
+      },
+      "r3": {
+        "id": "r3",
+        "speaker": "Anciã Hexágono",
+        "text": "Vai quando estiveres pronto.",
+        "effects": [
+          {
+            "setFlag": "rupture_choice"
+          }
+        ],
+        "mood": "neutral",
+        "next": "r3__2"
+      },
+      "r_after": {
+        "id": "r_after",
+        "speaker": "Anciã Hexágono",
+        "text": "A fenda não espera para sempre. Mas ninguém te obriga a chegar ao coração sozinho.",
+        "mood": "sad"
+      },
+      "r1__2": {
+        "id": "r1__2",
+        "speaker": "Anciã Hexágono",
+        "text": "Há gente presa: o Professor, o Mercador, a Tri. E a fenda... a fenda chama por ti. Ouço-a dizer o teu nome.",
+        "mood": "sad",
+        "next": "r2"
+      },
+      "r3__2": {
+        "id": "r3__2",
+        "speaker": "Anciã Hexágono",
+        "text": "Mas os presos ainda podem ser salvos. E um estilhaço geométrico pode reparar a fonte, se o souberes usar.",
+        "mood": "thinking"
+      }
     }
   },
   {
     "id": "rescue_professor",
-    "entries": [{ "start": "a" }],
+    "entries": [
+      {
+        "start": "a"
+      }
+    ],
     "nodes": {
-      "a": { "id": "a", "speaker": "Professor Círculo", "text": "Bill! Vieste buscar-me através do vazio?", "choices": [
-        { "text": "Venha. Há um caminho seguro.", "tag": "Resgatar", "effects": [{ "var": "empathy", "add": 1 }, { "record": "rescued", "value": "professor" }, { "record": "helped", "value": "professor" }], "next": "ok" },
-        { "text": "Agora não. Tenho de seguir.", "effects": [{ "var": "ambition", "add": 1 }], "next": "no" }
-      ] },
-      "ok": { "id": "ok", "speaker": "Professor Círculo", "text": "Obrigado. Vou ajudar os outros a sair da praça. (O Professor afasta-se em segurança.)" },
-      "no": { "id": "no", "speaker": "Professor Círculo", "text": "Então vai... eu espero aqui. O círculo há-de fechar." }
+      "a": {
+        "id": "a",
+        "speaker": "Professor Círculo",
+        "text": "Bill?! Vieste buscar-me através do vazio?",
+        "mood": "surprised",
+        "choices": [
+          {
+            "text": "Venha. Há um caminho seguro.",
+            "tag": "Resgatar",
+            "effects": [
+              {
+                "var": "empathy",
+                "add": 1
+              },
+              {
+                "record": "rescued",
+                "value": "professor"
+              },
+              {
+                "record": "helped",
+                "value": "professor"
+              }
+            ],
+            "next": "ok"
+          },
+          {
+            "text": "Agora não. Tenho de seguir.",
+            "effects": [
+              {
+                "var": "ambition",
+                "add": 1
+              }
+            ],
+            "next": "no"
+          }
+        ]
+      },
+      "ok": {
+        "id": "ok",
+        "speaker": "Professor Círculo",
+        "text": "Obrigado, rapaz. Um círculo fecha-se sempre, e hoje fechou-se do lado certo.",
+        "mood": "happy",
+        "next": "ok__2"
+      },
+      "no": {
+        "id": "no",
+        "speaker": "Professor Círculo",
+        "text": "Então vai. Eu espero aqui. O círculo há-de fechar, mais cedo ou mais tarde.",
+        "mood": "sad"
+      },
+      "ok__2": {
+        "id": "ok__2",
+        "speaker": "",
+        "text": "O Professor afasta-se em segurança, a contar os passos."
+      }
     }
   },
   {
     "id": "rescue_merchant",
     "entries": [
-      { "if": { "flag": "scared_merchant" }, "start": "scared" },
-      { "start": "a" }
+      {
+        "if": {
+          "flag": "scared_merchant"
+        },
+        "start": "scared"
+      },
+      {
+        "start": "a"
+      }
     ],
     "nodes": {
-      "scared": { "id": "scared", "speaker": "Mercador Quadrado", "text": "Não te aproximes! ... (treme) ... Mas não tenho para onde ir.", "next": "a" },
-      "a": { "id": "a", "speaker": "Mercador Quadrado", "text": "Estou preso nesta ilha com a minha mercadoria. Ajudas-me?", "choices": [
-        { "text": "Agarra-te. Eu tiro-te daqui.", "tag": "Resgatar", "effects": [{ "var": "empathy", "add": 1 }, { "var": "trust", "add": 1 }, { "record": "rescued", "value": "merchant" }, { "record": "helped", "value": "merchant" }], "next": "ok" },
-        { "text": "Dá-me a tua melhor mercadoria e eu tiro-te daqui.", "tag": "Negócio", "effects": [{ "var": "ambition", "add": 1 }, { "record": "deals", "value": "merchant" }, { "record": "rescued", "value": "merchant" }, { "give": "energy_snack" }], "next": "deal" },
-        { "text": "Fica. Não tenho tempo.", "effects": [{ "var": "ambition", "add": 1 }, { "var": "empathy", "add": -1 }], "next": "no" }
-      ] },
-      "ok": { "id": "ok", "speaker": "Mercador Quadrado", "text": "Talvez tenha sido injusto contigo, miúdo. Obrigado." },
-      "deal": { "id": "deal", "speaker": "Mercador Quadrado", "text": "Negócio é negócio. Toma, e tira-me daqui!" },
-      "no": { "id": "no", "speaker": "Mercador Quadrado", "text": "Típico." }
+      "scared": {
+        "id": "scared",
+        "speaker": "Mercador Quadrado",
+        "text": "Não te aproximes!",
+        "mood": "scared",
+        "next": "scared__2"
+      },
+      "a": {
+        "id": "a",
+        "speaker": "Mercador Quadrado",
+        "text": "Estou preso nesta ilha com a mercadoria toda. Ajudas-me?",
+        "mood": "sad",
+        "choices": [
+          {
+            "text": "Agarra-te. Eu tiro-te daqui.",
+            "tag": "Resgatar",
+            "effects": [
+              {
+                "var": "empathy",
+                "add": 1
+              },
+              {
+                "var": "trust",
+                "add": 1
+              },
+              {
+                "record": "rescued",
+                "value": "merchant"
+              },
+              {
+                "record": "helped",
+                "value": "merchant"
+              }
+            ],
+            "next": "ok"
+          },
+          {
+            "text": "Dá-me a tua melhor mercadoria e eu tiro-te daqui.",
+            "tag": "Negócio",
+            "effects": [
+              {
+                "var": "ambition",
+                "add": 1
+              },
+              {
+                "record": "deals",
+                "value": "merchant"
+              },
+              {
+                "record": "rescued",
+                "value": "merchant"
+              },
+              {
+                "give": "energy_snack"
+              }
+            ],
+            "next": "deal"
+          },
+          {
+            "text": "Fica. Não tenho tempo.",
+            "effects": [
+              {
+                "var": "ambition",
+                "add": 1
+              },
+              {
+                "var": "empathy",
+                "add": -1
+              }
+            ],
+            "next": "no"
+          }
+        ]
+      },
+      "ok": {
+        "id": "ok",
+        "speaker": "Mercador Quadrado",
+        "text": "Talvez tenha sido injusto contigo, miúdo. Obrigado. A sério.",
+        "mood": "thinking"
+      },
+      "deal": {
+        "id": "deal",
+        "speaker": "Mercador Quadrado",
+        "text": "Negócio é negócio. Toma, e tira-me daqui antes que me arrependa.",
+        "mood": "angry"
+      },
+      "no": {
+        "id": "no",
+        "speaker": "Mercador Quadrado",
+        "text": "Típico. Igualzinho a toda a gente.",
+        "mood": "angry"
+      },
+      "scared__2": {
+        "id": "scared__2",
+        "speaker": "Mercador Quadrado",
+        "text": "...Mas também não tenho para onde ir.",
+        "mood": "sad",
+        "next": "a"
+      }
     }
   },
   {
     "id": "rescue_tri",
     "entries": [
-      { "if": { "flag": "promise_tri" }, "start": "prom" },
-      { "start": "a" }
+      {
+        "if": {
+          "flag": "promise_tri"
+        },
+        "start": "prom"
+      },
+      {
+        "start": "a"
+      }
     ],
     "nodes": {
-      "prom": { "id": "prom", "speaker": "Tri", "text": "Vieste! Prometeste e vieste. (Ela segura um colar de triângulos meio acabado.)", "effects": [{ "record": "promisesKept", "value": "tri" }], "next": "a" },
-      "a": { "id": "a", "speaker": "Tri", "text": "Bill... pensei que ninguém me encontrava debaixo disto.", "choices": [
-        { "text": "Vamos. Segura-te a mim.", "tag": "Resgatar", "effects": [{ "var": "empathy", "add": 1 }, { "record": "rescued", "value": "tri" }, { "record": "helped", "value": "tri" }], "next": "ok" }
-      ] },
-      "ok": { "id": "ok", "speaker": "Tri", "text": "Não te esqueças de quem és, lá dentro. Promete-me isso também." }
+      "prom": {
+        "id": "prom",
+        "speaker": "Tri",
+        "text": "Vieste! Prometeste e vieste.",
+        "effects": [
+          {
+            "record": "promisesKept",
+            "value": "tri"
+          }
+        ],
+        "mood": "happy",
+        "next": "prom__2"
+      },
+      "a": {
+        "id": "a",
+        "speaker": "Tri",
+        "text": "Bill... pensei que ninguém me encontrava aqui debaixo.",
+        "mood": "sad",
+        "choices": [
+          {
+            "text": "Vamos. Segura-te a mim.",
+            "tag": "Resgatar",
+            "effects": [
+              {
+                "var": "empathy",
+                "add": 1
+              },
+              {
+                "record": "rescued",
+                "value": "tri"
+              },
+              {
+                "record": "helped",
+                "value": "tri"
+              }
+            ],
+            "next": "ok"
+          }
+        ]
+      },
+      "ok": {
+        "id": "ok",
+        "speaker": "Tri",
+        "text": "Lá dentro, não te esqueças de quem és.",
+        "mood": "neutral",
+        "next": "ok__2"
+      },
+      "prom__2": {
+        "id": "prom__2",
+        "speaker": "",
+        "text": "Ela segura um colar de triângulos meio acabado, com os dedos cheios de pó.",
+        "next": "a"
+      },
+      "ok__2": {
+        "id": "ok__2",
+        "speaker": "Tri",
+        "text": "Promete-me isso também. Gosto de promessas tuas.",
+        "mood": "sad"
+      }
     }
   },
   {
     "id": "pyronica",
     "entries": [
-      { "if": { "var": "trust", "gte": 3 }, "start": "deal" },
-      { "start": "a" }
+      {
+        "if": {
+          "var": "trust",
+          "gte": 3
+        },
+        "start": "deal"
+      },
+      {
+        "start": "a"
+      }
     ],
     "nodes": {
-      "a": { "id": "a", "speaker": "Pyronica", "text": "Um triangulozinho com um olho enorme. Queres a chave do vazio? Ganha-a.", "choices": [
-        { "text": "Então luta.", "next": "fight" },
-        { "text": "Fala-me do coração da fenda.", "next": "info" }
-      ] },
-      "info": { "id": "info", "speaker": "Pyronica", "text": "Ele quer-te, criança. Todos nós queremos. Agora dança!" },
-      "fight": { "id": "fight", "speaker": "Pyronica", "text": "Hahaha! Cuidado com os círculos de fogo." },
-      "deal": { "id": "deal", "speaker": "Pyronica", "text": "Tens cara de quem cumpre acordos. Proposta: a chave do vazio agora... e um favor teu, um dia.", "choices": [
-        { "text": "Aceito.", "tag": "Acordo", "effects": [{ "give": "void_key" }, { "record": "deals", "value": "pyronica" }, { "var": "ambition", "add": 1 }, { "setFlag": "pacified:nm_pyronica" }, { "journal": "j_pyronica_deal" }], "next": "bye" },
-        { "text": "Não faço acordos contigo.", "effects": [{ "var": "trust", "add": 1 }], "next": "fight" }
-      ] },
-      "bye": { "id": "bye", "speaker": "Pyronica", "text": "Delicioso. Até um dia, Bill. (Desfaz-se em fumo cor-de-rosa.)" }
+      "a": {
+        "id": "a",
+        "speaker": "Pyronica",
+        "text": "Um triangulozinho com um olho enorme. Que amoroso.",
+        "mood": "smug",
+        "next": "a__2"
+      },
+      "info": {
+        "id": "info",
+        "speaker": "Pyronica",
+        "text": "Ele quer-te, criança. Todos nós queremos. Agora dança!",
+        "mood": "smug"
+      },
+      "fight": {
+        "id": "fight",
+        "speaker": "Pyronica",
+        "text": "Hahaha! Cuidado com os círculos de fogo, docinho.",
+        "mood": "smug"
+      },
+      "deal": {
+        "id": "deal",
+        "speaker": "Pyronica",
+        "text": "Tens cara de quem cumpre o que promete. Que raro, por aqui.",
+        "mood": "smug",
+        "next": "deal__2"
+      },
+      "bye": {
+        "id": "bye",
+        "speaker": "Pyronica",
+        "text": "Delicioso. Até um dia, Bill.",
+        "mood": "smug",
+        "next": "bye__2"
+      },
+      "a__2": {
+        "id": "a__2",
+        "speaker": "Pyronica",
+        "text": "Queres a chave do vazio? Então ganha-a.",
+        "mood": "smug",
+        "choices": [
+          {
+            "text": "Então luta.",
+            "next": "fight"
+          },
+          {
+            "text": "Fala-me do coração da fenda.",
+            "next": "info"
+          }
+        ]
+      },
+      "deal__2": {
+        "id": "deal__2",
+        "speaker": "Pyronica",
+        "text": "Proposta: a chave do vazio agora... e um favor teu, um dia. Um diazinho qualquer.",
+        "mood": "smug",
+        "choices": [
+          {
+            "text": "Aceito.",
+            "tag": "Acordo",
+            "effects": [
+              {
+                "give": "void_key"
+              },
+              {
+                "record": "deals",
+                "value": "pyronica"
+              },
+              {
+                "var": "ambition",
+                "add": 1
+              },
+              {
+                "setFlag": "pacified:nm_pyronica"
+              },
+              {
+                "journal": "j_pyronica_deal"
+              }
+            ],
+            "next": "bye"
+          },
+          {
+            "text": "Não faço acordos contigo.",
+            "effects": [
+              {
+                "var": "trust",
+                "add": 1
+              }
+            ],
+            "next": "fight"
+          }
+        ]
+      },
+      "bye__2": {
+        "id": "bye__2",
+        "speaker": "",
+        "text": "Pyronica desfaz-se em fumo cor-de-rosa. O cheiro a enxofre fica."
+      }
     }
   },
   {
     "id": "bola8",
     "entries": [
-      { "if": { "var": "empathy", "gte": 3 }, "start": "calm" },
-      { "start": "a" }
+      {
+        "if": {
+          "var": "empathy",
+          "gte": 3
+        },
+        "start": "calm"
+      },
+      {
+        "start": "a"
+      }
     ],
     "nodes": {
-      "a": { "id": "a", "speaker": "Bola 8", "text": "(Rosna, as correntes a chocalhar.) NINGUÉM... PASSA." },
-      "calm": { "id": "calm", "speaker": "Bola 8", "text": "(Rosna. Mas as correntes nos pulsos estão em carne viva.)", "choices": [
-        { "text": "Essas correntes magoam-te. Posso tentar abri-las.", "tag": "Empatia", "effects": [{ "setFlag": "bola8_calm" }, { "setFlag": "pacified:nm_bola8" }, { "var": "empathy", "add": 1 }, { "record": "helped", "value": "bola 8" }, { "journal": "j_bola8_calm" }], "next": "thanks" },
-        { "text": "Sai da frente, ou tiro-te eu.", "next": "a" }
-      ] },
-      "thanks": { "id": "thanks", "speaker": "Bola 8", "text": "...obrigado... pequeno. (Afasta-se para o vazio, livre.)" }
+      "a": {
+        "id": "a",
+        "speaker": "",
+        "text": "Bola 8 rosna. As correntes chocalham.",
+        "next": "a__2"
+      },
+      "calm": {
+        "id": "calm",
+        "speaker": "",
+        "text": "Bola 8 rosna. Mas as correntes nos pulsos estão em carne viva, e ele estremece a cada movimento.",
+        "choices": [
+          {
+            "text": "Essas correntes magoam-te. Posso tentar abri-las.",
+            "tag": "Empatia",
+            "effects": [
+              {
+                "setFlag": "bola8_calm"
+              },
+              {
+                "setFlag": "pacified:nm_bola8"
+              },
+              {
+                "var": "empathy",
+                "add": 1
+              },
+              {
+                "record": "helped",
+                "value": "bola 8"
+              },
+              {
+                "journal": "j_bola8_calm"
+              }
+            ],
+            "next": "thanks"
+          },
+          {
+            "text": "Sai da frente, ou tiro-te eu.",
+            "next": "a"
+          }
+        ]
+      },
+      "thanks": {
+        "id": "thanks",
+        "speaker": "Bola 8",
+        "text": "...obrigado... pequeno.",
+        "mood": "neutral",
+        "next": "thanks__2"
+      },
+      "a__2": {
+        "id": "a__2",
+        "speaker": "",
+        "text": "NINGUÉM... PASSA.",
+        "mood": "angry"
+      },
+      "thanks__2": {
+        "id": "thanks__2",
+        "speaker": "",
+        "text": "Bola 8 afasta-se para o vazio. Pela primeira vez em muito tempo, sem fazer barulho."
+      }
     }
   },
   {
     "id": "heart",
     "entries": [
-      { "if": { "flag": "arc1_decided" }, "start": "done" },
-      { "if": { "not": { "any": [{ "defeated": "nm_bola8" }, { "flag": "bola8_calm" }] } }, "start": "guarded" },
-      { "if": { "all": [{ "flag": "promise_tri" }, { "not": { "event": "rescued", "value": "tri" } }] }, "start": "broken" },
-      { "start": "h1" }
+      {
+        "if": {
+          "flag": "arc1_decided"
+        },
+        "start": "done"
+      },
+      {
+        "if": {
+          "not": {
+            "any": [
+              {
+                "defeated": "nm_bola8"
+              },
+              {
+                "flag": "bola8_calm"
+              }
+            ]
+          }
+        },
+        "start": "guarded"
+      },
+      {
+        "if": {
+          "all": [
+            {
+              "flag": "promise_tri"
+            },
+            {
+              "not": {
+                "event": "rescued",
+                "value": "tri"
+              }
+            }
+          ]
+        },
+        "start": "broken"
+      },
+      {
+        "start": "h1"
+      }
     ],
     "nodes": {
-      "guarded": { "id": "guarded", "speaker": "", "text": "O Bola 8 não te deixa chegar ao coração. Primeiro tens de passar por ele." },
-      "broken": { "id": "broken", "speaker": "Bill", "text": "Lembras-te da Tri. Prometeste voltar antes do pôr-do-sol. Aqui não há sol.", "effects": [{ "record": "promisesBroken", "value": "tri" }], "next": "h1" },
-      "h1": { "id": "h1", "speaker": "Coração da fenda", "text": "O coração bate como o teu olho. Uma voz que é a tua, mais velha: \"Podes fechar-me, deixar-me... ou ser-me.\" Tudo o que fizeste até aqui pesa nesta escolha.", "choices": [
-        { "text": "Selo a fenda, mesmo que perca o meu poder.", "tag": "Reparar", "effects": [{ "setFlag": "final_seal" }, { "setFlag": "arc1_decided" }, { "journal": "j_arc1_seal" }, { "evaluateEnding": 1 }] },
-        { "text": "Viro as costas a tudo: Euclydia, a fenda, eu próprio.", "tag": "Partir", "effects": [{ "setFlag": "final_leave" }, { "setFlag": "arc1_decided" }, { "journal": "j_arc1_leave" }, { "evaluateEnding": 1 }] },
-        { "text": "Absorvo o coração. Ninguém volta a mandar em mim.", "tag": "Ascender", "effects": [{ "setFlag": "final_absorb" }, { "setFlag": "arc1_decided" }, { "journal": "j_arc1_absorb" }, { "evaluateEnding": 1 }] },
-        { "text": "Ainda não. (afastar-te)" }
-      ] },
-      "done": { "id": "done", "speaker": "", "text": "O coração já respondeu." }
+      "guarded": {
+        "id": "guarded",
+        "speaker": "",
+        "text": "Bola 8 não te deixa chegar ao coração. Primeiro tens de passar por ele."
+      },
+      "broken": {
+        "id": "broken",
+        "speaker": "Bill",
+        "text": "Lembras-te da Tri. Prometeste voltar antes do pôr-do-sol. Aqui não há sol.",
+        "effects": [
+          {
+            "record": "promisesBroken",
+            "value": "tri"
+          }
+        ],
+        "mood": "sad",
+        "next": "h1"
+      },
+      "h1": {
+        "id": "h1",
+        "speaker": "",
+        "text": "O coração bate ao ritmo do teu olho.",
+        "next": "h1__2"
+      },
+      "done": {
+        "id": "done",
+        "speaker": "",
+        "text": "O coração já respondeu. Só se ouve o silêncio."
+      },
+      "h1__2": {
+        "id": "h1__2",
+        "speaker": "Bill Cipher",
+        "text": "Podes fechar-me. Podes deixar-me. Ou podes ser-me. Tudo o que fizeste até aqui pesa nesta escolha.",
+        "mood": "smug",
+        "choices": [
+          {
+            "text": "Selo a fenda, mesmo que perca o meu poder.",
+            "tag": "Reparar",
+            "effects": [
+              {
+                "setFlag": "final_seal"
+              },
+              {
+                "setFlag": "arc1_decided"
+              },
+              {
+                "journal": "j_arc1_seal"
+              },
+              {
+                "evaluateEnding": 1
+              }
+            ]
+          },
+          {
+            "text": "Viro as costas a tudo: Euclydia, a fenda, eu próprio.",
+            "tag": "Partir",
+            "effects": [
+              {
+                "setFlag": "final_leave"
+              },
+              {
+                "setFlag": "arc1_decided"
+              },
+              {
+                "journal": "j_arc1_leave"
+              },
+              {
+                "evaluateEnding": 1
+              }
+            ]
+          },
+          {
+            "text": "Absorvo o coração. Ninguém volta a mandar em mim.",
+            "tag": "Ascender",
+            "effects": [
+              {
+                "setFlag": "final_absorb"
+              },
+              {
+                "setFlag": "arc1_decided"
+              },
+              {
+                "journal": "j_arc1_absorb"
+              },
+              {
+                "evaluateEnding": 1
+              }
+            ]
+          },
+          {
+            "text": "Ainda não. (afastar-te)"
+          }
+        ]
+      }
     }
   }
 ]

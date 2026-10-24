@@ -3,7 +3,7 @@
 import { chromium } from 'playwright-core';
 import { existsSync } from 'node:fs';
 
-const base = process.argv[2] ?? 'http://localhost:5173/';
+const base = process.argv[2] ?? 'http://localhost:5173/?nocs';
 const exe = ['/opt/pw-browsers/chromium-1194/chrome-linux/chrome', '/opt/pw-browsers/chromium'].find(existsSync);
 const browser = await chromium.launch({ executablePath: exe, args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
@@ -15,7 +15,6 @@ await page.reload();
 await page.waitForSelector('.title');
 await page.click('[data-a="new"]');
 await page.click('[data-slot="1"]');
-await page.click('.b-ok');
 await page.waitForFunction(() => !!window.__gf?.scene?.player);
 await page.waitForTimeout(500);
 // change the world: pick the fountain clue, move somewhere specific

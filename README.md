@@ -7,6 +7,7 @@ consequências persistentes e finais diferentes em cada arco. Web (PC e telemóv
 - **Motor:** Phaser 3.90.0 (versão fixada) · TypeScript 5.9 · Vite 7 · Capacitor 8.5
 - **Dados editáveis em JSON:** mapas, missões, diálogos, personagens, inimigos, objectos, finais
 - **Funciona sem servidor:** todos os recursos vão no build (`dist/`) e no APK
+- **Jogar no navegador:** https://henriquest-dev.github.io/Gravity-faal/ (build em `play/`, servido pelo GitHub Pages)
 
 O estado real (o que funciona, o que foi testado e o que falta) está em [`ESTADO.md`](ESTADO.md).
 
@@ -48,22 +49,28 @@ npm run e2e:mechanics       # 35 verificações de movimento, profundidade, águ
 npm run e2e:combat          # todos os tipos de inimigo atacam com aviso e recebem dano
 npm run e2e:save            # gravar no menu, recarregar, continuar, posição inválida, ranhura corrompida
 npm run e2e:perf            # fps e custo de actualização por área (`?renderer=canvas` para Canvas 2D)
+node tools/e2e/cutscenes.mjs <pasta> [id...]   # reproduz cenas cinemáticas e guarda quadros
+node tools/e2e/ui.mjs <pasta>                  # ecrã-título, HUD, diálogo com retrato, diário (TOUCH=1 para telemóvel)
+npm run build:pages         # actualiza play/ (a versão publicada); fazer commit de play/ para publicar
 ```
+
+`?nocs` desliga as cenas cinemáticas (aplica só os seus efeitos); os testes no navegador usam-no.
 
 ## Controlos
 
 | Acção | PC (remapeável em Opções) | Telemóvel |
 |---|---|---|
 | Mover | WASD / setas | joystick à esquerda (zona morta, empurrar até ao fim corre) |
-| Correr | Shift | botão 🏃 (alterna) ou joystick no máximo |
-| Interagir | E | botão contextual (mostra a acção) |
-| Acção principal | J ou clique esquerdo no mundo | ✦ |
-| Capacidade | K (o rato aponta) | ◈ — tocar = mira automática, arrastar = apontar |
-| Mudar capacidade | R / Tab | ↻ |
-| Saltar · Esquivar | Espaço · L | ⤒ · » |
-| Alternar Dipper/Mabel | Q | ⇄ |
-| Inventário · Mapa · Diário · Pausa | I · M · N · Esc | 🎒 · 🗺 · 📓 · ❚❚ |
+| Correr | Shift | botão de correr no canto inferior esquerdo (alterna) ou joystick no máximo |
+| Interagir | E | botão dourado com o olho (mostra a acção) |
+| Acção principal | J ou clique esquerdo no mundo | botão grande no canto |
+| Capacidade | K (o rato aponta) | triângulo: tocar = mira automática, arrastar = apontar |
+| Mudar capacidade | R / Tab | setas em círculo |
+| Saltar · Esquivar | Espaço · L | botões no arco à volta do botão principal |
+| Alternar Dipper/Mabel | Q | dois triângulos |
+| Inventário · Mapa · Diário · Pausa | I · M · N · Esc | quatro botões no canto superior direito |
 | Avançar diálogo | Enter (também E / J) | tocar na caixa |
+| Saltar cena | Esc | «Saltar», no canto superior direito |
 | Depuração | F3 (ou `?debug`) | Opções → Modo de depuração |
 
 Durante diálogos e menus o jogo usa um contexto de controlos próprio: a tecla que avança uma fala nunca
@@ -81,13 +88,15 @@ tools/e2e/*.mjs             testes no navegador
 public/assets/              personagens, animações, objectos (+ variantes @2/@3), texturas, cenários de referência
 src/core/                   lógica pura e testável: grelha/colisões, pathfinding, estados, condições,
                             efeitos, missões, diálogos, finais, gravações
-src/data/                   JSON: maps/, dialogues/, quests, endings, items, abilities, characters, enemies, props, tiles, journal
+src/data/                   JSON: maps/, dialogues/, cutscenes/, quests, endings, items, abilities, characters, enemies, props, tiles, journal
 src/game/assets.ts          carregamento validado por área, animações a partir do manifest
 src/game/scenes/            Boot (manifest + recursos globais), Menu, World
 src/game/world/             construção dos mapas: terreno com transições, edifícios compostos, objectos
 src/game/entities/          Actor (pés + elevação + sombra), Npc, Enemy (IA por comportamento)
-src/game/systems/           Input (contextos, remapeamento), Combat (avisos = área de dano), Fx (pools), Audio
-src/game/ui/                HUD, diálogos, menus, gravações, mapa, diário, controlos tácteis (DOM)
+src/game/systems/           Input (contextos, remapeamento), Combat (avisos = área de dano), Fx (pools), Audio,
+                            Cutscene (realizador das cenas: câmara, actores, falas, cartões, saltar)
+src/game/ui/                HUD, diálogos com retratos e expressões, menus em forma de diário, gravações,
+                            mapa, controlos tácteis com glifos próprios (DOM); icons.ts e portraits.ts
 tests/                      Vitest
 android/                    projecto Capacitor
 ```

@@ -1,0 +1,519 @@
+[
+  {
+    "id": "a2_intro",
+    "steps": [
+      {
+        "card": "Gravity Falls, Oregon",
+        "sub": "Trinta anos depois",
+        "lines": [
+          "Uma vila pequena no meio de pinheiros que não acabam.",
+          "Os gémeos Pines vêm passar o Verão com o tio-avô.",
+          "Ninguém lhes disse que a floresta olha de volta."
+        ],
+        "ms": 3600
+      },
+      {
+        "move": "player",
+        "to": [
+          21.5,
+          19.5
+        ],
+        "speed": 400
+      },
+      {
+        "move": "companion",
+        "to": [
+          22.6,
+          19.9
+        ],
+        "speed": 400
+      },
+      {
+        "face": "player",
+        "dir": "north"
+      },
+      {
+        "face": "companion",
+        "dir": "north"
+      },
+      {
+        "camera": [
+          21.5,
+          11
+        ],
+        "zoom": 0.9,
+        "ms": 20
+      },
+      {
+        "wait": 700
+      },
+      {
+        "camera": "player",
+        "zoom": 1,
+        "ms": 2400
+      },
+      {
+        "spawn": "stan",
+        "char": "stan",
+        "at": [
+          21.5,
+          15.4
+        ],
+        "dir": "south",
+        "alpha": 0
+      },
+      {
+        "sfx": "open"
+      },
+      {
+        "alpha": "stan",
+        "to": 1,
+        "ms": 500
+      },
+      {
+        "say": "stan",
+        "mood": "smug",
+        "text": "Ora, ora. Os famosos sobrinhos-netos. Bem-vindos à Cabana do Mistério: a armadilha para turistas mais honesta do Oregon."
+      },
+      {
+        "say": "mabel",
+        "mood": "happy",
+        "text": "Tio-avô Stan! A cabana é tão torta que é perfeita!"
+      },
+      {
+        "say": "dipper",
+        "mood": "thinking",
+        "text": "Porque é que o letreiro diz «Mystery Hack»?"
+      },
+      {
+        "say": "stan",
+        "mood": "angry",
+        "text": "O S caiu. Acontece às melhores famílias. Ninguém toca no S."
+      },
+      {
+        "face": "stan",
+        "dir": "north"
+      },
+      {
+        "say": "stan",
+        "mood": "neutral",
+        "text": "Lá para dentro. Há regras, e vão ouvi-las antes de porem um pé naquela floresta."
+      },
+      {
+        "move": "stan",
+        "to": [
+          21.5,
+          14.6
+        ],
+        "speed": 40
+      },
+      {
+        "alpha": "stan",
+        "to": 0,
+        "ms": 300
+      },
+      {
+        "remove": "stan"
+      },
+      {
+        "sfx": "close"
+      },
+      {
+        "wait": 400
+      },
+      {
+        "say": "dipper",
+        "mood": "scared",
+        "text": "Mabel... viste aquilo? Entre as árvores, lá ao fundo. Dois olhos."
+      },
+      {
+        "say": "mabel",
+        "mood": "happy",
+        "text": "Vi! Achas que é um unicórnio?"
+      },
+      {
+        "say": "dipper",
+        "mood": "thinking",
+        "text": "Acho que não é um unicórnio."
+      }
+    ]
+  },
+  {
+    "id": "a2_journal",
+    "steps": [
+      {
+        "camera": "player",
+        "zoom": 1.5,
+        "ms": 900
+      },
+      {
+        "sfx": "clue"
+      },
+      {
+        "card": "",
+        "sub": "Diário 3",
+        "lines": [
+          "«É difícil acreditar que já passaram seis anos desde que comecei a estudar as maravilhas estranhas de Gravity Falls.»",
+          "«...Não confies em ninguém.»"
+        ],
+        "ms": 4200
+      },
+      {
+        "say": "dipper",
+        "mood": "surprised",
+        "text": "Uma mão de seis dedos. Um número três. Mabel, isto é verdadeiro. Alguém andou a estudar esta vila!"
+      },
+      {
+        "say": "mabel",
+        "mood": "happy",
+        "text": "Ou alguém fez o melhor álbum de recortes de sempre."
+      },
+      {
+        "say": "dipper",
+        "mood": "thinking",
+        "text": "Há páginas sobre gnomos, sobre o lago... e uma sobre um triângulo com um olho. Está riscada a vermelho."
+      },
+      {
+        "say": "mabel",
+        "mood": "scared",
+        "text": "Riscado a vermelho é mau, não é? Na escola, vermelho era sempre mau."
+      },
+      {
+        "camera": "player",
+        "zoom": 1,
+        "ms": 900
+      }
+    ]
+  },
+  {
+    "id": "a2_bill_ally",
+    "if": {
+      "flag": "bill_ally"
+    },
+    "steps": [
+      {
+        "camera": [
+          21,
+          18.6
+        ],
+        "zoom": 1.2,
+        "ms": 1400
+      },
+      {
+        "sfx": "rift"
+      },
+      {
+        "flash": "#ffe066",
+        "ms": 400
+      },
+      {
+        "glow": [
+          21,
+          18.6
+        ],
+        "r": 220,
+        "color": "#ffe066",
+        "ms": 1600
+      },
+      {
+        "shake": 0.004,
+        "ms": 600
+      },
+      {
+        "say": "bill",
+        "mood": "happy",
+        "text": "Pinheirinho! Estrela Cadente! Calma, calma. Não sou o vilão desta história. Também já fui criança num mundo plano, sabiam?"
+      },
+      {
+        "camera": "player",
+        "zoom": 1,
+        "ms": 900
+      },
+      {
+        "dialogue": "bill_ally"
+      }
+    ]
+  },
+  {
+    "id": "a2_bill_deal",
+    "if": {
+      "flag": "bill_ambiguous"
+    },
+    "steps": [
+      {
+        "camera": [
+          21,
+          18.6
+        ],
+        "zoom": 1.2,
+        "ms": 1400
+      },
+      {
+        "sfx": "rift"
+      },
+      {
+        "flash": "#ffe066",
+        "ms": 400
+      },
+      {
+        "glow": [
+          21,
+          18.6
+        ],
+        "r": 220,
+        "color": "#ffe066",
+        "ms": 1600
+      },
+      {
+        "shake": 0.004,
+        "ms": 600
+      },
+      {
+        "say": "bill",
+        "mood": "smug",
+        "text": "Ah, a família Pines. Tenho uma proposta, e juro pelo meu único olho que é quase justa."
+      },
+      {
+        "camera": "player",
+        "zoom": 1,
+        "ms": 900
+      },
+      {
+        "dialogue": "bill_deal"
+      }
+    ]
+  },
+  {
+    "id": "a2_bill_threat",
+    "if": {
+      "flag": "bill_threat"
+    },
+    "steps": [
+      {
+        "camera": [
+          21,
+          18.6
+        ],
+        "zoom": 1.2,
+        "ms": 1400
+      },
+      {
+        "sfx": "rift"
+      },
+      {
+        "flash": "#ff3a3a",
+        "ms": 500
+      },
+      {
+        "glow": [
+          21,
+          18.6
+        ],
+        "r": 240,
+        "color": "#ff5a3a",
+        "ms": 1800
+      },
+      {
+        "shake": 0.008,
+        "ms": 900
+      },
+      {
+        "say": "bill",
+        "mood": "angry",
+        "text": "Olá, carne fresca! Euclydia ardeu e eu sobrevivi. Adivinhem quem é o próximo."
+      },
+      {
+        "camera": "player",
+        "zoom": 1,
+        "ms": 900
+      },
+      {
+        "dialogue": "bill_threat"
+      }
+    ]
+  },
+  {
+    "id": "a2_invasion",
+    "steps": [
+      {
+        "flash": "#ff3a6a",
+        "ms": 600
+      },
+      {
+        "shake": 0.01,
+        "ms": 1200
+      },
+      {
+        "sfx": "rift"
+      },
+      {
+        "card": "Estranhagedom",
+        "sub": "O dia em que o céu se rasgou",
+        "lines": [
+          "O portal abriu-se debaixo da Cabana.",
+          "Por cima de Gravity Falls, o céu é agora uma ferida cor de vinho."
+        ],
+        "ms": 3200
+      },
+      {
+        "camera": [
+          22,
+          12
+        ],
+        "zoom": 0.8,
+        "ms": 2600
+      },
+      {
+        "say": "dipper",
+        "mood": "scared",
+        "text": "Isto é... a vila inteira."
+      },
+      {
+        "say": "mabel",
+        "mood": "sad",
+        "text": "Os sinos da igreja estão a tocar ao contrário."
+      },
+      {
+        "camera": [
+          4.5,
+          21.5
+        ],
+        "zoom": 1,
+        "ms": 1400
+      },
+      {
+        "say": "",
+        "text": "Debaixo de uma laje caída, alguém pede socorro. É o Soos."
+      },
+      {
+        "camera": "player",
+        "ms": 1400
+      },
+      {
+        "say": "dipper",
+        "mood": "angry",
+        "text": "Primeiro as pessoas. Depois descobrimos como fechar aquilo."
+      }
+    ]
+  },
+  {
+    "id": "a2_time_baby",
+    "steps": [
+      {
+        "camera": [
+          16,
+          10.5
+        ],
+        "zoom": 1.1,
+        "ms": 1600
+      },
+      {
+        "shake": 0.006,
+        "ms": 900
+      },
+      {
+        "glow": [
+          16,
+          10
+        ],
+        "r": 240,
+        "color": "#7af0ff",
+        "ms": 1600
+      },
+      {
+        "sfx": "stasis"
+      },
+      {
+        "card": "O Bebé do Tempo",
+        "sub": "Senhor de todas as linhas temporais",
+        "ms": 2400
+      },
+      {
+        "say": "",
+        "text": "O ser mais poderoso do tempo flutua diante deles. Tem dois metros, fralda, e a paciência de poucos segundos."
+      },
+      {
+        "say": "mabel",
+        "mood": "happy",
+        "text": "Ohhh. É um bebé. Um bebé gigante e furioso... mas um bebé!"
+      },
+      {
+        "say": "dipper",
+        "mood": "scared",
+        "text": "Mabel. Por favor. Não lhe faças cócegas."
+      },
+      {
+        "camera": "player",
+        "zoom": 1,
+        "ms": 900
+      },
+      {
+        "dialogue": "baby_intro"
+      }
+    ]
+  },
+  {
+    "id": "a2_crossing",
+    "steps": [
+      {
+        "card": "A Travessia",
+        "sub": "Três portões, três futuros",
+        "ms": 2600
+      },
+      {
+        "camera": [
+          20,
+          7
+        ],
+        "zoom": 0.85,
+        "ms": 2200
+      },
+      {
+        "glow": [
+          6,
+          5.4
+        ],
+        "r": 180,
+        "color": "#ff4a4a",
+        "ms": 1600
+      },
+      {
+        "glow": [
+          20,
+          4.4
+        ],
+        "r": 180,
+        "color": "#ffe08a",
+        "ms": 1600
+      },
+      {
+        "glow": [
+          34,
+          5.4
+        ],
+        "r": 180,
+        "color": "#9ad7ff",
+        "ms": 1600
+      },
+      {
+        "say": "",
+        "text": "Cada portão mostra um Verão diferente. Em nenhum deles tudo fica como estava."
+      },
+      {
+        "camera": "player",
+        "zoom": 1,
+        "ms": 1400
+      },
+      {
+        "say": "mabel",
+        "mood": "sad",
+        "text": "Dipper... seja qual for, escolhemos juntos. Combinado?"
+      },
+      {
+        "say": "dipper",
+        "mood": "neutral",
+        "text": "Combinado."
+      }
+    ]
+  }
+]

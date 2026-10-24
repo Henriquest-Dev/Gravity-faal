@@ -55,7 +55,7 @@ const P: Record<string, Partial<Record<Mood, Frame>>> = {
 /** Speaker names used in dialogue files that are not a character's display name. */
 const ALIAS: Record<string, string> = {
   'Bill': 'bill_child', 'Tri': 'bill_child', 'Bola 8': 'bola8', 'Stan': 'stan', 'Tio Stan': 'stan', 'Grunkle Stan': 'stan',
-  'Ford': 'ford', 'Bill Cipher': 'bill', 'Blendin': 'blendin',
+  'Ford': 'ford', 'Bill Cipher': 'bill', 'Blendin': 'blendin', 'Uma voz que é a tua': 'bill',
 };
 
 export function speakerId(speaker: string, arc: number): string | null {

@@ -99,7 +99,7 @@ export default function build() {
       { id: 'tut_water', x: 18, y: 16, w: 8, h: 2, once: true, effects: [{ toast: 'Água funda: nadas devagar e só sais por margens baixas.' }] },
     ],
     checkpoints: [{ id: 'shack_front', x: 21.5, y: 14.5 }],
-    onEnter: [{ questStart: 'b_q1' }],
+    onEnter: [{ questStart: 'b_q1' }, { cutscene: 'a2_intro' }],
   }, 4);
   def.props.push(...topTrees);
   return def;

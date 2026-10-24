@@ -56,7 +56,7 @@ export default function build() {
       { id: 'forest_teeth_2', type: 'teeth', x: 44, y: 21 },
     ],
     interactables: [
-      { id: 'hollow_tree', kind: 'examine', x: 12.5, y: 6.4, hidden: true, reveal: 'flashlight', label: 'Examinar o tronco oco', text: 'Dentro do tronco oco, embrulhado em oleado: um livro com uma mão de seis dedos e o número 3. Dipper fica sem fôlego. (Nova capacidade: Analisar com o diário)', effects: [{ give: 'journal3' }, { unlock: 'journal_scan' }, { setFlag: 'found_journal' }, { journal: 'j_journal3' }] },
+      { id: 'hollow_tree', kind: 'examine', x: 12.5, y: 6.4, hidden: true, reveal: 'flashlight', label: 'Examinar o tronco oco', text: 'Dentro do tronco oco, embrulhado em oleado, há um livro gasto. Na capa, uma mão de seis dedos e o número 3.', effects: [{ cutscene: 'a2_journal' }, { give: 'journal3' }, { unlock: 'journal_scan' }, { setFlag: 'found_journal' }, { journal: 'j_journal3' }] },
       { id: 'stump_hint', kind: 'examine', x: 15, y: 7.6, text: 'Há marcas de garras a apontar para o tronco ao lado. Está escuro lá dentro — a lanterna do Dipper (K) revelaria mais.' },
       { id: 'power_cell', kind: 'pickup', x: 14.5, y: 19.6, item: 'power_cell', prop: 'interiors/generator', label: 'Apanhar a célula de energia' },
       { id: 'lake_post', kind: 'grapple', x: 15.6, y: 18.5, landing: { x: 14, y: 19.4 } },

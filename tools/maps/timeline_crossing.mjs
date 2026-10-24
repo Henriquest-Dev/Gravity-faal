@@ -45,6 +45,6 @@ export default function build() {
       { id: 'crossing_pad', kind: 'save', x: 17.5, y: 24.4, prop: 'temporal/pad', label: 'Ponto de controlo' },
       { id: 'echo_euclydia', kind: 'examine', x: 13.4, y: 14.8, text: 'Um eco de Euclydia: a fonte de cristal, tal como Bill a deixou. O que fizeste no primeiro arco ainda brilha (ou range) aqui.' },
     ],
-    onEnter: [{ questStart: 'b_q10' }],
+    onEnter: [{ questStart: 'b_q10' }, { cutscene: 'a2_crossing' }],
   };
 }

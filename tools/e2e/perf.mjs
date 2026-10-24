@@ -1,7 +1,7 @@
 // Measures frame rate and update cost per area (desktop Chromium, software GL).
 import { chromium } from 'playwright-core';
 import { existsSync } from 'node:fs';
-const base = process.argv[2] ?? 'http://localhost:5173/';
+const base = process.argv[2] ?? 'http://localhost:5173/?nocs';
 const exe = ['/opt/pw-browsers/chromium-1194/chrome-linux/chrome', '/opt/pw-browsers/chromium'].find(existsSync);
 const browser = await chromium.launch({ executablePath: exe, args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
@@ -9,7 +9,6 @@ await page.goto(base);
 await page.waitForSelector('.title', { timeout: 60000 });
 await page.click('[data-a="new"]'); await page.click('[data-slot="1"]');
 const c = await page.$('.c-yes'); if (c) await c.click();
-await page.click('.b-ok');
 await page.waitForFunction(() => !!window.__gf?.scene?.player, null, { timeout: 30000 });
 const maps = process.env.MAPS ? process.env.MAPS.split(',') : ['euclydia_plaza', 'euclydia_rupture', 'nightmare_realm', 'shack_exterior', 'town_invaded', 'forest_lake_cave', 'time_city', 'time_baby_arena'];
 for (const m of maps) {
